@@ -1,0 +1,7 @@
+Id,Type,Width,Height,Health,Signature,ScanRange
+1,Starbase,75,75,200,2,1000
+2,Outpost,55,50,100,2,500
+3,Refinery,55,25,50,2,400
+4,Tactical,65,65,150,2,800
+5,Supremacy,65,65,150,2,800
+6,Expansion,65,65,150,2,800

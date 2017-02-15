@@ -1,0 +1,80 @@
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Rocks;
+using AllegianceForms.Engine.Ships;
+using AllegianceForms.Orders;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+
+namespace AllegianceForms.AI.Missions
+{
+    public class BuilderMission : CommanderMission
+    {
+        public BuilderMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        {
+        }
+
+        public override void UpdateMission()
+        {
+            base.UpdateMission();
+
+            var t = AI.Team - 1;
+
+            // Check our constructor ships
+            var ships = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == AI.Team && _.Type == EShipType.Constructor).ToList();
+            var maxHops = StrategyGame.Map.Wormholes.Count + 4;
+
+            var chosenRocks = new List<Asteroid>();
+
+            foreach (var s in ships)
+            {
+                var b = s as BuilderShip;
+                if (b == null) continue;
+                if (b.Target != null) chosenRocks.Add(b.Target);
+                if (b.CurrentOrder != null || b.Target != null) continue;
+
+                var possibleRocks = StrategyGame.BuildableAsteroids.Where(_ => _.Active && _.VisibleToTeam[t] && _.Type == b.TargetRockType).ToList();
+
+                // Order this builder somewhere smart...
+                // Score one rock per sector: close to our home, without an enemy or friendly base
+
+                var sectorChecked = new List<int>();
+                var bestScore = int.MaxValue;
+                Asteroid bestRock = null;
+                foreach (var r in possibleRocks)
+                {
+                    if (sectorChecked.Contains(r.SectorId) || chosenRocks.Contains(r)) continue;
+                    sectorChecked.Add(r.SectorId);
+
+                    var hasEnemyBase = StrategyGame.AllBases.Any(_ => _.Active && _.VisibleToTeam[t] && _.SectorId == r.SectorId && _.Team != AI.Team);
+                    var hasFriendlyBase = StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == r.SectorId && _.Team == AI.Team);
+
+                    var path = new List<int>();
+                    var newHops = StrategyGame.MinHopsToSector(t, b.SectorId, r.SectorId, maxHops, path);
+
+                    var score = newHops + (hasEnemyBase ? 1 : 0) + (hasFriendlyBase ? 1 : 0);
+                    if (score < bestScore)
+                    {
+                        bestScore = score;
+                        bestRock = r;
+                    }
+                }
+
+                if (bestRock == null) continue;
+
+                chosenRocks.Add(bestRock);
+                b.Target = bestRock;
+
+                if (bestRock.SectorId != b.SectorId)
+                {
+                    b.OrderShip(new NavigateOrder(b, bestRock.SectorId));
+
+                    LogOrder();
+                }
+
+                b.OrderShip(new BuildOrder(bestRock.SectorId, bestRock.CenterPointI, Point.Empty), true);
+                LogOrder();
+            }
+        }
+    }
+}

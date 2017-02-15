@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms", "AllegianceForms\AllegianceForms.csproj", "{D298D545-6434-4A5C-89CF-752E0F041F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms.Test", "AllegianceForms.Test\AllegianceForms.Test.csproj", "{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms.MapEditor", "AllegianceForms.MapEditor\AllegianceForms.MapEditor.csproj", "{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D298D545-6434-4A5C-89CF-752E0F041F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D298D545-6434-4A5C-89CF-752E0F041F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D298D545-6434-4A5C-89CF-752E0F041F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D298D545-6434-4A5C-89CF-752E0F041F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://aaronmoore.visualstudio.com/
+		SccProjectUniqueName0 = AllegianceForms.MapEditor\\AllegianceForms.MapEditor.csproj
+		SccProjectName0 = AllegianceForms.MapEditor
+		SccAuxPath0 = https://aaronmoore.visualstudio.com
+		SccLocalPath0 = AllegianceForms.MapEditor
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal
