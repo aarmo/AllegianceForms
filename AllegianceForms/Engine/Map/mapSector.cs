@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace AllegianceForms.Engine.Map
 {
-    public class MapSector
+    public class MapSector : IComparable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,6 +18,13 @@ namespace AllegianceForms.Engine.Map
             Id = id;
             Name = name;
             MapPosition = pos;
+        }
+
+        public int CompareTo(object obj)
+        {
+            var o = (MapSector)obj;
+
+            return Id.CompareTo(o.Id);
         }
     }
 }

@@ -49,8 +49,8 @@ namespace AllegianceForms.AI.Missions
                     var hasEnemyBase = StrategyGame.AllBases.Any(_ => _.Active && _.VisibleToTeam[t] && _.SectorId == r.SectorId && _.Team != AI.Team);
                     var hasFriendlyBase = StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == r.SectorId && _.Team == AI.Team);
 
-                    var path = StrategyGame.Map.ShortestPath(r.SectorId, b.SectorId);
-                    var newHops = path.Count();
+                    var path = StrategyGame.Map.ShortestPath(AI.Team, r.SectorId, b.SectorId);
+                    var newHops = path == null ? int.MaxValue : path.Count();
 
                     var score = newHops + (hasEnemyBase ? 1 : 0) + (hasFriendlyBase ? 1 : 0);
                     if (score < bestScore)

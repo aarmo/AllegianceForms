@@ -8,7 +8,7 @@ using System.Linq;
 namespace AllegianceForms.Test.Engine
 {
     [TestClass]
-    public class PathfindingTest
+    public class PathfindingTests
     {
         private GameMap _target;
 
@@ -17,6 +17,7 @@ namespace AllegianceForms.Test.Engine
         {
             StrategyGame.ResetGame(GameSettings.Default());
             _target = GameMaps.PinWheel();
+            _target.SetVisibilityToTeam(1, true);
         }
 
         [TestMethod]
@@ -25,7 +26,7 @@ namespace AllegianceForms.Test.Engine
             var start = _target.Sectors.First(_ => _.StartingSector);
             var end = _target.Sectors.Last(_ => _.StartingSector);
 
-            var path = _target.ShortestPath(start.Id, end.Id);
+            var path = _target.ShortestPath(1, start.Id, end.Id);
             path.ShouldNotBeNull();
             path.Count.ShouldBe(3);
         }
@@ -33,7 +34,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenSameSector()
         {
-            var path = _target.ShortestPath(0, 0);
+            var path = _target.ShortestPath(1, 0, 0);
             path.ShouldNotBeNull();
             path.Count.ShouldBe(0);
         }
@@ -41,7 +42,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathToNextSector()
         {
-            var path = _target.ShortestPath(0, 1);
+            var path = _target.ShortestPath(1, 0, 1);
             path.ShouldNotBeNull();
             path.Count.ShouldBe(1);
         }
@@ -59,7 +60,7 @@ namespace AllegianceForms.Test.Engine
             g.AddVertex('G', new Dictionary<char, int>() { { 'C', 4 }, { 'F', 9 } });
             g.AddVertex('H', new Dictionary<char, int>() { { 'E', 1 }, { 'F', 3 } });
 
-            var path = g.ShortestPath('A', 'H');
+            var path = g.ShortestPath(0, 'A', 'H');
             path.ShouldNotBeNull();
             path.Count.ShouldBe(3);
         }

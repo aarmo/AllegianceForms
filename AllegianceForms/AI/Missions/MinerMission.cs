@@ -48,8 +48,8 @@ namespace AllegianceForms.AI.Missions
             {
                 if (totalResourcesInSector[i] == 0 || enemiesInSector[i] > friendliesInSector[i]) continue;
                 
-                var path = StrategyGame.Map.ShortestPath(startSectorId, i);
-                var newHops = path.Count();
+                var path = StrategyGame.Map.ShortestPath(AI.Team, startSectorId, i);
+                var newHops = path == null ? int.MaxValue : path.Count();
 
                 var score = newHops + enemiesInSector[i] - friendliesInSector[i] - (totalResourcesInSector[i] / 1000f);
                 if (score < bestScore)

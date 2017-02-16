@@ -55,21 +55,21 @@ namespace AllegianceForms.Engine
         public static GameEntity NextWormholeEnd(int team, int fromSectorId, int toSectorId, out GameEntity _otherEnd)
         {
             // TODO: This no longer checks if the wormholes are visible!
-            var path = Map.ShortestPath(fromSectorId, toSectorId);
+            var path = Map.ShortestPath(team, fromSectorId, toSectorId);
 
             _otherEnd = null;
             if (path == null || path.Count == 0) return null;
 
-            var nextSectorId = path[path.Count - 1];
+            var nextSector = path[path.Count - 1];
 
             foreach (var w in Map.Wormholes)
             {
-                if (w.End1.SectorId == fromSectorId && w.End2.SectorId == nextSectorId)
+                if (w.End1.SectorId == fromSectorId && nextSector.Id == w.End2.SectorId)
                 {
                     _otherEnd = w.End2;
                     return w.End1;
                 }
-                else if (w.End2.SectorId == fromSectorId && w.End1.SectorId == nextSectorId)
+                else if (w.End2.SectorId == fromSectorId && nextSector.Id == w.End1.SectorId)
                 {
                     _otherEnd = w.End1;
                     return w.End2;
@@ -95,8 +95,8 @@ namespace AllegianceForms.Engine
 
             foreach ( var b in otherSectorBases)
             {
-                var path = Map.ShortestPath(fromSectorId, b.SectorId);
-                var newHops = path.Count();
+                var path = Map.ShortestPath(team, fromSectorId, b.SectorId);
+                var newHops = path == null ? int.MaxValue : path.Count();
 
                 if (newHops < minHops)
                 {
@@ -126,8 +126,8 @@ namespace AllegianceForms.Engine
                 var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Team != team && _.SectorId != l.SectorId).ToList();
                 foreach (var b in otherSectorBases)
                 {
-                    var path = Map.ShortestPath(l.SectorId, b.SectorId);
-                    var newHops = path.Count();
+                    var path = Map.ShortestPath(team, l.SectorId, b.SectorId);
+                    var newHops = path == null ? int.MaxValue : path.Count();
 
                     if (newHops < minHops)
                     {
@@ -282,19 +282,20 @@ namespace AllegianceForms.Engine
                 {
                     var team = t + 1;
                     // Once visible, wormholes are always visible!
-                    var s = w.End1;
-                    if (s.VisibleToTeam[t]) continue;
+                    var s1 = w.End1;
+                    var s2 = w.End2;
+                    if (s1.VisibleToTeam[t] || s2.VisibleToTeam[t]) continue;
 
                     var thisAi = AICommanders[t];
                     if (thisAi != null && thisAi.CheatVisibility)
                     {
-                        s.VisibleToTeam[t] = true;
+                        w.SetVisibleToTeam(team, true);
                         continue;
                     }
 
-                    if (IsVisibleToTeam(s, team))
+                    if (IsVisibleToTeam(s1, team) || IsVisibleToTeam(s2, team))
                     {
-                        if (t == 0 && s.SectorId == currentSectorId)
+                        if (t == 0 && (s2.SectorId == currentSectorId || s1.SectorId == currentSectorId))
                         {
                             SoundEffect.Play(ESounds.newtargetneutral, true);
                             soundPlayed = true;

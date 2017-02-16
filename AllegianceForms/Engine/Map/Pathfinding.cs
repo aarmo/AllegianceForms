@@ -16,13 +16,16 @@ namespace AllegianceForms.Engine.Map
             _vertices[name] = edges;
         }
 
-        public List<T> ShortestPath(T start, T finish)
+        public List<T> ShortestPath(int team, T start, T finish)
         {
+            var t = team - 1;
+            var checkVisibility = (start.GetType() == typeof(MapSector));
+
             var previous = new Dictionary<T, T>();
             var distances = new Dictionary<T, int>();
             var nodes = new List<T>();
-
             List<T> path = null;
+
 
             foreach (var vertex in _vertices)
             {
@@ -35,7 +38,18 @@ namespace AllegianceForms.Engine.Map
                     distances[vertex.Key] = int.MaxValue;
                 }
 
-                nodes.Add(vertex.Key);
+                if (checkVisibility)
+                {
+                    var m = vertex.Key as MapSector;
+                    if (m == null || m.VisibleToTeam[t])
+                    {
+                        nodes.Add(vertex.Key);
+                    }
+                }
+                else
+                {
+                    nodes.Add(vertex.Key);
+                }
             }
 
             while (nodes.Count != 0)

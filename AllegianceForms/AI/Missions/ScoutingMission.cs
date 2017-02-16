@@ -58,7 +58,8 @@ namespace AllegianceForms.AI.Missions
                 }
                 else
                 {
-                    var randomSectorId = StrategyGame.Random.Next(StrategyGame.Map.Sectors.Count);
+                    var visibleSectors = StrategyGame.Map.Sectors.Where(_ => _.VisibleToTeam[AI.Team - 1]).ToList();
+                    var randomSectorId = visibleSectors[StrategyGame.Random.Next(visibleSectors.Count)].Id;
 
                     if (i.Health < _lastHealth[i])
                     {

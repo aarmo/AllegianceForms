@@ -20,7 +20,7 @@ namespace AllegianceForms.Engine.Map
         private Pen _sectorPen = new Pen(Color.DarkBlue, 4);
         private Pen _currentSectorPen = new Pen(Color.DarkGreen, 4);
         private Pen _wormholePen = new Pen(Color.DarkGray, 4);
-        private PathfindingGraph<int> _pathfinding;
+        private PathfindingGraph<MapSector> _pathfinding;
 
         public GameMap()
         {
@@ -199,33 +199,35 @@ namespace AllegianceForms.Engine.Map
 
         public void GenerateGraph()
         {
-            _pathfinding = new PathfindingGraph<int>();
+            _pathfinding = new PathfindingGraph<MapSector>();
 
             foreach (var s in Sectors)
             {
-                var edges = new Dictionary<int, int>();
+                var edges = new Dictionary<MapSector, int>();
 
                 foreach (var w in Wormholes)
                 {
                     if (w.End1.SectorId == s.Id)
                     {
-                        edges[w.End2.SectorId] = 1;
+                        var nextSector = Sectors[w.End2.SectorId];
+                        edges[nextSector] = 1;
                     }
                     else if (w.End2.SectorId == s.Id)
                     {
-                        edges[w.End1.SectorId] = 1;
+                        var nextSector = Sectors[w.End1.SectorId];
+                        edges[nextSector] = 1;
                     }
                 }
 
-                _pathfinding.AddVertex(s.Id, edges);
+                _pathfinding.AddVertex(s, edges);
             }
         }
 
-        public List<int> ShortestPath(int fromSectorId, int toSectorId)
+        public List<MapSector> ShortestPath(int team, int fromSectorId, int toSectorId)
         {
             if (_pathfinding == null) return null;
 
-            return _pathfinding.ShortestPath(fromSectorId, toSectorId);
+            return _pathfinding.ShortestPath(team, Sectors[fromSectorId], Sectors[toSectorId]);
         }
     }
 }

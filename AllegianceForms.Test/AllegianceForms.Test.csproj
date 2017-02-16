@@ -56,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\CommanderTests.cs" />
-    <Compile Include="Engine\MorePathfindingTests.cs" />
-    <Compile Include="Engine\PathfindingTest.cs" />
+    <Compile Include="Engine\MapPathfindingTests.cs" />
+    <Compile Include="Engine\PathfindingTests.cs" />
     <Compile Include="Engine\PilotTests.cs" />
     <Compile Include="Engine\PositionTests.cs" />
     <Compile Include="Engine\ResourceTests.cs" />
