@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms", "Allegian
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms.Test", "AllegianceForms.Test\AllegianceForms.Test.csproj", "{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms.MapEditor", "AllegianceForms.MapEditor\AllegianceForms.MapEditor.csproj", "{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,22 +21,8 @@ Global
 		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03E028A9-445E-476F-8CC8-DE8A6BEFDEFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B7AD1DE-2751-4AE4-8BED-21B3184B76AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://aaronmoore.visualstudio.com/
-		SccProjectUniqueName0 = AllegianceForms.MapEditor\\AllegianceForms.MapEditor.csproj
-		SccProjectName0 = AllegianceForms.MapEditor
-		SccAuxPath0 = https://aaronmoore.visualstudio.com
-		SccLocalPath0 = AllegianceForms.MapEditor
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 EndGlobal

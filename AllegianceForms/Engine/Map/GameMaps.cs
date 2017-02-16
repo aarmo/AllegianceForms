@@ -85,7 +85,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[2], map.Sectors[3]),
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }
@@ -110,7 +110,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[2], map.Sectors[3]),
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }
@@ -160,7 +160,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[10], map.Sectors[11]),
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }
@@ -215,7 +215,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[8], map.Sectors[9]),
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }
@@ -265,7 +265,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[11], map.Sectors[12]),
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }
@@ -303,7 +303,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[7], map.Sectors[8]),
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }
@@ -330,7 +330,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[1], map.Sectors[3])
             };
 
-            map.ArrangeWormholes(325);
+            map.InitialiseMap();
 
             return map;
         }

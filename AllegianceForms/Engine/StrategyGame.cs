@@ -54,42 +54,29 @@ namespace AllegianceForms.Engine
 
         public static GameEntity NextWormholeEnd(int team, int fromSectorId, int toSectorId, out GameEntity _otherEnd)
         {
-            var maxHops = Map.Wormholes.Count + 4;
-            var hops = maxHops;
-            var t = team - 1;
+            // TODO: This no longer checks if the wormholes are visible!
+            var path = Map.ShortestPath(fromSectorId, toSectorId);
 
-            GameEntity minHopsEnd = null;
             _otherEnd = null;
+            if (path == null || path.Count == 0) return null;
+
+            var nextSectorId = path[path.Count - 1];
 
             foreach (var w in Map.Wormholes)
             {
-                if (!w.End1.VisibleToTeam[t]) continue;
-
-                if (w.End1.SectorId == fromSectorId)
+                if (w.End1.SectorId == fromSectorId && w.End2.SectorId == nextSectorId)
                 {
-                    var path = new List<int>();
-                    var newHops = MinHopsToSector(t, w.End2.SectorId, toSectorId, maxHops, path);
-                    if (newHops < hops)
-                    {
-                        hops = newHops;
-                        minHopsEnd = w.End1;
-                        _otherEnd = w.End2;
-                    }
+                    _otherEnd = w.End2;
+                    return w.End1;
                 }
-                else if (w.End2.SectorId == fromSectorId)
+                else if (w.End2.SectorId == fromSectorId && w.End1.SectorId == nextSectorId)
                 {
-                    var path = new List<int>();
-                    var newHops = MinHopsToSector(t, w.End1.SectorId, toSectorId, maxHops, path);
-                    if (newHops < hops)
-                    {
-                        hops = newHops;
-                        minHopsEnd = w.End2;
-                        _otherEnd = w.End1;
-                    }
-                }                
+                    _otherEnd = w.End1;
+                    return w.End2;
+                }
             }
 
-            return minHopsEnd;   
+            return null;  
         }
 
         public static Base ClosestSectorWithBase(int team, int fromSectorId)
@@ -102,15 +89,14 @@ namespace AllegianceForms.Engine
                 return thisSectorBase;
             }
 
-            var maxHops = Map.Wormholes.Count + 4;
             var otherSectorBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId != fromSectorId && _.CanLaunchShips()).ToList();
             var minHops = int.MaxValue;
             Base targetBase = null;
 
             foreach ( var b in otherSectorBases)
             {
-                var path = new List<int>();
-                var newHops = MinHopsToSector(t, fromSectorId, b.SectorId, maxHops, path);
+                var path = Map.ShortestPath(fromSectorId, b.SectorId);
+                var newHops = path.Count();
 
                 if (newHops < minHops)
                 {
@@ -140,8 +126,8 @@ namespace AllegianceForms.Engine
                 var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Team != team && _.SectorId != l.SectorId).ToList();
                 foreach (var b in otherSectorBases)
                 {
-                    var path = new List<int>();
-                    var newHops = MinHopsToSector(t, l.SectorId, b.SectorId, maxHops, path);
+                    var path = Map.ShortestPath(l.SectorId, b.SectorId);
+                    var newHops = path.Count();
 
                     if (newHops < minHops)
                     {
@@ -153,43 +139,6 @@ namespace AllegianceForms.Engine
             }
 
             return targetBase;
-        }
-
-        public static int MinHopsToSector(int t, int fromSectorId, int toSectorId, int hopsLeft, List<int> pathTravelled)
-        {
-            if (fromSectorId == toSectorId)
-                return 1;
-            if (hopsLeft == 0 || pathTravelled.Contains(fromSectorId))
-                return int.MaxValue;
-
-            pathTravelled.Add(fromSectorId);
-
-            var hops = hopsLeft;
-
-            foreach (var w in Map.Wormholes)
-            {
-                if (!w.End1.VisibleToTeam[t]) continue;
-                var nextSectorId = -1;
-                
-                if (w.End1.SectorId == fromSectorId)
-                {
-                    nextSectorId = w.End2.SectorId;
-                }
-                else if (w.End2.SectorId == fromSectorId)
-                {
-                    nextSectorId = w.End1.SectorId;
-                }
-
-                if (nextSectorId > -1 && !pathTravelled.Contains(nextSectorId))
-                {
-                    var thisHops = MinHopsToSector(t, nextSectorId, toSectorId, hopsLeft-1, pathTravelled);
-                    if (thisHops < hops)
-                    {
-                        hops = thisHops;
-                    }
-                }
-            }
-            return hops + 1;
         }
         
         public static int NumberOfMinerDrones(int team)

@@ -127,6 +127,7 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.Team1Colour = new System.Windows.Forms.Button();
             this.Team2Colour = new System.Windows.Forms.Button();
+            this.ResetPreset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,6 +145,7 @@
             // MapList
             // 
             this.MapList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.MapList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MapList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MapList.FormattingEnabled = true;
             this.MapList.Items.AddRange(new object[] {
@@ -158,7 +160,8 @@
             this.MapList.Location = new System.Drawing.Point(60, 6);
             this.MapList.Name = "MapList";
             this.MapList.Size = new System.Drawing.Size(101, 21);
-            this.MapList.TabIndex = 1;
+            this.MapList.TabIndex = 0;
+            this.MapList.SelectedIndexChanged += new System.EventHandler(this.MapList_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -187,7 +190,7 @@
             0});
             this.Pilots.Name = "Pilots";
             this.Pilots.Size = new System.Drawing.Size(49, 20);
-            this.Pilots.TabIndex = 2;
+            this.Pilots.TabIndex = 1;
             this.Pilots.Value = new decimal(new int[] {
             16,
             0,
@@ -202,7 +205,7 @@
             this.WormholesVisible.Location = new System.Drawing.Point(278, 150);
             this.WormholesVisible.Name = "WormholesVisible";
             this.WormholesVisible.Size = new System.Drawing.Size(78, 17);
-            this.WormholesVisible.TabIndex = 3;
+            this.WormholesVisible.TabIndex = 12;
             this.WormholesVisible.Text = "Start Visible";
             this.WormholesVisible.UseVisualStyleBackColor = true;
             this.WormholesVisible.CheckedChanged += new System.EventHandler(this.WormholesVisible_CheckedChanged);
@@ -231,7 +234,7 @@
             this.WormholeSig.Location = new System.Drawing.Point(270, 174);
             this.WormholeSig.Name = "WormholeSig";
             this.WormholeSig.Size = new System.Drawing.Size(69, 21);
-            this.WormholeSig.TabIndex = 1;
+            this.WormholeSig.TabIndex = 13;
             this.WormholeSig.SelectedIndexChanged += new System.EventHandler(this.WormholeSig_SelectedIndexChanged);
             // 
             // label5
@@ -284,7 +287,7 @@
             this.MinersInitial.Location = new System.Drawing.Point(442, 68);
             this.MinersInitial.Name = "MinersInitial";
             this.MinersInitial.Size = new System.Drawing.Size(42, 21);
-            this.MinersInitial.TabIndex = 1;
+            this.MinersInitial.TabIndex = 14;
             this.MinersInitial.SelectedIndexChanged += new System.EventHandler(this.MinersInitial_SelectedIndexChanged);
             // 
             // label8
@@ -315,7 +318,7 @@
             this.MinersMax.Location = new System.Drawing.Point(442, 95);
             this.MinersMax.Name = "MinersMax";
             this.MinersMax.Size = new System.Drawing.Size(42, 21);
-            this.MinersMax.TabIndex = 1;
+            this.MinersMax.TabIndex = 15;
             this.MinersMax.SelectedIndexChanged += new System.EventHandler(this.MinersMax_SelectedIndexChanged);
             // 
             // label9
@@ -341,7 +344,7 @@
             this.MinerCapacity.Location = new System.Drawing.Point(442, 122);
             this.MinerCapacity.Name = "MinerCapacity";
             this.MinerCapacity.Size = new System.Drawing.Size(69, 21);
-            this.MinerCapacity.TabIndex = 1;
+            this.MinerCapacity.TabIndex = 16;
             this.MinerCapacity.SelectedIndexChanged += new System.EventHandler(this.MinerCapacity_SelectedIndexChanged);
             // 
             // label10
@@ -383,7 +386,7 @@
             this.ConstructorsMax.Location = new System.Drawing.Point(442, 174);
             this.ConstructorsMax.Name = "ConstructorsMax";
             this.ConstructorsMax.Size = new System.Drawing.Size(42, 21);
-            this.ConstructorsMax.TabIndex = 1;
+            this.ConstructorsMax.TabIndex = 17;
             this.ConstructorsMax.SelectedIndexChanged += new System.EventHandler(this.ConstructorsMax_SelectedIndexChanged);
             // 
             // label12
@@ -400,6 +403,7 @@
             // ShipType
             // 
             this.ShipType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ShipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ShipType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShipType.FormattingEnabled = true;
             this.ShipType.Items.AddRange(new object[] {
@@ -418,7 +422,7 @@
             this.ShipType.Location = new System.Drawing.Point(419, 201);
             this.ShipType.Name = "ShipType";
             this.ShipType.Size = new System.Drawing.Size(87, 21);
-            this.ShipType.TabIndex = 1;
+            this.ShipType.TabIndex = 22;
             this.ShipType.SelectedIndexChanged += new System.EventHandler(this.ShipType_SelectedIndexChanged);
             // 
             // label13
@@ -444,7 +448,7 @@
             this.ShipSig.Location = new System.Drawing.Point(437, 255);
             this.ShipSig.Name = "ShipSig";
             this.ShipSig.Size = new System.Drawing.Size(69, 21);
-            this.ShipSig.TabIndex = 1;
+            this.ShipSig.TabIndex = 24;
             this.ShipSig.SelectedIndexChanged += new System.EventHandler(this.ShipSig_SelectedIndexChanged);
             // 
             // label14
@@ -470,7 +474,7 @@
             this.ShipHealth.Location = new System.Drawing.Point(437, 228);
             this.ShipHealth.Name = "ShipHealth";
             this.ShipHealth.Size = new System.Drawing.Size(69, 21);
-            this.ShipHealth.TabIndex = 1;
+            this.ShipHealth.TabIndex = 23;
             this.ShipHealth.SelectedIndexChanged += new System.EventHandler(this.ShipHealth_SelectedIndexChanged);
             // 
             // ShipSpeed
@@ -487,7 +491,7 @@
             this.ShipSpeed.Location = new System.Drawing.Point(437, 282);
             this.ShipSpeed.Name = "ShipSpeed";
             this.ShipSpeed.Size = new System.Drawing.Size(69, 21);
-            this.ShipSpeed.TabIndex = 1;
+            this.ShipSpeed.TabIndex = 25;
             this.ShipSpeed.SelectedIndexChanged += new System.EventHandler(this.ShipSpeed_SelectedIndexChanged);
             // 
             // label15
@@ -520,6 +524,7 @@
             // BaseType
             // 
             this.BaseType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BaseType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BaseType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BaseType.FormattingEnabled = true;
             this.BaseType.Items.AddRange(new object[] {
@@ -532,7 +537,7 @@
             this.BaseType.Location = new System.Drawing.Point(591, 201);
             this.BaseType.Name = "BaseType";
             this.BaseType.Size = new System.Drawing.Size(87, 21);
-            this.BaseType.TabIndex = 1;
+            this.BaseType.TabIndex = 26;
             this.BaseType.SelectedIndexChanged += new System.EventHandler(this.BaseType_SelectedIndexChanged);
             // 
             // BaseSig
@@ -549,7 +554,7 @@
             this.BaseSig.Location = new System.Drawing.Point(609, 255);
             this.BaseSig.Name = "BaseSig";
             this.BaseSig.Size = new System.Drawing.Size(69, 21);
-            this.BaseSig.TabIndex = 1;
+            this.BaseSig.TabIndex = 28;
             this.BaseSig.SelectedIndexChanged += new System.EventHandler(this.BaseSig_SelectedIndexChanged);
             // 
             // BaseHealth
@@ -566,7 +571,7 @@
             this.BaseHealth.Location = new System.Drawing.Point(609, 228);
             this.BaseHealth.Name = "BaseHealth";
             this.BaseHealth.Size = new System.Drawing.Size(69, 21);
-            this.BaseHealth.TabIndex = 1;
+            this.BaseHealth.TabIndex = 27;
             this.BaseHealth.SelectedIndexChanged += new System.EventHandler(this.BaseHealth_SelectedIndexChanged);
             // 
             // label18
@@ -612,7 +617,7 @@
             this.ResourcesPerRock.Location = new System.Drawing.Point(92, 95);
             this.ResourcesPerRock.Name = "ResourcesPerRock";
             this.ResourcesPerRock.Size = new System.Drawing.Size(69, 21);
-            this.ResourcesPerRock.TabIndex = 1;
+            this.ResourcesPerRock.TabIndex = 6;
             this.ResourcesPerRock.SelectedIndexChanged += new System.EventHandler(this.ResourcesPerRock_SelectedIndexChanged);
             // 
             // ResourcesStarting
@@ -629,7 +634,7 @@
             this.ResourcesStarting.Location = new System.Drawing.Point(92, 68);
             this.ResourcesStarting.Name = "ResourcesStarting";
             this.ResourcesStarting.Size = new System.Drawing.Size(69, 21);
-            this.ResourcesStarting.TabIndex = 1;
+            this.ResourcesStarting.TabIndex = 5;
             this.ResourcesStarting.SelectedIndexChanged += new System.EventHandler(this.ResourcesStarting_SelectedIndexChanged);
             // 
             // label21
@@ -666,7 +671,7 @@
             this.ResourceConversion.Location = new System.Drawing.Point(92, 122);
             this.ResourceConversion.Name = "ResourceConversion";
             this.ResourceConversion.Size = new System.Drawing.Size(69, 21);
-            this.ResourceConversion.TabIndex = 1;
+            this.ResourceConversion.TabIndex = 7;
             this.ResourceConversion.SelectedIndexChanged += new System.EventHandler(this.ResourceConversion_SelectedIndexChanged);
             // 
             // label23
@@ -692,7 +697,7 @@
             this.ResourcesEachTick.Location = new System.Drawing.Point(92, 149);
             this.ResourcesEachTick.Name = "ResourcesEachTick";
             this.ResourcesEachTick.Size = new System.Drawing.Size(69, 21);
-            this.ResourcesEachTick.TabIndex = 1;
+            this.ResourcesEachTick.TabIndex = 8;
             this.ResourcesEachTick.SelectedIndexChanged += new System.EventHandler(this.ResourcesEachTick_SelectedIndexChanged);
             // 
             // label24
@@ -734,7 +739,7 @@
             this.AsteroidsTech.Location = new System.Drawing.Point(270, 68);
             this.AsteroidsTech.Name = "AsteroidsTech";
             this.AsteroidsTech.Size = new System.Drawing.Size(42, 21);
-            this.AsteroidsTech.TabIndex = 1;
+            this.AsteroidsTech.TabIndex = 9;
             this.AsteroidsTech.SelectedIndexChanged += new System.EventHandler(this.AsteroidsTech_SelectedIndexChanged);
             // 
             // label26
@@ -765,7 +770,7 @@
             this.AsteroidResource.Location = new System.Drawing.Point(270, 95);
             this.AsteroidResource.Name = "AsteroidResource";
             this.AsteroidResource.Size = new System.Drawing.Size(42, 21);
-            this.AsteroidResource.TabIndex = 1;
+            this.AsteroidResource.TabIndex = 10;
             this.AsteroidResource.SelectedIndexChanged += new System.EventHandler(this.AsteroidResource_SelectedIndexChanged);
             // 
             // label27
@@ -796,7 +801,7 @@
             this.AsteroidGeneral.Location = new System.Drawing.Point(270, 122);
             this.AsteroidGeneral.Name = "AsteroidGeneral";
             this.AsteroidGeneral.Size = new System.Drawing.Size(42, 21);
-            this.AsteroidGeneral.TabIndex = 1;
+            this.AsteroidGeneral.TabIndex = 11;
             this.AsteroidGeneral.SelectedIndexChanged += new System.EventHandler(this.AsteroidGeneral_SelectedIndexChanged);
             // 
             // label28
@@ -818,7 +823,7 @@
             this.AllowTechExp.Location = new System.Drawing.Point(38, 221);
             this.AllowTechExp.Name = "AllowTechExp";
             this.AllowTechExp.Size = new System.Drawing.Size(75, 17);
-            this.AllowTechExp.TabIndex = 5;
+            this.AllowTechExp.TabIndex = 18;
             this.AllowTechExp.Text = "Expansion:";
             this.AllowTechExp.UseVisualStyleBackColor = true;
             this.AllowTechExp.CheckedChanged += new System.EventHandler(this.AllowTechExp_CheckedChanged);
@@ -828,10 +833,10 @@
             this.AllowTechTac.AutoSize = true;
             this.AllowTechTac.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AllowTechTac.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllowTechTac.Location = new System.Drawing.Point(49, 244);
+            this.AllowTechTac.Location = new System.Drawing.Point(49, 267);
             this.AllowTechTac.Name = "AllowTechTac";
             this.AllowTechTac.Size = new System.Drawing.Size(64, 17);
-            this.AllowTechTac.TabIndex = 5;
+            this.AllowTechTac.TabIndex = 19;
             this.AllowTechTac.Text = "Tactical:";
             this.AllowTechTac.UseVisualStyleBackColor = true;
             this.AllowTechTac.CheckedChanged += new System.EventHandler(this.AllowTechTac_CheckedChanged);
@@ -841,10 +846,10 @@
             this.AllowTechSup.AutoSize = true;
             this.AllowTechSup.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AllowTechSup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllowTechSup.Location = new System.Drawing.Point(34, 267);
+            this.AllowTechSup.Location = new System.Drawing.Point(34, 244);
             this.AllowTechSup.Name = "AllowTechSup";
             this.AllowTechSup.Size = new System.Drawing.Size(79, 17);
-            this.AllowTechSup.TabIndex = 5;
+            this.AllowTechSup.TabIndex = 19;
             this.AllowTechSup.Text = "Supremacy:";
             this.AllowTechSup.UseVisualStyleBackColor = true;
             this.AllowTechSup.CheckedChanged += new System.EventHandler(this.AllowTechSup_CheckedChanged);
@@ -872,7 +877,7 @@
             this.ShipWeaponRange.Location = new System.Drawing.Point(92, 331);
             this.ShipWeaponRange.Name = "ShipWeaponRange";
             this.ShipWeaponRange.Size = new System.Drawing.Size(69, 21);
-            this.ShipWeaponRange.TabIndex = 1;
+            this.ShipWeaponRange.TabIndex = 29;
             this.ShipWeaponRange.SelectedIndexChanged += new System.EventHandler(this.ShipWeaponRange_SelectedIndexChanged);
             // 
             // label30
@@ -898,7 +903,7 @@
             this.ShipWeaponFireRate.Location = new System.Drawing.Point(92, 358);
             this.ShipWeaponFireRate.Name = "ShipWeaponFireRate";
             this.ShipWeaponFireRate.Size = new System.Drawing.Size(69, 21);
-            this.ShipWeaponFireRate.TabIndex = 1;
+            this.ShipWeaponFireRate.TabIndex = 30;
             this.ShipWeaponFireRate.SelectedIndexChanged += new System.EventHandler(this.ShipWeaponFireRate_SelectedIndexChanged);
             // 
             // label31
@@ -924,7 +929,7 @@
             this.ShipWeaponDamage.Location = new System.Drawing.Point(92, 385);
             this.ShipWeaponDamage.Name = "ShipWeaponDamage";
             this.ShipWeaponDamage.Size = new System.Drawing.Size(69, 21);
-            this.ShipWeaponDamage.TabIndex = 1;
+            this.ShipWeaponDamage.TabIndex = 31;
             this.ShipWeaponDamage.SelectedIndexChanged += new System.EventHandler(this.ShipWeaponDamage_SelectedIndexChanged);
             // 
             // label32
@@ -979,7 +984,7 @@
             this.NanWeaponRange.Location = new System.Drawing.Point(437, 334);
             this.NanWeaponRange.Name = "NanWeaponRange";
             this.NanWeaponRange.Size = new System.Drawing.Size(69, 21);
-            this.NanWeaponRange.TabIndex = 1;
+            this.NanWeaponRange.TabIndex = 35;
             this.NanWeaponRange.SelectedIndexChanged += new System.EventHandler(this.NanWeaponRange_SelectedIndexChanged);
             // 
             // NanWeaponFireRate
@@ -996,7 +1001,7 @@
             this.NanWeaponFireRate.Location = new System.Drawing.Point(437, 361);
             this.NanWeaponFireRate.Name = "NanWeaponFireRate";
             this.NanWeaponFireRate.Size = new System.Drawing.Size(69, 21);
-            this.NanWeaponFireRate.TabIndex = 1;
+            this.NanWeaponFireRate.TabIndex = 36;
             this.NanWeaponFireRate.SelectedIndexChanged += new System.EventHandler(this.NanWeaponFireRate_SelectedIndexChanged);
             // 
             // NanWeaponHealing
@@ -1013,7 +1018,7 @@
             this.NanWeaponHealing.Location = new System.Drawing.Point(437, 388);
             this.NanWeaponHealing.Name = "NanWeaponHealing";
             this.NanWeaponHealing.Size = new System.Drawing.Size(69, 21);
-            this.NanWeaponHealing.TabIndex = 1;
+            this.NanWeaponHealing.TabIndex = 37;
             this.NanWeaponHealing.SelectedIndexChanged += new System.EventHandler(this.NanWeaponHealing_SelectedIndexChanged);
             // 
             // label36
@@ -1068,7 +1073,7 @@
             this.BaseWeaponRange.Location = new System.Drawing.Point(270, 331);
             this.BaseWeaponRange.Name = "BaseWeaponRange";
             this.BaseWeaponRange.Size = new System.Drawing.Size(69, 21);
-            this.BaseWeaponRange.TabIndex = 1;
+            this.BaseWeaponRange.TabIndex = 32;
             this.BaseWeaponRange.SelectedIndexChanged += new System.EventHandler(this.BaseWeaponRange_SelectedIndexChanged);
             // 
             // BaseWeaponFireRate
@@ -1085,7 +1090,7 @@
             this.BaseWeaponFireRate.Location = new System.Drawing.Point(271, 358);
             this.BaseWeaponFireRate.Name = "BaseWeaponFireRate";
             this.BaseWeaponFireRate.Size = new System.Drawing.Size(69, 21);
-            this.BaseWeaponFireRate.TabIndex = 1;
+            this.BaseWeaponFireRate.TabIndex = 33;
             this.BaseWeaponFireRate.SelectedIndexChanged += new System.EventHandler(this.BaseWeaponFireRate_SelectedIndexChanged);
             // 
             // BaseWeaponDamage
@@ -1102,7 +1107,7 @@
             this.BaseWeaponDamage.Location = new System.Drawing.Point(271, 385);
             this.BaseWeaponDamage.Name = "BaseWeaponDamage";
             this.BaseWeaponDamage.Size = new System.Drawing.Size(69, 21);
-            this.BaseWeaponDamage.TabIndex = 1;
+            this.BaseWeaponDamage.TabIndex = 34;
             this.BaseWeaponDamage.SelectedIndexChanged += new System.EventHandler(this.BaseWeaponDamage_SelectedIndexChanged);
             // 
             // label40
@@ -1140,6 +1145,7 @@
             this.Difficulty.Name = "Difficulty";
             this.Difficulty.Size = new System.Drawing.Size(76, 21);
             this.Difficulty.TabIndex = 1;
+            this.Difficulty.Text = "2";
             this.Difficulty.SelectedIndexChanged += new System.EventHandler(this.Difficulty_SelectedIndexChanged);
             // 
             // StartGame
@@ -1147,10 +1153,10 @@
             this.StartGame.BackColor = System.Drawing.Color.Black;
             this.StartGame.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.StartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StartGame.Location = new System.Drawing.Point(341, 426);
+            this.StartGame.Location = new System.Drawing.Point(437, 426);
             this.StartGame.Name = "StartGame";
-            this.StartGame.Size = new System.Drawing.Size(228, 45);
-            this.StartGame.TabIndex = 6;
+            this.StartGame.Size = new System.Drawing.Size(125, 45);
+            this.StartGame.TabIndex = 45;
             this.StartGame.Text = "Start Game";
             this.StartGame.UseVisualStyleBackColor = false;
             this.StartGame.Click += new System.EventHandler(this.StartGame_Click);
@@ -1165,7 +1171,7 @@
             this.Cancel.Location = new System.Drawing.Point(575, 426);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(125, 45);
-            this.Cancel.TabIndex = 6;
+            this.Cancel.TabIndex = 46;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = false;
             this.Cancel.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
@@ -1190,16 +1196,16 @@
             this.CustomPresets.Location = new System.Drawing.Point(83, 439);
             this.CustomPresets.Name = "CustomPresets";
             this.CustomPresets.Size = new System.Drawing.Size(110, 21);
-            this.CustomPresets.TabIndex = 1;
+            this.CustomPresets.TabIndex = 41;
             // 
             // SavePreset
             // 
             this.SavePreset.BackColor = System.Drawing.Color.Black;
             this.SavePreset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SavePreset.Location = new System.Drawing.Point(260, 439);
+            this.SavePreset.Location = new System.Drawing.Point(260, 438);
             this.SavePreset.Name = "SavePreset";
             this.SavePreset.Size = new System.Drawing.Size(55, 21);
-            this.SavePreset.TabIndex = 6;
+            this.SavePreset.TabIndex = 43;
             this.SavePreset.Text = "Save";
             this.SavePreset.UseVisualStyleBackColor = false;
             this.SavePreset.Click += new System.EventHandler(this.Save_Click);
@@ -1210,10 +1216,10 @@
             // 
             this.LoadPreset.BackColor = System.Drawing.Color.Black;
             this.LoadPreset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoadPreset.Location = new System.Drawing.Point(199, 439);
+            this.LoadPreset.Location = new System.Drawing.Point(201, 438);
             this.LoadPreset.Name = "LoadPreset";
             this.LoadPreset.Size = new System.Drawing.Size(55, 21);
-            this.LoadPreset.TabIndex = 6;
+            this.LoadPreset.TabIndex = 42;
             this.LoadPreset.Text = "Load";
             this.LoadPreset.UseVisualStyleBackColor = false;
             this.LoadPreset.Click += new System.EventHandler(this.Load_Click);
@@ -1254,7 +1260,7 @@
             this.ResearchCost.Location = new System.Drawing.Point(270, 228);
             this.ResearchCost.Name = "ResearchCost";
             this.ResearchCost.Size = new System.Drawing.Size(69, 21);
-            this.ResearchCost.TabIndex = 1;
+            this.ResearchCost.TabIndex = 20;
             this.ResearchCost.SelectedIndexChanged += new System.EventHandler(this.ResearchCost_SelectedIndexChanged);
             // 
             // label45
@@ -1280,7 +1286,7 @@
             this.ResearchTime.Location = new System.Drawing.Point(270, 255);
             this.ResearchTime.Name = "ResearchTime";
             this.ResearchTime.Size = new System.Drawing.Size(69, 21);
-            this.ResearchTime.TabIndex = 1;
+            this.ResearchTime.TabIndex = 21;
             this.ResearchTime.SelectedIndexChanged += new System.EventHandler(this.ResearchTime_SelectedIndexChanged);
             // 
             // label46
@@ -1336,7 +1342,7 @@
             this.MissilesRange.Location = new System.Drawing.Point(609, 334);
             this.MissilesRange.Name = "MissilesRange";
             this.MissilesRange.Size = new System.Drawing.Size(69, 21);
-            this.MissilesRange.TabIndex = 1;
+            this.MissilesRange.TabIndex = 38;
             this.MissilesRange.SelectedIndexChanged += new System.EventHandler(this.NanWeaponRange_SelectedIndexChanged);
             // 
             // MissilesFireRate
@@ -1354,7 +1360,7 @@
             this.MissilesFireRate.Location = new System.Drawing.Point(609, 361);
             this.MissilesFireRate.Name = "MissilesFireRate";
             this.MissilesFireRate.Size = new System.Drawing.Size(69, 21);
-            this.MissilesFireRate.TabIndex = 1;
+            this.MissilesFireRate.TabIndex = 39;
             this.MissilesFireRate.SelectedIndexChanged += new System.EventHandler(this.NanWeaponFireRate_SelectedIndexChanged);
             // 
             // MissilesDamage
@@ -1372,7 +1378,7 @@
             this.MissilesDamage.Location = new System.Drawing.Point(609, 388);
             this.MissilesDamage.Name = "MissilesDamage";
             this.MissilesDamage.Size = new System.Drawing.Size(69, 21);
-            this.MissilesDamage.TabIndex = 1;
+            this.MissilesDamage.TabIndex = 40;
             this.MissilesDamage.SelectedIndexChanged += new System.EventHandler(this.NanWeaponHealing_SelectedIndexChanged);
             // 
             // label50
@@ -1412,7 +1418,7 @@
             this.Team1Colour.Location = new System.Drawing.Point(609, 30);
             this.Team1Colour.Name = "Team1Colour";
             this.Team1Colour.Size = new System.Drawing.Size(69, 28);
-            this.Team1Colour.TabIndex = 6;
+            this.Team1Colour.TabIndex = 3;
             this.Team1Colour.Text = "Change";
             this.Team1Colour.UseVisualStyleBackColor = false;
             this.Team1Colour.Click += new System.EventHandler(this.Team1Colour_Click);
@@ -1427,22 +1433,39 @@
             this.Team2Colour.Location = new System.Drawing.Point(609, 64);
             this.Team2Colour.Name = "Team2Colour";
             this.Team2Colour.Size = new System.Drawing.Size(69, 28);
-            this.Team2Colour.TabIndex = 6;
+            this.Team2Colour.TabIndex = 4;
             this.Team2Colour.Text = "Change";
             this.Team2Colour.UseVisualStyleBackColor = false;
             this.Team2Colour.Click += new System.EventHandler(this.Team2Colour_Click);
             this.Team2Colour.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.Team2Colour.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // ResetPreset
+            // 
+            this.ResetPreset.BackColor = System.Drawing.Color.Black;
+            this.ResetPreset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetPreset.Location = new System.Drawing.Point(321, 438);
+            this.ResetPreset.Name = "ResetPreset";
+            this.ResetPreset.Size = new System.Drawing.Size(55, 22);
+            this.ResetPreset.TabIndex = 44;
+            this.ResetPreset.Text = "Default";
+            this.ResetPreset.UseVisualStyleBackColor = false;
+            this.ResetPreset.Click += new System.EventHandler(this.ResetPreset_Click);
+            this.ResetPreset.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.ResetPreset.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
             // CustomiseSetttings
             // 
+            this.AcceptButton = this.StartGame;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(707, 477);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Team2Colour);
             this.Controls.Add(this.Team1Colour);
+            this.Controls.Add(this.ResetPreset);
             this.Controls.Add(this.LoadPreset);
             this.Controls.Add(this.SavePreset);
             this.Controls.Add(this.StartGame);
@@ -1653,5 +1676,6 @@
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Button Team1Colour;
         private System.Windows.Forms.Button Team2Colour;
+        private System.Windows.Forms.Button ResetPreset;
     }
 }

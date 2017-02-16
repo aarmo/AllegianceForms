@@ -26,6 +26,7 @@ namespace AllegianceForms.Engine.Bases
         private PointF _nextBuildOffset = Point.Empty;
         private DateTime _offsetClear = DateTime.MinValue;
         private TimeSpan _offsetDelay = new TimeSpan(0, 0, 2);
+        private Brush _textColor;
 
         public Base(EBaseType type, int width, int height, Color teamColor, int team, int health, int sectorId)
             : base(string.Empty, width, height, sectorId)
@@ -35,6 +36,7 @@ namespace AllegianceForms.Engine.Bases
             Team = team;
             VisibleToTeam[team - 1] = true;
             TeamColor = new SolidBrush(teamColor);
+            _textColor = new SolidBrush(PerceivedBrightness(teamColor) > 130 ? Color.Black : Color.White);
             SelectedPen = new Pen(teamColor, 1) { DashStyle = DashStyle.Dot };
             BorderPen = new Pen(Color.Gray, 2);
             ScanRange = 500;
@@ -97,6 +99,14 @@ namespace AllegianceForms.Engine.Bases
             }
         }
 
+        private int PerceivedBrightness(Color c)
+        {
+            return (int)Math.Sqrt(
+            c.R * c.R * .299 +
+            c.G * c.G * .587 +
+            c.B * c.B * .114);
+        }
+
         public override void Draw(Graphics g)
         {
             if (!Active || !VisibleToTeam[0]) return;
@@ -106,7 +116,7 @@ namespace AllegianceForms.Engine.Bases
             g.DrawRectangle(BorderPen, b);
 
             var rect = BoundsI;
-            StrategyGame.DrawCenteredText(g, Brushes.Black, Type.ToString(), rect);
+            StrategyGame.DrawCenteredText(g, _textColor, Type.ToString(), rect);
 
             if (Selected)
             {

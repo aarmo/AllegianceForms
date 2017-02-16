@@ -8,34 +8,25 @@ namespace AllegianceForms.Engine.Map
 {
     public class GameMap
     {
-        private SolidBrush _sectorBrush = new SolidBrush(Color.DimGray);
-        private Pen _sectorPen = new Pen(Color.DarkBlue, 4);
-        private Pen _currentSectorPen = new Pen(Color.DarkGreen, 4);
-        private Pen _wormholePen = new Pen(Color.DarkGray, 4);
-
+        public const int WormholeRadius = 325;
+        
         public string Name { get; set; }
         public List<MapSector> Sectors { get; set; }
         public List<Wormhole> Wormholes { get; set; }
         public Image GridImage { get; set; }
-
         public EMapSize Size { get; set; }
+
+        private SolidBrush _sectorBrush = new SolidBrush(Color.DimGray);
+        private Pen _sectorPen = new Pen(Color.DarkBlue, 4);
+        private Pen _currentSectorPen = new Pen(Color.DarkGreen, 4);
+        private Pen _wormholePen = new Pen(Color.DarkGray, 4);
+        private PathfindingGraph<int> _pathfinding;
 
         public GameMap()
         {
             GridImage = Image.FromFile(".\\Art\\Backgrounds\\Grid.png");
             Sectors = new List<MapSector>();
             Wormholes = new List<Wormhole>();
-        }
-        
-        public void Clear()
-        {
-            Sectors.Clear();
-            Wormholes.Clear();
-        }
-
-        public GameMap Clone()
-        {
-            return Utils.CloneMap(this);
         }
 
         public void Draw(Graphics g, int sectorId)
@@ -66,11 +57,6 @@ namespace AllegianceForms.Engine.Map
 
         public void DrawSector(Graphics g, int sectorId)
         {
-            /*
-            var s = Sectors.First(_ => _.Id == sectorId);
-            g.DrawImage(s.Image, 0, 0);
-            */
-
             g.DrawImage(GridImage, 0, 0);
 
             foreach (var u in StrategyGame.AllAsteroids)
@@ -95,7 +81,22 @@ namespace AllegianceForms.Engine.Map
             }
         }
 
-        public void ArrangeWormholes(int distanceFromCenter)
+        public void SetVisibilityToTeam(int team, bool visible)
+        {
+            foreach (var w in Wormholes)
+            {
+                w.SetVisibleToTeam(team, visible);
+            }
+        }
+
+        public void InitialiseMap()
+        {
+            ArrangeWormholes();
+            SetupRocks();
+            GenerateGraph();
+        }
+
+        private void ArrangeWormholes()
         {
             var centerX = StrategyGame.ScreenWidth / 2;
             var centerY = StrategyGame.ScreenHeight/ 2;
@@ -116,8 +117,8 @@ namespace AllegianceForms.Engine.Map
                     w.End2.Signature *= StrategyGame.GameSettings.WormholesSignatureMultiplier;
 
                     var angleAsRadians = (currentAngle * Math.PI) / 180.0;
-                    var x = centerX + Math.Cos(angleAsRadians) * distanceFromCenter;
-                    var y = centerY + Math.Sin(angleAsRadians) * distanceFromCenter;
+                    var x = centerX + Math.Cos(angleAsRadians) * WormholeRadius;
+                    var y = centerY + Math.Sin(angleAsRadians) * WormholeRadius;
 
                     if (s == w.Sector1)
                     {
@@ -134,22 +135,15 @@ namespace AllegianceForms.Engine.Map
                 }                
             }
         }
-
-        public void SetVisibilityToTeam(int team, bool visible)
-        {
-            foreach(var w in Wormholes)
-            {
-                w.SetVisibleToTeam(team, visible);
-            }
-        }
-
-        public void SetupRocks(Point centerPos)
+        
+        public void SetupRocks()
         {
             var rnd = StrategyGame.Random;
             var settings = StrategyGame.GameSettings;
             var asteroids = new List<Asteroid>();
+            var centerPos = new Point(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
 
-            foreach (var sector in StrategyGame.Map.Sectors)
+            foreach (var sector in Sectors)
             {
                 var rockSize = 60;
                 var radiusX = 400;
@@ -203,130 +197,35 @@ namespace AllegianceForms.Engine.Map
             StrategyGame.AllAsteroids.AddRange(asteroids);
         }
 
-        public int GetMinX()
+        public void GenerateGraph()
         {
-            return Sectors.Min(_ => _.MapPosition.X);
-        }
-
-        public int GetMinY()
-        {
-            return Sectors.Min(_ => _.MapPosition.Y);
-        }
-        public int GetMaxX()
-        {
-            return Sectors.Max(_ => _.MapPosition.X);
-        }
-
-        public int GetMaxY()
-        {
-            return Sectors.Max(_ => _.MapPosition.Y);
-        }
-
-        public void AdjustBoundsTopLeft(int buffer = 0)
-        {
-            // Bounds
-            var leftMostX = GetMinX() - buffer;
-            var topMostY = GetMinY() - buffer;
+            _pathfinding = new PathfindingGraph<int>();
 
             foreach (var s in Sectors)
             {
-                s.MapPosition = new Point(s.MapPosition.X - leftMostX, s.MapPosition.Y - topMostY);
+                var edges = new Dictionary<int, int>();
+
+                foreach (var w in Wormholes)
+                {
+                    if (w.End1.SectorId == s.Id)
+                    {
+                        edges[w.End2.SectorId] = 1;
+                    }
+                    else if (w.End2.SectorId == s.Id)
+                    {
+                        edges[w.End1.SectorId] = 1;
+                    }
+                }
+
+                _pathfinding.AddVertex(s.Id, edges);
             }
         }
-        public bool HasASectorCloseToLine(MapSector s1, MapSector s2, List<MapSector> checkSectors, float minDistance)
+
+        public List<int> ShortestPath(int fromSectorId, int toSectorId)
         {
-            foreach (var s in checkSectors)
-            {
-                if (s == s1 || s == s2) continue;
+            if (_pathfinding == null) return null;
 
-                if (LineContainsPoint(s1.MapPosition, s2.MapPosition, s.MapPosition, minDistance)) return true;
-            }
-
-            return false;
-        }
-
-        private bool LineContainsPoint(Point start, Point end, Point point, double fuzziness)
-        {
-            Point leftPoint;
-            Point rightPoint;
-
-            // Normalize start/end to left right to make the offset calc simpler.
-            if (start.X <= end.X)
-            {
-                leftPoint = start;
-                rightPoint = end;
-            }
-            else
-            {
-                leftPoint = end;
-                rightPoint = start;
-            }
-
-            // If point is out of bounds, no need to do further checks.                  
-            if (point.X + fuzziness < leftPoint.X || rightPoint.X < point.X - fuzziness)
-                return false;
-            else if (point.Y + fuzziness < Math.Min(leftPoint.Y, rightPoint.Y) || Math.Max(leftPoint.Y, rightPoint.Y) < point.Y - fuzziness)
-                return false;
-
-            double deltaX = rightPoint.X - leftPoint.X;
-            double deltaY = rightPoint.Y - leftPoint.Y;
-
-            // If the line is straight, the earlier boundary check is enough to determine that the point is on the line.
-            // Also prevents division by zero exceptions.
-            if (deltaX == 0 || deltaY == 0)
-                return true;
-
-            double slope = deltaY / deltaX;
-            double offset = leftPoint.Y - leftPoint.X * slope;
-            double calculatedY = point.X * slope + offset;
-
-            // Check calculated Y matches the points Y coord with some easing.
-            bool lineContains = point.Y - fuzziness <= calculatedY && calculatedY <= point.Y + fuzziness;
-
-            return lineContains;
-        }
-
-        public bool AreSectorsLinkedDirectly(MapSector start, MapSector end)
-        {
-            var w = Wormholes.Find(_ => (_.Sector1 == start && _.Sector2 == end)
-                                || (_.Sector1 == end && _.Sector2 == start));
-
-            return w != null;
-        }
-
-        public bool IsValid()
-        {
-            var startSectors = Sectors.FindAll(s => s.StartingSector);
-            if (startSectors.Count == 0) return false;
-
-            return startSectors.TrueForAll(CanReachAllSectors);
-        }
-
-        public bool CanReachAllSectors(MapSector fromSector)
-        {
-            var visited = new List<MapSector>();
-
-            var sectorsTravelled = TravelSector(fromSector, visited);
-
-            return (Sectors.Count == sectorsTravelled);
-        }
-
-        private int TravelSector(MapSector start, ICollection<MapSector> visited)
-        {
-            if (visited.Contains(start)) return 0;
-
-            visited.Add(start);
-            var traveled = 1;
-
-            var links = Wormholes.FindAll(w => w.LinksTo(start));
-
-            foreach (var l in links)
-            {
-                traveled += TravelSector(l.Sector1, visited);
-                traveled += TravelSector(l.Sector2, visited);
-            }
-
-            return traveled;
+            return _pathfinding.ShortestPath(fromSectorId, toSectorId);
         }
     }
 }

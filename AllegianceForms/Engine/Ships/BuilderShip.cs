@@ -121,7 +121,8 @@ namespace AllegianceForms.Engine.Ships
 
         public override void Draw(Graphics g)
         {
-            if (!Active) return;
+            if (!Active || !VisibleToTeam[0]) return;
+
             if (!Building)
             {
                 base.Draw(g);

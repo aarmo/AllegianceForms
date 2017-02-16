@@ -128,12 +128,12 @@
     <Compile Include="Engine\Bases\BaseSpecs.cs" />
     <Compile Include="Engine\GameSettings.cs" />
     <Compile Include="Engine\GameStats.cs" />
-    <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Map\GameMap.cs" />
     <Compile Include="Engine\Generation\RandomString.cs" />
     <Compile Include="Engine\Map\GameMaps.cs" />
     <Compile Include="Engine\Map\MapDistanceComparer.cs" />
     <Compile Include="Engine\Map\MapSector.cs" />
+    <Compile Include="Engine\Map\Pathfinding.cs" />
     <Compile Include="Engine\Map\Wormhole.cs" />
     <Compile Include="Engine\Rocks\Asteroid.cs" />
     <Compile Include="Engine\Bases\Base.cs" />

@@ -47,9 +47,9 @@ namespace AllegianceForms.AI.Missions
             for (var i = 0; i < totalResourcesInSector.Length; i++)
             {
                 if (totalResourcesInSector[i] == 0 || enemiesInSector[i] > friendliesInSector[i]) continue;
-
-                var path = new List<int>();
-                var newHops = StrategyGame.MinHopsToSector(t, startSectorId, i, maxHops, path);
+                
+                var path = StrategyGame.Map.ShortestPath(startSectorId, i);
+                var newHops = path.Count();
 
                 var score = newHops + enemiesInSector[i] - friendliesInSector[i] - (totalResourcesInSector[i] / 1000f);
                 if (score < bestScore)
@@ -66,7 +66,7 @@ namespace AllegianceForms.AI.Missions
             foreach (var s in ships)
             {
                 var m = s as MinerShip;
-                if (m == null) continue;            
+                if (m == null) continue;
 
                 if (m.SectorId != bestSectorId)
                 {

@@ -16,10 +16,9 @@ namespace AllegianceForms.Test.AI
         [TestInitialize]
         public void Setup()
         {
-            var centerPos = new Point(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
-            StrategyGame.Map = GameMaps.PinWheel();
-            StrategyGame.Map.SetupRocks(centerPos);
             StrategyGame.LoadData();
+            StrategyGame.ResetGame(GameSettings.Default());
+            StrategyGame.Map = GameMaps.PinWheel();
 
             _target = new CommanderAI(2, Color.Red, null);
         }

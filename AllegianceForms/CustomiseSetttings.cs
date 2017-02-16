@@ -518,5 +518,15 @@ namespace AllegianceForms
             Settings.ResearchTimeMultiplier = float.Parse(p) / 100f;
             CustomPresets.Text = string.Empty;
         }
+
+        private void ResetPreset_Click(object sender, EventArgs e)
+        {
+            LoadSettings(GameSettings.Default());
+        }
+
+        private void MapList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.MapName = MapList.Text;
+        }
     }
 }

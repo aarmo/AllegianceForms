@@ -70,7 +70,6 @@ namespace AllegianceForms
             SoundEffect.Init(0.25f);
             
             StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
-            StrategyGame.Map.SetupRocks(centerPos);
             _currentSector = StrategyGame.Map.Sectors.First(_ => _.StartingSector);
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
 

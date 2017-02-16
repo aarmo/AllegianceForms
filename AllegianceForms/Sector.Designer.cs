@@ -62,13 +62,13 @@
             this.TotalBasesDestroyed2 = new System.Windows.Forms.Label();
             this.TotalBasesDestroyed1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.Team2 = new System.Windows.Forms.Label();
             this.TotalMined2 = new System.Windows.Forms.Label();
             this.Team1 = new System.Windows.Forms.Label();
             this.TotalMined1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.WinLose = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Team2 = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -426,6 +426,17 @@
             this.label4.Text = "Bases Destroyed";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // Team2
+            // 
+            this.Team2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Team2.ForeColor = System.Drawing.Color.LightPink;
+            this.Team2.Location = new System.Drawing.Point(357, 129);
+            this.Team2.Name = "Team2";
+            this.Team2.Size = new System.Drawing.Size(138, 28);
+            this.Team2.TabIndex = 0;
+            this.Team2.Text = "Team 2";
+            this.Team2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // TotalMined2
             // 
             this.TotalMined2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -490,17 +501,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Game Over";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Team2
-            // 
-            this.Team2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Team2.ForeColor = System.Drawing.Color.LightPink;
-            this.Team2.Location = new System.Drawing.Point(357, 129);
-            this.Team2.Name = "Team2";
-            this.Team2.Size = new System.Drawing.Size(138, 28);
-            this.Team2.TabIndex = 0;
-            this.Team2.Text = "Team 2";
-            this.Team2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Sector
             // 
