@@ -30,7 +30,7 @@ namespace AllegianceForms.Engine.Ships
             Type = EShipType.Constructor;
             BaseType = baseType;
             BuildingDuration = new TimeSpan(0, 0, 4);
-
+            
             switch (baseType)
             {
                 case EBaseType.Tactical:
@@ -96,13 +96,14 @@ namespace AllegianceForms.Engine.Ships
             if (_buildingStop < DateTime.Now)
             {
                 Active = Building = false;
-                OnShipEvent(EShipEventType.BuildingFinished);
+                if (BaseType != EBaseType.Tower) OnShipEvent(EShipEventType.BuildingFinished);
             }
             else if (Building && _buildingStop == DateTime.MaxValue)
             {
                 _buildingStart = DateTime.Now;
                 _buildingStop = _buildingStart + BuildingDuration;
                 OnShipEvent(EShipEventType.BuildingStarted);
+
             }
         }
 
@@ -115,7 +116,7 @@ namespace AllegianceForms.Engine.Ships
             if (Team == 1 && !Docked && DateTime.Now > _callNext)
             {
                 SoundEffect.Play(ESounds.vo_miner_underattack);
-                _callNext = DateTime.Now.AddSeconds(2);
+                _callNext = DateTime.Now.AddSeconds(3);
             }
         }
 
@@ -123,7 +124,7 @@ namespace AllegianceForms.Engine.Ships
         {
             if (!Active || !VisibleToTeam[0]) return;
 
-            if (!Building)
+            if (!Building || BaseType == EBaseType.Tower)
             {
                 base.Draw(g);
                 return;

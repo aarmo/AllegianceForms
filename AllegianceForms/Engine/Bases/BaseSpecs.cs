@@ -1,4 +1,5 @@
-﻿using CsvHelper;
+﻿using AllegianceForms.Engine.Ships;
+using CsvHelper;
 using CsvHelper.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
@@ -46,6 +47,7 @@ namespace AllegianceForms.Engine.Bases
 
             return bse;
         }
+        
     }
 
     public class BaseSpec

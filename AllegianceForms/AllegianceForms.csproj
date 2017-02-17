@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Engine\Animation.cs" />
     <Compile Include="Engine\Bases\BaseSpecs.cs" />
+    <Compile Include="Engine\Bases\TowerBase.cs" />
     <Compile Include="Engine\GameSettings.cs" />
     <Compile Include="Engine\GameStats.cs" />
     <Compile Include="Engine\Map\GameMap.cs" />
@@ -1237,13 +1238,13 @@
     <Content Include="Data\Names-Sector.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Ships-Simple.txt">
+    <Content Include="Data\Ships.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Bases-Simple.txt">
+    <Content Include="Data\Bases.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Tech-Simple.txt">
+    <Content Include="Data\Tech.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

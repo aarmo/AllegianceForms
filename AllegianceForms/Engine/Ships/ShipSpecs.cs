@@ -51,7 +51,22 @@ namespace AllegianceForms.Engine.Ships
             var spec = (from s in Ships
                         where keys.Contains(s.Key)
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
-                       && StrategyGame.CanLaunchShip(team, s.NumPilots)
+                       && StrategyGame.CanLaunchShip(team, s.NumPilots, s.Type)
+                        orderby s.Id descending
+                        select s).FirstOrDefault();
+            if (spec == null) return null;
+
+            return CreateShip(spec, team, teamColour, sectorId);
+        }
+        
+        public CombatShip CreateTowerShip(int team, Color teamColour, int sectorId)
+        {
+            var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
+            
+            // Get the most advanced tower ship
+            var spec = (from s in Ships
+                        where (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
+                        && s.Type == EShipType.Tower
                         orderby s.Id descending
                         select s).FirstOrDefault();
             if (spec == null) return null;
@@ -67,7 +82,7 @@ namespace AllegianceForms.Engine.Ships
             var spec = (from s in Ships
                         where s.Key == k.ToString()
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
-                       && StrategyGame.CanLaunchShip(team, s.NumPilots)
+                       && StrategyGame.CanLaunchShip(team, s.NumPilots, s.Type)
                         orderby s.Id descending
                         select s).FirstOrDefault();
             if (spec == null) return null;
@@ -77,7 +92,7 @@ namespace AllegianceForms.Engine.Ships
 
         private CombatShip CreateShip(ShipSpec spec, int team, Color teamColour, int sectorId)
         {
-            var ship = new CombatShip(spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, spec.NumPilots, spec.Type, sectorId);
+            var ship = new CombatShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, spec.NumPilots, spec.Type, sectorId);
             ship.ScanRange = spec.ScanRange;
             ship.Signature = spec.Signature;
             ship.Speed = spec.Speed;
@@ -106,7 +121,7 @@ namespace AllegianceForms.Engine.Ships
             var spec = Ships.FirstOrDefault(_ => _.BaseType == baseType && _.Type == EShipType.Constructor);
             if (spec == null) return null;
             
-            var ship = new BuilderShip(spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, baseType, sectorId);
+            var ship = new BuilderShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, baseType, sectorId);
             ship.ScanRange = spec.ScanRange;
             ship.Signature = spec.Signature;
             ship.Speed = spec.Speed;
@@ -124,7 +139,7 @@ namespace AllegianceForms.Engine.Ships
             var spec = Ships.FirstOrDefault(_ => _.Type == EShipType.Miner);
             if (spec == null) return null;
 
-            var ship = new MinerShip(spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, sectorId);
+            var ship = new MinerShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, sectorId);
             ship.ScanRange = spec.ScanRange;
             ship.Signature = spec.Signature;
             ship.Speed = spec.Speed;
@@ -139,7 +154,7 @@ namespace AllegianceForms.Engine.Ships
             var spec = Ships.FirstOrDefault(_ => _.Type == EShipType.Lifepod);
             if (spec == null) return null;
 
-            var ship = new Ship(spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, 1, sectorId);
+            var ship = new Ship(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, spec.Health, 1, sectorId);
             ship.Type = EShipType.Lifepod;
             ship.Speed = spec.Speed;
             ship.ScanRange = spec.ScanRange;

@@ -34,3 +34,7 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 53,2,Advanced Stealth Fighter,51|52,5000,60,False
 54,2,Stealth Bomber,51|4,5000,60,False
 55,2,Advanced Stealth Bomber,54,5000,60,False
+
+
+60,-1,Tower Constructor,,1000,10,False
+65,0,Advanced Towers,1,5000,30,False

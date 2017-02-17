@@ -74,6 +74,7 @@ namespace AllegianceForms
             ResourcesEachTick.Text = s.ResourcesEachTickMultiplier.ToString("P0");
 
             ConstructorsMax.Text = s.ConstructorsMaxDrones.ToString();
+            MaxTowerDrones.Text = s.ConstructorsMaxTowerDrones.ToString();
             CustomPresets.Text = string.Empty;
         }
 
@@ -527,6 +528,15 @@ namespace AllegianceForms
         private void MapList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Settings.MapName = MapList.Text;
+        }
+
+        private void MaxTowerDrones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            
+            Settings.ConstructorsMaxTowerDrones = int.Parse(s.Text);
+            CustomPresets.Text = string.Empty;
         }
     }
 }

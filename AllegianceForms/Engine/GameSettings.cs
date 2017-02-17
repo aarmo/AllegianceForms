@@ -19,6 +19,7 @@ namespace AllegianceForms.Engine
         public int MinersMaxDrones { get; set; }
         public float MinersCapacityMultiplier { get; set; }
         public int ConstructorsMaxDrones { get; set; }
+        public int ConstructorsMaxTowerDrones { get; set; }
 
         public Dictionary<EShipType, float> ShipSpeedMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipHealthMultiplier { get; set; }
@@ -63,7 +64,7 @@ namespace AllegianceForms.Engine
                 Team1ColourARBG = Color.Lime.ToArgb(),
                 Team2ColourARBG = Color.LightPink.ToArgb(),
 
-                WormholesVisible = true,
+                WormholesVisible = false,
                 WormholesSignatureMultiplier = 1,
 
                 AiDifficulty = 1,
@@ -73,6 +74,7 @@ namespace AllegianceForms.Engine
                 MinersCapacityMultiplier = 1,
 
                 ConstructorsMaxDrones = 1,
+                ConstructorsMaxTowerDrones = 4,
 
                 ResourcesStartingMultiplier = 1,
                 ResourcesPerRockMultiplier = 1,

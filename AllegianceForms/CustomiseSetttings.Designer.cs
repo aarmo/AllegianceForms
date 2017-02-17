@@ -128,6 +128,8 @@
             this.Team1Colour = new System.Windows.Forms.Button();
             this.Team2Colour = new System.Windows.Forms.Button();
             this.ResetPreset = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.MaxTowerDrones = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             this.SuspendLayout();
             // 
@@ -222,12 +224,11 @@
             // WormholeSig
             // 
             this.WormholeSig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.WormholeSig.Enabled = false;
             this.WormholeSig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.WormholeSig.FormattingEnabled = true;
             this.WormholeSig.Items.AddRange(new object[] {
-            "10%",
             "50%",
+            "75%",
             "100%",
             "150%",
             "200%"});
@@ -1454,6 +1455,37 @@
             this.ResetPreset.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.ResetPreset.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(505, 177);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Max Towers:";
+            // 
+            // MaxTowerDrones
+            // 
+            this.MaxTowerDrones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.MaxTowerDrones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MaxTowerDrones.FormattingEnabled = true;
+            this.MaxTowerDrones.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.MaxTowerDrones.Location = new System.Drawing.Point(575, 174);
+            this.MaxTowerDrones.Name = "MaxTowerDrones";
+            this.MaxTowerDrones.Size = new System.Drawing.Size(42, 21);
+            this.MaxTowerDrones.TabIndex = 17;
+            this.MaxTowerDrones.SelectedIndexChanged += new System.EventHandler(this.MaxTowerDrones_SelectedIndexChanged);
+            // 
             // CustomiseSetttings
             // 
             this.AcceptButton = this.StartGame;
@@ -1512,6 +1544,7 @@
             this.Controls.Add(this.Difficulty);
             this.Controls.Add(this.ShipWeaponRange);
             this.Controls.Add(this.WormholeSig);
+            this.Controls.Add(this.MaxTowerDrones);
             this.Controls.Add(this.ConstructorsMax);
             this.Controls.Add(this.MinersMax);
             this.Controls.Add(this.BaseType);
@@ -1526,6 +1559,7 @@
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label14);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label22);
@@ -1677,5 +1711,7 @@
         private System.Windows.Forms.Button Team1Colour;
         private System.Windows.Forms.Button Team2Colour;
         private System.Windows.Forms.Button ResetPreset;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox MaxTowerDrones;
     }
 }

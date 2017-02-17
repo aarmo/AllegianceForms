@@ -29,7 +29,7 @@ namespace AllegianceForms.Orders
             }
 
             base.Update(ship);
-            if (_targetRock == null)
+            if (builder.BaseType != EBaseType.Tower && _targetRock == null)
             {
                 _targetRock = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, StrategyGame.BuildableAsteroids.Where(_ => _.Active && _.SectorId == ship.SectorId && _.VisibleToTeam[ship.Team-1] && _.Type == builder.TargetRockType));
 
@@ -40,7 +40,7 @@ namespace AllegianceForms.Orders
                 }
             }
 
-            if (OrderComplete && _targetRock != null)
+            if (OrderComplete && (builder.BaseType == EBaseType.Tower || _targetRock != null))
             {
                 builder.Building = true;
             }

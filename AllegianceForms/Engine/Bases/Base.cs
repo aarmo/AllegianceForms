@@ -29,6 +29,12 @@ namespace AllegianceForms.Engine.Bases
         private Brush _textColor;
 
         public Base(EBaseType type, int width, int height, Color teamColor, int team, int health, int sectorId)
+            : this(string.Empty, type, width, height, teamColor, team, health, sectorId)
+        {
+        }
+
+
+        protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, int health, int sectorId)
             : base(string.Empty, width, height, sectorId)
         {
             Type = type;

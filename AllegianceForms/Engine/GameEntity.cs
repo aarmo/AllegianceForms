@@ -10,7 +10,7 @@ namespace AllegianceForms.Engine
         public string Name { get; set; }
         public Brush TextBrush { get; set; }
         public int TextOffsetY { get; set; }
-        public bool Active { get; protected set; }
+        public bool Active { get; set; }
         public Image Image { get; set; }
         public float Top
         {

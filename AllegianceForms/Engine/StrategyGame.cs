@@ -22,6 +22,10 @@ namespace AllegianceForms.Engine
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
 
+        private const string ShipDataFile = ".\\Data\\Ships.txt";
+        private const string BaseDataFile = ".\\Data\\Bases.txt";
+        private const string TechDataFile = ".\\Data\\Tech.txt";
+        public const string IconPicDir = ".\\Art\\Trans\\";
         public static GameSettings GameSettings;
         
         public static double SqrtTwo = Math.Sqrt(2);
@@ -394,12 +398,12 @@ namespace AllegianceForms.Engine
 
         public static void LoadData()
         {
-            Ships = ShipSpecs.LoadShipSpecs(".\\Data\\Ships-Simple.txt");
-            Bases = BaseSpecs.LoadBaseSpecs(".\\Data\\Bases-Simple.txt");
+            Ships = ShipSpecs.LoadShipSpecs(ShipDataFile);
+            Bases = BaseSpecs.LoadBaseSpecs(BaseDataFile);
 
             for (var t = 0; t < NumTeams; t++)
             {
-                TechTree[t] = Tech.TechTree.LoadTechTree(".\\Data\\Tech-Simple.txt", t+1);
+                TechTree[t] = Tech.TechTree.LoadTechTree(TechDataFile, t+1);
 
                 var autoCompleted = TechTree[t].TechItems.Where(_ => _.Completed).ToList();
                 foreach (var i in autoCompleted)
@@ -409,8 +413,10 @@ namespace AllegianceForms.Engine
             }            
         }
 
-        public static bool CanLaunchShip(int team, int pilotsRequired)
+        public static bool CanLaunchShip(int team, int pilotsRequired, EShipType type)
         {
+            if (type == EShipType.Constructor || type == EShipType.Tower) return false;
+
             return DockedPilots[team - 1] >= pilotsRequired;
         }
 

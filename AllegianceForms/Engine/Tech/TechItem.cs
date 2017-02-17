@@ -60,6 +60,7 @@ namespace AllegianceForms.Engine.Tech
         {
             return (Type != ETechType.Construction)
                 || (Name.Contains("Miner") && StrategyGame.NumberOfMinerDrones(Team) < StrategyGame.GameSettings.MinersMaxDrones)
+                || (Name.Contains("Tower") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxTowerDrones)
                 || (Name.Contains("Constructor") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxDrones 
                     && StrategyGame.AllAsteroids.Count(_ => _.VisibleToTeam[Team - 1] && _.Type == TechItem.GetAsteroidType(Name)) > 0);
         }

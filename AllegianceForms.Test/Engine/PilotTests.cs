@@ -27,7 +27,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CantLaunchWithNoPilots()
         {
-            var result = StrategyGame.CanLaunchShip(2, 1);
+            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Scout);
 
             result.ShouldBe(false);
         }
@@ -36,7 +36,7 @@ namespace AllegianceForms.Test.Engine
         public void CantLaunchWithoutAllPilots()
         {
             StrategyGame.DockedPilots[1] = 1;
-            var result = StrategyGame.CanLaunchShip(2, 2);
+            var result = StrategyGame.CanLaunchShip(2, 2, EShipType.Scout);
 
             result.ShouldBe(false);
         }
@@ -45,17 +45,37 @@ namespace AllegianceForms.Test.Engine
         public void CanLaunchWithEnoughPilots()
         {
             StrategyGame.DockedPilots[1] = 1;
-            var result = StrategyGame.CanLaunchShip(2, 1);
+            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Scout);
 
             result.ShouldBe(true);
             StrategyGame.DockedPilots[1].ShouldBe(1);
         }
 
         [TestMethod]
+        public void CantLaunchAConstructor()
+        {
+            StrategyGame.DockedPilots[1] = 10;
+            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Constructor);
+
+            result.ShouldBe(false);
+            StrategyGame.DockedPilots[1].ShouldBe(10);
+        }
+
+        [TestMethod]
+        public void CantLaunchATower()
+        {
+            StrategyGame.DockedPilots[1] = 10;
+            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Tower);
+
+            result.ShouldBe(false);
+            StrategyGame.DockedPilots[1].ShouldBe(10);
+        }
+
+        [TestMethod]
         public void CanLaunchWithMorePilots()
         {
             StrategyGame.DockedPilots[1] = 4;
-            var result = StrategyGame.CanLaunchShip(2, 2);
+            var result = StrategyGame.CanLaunchShip(2, 2, EShipType.Scout);
 
             result.ShouldBe(true);
             StrategyGame.DockedPilots[1].ShouldBe(4);

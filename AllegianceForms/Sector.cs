@@ -459,7 +459,22 @@ namespace AllegianceForms
                 
                 StrategyGame.AddUnits(lifepods);
             }
+            if (e == EShipEventType.BuildingStarted)
+            {
+                var b = sender as BuilderShip;
+                if (b != null && b.BaseType == EBaseType.Tower)
+                {
+                    var tower = StrategyGame.Ships.CreateTowerShip(b.Team, b.Colour, b.SectorId);
+                    if (tower == null) return;
 
+                    tower.CenterX = b.CenterX;
+                    tower.CenterY = b.CenterY;
+                    tower.ShipEvent += F_ShipEvent;
+
+                    StrategyGame.AddUnit(tower);
+                    b.Active = false;
+                }
+            }
             if (e == EShipEventType.BuildingFinished)
             {
                 var b = sender as BuilderShip;
@@ -468,7 +483,7 @@ namespace AllegianceForms
                     b.Target.BuildingComplete();
                     StrategyGame.BuildableAsteroids.Remove(b.Target);
                     StrategyGame.AllAsteroids.Remove(b.Target);
-
+                    
                     var newBase = b.GetFinishedBase();
                     newBase.BaseEvent += B_BaseEvent;
 

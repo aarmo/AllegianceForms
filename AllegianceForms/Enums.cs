@@ -64,7 +64,8 @@ namespace AllegianceForms
         StealthBomber,
         Gunship,
         FighterBomber,
-        TroopTransport
+        TroopTransport,
+        Tower
     }
 
     public enum EBaseType
@@ -75,7 +76,8 @@ namespace AllegianceForms
         Refinery,
         Tactical,
         Supremacy,
-        Expansion
+        Expansion,
+        Tower
     }
 
     public enum EOrderType
