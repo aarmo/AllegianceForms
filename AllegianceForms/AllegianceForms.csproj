@@ -147,11 +147,15 @@
     <Compile Include="Engine\Tech\TechItem.cs" />
     <Compile Include="Engine\Tech\TechTree.cs" />
     <Compile Include="Engine\Weapons\BaseLaserWeapon.cs" />
+    <Compile Include="Engine\Weapons\MissileProjectile.cs" />
+    <Compile Include="Engine\Weapons\ShipMissileWeapon.cs" />
     <Compile Include="Engine\Weapons\NanLaserWeapon.cs" />
-    <Compile Include="Engine\Weapons\ShipLaserWeapon.cs" />
+    <Compile Include="Engine\Weapons\BaseWeapon.cs" />
+    <Compile Include="Engine\Weapons\ShipWeapon.cs" />
     <Compile Include="Engine\StrategyGame.cs" />
     <Compile Include="Engine\Rocks\TechAsteroid.cs" />
-    <Compile Include="Engine\Weapons\LaserWeapon.cs" />
+    <Compile Include="Engine\Weapons\ShipLaserWeapon.cs" />
+    <Compile Include="Engine\Weapons\Weapon.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Engine\Ships\Ship.cs" />
     <Compile Include="Menu.cs">
@@ -513,6 +517,9 @@
     <Content Include="Art\Sounds\plasmamini1.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Art\Sounds\missilelock.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Art\Sounds\sniperlaser1pwrup.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

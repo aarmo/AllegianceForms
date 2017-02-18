@@ -60,7 +60,7 @@ namespace AllegianceForms.Engine
             var s = new GameSettings
             {
                 NumPilots = 16,
-                MapName = GameMaps.RandomName(),
+                MapName = GameMaps.RandomName(), // "Brawl",
                 Team1ColourARBG = Color.Lime.ToArgb(),
                 Team2ColourARBG = Color.LightPink.ToArgb(),
 

@@ -53,12 +53,14 @@ namespace AllegianceForms.Engine.Map
 
         public static GameMap Brawl()
         {
-            return new GameMap
+            var map = new GameMap
             {
                 Name = "Brawl",
                 Sectors = new List<MapSector> { new MapSector(0, SectorNames.NextString, new Point(0, 0)) { StartingSector = true } },
                 Wormholes = new List<Wormhole>()
             };
+            map.InitialiseMap();
+            return map;
         }
 
         public static GameMap DoubleRing()

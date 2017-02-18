@@ -23,7 +23,8 @@ namespace AllegianceForms
         SectorLeftClicked,
         SectorRightClicked,
         ShipLaunched,
-        ShipClicked
+        ShipClicked,
+        MissileHit
     }
 
     public enum EVertDir
@@ -178,7 +179,8 @@ namespace AllegianceForms
         payday,
         small_explosion,
         big_explosion,
-        sniperlaser1pwrup
+        sniperlaser1pwrup,
+        missilelock
     }
     
     public enum EAiCreditPriorities

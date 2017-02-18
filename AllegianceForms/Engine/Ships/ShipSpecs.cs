@@ -101,15 +101,44 @@ namespace AllegianceForms.Engine.Ships
             {
                 foreach (var w in spec.Weapons)
                 {
-                    var clone = w.ShallowCopy();
 
-                    clone.LaserPen = (Pen)w.LaserPen.Clone();
-                    if (w.LaserPen.Color.Name == "0")
-                        clone.LaserPen.Color = teamColour;
 
-                    clone.Shooter = ship;
-                    clone.Target = null;
-                    ship.Weapons.Add(clone);
+                    var nl = w as NanLaserWeapon;
+                    if (nl != null)
+                    {
+                        var clone = new NanLaserWeapon(nl.LaserPen.Width, (int)nl.ShootingDuration.TotalMilliseconds, (int)nl.ShootingDelay.TotalMilliseconds, nl.WeaponRange, nl.WeaponDamage, ship, nl.FireOffset);
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+
+                    var sl = w as ShipLaserWeapon;
+                    if (sl != null)
+                    {
+                        var c = sl.LaserPen.Color;
+                        if (c.Name == "0") c = teamColour;
+                        var clone = new ShipLaserWeapon(c, sl.LaserPen.Width, (int)sl.ShootingDuration.TotalMilliseconds, (int)sl.ShootingDelay.TotalMilliseconds, sl.WeaponRange, sl.WeaponDamage, ship, sl.FireOffset);
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+                    
+                    var ml = w as ShipMissileWeapon;
+                    if (ml != null)
+                    {
+                        var clone = new ShipMissileWeapon(ml.Width, ml.Speed, ml.Tracking, (int)ml.ShootingDuration.TotalMilliseconds, (int)ml.ShootingDelay.TotalMilliseconds, ml.WeaponRange, ml.WeaponDamage, ship, Point.Empty, new SolidBrush(teamColour));
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+
+                    var bl = w as BaseLaserWeapon;
+                    if (bl != null)
+                    { 
+                        var c = bl.LaserPen.Color;
+                        if (c.Name == "0") c = teamColour;
+                        var clone = new BaseLaserWeapon(c, bl.LaserPen.Width, (int)bl.ShootingDuration.TotalMilliseconds, (int)bl.ShootingDelay.TotalMilliseconds, bl.WeaponRange, bl.WeaponDamage, ship, bl.FireOffset);
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+
                 }
             }
 
@@ -182,14 +211,14 @@ namespace AllegianceForms.Engine.Ships
         public string PreReqTechIds { get; set; }
         public int[] DependsOnTechIds { get; set; }
 
-        public List<LaserWeapon> Weapons { get; set; }
+        public List<Weapon> Weapons { get; set; }
 
 
         public void Initialise()
         {
             if (string.IsNullOrEmpty(WeaponData)) return;
             var weaps = WeaponData.Split('>');
-            Weapons = new List<LaserWeapon>();
+            Weapons = new List<Weapon>();
 
             foreach (var w in weaps)
             {
@@ -212,6 +241,12 @@ namespace AllegianceForms.Engine.Ships
                     case "2":
                     case "nan":
                         Weapons.Add(new NanLaserWeapon(float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new Point(int.Parse(data[6]), int.Parse(data[7]))));
+                        break;
+
+                    case "3":
+                    case "missile":
+                        //new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)
+                        Weapons.Add(new ShipMissileWeapon(int.Parse(data[1]), float.Parse(data[8]), float.Parse(data[9]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new Point(int.Parse(data[6]), int.Parse(data[7])), new SolidBrush(Color.Empty)));
                         break;
                 }
             }

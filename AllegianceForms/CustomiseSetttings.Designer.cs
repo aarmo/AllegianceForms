@@ -353,7 +353,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Lime;
-            this.label10.Location = new System.Drawing.Point(357, 150);
+            this.label10.Location = new System.Drawing.Point(524, 100);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(98, 16);
             this.label10.TabIndex = 4;
@@ -362,7 +362,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(372, 177);
+            this.label11.Location = new System.Drawing.Point(544, 125);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 13);
             this.label11.TabIndex = 0;
@@ -384,7 +384,7 @@
             "8",
             "9",
             "10"});
-            this.ConstructorsMax.Location = new System.Drawing.Point(442, 174);
+            this.ConstructorsMax.Location = new System.Drawing.Point(609, 122);
             this.ConstructorsMax.Name = "ConstructorsMax";
             this.ConstructorsMax.Size = new System.Drawing.Size(42, 21);
             this.ConstructorsMax.TabIndex = 17;
@@ -1458,11 +1458,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(505, 177);
+            this.label3.Location = new System.Drawing.Point(544, 152);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 13);
+            this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Max Towers:";
+            this.label3.Text = "Towers:";
             // 
             // MaxTowerDrones
             // 
@@ -1480,7 +1480,7 @@
             "8",
             "9",
             "10"});
-            this.MaxTowerDrones.Location = new System.Drawing.Point(575, 174);
+            this.MaxTowerDrones.Location = new System.Drawing.Point(609, 149);
             this.MaxTowerDrones.Name = "MaxTowerDrones";
             this.MaxTowerDrones.Size = new System.Drawing.Size(42, 21);
             this.MaxTowerDrones.TabIndex = 17;

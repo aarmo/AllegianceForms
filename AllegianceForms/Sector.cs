@@ -4,6 +4,7 @@ using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Engine.Tech;
+using AllegianceForms.Engine.Weapons;
 using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,16 @@ namespace AllegianceForms
             StrategyGame.AddBase(b1);
             StrategyGame.GameStats.TotalBasesBuilt[0] = 1;
 
+            /*
+            var testShip = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, _colourTeam1, _currentSector.Id);
+            testShip.Weapons.Add(new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)));
+            testShip.MaxHealth = testShip.Health = 1000;
+            testShip.CenterX = b1.CenterX + 100;
+            testShip.CenterY = b1.CenterY + 80;
+            testShip.ShipEvent += F_ShipEvent;
+            StrategyGame.AddUnit(testShip);
+            */
+
             for (var i = 0; i < settings.MinersInitial; i++)
             {
                 var startingMiner = StrategyGame.Ships.CreateMinerShip(1, _colourTeam1, _currentSector.Id);
@@ -116,6 +127,7 @@ namespace AllegianceForms
             StrategyGame.DockedPilots[1] = (int)(settings.NumPilots * _ai.CheatAdditionalPilots);
 
             _debugForm = new DebugAI(_ai);
+            //_ai.Enabled = false;
 
             // Testing Setup: Crazy money, fast ships & tech, map visible?
             // Same for Enemy AI!
@@ -251,6 +263,13 @@ namespace AllegianceForms
                 RefreshCommandText();
 
                 Focus();
+            }
+            else if (e == EGameEventType.MissileHit)
+            {
+                var s = sender as Ship;
+                if (s == null) return;
+
+                CreateExplosion(s.Bounds, s.SectorId);
             }
         }
 
@@ -419,23 +438,9 @@ namespace AllegianceForms
         {
             if (e == EShipEventType.ShipDestroyed)
             {
-                var exp = _explosions.FirstOrDefault(_ => !_.Enabled);
-                if (exp != null)
-                {
-                    var b = sender.Bounds;
-                    exp.Resize(b.Width, b.Height);
-
-                    exp.SectorId = sender.SectorId;
-                    exp.TopLeft.X = sender.Left;
-                    exp.TopLeft.Y = sender.Top;
-                    exp.Start();
-                    _animations.Add(exp);
-                }
+                CreateExplosion(sender.Bounds, sender.SectorId);
 
                 if (sender.Team == 1 && sender.Type == EShipType.Miner) SoundEffect.Play(ESounds.vo_destroy_miner, true);
-
-                SoundEffect.Play(ESounds.small_explosion);
-
                 if (sender.Type == EShipType.Miner) StrategyGame.GameStats.TotalMinersDestroyed[sender.Team - 1]++;
                 if (sender.Type == EShipType.Constructor) StrategyGame.GameStats.TotalConstructorsDestroyed[sender.Team - 1]++;
 
@@ -523,6 +528,23 @@ namespace AllegianceForms
                     }
                 }
             }
+        }
+
+        private void CreateExplosion(RectangleF b, int sectorId)
+        {
+            var exp = _explosions.FirstOrDefault(_ => !_.Enabled);
+            if (exp != null)
+            {
+                exp.Resize(b.Width, b.Height);
+
+                exp.SectorId = sectorId;
+                exp.TopLeft.X = b.Left;
+                exp.TopLeft.Y = b.Top;
+                exp.Start();
+                _animations.Add(exp);
+            }
+            SoundEffect.Play(ESounds.small_explosion);
+
         }
 
         private void UpdateFrame()

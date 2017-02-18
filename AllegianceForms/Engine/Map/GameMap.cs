@@ -98,8 +98,10 @@ namespace AllegianceForms.Engine.Map
 
         private void ArrangeWormholes()
         {
+            if (Wormholes.Count == 0) return;
+
             var centerX = StrategyGame.ScreenWidth / 2;
-            var centerY = StrategyGame.ScreenHeight/ 2;
+            var centerY = StrategyGame.ScreenHeight / 2;
 
             foreach (var s in Sectors)
             {

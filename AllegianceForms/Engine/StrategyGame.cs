@@ -44,6 +44,21 @@ namespace AllegianceForms.Engine
 
         public static List<Asteroid> AllAsteroids = new List<Asteroid>();
         public static List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();
+
+        public static double AngleBetweenPoints(PointF from, PointF to)
+        {
+            var deltaX = to.X - from.X;
+            var deltaY = to.Y - from.Y;
+            
+            return Math.Atan2(deltaY, deltaX) * (180 / Math.PI);
+        }
+
+        public static PointF GetNewPoint(PointF p, float d, float angle)
+        {
+            var rad = (Math.PI / 180) * angle;
+            return new PointF((float)(p.X + d * Math.Cos(rad)), (float)(p.Y + d * Math.Sin(rad)));
+        }
+
         public static List<Asteroid> BuildableAsteroids = new List<Asteroid>();
 
         public static GameStats GameStats;
