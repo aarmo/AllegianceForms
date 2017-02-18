@@ -37,6 +37,7 @@ namespace AllegianceForms.Engine
         public int RocksPerSectorResource { get; set; }
         public int RocksPerSectorGeneral { get; set; }
         public List<EAsteroidType> RocksAllowedTech { get; set; }
+        public bool RocksVisible { get; set; }
 
         public float AntiShipWeaponRangeMultiplier { get; set; }
         public float AntiShipWeaponFireRateMultiplier { get; set; }
@@ -49,6 +50,12 @@ namespace AllegianceForms.Engine
         public float AntiBaseWeaponRangeMultiplier { get; set; }
         public float AntiBaseWeaponFireRateMultiplier { get; set; }
         public float AntiBaseWeaponDamageMultiplier { get; set; }
+
+        public float MissileWeaponRangeMultiplier { get; set; }
+        public float MissileWeaponFireRateMultiplier { get; set; }
+        public float MissileWeaponDamageMultiplier { get; set; }
+        public float MissileWeaponSpeedMultiplier { get; set; }
+        public float MissileWeaponTrackingMultiplier { get; set; }
 
         public int AiDifficulty { get; set; }
 
@@ -107,6 +114,12 @@ namespace AllegianceForms.Engine
                 AntiBaseWeaponRangeMultiplier = 1,
                 AntiBaseWeaponFireRateMultiplier = 1,
                 AntiBaseWeaponDamageMultiplier = 1,
+
+                MissileWeaponDamageMultiplier = 1,
+                MissileWeaponFireRateMultiplier = 1,
+                MissileWeaponRangeMultiplier = 1,
+                MissileWeaponSpeedMultiplier = 1,
+                MissileWeaponTrackingMultiplier = 1
             };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))

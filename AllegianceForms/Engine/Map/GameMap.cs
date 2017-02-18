@@ -156,6 +156,10 @@ namespace AllegianceForms.Engine.Map
                     var a = new Asteroid(rnd, rockSize, rockSize, sector.Id);
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
+                    for (var t = 0; t < StrategyGame.NumTeams; t++)
+                    {
+                        a.VisibleToTeam[t] = settings.RocksVisible;
+                    }
                     asteroids.Add(a);
                     StrategyGame.BuildableAsteroids.Add(a);
                 }
@@ -177,6 +181,10 @@ namespace AllegianceForms.Engine.Map
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
                     asteroids.Add(a);
+                    for (var t = 0; t < StrategyGame.NumTeams; t++)
+                    {
+                        a.VisibleToTeam[t] = settings.RocksVisible;
+                    }
                     StrategyGame.BuildableAsteroids.Add(a);
                     rockOptions.Remove(a);
 
@@ -192,6 +200,10 @@ namespace AllegianceForms.Engine.Map
                     var a = new ResourceAsteroid(rnd, rockSize, rockSize, sector.Id);
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
+                    for (var t = 0; t < StrategyGame.NumTeams; t++)
+                    {
+                        a.VisibleToTeam[t] = settings.RocksVisible;
+                    }
                     StrategyGame.ResourceAsteroids.Add(a);
                     asteroids.Add(a);
                 }                

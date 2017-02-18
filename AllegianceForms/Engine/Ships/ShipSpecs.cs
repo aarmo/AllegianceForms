@@ -99,14 +99,18 @@ namespace AllegianceForms.Engine.Ships
 
             if (spec.Weapons != null)
             {
+                var settings = StrategyGame.GameSettings;
                 foreach (var w in spec.Weapons)
                 {
-
-
                     var nl = w as NanLaserWeapon;
                     if (nl != null)
                     {
-                        var clone = new NanLaserWeapon(nl.LaserPen.Width, (int)nl.ShootingDuration.TotalMilliseconds, (int)nl.ShootingDelay.TotalMilliseconds, nl.WeaponRange, nl.WeaponDamage, ship, nl.FireOffset);
+                        var clone = new NanLaserWeapon(nl.LaserPen.Width
+                            , (int)nl.ShootingDuration.TotalMilliseconds
+                            , (int)(nl.ShootingDelay.TotalMilliseconds / settings.NanWeaponFireRateMultiplier)
+                            , (int)(nl.WeaponRange * settings.NanWeaponRangeMultiplier)
+                            , (int)(nl.WeaponDamage * settings.NanWeaponHealingMultiplier)
+                            , ship, nl.FireOffset);
                         ship.Weapons.Add(clone);
                         continue;
                     }
@@ -116,7 +120,12 @@ namespace AllegianceForms.Engine.Ships
                     {
                         var c = sl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
-                        var clone = new ShipLaserWeapon(c, sl.LaserPen.Width, (int)sl.ShootingDuration.TotalMilliseconds, (int)sl.ShootingDelay.TotalMilliseconds, sl.WeaponRange, sl.WeaponDamage, ship, sl.FireOffset);
+                        var clone = new ShipLaserWeapon(c, sl.LaserPen.Width
+                            , (int)sl.ShootingDuration.TotalMilliseconds
+                            , (int)(sl.ShootingDelay.TotalMilliseconds / settings.AntiShipWeaponFireRateMultiplier)
+                            , (int)(sl.WeaponRange * settings.AntiShipWeaponRangeMultiplier)
+                            , (int)(sl.WeaponDamage * settings.AntiShipWeaponDamageMultiplier)
+                            , ship, sl.FireOffset);
                         ship.Weapons.Add(clone);
                         continue;
                     }
@@ -124,7 +133,14 @@ namespace AllegianceForms.Engine.Ships
                     var ml = w as ShipMissileWeapon;
                     if (ml != null)
                     {
-                        var clone = new ShipMissileWeapon(ml.Width, ml.Speed, ml.Tracking, (int)ml.ShootingDuration.TotalMilliseconds, (int)ml.ShootingDelay.TotalMilliseconds, ml.WeaponRange, ml.WeaponDamage, ship, Point.Empty, new SolidBrush(teamColour));
+                        var clone = new ShipMissileWeapon(ml.Width
+                            , ml.Speed * settings.MissileWeaponSpeedMultiplier
+                            , ml.Tracking * settings.MissileWeaponTrackingMultiplier
+                            , (int)ml.ShootingDuration.TotalMilliseconds
+                            , (int)(ml.ShootingDelay.TotalMilliseconds / settings.MissileWeaponFireRateMultiplier)
+                            , (int)(ml.WeaponRange * settings.MissileWeaponRangeMultiplier)
+                            , (int)(ml.WeaponDamage * settings.MissileWeaponDamageMultiplier)
+                            , ship, Point.Empty, new SolidBrush(teamColour));
                         ship.Weapons.Add(clone);
                         continue;
                     }
@@ -134,11 +150,15 @@ namespace AllegianceForms.Engine.Ships
                     { 
                         var c = bl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
-                        var clone = new BaseLaserWeapon(c, bl.LaserPen.Width, (int)bl.ShootingDuration.TotalMilliseconds, (int)bl.ShootingDelay.TotalMilliseconds, bl.WeaponRange, bl.WeaponDamage, ship, bl.FireOffset);
+                        var clone = new BaseLaserWeapon(c, bl.LaserPen.Width
+                            , (int)bl.ShootingDuration.TotalMilliseconds
+                            , (int)(bl.ShootingDelay.TotalMilliseconds / settings.AntiBaseWeaponFireRateMultiplier)
+                            , (int)(bl.WeaponRange * settings.AntiBaseWeaponRangeMultiplier)
+                            , (int)(bl.WeaponDamage * settings.AntiBaseWeaponDamageMultiplier)
+                            , ship, bl.FireOffset);
                         ship.Weapons.Add(clone);
                         continue;
                     }
-
                 }
             }
 

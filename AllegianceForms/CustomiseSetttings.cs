@@ -60,6 +60,7 @@ namespace AllegianceForms
             
             WormholeSig.Text = s.WormholesSignatureMultiplier.ToString("P0");
             WormholesVisible.Checked = s.WormholesVisible;
+            RocksVisible.Checked = s.RocksVisible;
 
             MinersInitial.Text = s.MinersInitial.ToString();
             MinersMax.Text = s.MinersMaxDrones.ToString();
@@ -76,6 +77,12 @@ namespace AllegianceForms
             ConstructorsMax.Text = s.ConstructorsMaxDrones.ToString();
             MaxTowerDrones.Text = s.ConstructorsMaxTowerDrones.ToString();
             CustomPresets.Text = string.Empty;
+
+            MissilesDamage.Text = s.MissileWeaponDamageMultiplier.ToString("P0");
+            MissilesFireRate.Text = s.MissileWeaponFireRateMultiplier.ToString("P0");
+            MissilesRange.Text = s.MissileWeaponRangeMultiplier.ToString("P0");
+            MissilesSpeed.Text = s.MissileWeaponSpeedMultiplier.ToString("P0");
+            MissilesTracking.Text = s.MissileWeaponTrackingMultiplier.ToString("P0");
         }
 
         private void CustomiseSetttings_Load(object sender, EventArgs e)
@@ -536,6 +543,62 @@ namespace AllegianceForms
             if (s == null) return;
             
             Settings.ConstructorsMaxTowerDrones = int.Parse(s.Text);
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void RocksVisible_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.RocksVisible = RocksVisible.Checked;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void MissilesSpeed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.MissileWeaponSpeedMultiplier = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void MissilesRange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.MissileWeaponRangeMultiplier = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void MissilesFireRate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.MissileWeaponFireRateMultiplier = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void MissilesDamage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.MissileWeaponDamageMultiplier = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void MissilesTracking_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.MissileWeaponTrackingMultiplier = float.Parse(p) / 100f;
             CustomPresets.Text = string.Empty;
         }
     }
