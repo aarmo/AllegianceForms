@@ -11,7 +11,7 @@ namespace AllegianceForms
         public Menu()
         {
             InitializeComponent();
-            SoundEffect.Init(0.1f);
+            SoundEffect.Init();
             SoundEffect.Play(ESounds.windowslides);
 
             AppVersion.Text = string.Format("(ALPHA) v{0}", Assembly.GetEntryAssembly().GetName().Version);

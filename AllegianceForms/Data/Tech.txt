@@ -7,10 +7,12 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 6,0,Heavy Bombers,2|4,5000,60,False
 7,0,Heavy Gunships,2|5,5000,60,False
 8,0,Heavy Scouts,2|3,5000,60,False
+9,0,Advanced Towers,1,5000,30,False
 
-20,-1,Miner,,5000,30,False
-21,-1,Starbase Constructor,,10000,30,False
-22,-1,Refinery Constructor,,5000,30,False
+19,-1,Miner,,5000,30,False
+20,-1,Starbase Constructor,,10000,30,False
+21,-1,Refinery Constructor,,5000,30,False
+22,-1,Tower Constructor,,1000,10,False
 23,-1,Outpost Constructor,,5000,30,False
 24,-1,Tactical Constructor,,10000,30,False
 25,-1,Supremacy Constructor,,10000,30,False
@@ -34,7 +36,3 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 53,2,Advanced Stealth Fighter,51|52,5000,60,False
 54,2,Stealth Bomber,51|4,5000,60,False
 55,2,Advanced Stealth Bomber,54,5000,60,False
-
-
-60,-1,Tower Constructor,,1000,10,False
-65,0,Advanced Towers,1,5000,30,False

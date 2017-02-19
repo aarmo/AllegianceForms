@@ -11,54 +11,42 @@ namespace AllegianceForms.Engine
         public string MapName { get; set; }
         public int Team1ColourARBG { get; set; }
         public int Team2ColourARBG { get; set; }
-
         public bool WormholesVisible { get; set; }
         public float WormholesSignatureMultiplier { get; set; }
-
         public int MinersInitial { get; set; }
         public int MinersMaxDrones { get; set; }
         public float MinersCapacityMultiplier { get; set; }
         public int ConstructorsMaxDrones { get; set; }
         public int ConstructorsMaxTowerDrones { get; set; }
-
         public Dictionary<EShipType, float> ShipSpeedMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipHealthMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipSignatureMultiplier { get; set; }
-
         public Dictionary<EBaseType, float> StationHealthMultiplier { get; set; }
         public Dictionary<EBaseType, float> StationSignatureMultiplier { get; set; }
-
         public float ResourcesStartingMultiplier { get; set; }
         public float ResourcesPerRockMultiplier { get; set; }
         public float ResourceConversionRateMultiplier { get; set; }
         public float ResourcesEachTickMultiplier { get; set; }
-
         public int RocksPerSectorTech { get; set; }
         public int RocksPerSectorResource { get; set; }
         public int RocksPerSectorGeneral { get; set; }
         public List<EAsteroidType> RocksAllowedTech { get; set; }
         public bool RocksVisible { get; set; }
-
         public float AntiShipWeaponRangeMultiplier { get; set; }
         public float AntiShipWeaponFireRateMultiplier { get; set; }
         public float AntiShipWeaponDamageMultiplier { get; set; }
-
         public float NanWeaponRangeMultiplier { get; set; }
         public float NanWeaponFireRateMultiplier { get; set; }
         public float NanWeaponHealingMultiplier { get; set; }
-
         public float AntiBaseWeaponRangeMultiplier { get; set; }
         public float AntiBaseWeaponFireRateMultiplier { get; set; }
         public float AntiBaseWeaponDamageMultiplier { get; set; }
-
         public float MissileWeaponRangeMultiplier { get; set; }
         public float MissileWeaponFireRateMultiplier { get; set; }
         public float MissileWeaponDamageMultiplier { get; set; }
         public float MissileWeaponSpeedMultiplier { get; set; }
         public float MissileWeaponTrackingMultiplier { get; set; }
-
         public int AiDifficulty { get; set; }
-
         public float ResearchTimeMultiplier { get; set; }
         public float ResearchCostMultiplier { get; set; }
 
@@ -66,15 +54,17 @@ namespace AllegianceForms.Engine
         {
             var s = new GameSettings
             {
-                NumPilots = 16,
                 MapName = GameMaps.RandomName(), // "Brawl",
+                WormholesVisible = false,
+                RocksVisible = false,
+
+                NumPilots = 16,
+                AiDifficulty = 1,
+
                 Team1ColourARBG = Color.Lime.ToArgb(),
                 Team2ColourARBG = Color.LightPink.ToArgb(),
 
-                WormholesVisible = false,
                 WormholesSignatureMultiplier = 1,
-
-                AiDifficulty = 1,
 
                 MinersInitial = 1,
                 MinersMaxDrones = 4,

@@ -8,6 +8,7 @@ namespace AllegianceForms.Engine.Map
     {
         public static RandomString SectorNames = new RandomString(".\\Data\\Names-Sector.txt");
 
+        public static int SectorHalfRadius = 5;
         public static int SectorRadius = 10;
         public static int SectorDiameter = 20;
         public static int SectorSpacing = 30;

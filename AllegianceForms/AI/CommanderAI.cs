@@ -120,7 +120,7 @@ namespace AllegianceForms.AI
             _cheatCreditsLastsSeconds = 10*i;
             _cheatVisibilityChance = 0.025f*i;
             _cheatVisibilityLastsSeconds = 5*i;
-            CheatAdditionalPilots = 1 + (0.5f * i);
+            CheatAdditionalPilots = 1 + (0.25f * i);
         }
         
         public void Update()

@@ -114,7 +114,6 @@ namespace AllegianceForms
             }
 
             _keyLines = sb.ToString();
-            SoundEffect.Init(0.1f);
             SoundEffect.Play(ESounds.windowslides);
         }
 

@@ -1,6 +1,6 @@
 ﻿using IrrKlang;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Threading.Tasks;
 
 namespace AllegianceForms.Engine
@@ -14,10 +14,10 @@ namespace AllegianceForms.Engine
         private const int MaxSoundCount = 2;
         private static int _soundCount = 0;
         private static DateTime NextSoundCount = DateTime.MinValue;
-        private static Queue<ESounds> SoundEfectQueue = new Queue<ESounds>();
 
-        public static void Init(float volume)
+        public static void Init()
         {
+            var volume = Convert.ToSingle(ConfigurationManager.AppSettings["SoundEffects.Volume"]);
             _engine.SoundVolume = volume;
             _importantEngine.SoundVolume = volume;
         }

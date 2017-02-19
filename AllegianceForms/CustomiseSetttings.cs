@@ -87,7 +87,6 @@ namespace AllegianceForms
 
         private void CustomiseSetttings_Load(object sender, EventArgs e)
         {
-            SoundEffect.Init(0.1f);
             SoundEffect.Play(ESounds.windowslides);
         }
 

@@ -10,6 +10,7 @@ namespace AllegianceForms.Engine.Ships
     {
         public const int StartBuildingGlowSize = 32;
         public const int EndBuildingGlowSize = 128;
+        const string BuildImagePath = @".\Art\Animations\Build\";
 
         public EAsteroidType TargetRockType { get; set; }
         public EBaseType BaseType { get; set; }
@@ -49,24 +50,23 @@ namespace AllegianceForms.Engine.Ships
                     TargetRockType = EAsteroidType.Rock;
                     break;
             }
-
-            var buildImageFilename = @".\Art\Animations\Build\";
+            var buildFilename = BuildImagePath;
             switch (TargetRockType)
             {
                 case EAsteroidType.TechCarbon:
-                    buildImageFilename += "CarbonBuildGlow.png";
+                    buildFilename += "CarbonBuildGlow.png";
                     break;
                 case EAsteroidType.TechSilicon:
-                    buildImageFilename += "SiliconBuildGlow.png";
+                    buildFilename += "SiliconBuildGlow.png";
                     break;
                 case EAsteroidType.TechUranium:
-                    buildImageFilename += "UraniumBuildGlow.png";
+                    buildFilename += "UraniumBuildGlow.png";
                     break;
                 default:
-                    buildImageFilename += "RockBuildGlow.png";
+                    buildFilename += "RockBuildGlow.png";
                     break;
             }
-            BuildImage = Image.FromFile(buildImageFilename);
+            BuildImage = Image.FromFile(buildFilename);
         }
 
         public override void OrderShip(ShipOrder order, bool append = false)
@@ -103,7 +103,6 @@ namespace AllegianceForms.Engine.Ships
                 _buildingStart = DateTime.Now;
                 _buildingStop = _buildingStart + BuildingDuration;
                 OnShipEvent(EShipEventType.BuildingStarted);
-
             }
         }
 

@@ -15,11 +15,13 @@ namespace AllegianceForms.Engine.Map
         public List<Wormhole> Wormholes { get; set; }
         public Image GridImage { get; set; }
         public EMapSize Size { get; set; }
-
-        private SolidBrush _sectorBrush = new SolidBrush(Color.DimGray);
+        
         private Pen _sectorPen = new Pen(Color.DarkBlue, 4);
         private Pen _currentSectorPen = new Pen(Color.DarkGreen, 4);
         private Pen _wormholePen = new Pen(Color.DarkGray, 4);
+        private Pen _criticalAlertPen = new Pen(Color.Yellow, 2);
+        private Pen _conflictPen = new Pen(Color.Red, 2);
+
         private PathfindingGraph<MapSector> _pathfinding;
 
         public GameMap()
@@ -50,7 +52,12 @@ namespace AllegianceForms.Engine.Map
                 var ys = s.MapPosition.Y * GameMaps.SectorSpacing;
                 var pen = sectorId == s.Id ? _currentSectorPen : _sectorPen;
 
-                g.FillEllipse(_sectorBrush, xs, ys, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
+                g.FillEllipse(s.Colour1, xs, ys, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
+                if (s.Colour2Set)
+                    g.FillEllipse(s.Colour2, xs+GameMaps.SectorHalfRadius, ys+ GameMaps.SectorHalfRadius, GameMaps.SectorRadius, GameMaps.SectorRadius);
+
+                if (s.CriticalAlert) g.DrawEllipse(_criticalAlertPen, xs-4, ys-4, GameMaps.SectorDiameter+8, GameMaps.SectorDiameter+8);
+                if (s.Conflict) g.DrawEllipse(_conflictPen, xs-2, ys-2, GameMaps.SectorDiameter+4, GameMaps.SectorDiameter+4);
                 g.DrawEllipse(pen, xs, ys, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
             }
         }

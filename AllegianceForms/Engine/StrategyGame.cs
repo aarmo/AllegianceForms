@@ -323,6 +323,11 @@ namespace AllegianceForms.Engine
                     }
                 }
             }
+
+            foreach (var s in Map.Sectors)
+            {
+                s.UpdateColours();
+            }
         }
 
         public static void AddUnit(Ship s)

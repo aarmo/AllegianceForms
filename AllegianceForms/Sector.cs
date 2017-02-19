@@ -4,7 +4,6 @@ using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Engine.Tech;
-using AllegianceForms.Engine.Weapons;
 using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
@@ -68,7 +67,6 @@ namespace AllegianceForms
             _colourTeam2 = Color.FromArgb(settings.Team2ColourARBG);
             _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
             _sensorBrush = new SolidBrush(StrategyGame.NewAlphaColour(5, _colourTeam1));
-            SoundEffect.Init(0.25f);
             
             StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
             _currentSector = StrategyGame.Map.Sectors.First(_ => _.StartingSector);
@@ -87,6 +85,7 @@ namespace AllegianceForms
             StrategyGame.GameStats.TotalBasesBuilt[0] = 1;
 
             /*
+            // Test Ship!
             var testShip = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, _colourTeam1, _currentSector.Id);
             testShip.Weapons.Add(new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)));
             testShip.MaxHealth = testShip.Health = 1000;
@@ -143,6 +142,7 @@ namespace AllegianceForms
                 }
             }
 
+            // Setup explosions
             var explosionFrames = new string[10];
             for (var i = 0; i < 10; i++)
             {
@@ -155,10 +155,11 @@ namespace AllegianceForms
                 _explosions.Add(a);
             }
 
+            // Final setup
             StrategyGame.UpdateVisibility(true);
             StrategyGame.GameEvent += StrategyGame_GameEvent;
-
             miniMapToolStripMenuItem_Click(null, null);
+            
             //enemyAIDebugToolStripMenuItem_Click(null, null);
         }
 
@@ -278,17 +279,7 @@ namespace AllegianceForms
             if (e == EBaseEventType.BaseDamaged)
             {
                 // Bases have small explosions when damaged!
-                var exp = _explosions.FirstOrDefault(_ => !_.Enabled);
-                if (exp != null)
-                {
-                    exp.Resize(16, 16);
-                    exp.SectorId = sender.SectorId;
-                    exp.TopLeft.X = (int)(sender.CenterX - 8);
-                    exp.TopLeft.Y = (int)(sender.CenterY - 8);
-                    exp.Start();
-                    _animations.Add(exp);
-                }
-                SoundEffect.Play(ESounds.small_explosion);
+                CreateExplosion(new RectangleF(sender.CenterX - 8, sender.CenterY - 8, 16, 16), sender.SectorId);
             }
             else if (e == EBaseEventType.BaseDestroyed)
             {                
@@ -298,13 +289,8 @@ namespace AllegianceForms
                 // Bases explode with multiple explosions!
                 for (var i = 0; i < 4; i++)
                 {
-                    var exp = _explosions.FirstOrDefault(_ => !_.Enabled);
-                    if (exp == null) break;
-
-                    exp.SectorId = sender.SectorId;
-                    exp.Resize(b.Width/2, b.Height/2);
-                    exp.TopLeft = p;
-
+                    CreateExplosion(new RectangleF(p.X, p.Y, b.Width / 2, b.Height / 2), sender.SectorId);
+                    
                     if ((i+1) % 2 == 0)
                     {
                         p.X = (int)sender.Left;
@@ -314,14 +300,11 @@ namespace AllegianceForms
                     {
                         p.X += b.Width / 2;
                     }
+                }
 
-                    exp.Start();
-                    _animations.Add(exp);
-
-                    if (sender.Team == 1 && !StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId))
-                    {
-                        SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
-                    }
+                if (sender.Team == 1 && !StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
+                {
+                    SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
                 }
                 SoundEffect.Play(ESounds.big_explosion, true);
 
@@ -353,7 +336,7 @@ namespace AllegianceForms
                         SoundEffect.Play(sender.Team == 2 ? ESounds.vo_destroy_enemyrefinery : ESounds.vo_destroy_refinery, true);
                         break;
                 }
-
+                
                 CheckForGameOver();
             }
             else if (e == EBaseEventType.BaseCaptured)
@@ -383,12 +366,12 @@ namespace AllegianceForms
 
                 if (sender.Team == 2)
                 {
-                    if (!StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId))
+                    if (!StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
                     {
                         SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
                     }
                 }
-
+                
                 CheckForGameOver();
             }
         }
@@ -492,11 +475,10 @@ namespace AllegianceForms
                     var newBase = b.GetFinishedBase();
                     newBase.BaseEvent += B_BaseEvent;
 
-                    var secured = (sender.Team == 1 && !StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == sender.SectorId));
+                    var secured = (sender.Team == 1 && newBase.CanLaunchShips() && !StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == sender.SectorId && _.CanLaunchShips()));
 
                     StrategyGame.AddBase(newBase);
                     StrategyGame.GameStats.TotalBasesBuilt[sender.Team - 1]++;
-
                     StrategyGame.UnlockTech(newBase.Type, newBase.Team);
                     _researchForm.RefreshItems();
 
@@ -544,7 +526,6 @@ namespace AllegianceForms
                 _animations.Add(exp);
             }
             SoundEffect.Play(ESounds.small_explosion);
-
         }
 
         private void UpdateFrame()
