@@ -224,15 +224,15 @@
             this.GameOverPanel.Controls.Add(this.label1);
             this.GameOverPanel.Location = new System.Drawing.Point(12, 12);
             this.GameOverPanel.Name = "GameOverPanel";
-            this.GameOverPanel.Size = new System.Drawing.Size(725, 365);
+            this.GameOverPanel.Size = new System.Drawing.Size(403, 332);
             this.GameOverPanel.TabIndex = 11;
             this.GameOverPanel.Visible = false;
             // 
             // TotalBases2
             // 
-            this.TotalBases2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalBases2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalBases2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalBases2.Location = new System.Drawing.Point(357, 185);
+            this.TotalBases2.Location = new System.Drawing.Point(253, 155);
             this.TotalBases2.Name = "TotalBases2";
             this.TotalBases2.Size = new System.Drawing.Size(138, 28);
             this.TotalBases2.TabIndex = 0;
@@ -241,9 +241,9 @@
             // 
             // TotalBases1
             // 
-            this.TotalBases1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalBases1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalBases1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalBases1.Location = new System.Drawing.Point(213, 185);
+            this.TotalBases1.Location = new System.Drawing.Point(109, 155);
             this.TotalBases1.Name = "TotalBases1";
             this.TotalBases1.Size = new System.Drawing.Size(138, 28);
             this.TotalBases1.TabIndex = 0;
@@ -254,18 +254,18 @@
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(69, 185);
+            this.label6.Location = new System.Drawing.Point(6, 155);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(138, 28);
+            this.label6.Size = new System.Drawing.Size(97, 28);
             this.label6.TabIndex = 0;
             this.label6.Text = "Bases Built";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // TotalConstructorsDestroyed2
             // 
-            this.TotalConstructorsDestroyed2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalConstructorsDestroyed2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalConstructorsDestroyed2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalConstructorsDestroyed2.Location = new System.Drawing.Point(357, 325);
+            this.TotalConstructorsDestroyed2.Location = new System.Drawing.Point(253, 295);
             this.TotalConstructorsDestroyed2.Name = "TotalConstructorsDestroyed2";
             this.TotalConstructorsDestroyed2.Size = new System.Drawing.Size(138, 28);
             this.TotalConstructorsDestroyed2.TabIndex = 0;
@@ -274,9 +274,9 @@
             // 
             // TotalConstructorsDestroyed1
             // 
-            this.TotalConstructorsDestroyed1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalConstructorsDestroyed1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalConstructorsDestroyed1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalConstructorsDestroyed1.Location = new System.Drawing.Point(213, 325);
+            this.TotalConstructorsDestroyed1.Location = new System.Drawing.Point(109, 295);
             this.TotalConstructorsDestroyed1.Name = "TotalConstructorsDestroyed1";
             this.TotalConstructorsDestroyed1.Size = new System.Drawing.Size(138, 28);
             this.TotalConstructorsDestroyed1.TabIndex = 0;
@@ -287,18 +287,18 @@
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(68, 325);
+            this.label9.Location = new System.Drawing.Point(5, 295);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(138, 28);
+            this.label9.Size = new System.Drawing.Size(97, 28);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Constructors Destroyed";
+            this.label9.Text = "Constructors Lost:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // TotalConstructors2
             // 
-            this.TotalConstructors2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalConstructors2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalConstructors2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalConstructors2.Location = new System.Drawing.Point(357, 297);
+            this.TotalConstructors2.Location = new System.Drawing.Point(253, 267);
             this.TotalConstructors2.Name = "TotalConstructors2";
             this.TotalConstructors2.Size = new System.Drawing.Size(138, 28);
             this.TotalConstructors2.TabIndex = 0;
@@ -307,9 +307,9 @@
             // 
             // TotalConstructors1
             // 
-            this.TotalConstructors1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalConstructors1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalConstructors1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalConstructors1.Location = new System.Drawing.Point(213, 297);
+            this.TotalConstructors1.Location = new System.Drawing.Point(109, 267);
             this.TotalConstructors1.Name = "TotalConstructors1";
             this.TotalConstructors1.Size = new System.Drawing.Size(138, 28);
             this.TotalConstructors1.TabIndex = 0;
@@ -320,18 +320,18 @@
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(69, 297);
+            this.label8.Location = new System.Drawing.Point(6, 267);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(138, 28);
+            this.label8.Size = new System.Drawing.Size(97, 28);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Constructors Built";
+            this.label8.Text = "Constructors Built:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // TotalMiners2
             // 
-            this.TotalMiners2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMiners2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalMiners2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalMiners2.Location = new System.Drawing.Point(357, 241);
+            this.TotalMiners2.Location = new System.Drawing.Point(253, 211);
             this.TotalMiners2.Name = "TotalMiners2";
             this.TotalMiners2.Size = new System.Drawing.Size(138, 28);
             this.TotalMiners2.TabIndex = 0;
@@ -340,9 +340,9 @@
             // 
             // TotalMiners1
             // 
-            this.TotalMiners1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMiners1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalMiners1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalMiners1.Location = new System.Drawing.Point(213, 241);
+            this.TotalMiners1.Location = new System.Drawing.Point(109, 211);
             this.TotalMiners1.Name = "TotalMiners1";
             this.TotalMiners1.Size = new System.Drawing.Size(138, 28);
             this.TotalMiners1.TabIndex = 0;
@@ -353,18 +353,18 @@
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(69, 241);
+            this.label7.Location = new System.Drawing.Point(6, 211);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(138, 28);
+            this.label7.Size = new System.Drawing.Size(97, 28);
             this.label7.TabIndex = 0;
             this.label7.Text = "Miners Built";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // TotalMinersDestroyed2
             // 
-            this.TotalMinersDestroyed2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMinersDestroyed2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalMinersDestroyed2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalMinersDestroyed2.Location = new System.Drawing.Point(357, 269);
+            this.TotalMinersDestroyed2.Location = new System.Drawing.Point(253, 239);
             this.TotalMinersDestroyed2.Name = "TotalMinersDestroyed2";
             this.TotalMinersDestroyed2.Size = new System.Drawing.Size(138, 28);
             this.TotalMinersDestroyed2.TabIndex = 0;
@@ -373,9 +373,9 @@
             // 
             // TotalMinersDestroyed1
             // 
-            this.TotalMinersDestroyed1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMinersDestroyed1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalMinersDestroyed1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalMinersDestroyed1.Location = new System.Drawing.Point(213, 269);
+            this.TotalMinersDestroyed1.Location = new System.Drawing.Point(109, 239);
             this.TotalMinersDestroyed1.Name = "TotalMinersDestroyed1";
             this.TotalMinersDestroyed1.Size = new System.Drawing.Size(138, 28);
             this.TotalMinersDestroyed1.TabIndex = 0;
@@ -386,18 +386,18 @@
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(68, 269);
+            this.label5.Location = new System.Drawing.Point(5, 239);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(138, 28);
+            this.label5.Size = new System.Drawing.Size(97, 28);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Miners Destroyed";
+            this.label5.Text = "Miners Lost:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // TotalBasesDestroyed2
             // 
-            this.TotalBasesDestroyed2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalBasesDestroyed2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalBasesDestroyed2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalBasesDestroyed2.Location = new System.Drawing.Point(357, 213);
+            this.TotalBasesDestroyed2.Location = new System.Drawing.Point(253, 183);
             this.TotalBasesDestroyed2.Name = "TotalBasesDestroyed2";
             this.TotalBasesDestroyed2.Size = new System.Drawing.Size(138, 28);
             this.TotalBasesDestroyed2.TabIndex = 0;
@@ -406,9 +406,9 @@
             // 
             // TotalBasesDestroyed1
             // 
-            this.TotalBasesDestroyed1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalBasesDestroyed1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalBasesDestroyed1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalBasesDestroyed1.Location = new System.Drawing.Point(213, 213);
+            this.TotalBasesDestroyed1.Location = new System.Drawing.Point(109, 183);
             this.TotalBasesDestroyed1.Name = "TotalBasesDestroyed1";
             this.TotalBasesDestroyed1.Size = new System.Drawing.Size(138, 28);
             this.TotalBasesDestroyed1.TabIndex = 0;
@@ -419,18 +419,18 @@
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(68, 213);
+            this.label4.Location = new System.Drawing.Point(5, 183);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 28);
+            this.label4.Size = new System.Drawing.Size(97, 28);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Bases Destroyed";
+            this.label4.Text = "Bases Lost:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Team2
             // 
-            this.Team2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Team2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Team2.ForeColor = System.Drawing.Color.LightPink;
-            this.Team2.Location = new System.Drawing.Point(357, 129);
+            this.Team2.Location = new System.Drawing.Point(253, 99);
             this.Team2.Name = "Team2";
             this.Team2.Size = new System.Drawing.Size(138, 28);
             this.Team2.TabIndex = 0;
@@ -439,9 +439,9 @@
             // 
             // TotalMined2
             // 
-            this.TotalMined2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMined2.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalMined2.ForeColor = System.Drawing.Color.LightPink;
-            this.TotalMined2.Location = new System.Drawing.Point(357, 157);
+            this.TotalMined2.Location = new System.Drawing.Point(253, 127);
             this.TotalMined2.Name = "TotalMined2";
             this.TotalMined2.Size = new System.Drawing.Size(138, 28);
             this.TotalMined2.TabIndex = 0;
@@ -450,9 +450,9 @@
             // 
             // Team1
             // 
-            this.Team1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Team1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Team1.ForeColor = System.Drawing.Color.Lime;
-            this.Team1.Location = new System.Drawing.Point(213, 129);
+            this.Team1.Location = new System.Drawing.Point(109, 99);
             this.Team1.Name = "Team1";
             this.Team1.Size = new System.Drawing.Size(138, 28);
             this.Team1.TabIndex = 0;
@@ -461,9 +461,9 @@
             // 
             // TotalMined1
             // 
-            this.TotalMined1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMined1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalMined1.ForeColor = System.Drawing.Color.Lime;
-            this.TotalMined1.Location = new System.Drawing.Point(213, 157);
+            this.TotalMined1.Location = new System.Drawing.Point(109, 127);
             this.TotalMined1.Name = "TotalMined1";
             this.TotalMined1.Size = new System.Drawing.Size(138, 28);
             this.TotalMined1.TabIndex = 0;
@@ -474,19 +474,19 @@
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(69, 157);
+            this.label3.Location = new System.Drawing.Point(6, 127);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 28);
+            this.label3.Size = new System.Drawing.Size(97, 28);
             this.label3.TabIndex = 0;
             this.label3.Text = "Resources Mined";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // WinLose
             // 
-            this.WinLose.Font = new System.Drawing.Font("Segoe Print", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WinLose.Location = new System.Drawing.Point(12, 71);
+            this.WinLose.Font = new System.Drawing.Font("Impact", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WinLose.Location = new System.Drawing.Point(8, 41);
             this.WinLose.Name = "WinLose";
-            this.WinLose.Size = new System.Drawing.Size(698, 58);
+            this.WinLose.Size = new System.Drawing.Size(383, 58);
             this.WinLose.TabIndex = 0;
             this.WinLose.Text = "You Win!";
             this.WinLose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -495,9 +495,9 @@
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 30);
+            this.label1.Location = new System.Drawing.Point(8, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(698, 41);
+            this.label1.Size = new System.Drawing.Size(383, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Game Over";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -520,7 +520,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allegiance Forms - Conquest";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Sector_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sector_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Sector_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Sector_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Sector_KeyUp);

@@ -3,7 +3,7 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 2,0,Upgrade Starbase,1,10000,120,False
 3,0,Advanced Scouts,1,5000,60,False
 4,0,Bombers,1,5000,60,False
-5,0,Gunships,2,5000,60,False
+5,0,Gunships,1,5000,60,False
 6,0,Heavy Bombers,2|4,5000,60,False
 7,0,Heavy Gunships,2|5,5000,60,False
 8,0,Heavy Scouts,2|3,5000,60,False
@@ -21,8 +21,8 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 30,4,Expansion,,0,0,True
 31,3,Upgrade Expansion,30,10000,120,False
 32,3,Interceptors,30,5000,60,False
-33,3,Troop Transports,31,5000,60,False
-34,3,Heavy Interceptors,31,5000,60,False
+33,3,Troop Transports,31|5,5000,60,False
+34,3,Heavy Interceptors,32|31,5000,60,False
 
 40,4,Supremacy,,0,0,True
 41,1,Upgrade Supremacy,40,10000,120,False

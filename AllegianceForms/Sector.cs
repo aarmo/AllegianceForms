@@ -156,6 +156,7 @@ namespace AllegianceForms
             }
 
             // Final setup
+            _currentSector.VisibleToTeam[0] = true;
             StrategyGame.UpdateVisibility(true);
             StrategyGame.GameEvent += StrategyGame_GameEvent;
             miniMapToolStripMenuItem_Click(null, null);
@@ -183,7 +184,6 @@ namespace AllegianceForms
 
                     if (tech.Team == 1) SoundEffect.Play(ESounds.vo_miner_report4duty);
                 }
-                //TODO: support tower drones 
                 else
                 {
                     var bName = tech.Name.Replace("Constructor", string.Empty).Trim();
@@ -191,10 +191,16 @@ namespace AllegianceForms
 
                     drone = StrategyGame.Ships.CreateBuilderShip(bType, tech.Team, colour, b1.SectorId);
                     if (drone == null) return;
+                    var builder = drone as BuilderShip;
+                    if (builder == null) return;
 
-                    if (tech.Team == 1)
+                    if (tech.Team == 1 && builder.BaseType == EBaseType.Tower)
                     {
-                        switch (((BuilderShip)drone).TargetRockType)
+                        SoundEffect.Play(ESounds.vo_request_tower);
+                    }
+                    else if (tech.Team == 1)
+                    {
+                        switch (builder.TargetRockType)
                         {
                             case EAsteroidType.Resource:
                                 SoundEffect.Play(ESounds.vo_request_builderhelium);
@@ -1265,10 +1271,18 @@ namespace AllegianceForms
             }
         }
 
-        private void Sector_FormClosed(object sender, FormClosedEventArgs e)
+        private void Sector_FormClosing(object sender, FormClosingEventArgs e)
         {
-            tick.Enabled = false;
-            timer.Enabled = false;
+            if (tick.Enabled)
+            {
+                tick.Enabled =  timer.Enabled = false;
+                if (MessageBox.Show("A game is running, are you sure you want to quit?", "Quit Game?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation) != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+
+                    tick.Enabled = timer.Enabled = true;
+                }
+            }
         }
     }
 }

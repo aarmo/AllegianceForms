@@ -12,14 +12,17 @@ namespace AllegianceForms.Engine
 
         private const int SoundCountDelayMS = 400;
         private const int MaxSoundCount = 2;
+
+        private static float _volume = 0.5f;
         private static int _soundCount = 0;
         private static DateTime NextSoundCount = DateTime.MinValue;
 
         public static void Init()
         {
-            var volume = Convert.ToSingle(ConfigurationManager.AppSettings["SoundEffects.Volume"]);
-            _engine.SoundVolume = volume;
-            _importantEngine.SoundVolume = volume;
+            _volume = Convert.ToSingle(ConfigurationManager.AppSettings["SoundEffects.Volume"]);
+
+            _engine.SoundVolume = _volume;
+            _importantEngine.SoundVolume = _volume;
         }
 
         public static void Play(ESounds sound, bool important = false)
@@ -34,25 +37,38 @@ namespace AllegianceForms.Engine
                 _soundCount = 1;
                 NextSoundCount = DateTime.Now.AddMilliseconds(SoundCountDelayMS);
             }
-
-            Task.Run(() => PlayCatch(sound, important));
+            
+            var path = ".//Art//Sounds//" + sound.ToString() + ".ogg";
+            Task.Run(() => PlayCatch(path, important));
         }
 
-        private static void PlayCatch(ESounds sound, bool important)
+        private static void PlayCatch(string path, bool important)
         {
-            try
+            if (important)
             {
-                var path = ".//Art//Sounds//" + sound.ToString() + ".ogg";
-                if (important)
+                try
                 {
                     _importantEngine.Play2D(path);
                 }
-                else
+                catch
+                {
+                    _importantEngine = new ISoundEngine(SoundOutputDriver.AutoDetect, SoundEngineOptionFlag.MultiThreaded);
+                    _importantEngine.SoundVolume = _volume;
+                }
+            }
+            else
+            {
+                try
                 {
                     _engine.Play2D(path);
                 }
+                catch
+                {
+                    _engine = new ISoundEngine(SoundOutputDriver.AutoDetect, SoundEngineOptionFlag.MultiThreaded);
+                    _engine.SoundVolume = _volume;
+                }
             }
-            catch {}
+
         }
     }
 }

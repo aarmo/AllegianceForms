@@ -27,7 +27,7 @@ namespace AllegianceForms.Engine.Weapons
             if (Shooter == null || !Shooter.Active || Shooting) return;
 
             var t = Target as Ship;
-            if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
+            if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || !t.VisibleToTeam[Shooter.Team - 1] || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
                 var enemyInRange = StrategyGame.AllUnits.FirstOrDefault(_ => _.Active && _.Team != Shooter.Team && !_.Docked && Shooter.SectorId == _.SectorId && _.VisibleToTeam[Shooter.Team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
                 if (enemyInRange != null)

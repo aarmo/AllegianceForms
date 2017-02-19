@@ -20,6 +20,8 @@ namespace AllegianceForms.Engine.Map
         public Brush Colour1 { get; set; }
         public Brush Colour2 { get; set; }
 
+        private Brush _originalColour;
+
         public MapSector(int id, string name, Point pos)
         {
             VisibleToTeam = new bool[StrategyGame.NumTeams];
@@ -28,7 +30,7 @@ namespace AllegianceForms.Engine.Map
             MapPosition = pos;
 
             Colour1Set = Colour2Set = false;
-            Colour1 = Colour2 = new SolidBrush(Color.DimGray);
+            Colour1 = Colour2 = _originalColour = new SolidBrush(Color.DimGray);
         }
 
         public int CompareTo(object obj)
@@ -42,6 +44,7 @@ namespace AllegianceForms.Engine.Map
         {
             var visibleBases = StrategyGame.AllBases.Where(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.CanLaunchShips());
             Colour1Set = Colour2Set = false;
+
             foreach (var b in visibleBases)
             {
                 if (!Colour1Set)
@@ -59,6 +62,9 @@ namespace AllegianceForms.Engine.Map
                     break;
                 }
             }
+
+            if (!Colour1Set) Colour1 = _originalColour;
+            if (!Colour2Set) Colour2 = _originalColour;
 
             CriticalAlert = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1 && _.CanAttackBases());
             Conflict = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1 && _.Type != EShipType.Lifepod);

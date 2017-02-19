@@ -55,7 +55,7 @@ namespace AllegianceForms.AI.Missions
         public override void AddMorePilots()
         {
             // launch a bomber if possible
-            if (_launchBase == null || _targetBase == null)
+            if (_launchBase == null || _targetBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
                 _targetBase = StrategyGame.ClosestEnemyBase(AI.Team, out _launchBase);
             if (_launchBase == null) return;
 

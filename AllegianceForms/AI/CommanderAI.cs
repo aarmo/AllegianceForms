@@ -116,10 +116,10 @@ namespace AllegianceForms.AI
 
         public void SetDifficulty(int i)
         {
-            _cheatCreditsChance = 0.05f*i;
-            _cheatCreditsLastsSeconds = 10*i;
-            _cheatVisibilityChance = 0.025f*i;
-            _cheatVisibilityLastsSeconds = 5*i;
+            _cheatCreditsChance = 0.025f*i;
+            _cheatCreditsLastsSeconds = 5*i;
+            _cheatVisibilityChance = 0.005f*i;
+            _cheatVisibilityLastsSeconds = 2*i;
             CheatAdditionalPilots = 1 + (0.25f * i);
         }
         
