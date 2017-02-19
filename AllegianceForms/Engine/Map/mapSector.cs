@@ -40,7 +40,7 @@ namespace AllegianceForms.Engine.Map
 
         public void UpdateColours()
         {
-            var visibleBases = StrategyGame.AllBases.Where(_ => _.SectorId == Id && _.CanLaunchShips() && _.VisibleToTeam[0]);
+            var visibleBases = StrategyGame.AllBases.Where(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.CanLaunchShips());
             Colour1Set = Colour2Set = false;
             foreach (var b in visibleBases)
             {
@@ -61,7 +61,7 @@ namespace AllegianceForms.Engine.Map
             }
 
             CriticalAlert = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1 && _.CanAttackBases());
-            Conflict = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1);
+            Conflict = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1 && _.Type != EShipType.Lifepod);
         }
     }
 }
