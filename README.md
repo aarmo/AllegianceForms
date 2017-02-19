@@ -28,15 +28,15 @@ Screenshots
 
 ###Defend your Miners & Constructors
 ![alt text][defend]
-- Miners collect resources from *Special* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="35"/>)
+- Miners collect resources from *Special* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>)
 
 ###Build Bases to Expand
 ![alt text][build2]
-- Outpost, Refinery and Starbase constructors require *Standard* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png" width="35"/>)
-- Supremacy constructors require *Carbon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="35"/>)
-- Tactical constructors require *Silicon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="35"/>)
-- Expansion constructors require *Uranium* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="35"/>)
-- Tower constructors don't require any asteroid to Build
+- Outpost, Refinery and Starbase constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
+- Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="30"/>
+- Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_2.png" width="30"/>
+- Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_3.png" width="30"/>
+- Tower constructors require *No* asteroid.
 
 ###Upgrade your Technology
 ###Battle the Enemy
@@ -102,6 +102,10 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
+Tech Tree
+------
+![alt text][techtree]
+
 Credits
 ------
 ###Icons
@@ -130,6 +134,7 @@ Bonus Game!
 [gameover]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_GameOver.png "Game Over"
 [custom]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_CustomGame.png "Custom Game"
 [bonus]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Bonus.png "Dogfight"
+[techtree]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Allegiance-TechTree.png "Tech Tree"
 
 [mapsingle]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_SingleRing.png "SingleRing"
 [mapdouble]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_DoubleRing.png "DoubleRing"
