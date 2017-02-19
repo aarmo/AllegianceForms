@@ -21,7 +21,7 @@ Links | Status
 **License** | [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 **Tweet** | [![Twitter](https://img.shields.io/twitter/url/https/github.com/aarmo/AllegianceForms/releases.svg?style=social)](https://twitter.com/intent/tweet?text=Cool:&url=https:///github.com/aarmo/AllegianceForms)
 
-[Controls](/README.md#Controls), [Maps](/README.md#Maps), [Tech Tree](/README.md#tech-tree), [Credits](/README.md#credits)
+[Controls](#Controls), [Maps](#Maps), [Tech Tree](#tech-tree), [Credits](#credits)
 
 Screenshots
 ------
@@ -54,7 +54,7 @@ Screenshots
 ###Customise the Game
 ![alt text][custom]
 
-[Home](/README.md)
+[Home](#allegianceforms)
 
 Controls
 ------
@@ -102,7 +102,7 @@ Key	| Description
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to *Capture* an enemy base.
 
-[Home](/README.md)
+[Home](#allegianceforms)
 
 Maps
 ------
@@ -113,13 +113,13 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
-[Home](/README.md)
+[Home](#allegianceforms)
 
 Tech Tree
 ------
 ![alt text][techtree]
 
-[Home](/README.md)
+[Home](#allegianceforms)
 
 Credits
 ------
@@ -132,10 +132,10 @@ Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 ###Sounds
 Originals from the Microsoft Allegiance game.
 
-[Home](/README.md)
+[Home](#allegianceforms)
 
 
-Bonus Game!
+Bonus Game
 ------
 ### Lucky Dogfight
 ![alt text][bonus]
