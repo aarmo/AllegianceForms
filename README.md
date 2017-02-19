@@ -21,8 +21,8 @@ Maps
 Name | Image | Name | Image
 --- | --- | ---  | --- 
 Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
-Pin Wheel: |  ![alt text][mappin] | Hi Lo: | ![alt text][maphilo]
-High Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
+Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
+Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
 Screenshots

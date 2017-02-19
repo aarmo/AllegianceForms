@@ -262,7 +262,7 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[5], map.Sectors[7]),
                 new Wormhole (map.Sectors[7], map.Sectors[9]),
                 new Wormhole (map.Sectors[8], map.Sectors[9]),
-                new Wormhole (map.Sectors[8], map.Sectors[9]),
+                new Wormhole (map.Sectors[8], map.Sectors[11]),
                 new Wormhole (map.Sectors[9], map.Sectors[10]),
                 new Wormhole (map.Sectors[10], map.Sectors[12]),
                 new Wormhole (map.Sectors[11], map.Sectors[12]),
