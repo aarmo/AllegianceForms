@@ -28,7 +28,7 @@ Screenshots
 
 ###Defend your Miners & Constructors
 ![alt text][defend]
-- Miners collect resources from *Special* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>)
+- Miners collect resources from *Special* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
 
 ###Build Bases to Expand
 ![alt text][build2]
@@ -36,7 +36,7 @@ Screenshots
 - Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="30"/>
 - Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_2.png" width="30"/>
 - Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_3.png" width="30"/>
-- Tower constructors require *No* asteroid.
+- Tower constructors require *No* asteroids.
 
 ###Upgrade your Technology
 ###Battle the Enemy
