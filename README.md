@@ -16,7 +16,7 @@ Features
 
 Maps
 ------
-Name |  | Name |
+Name | Image | Name | Image
 --- | --- | ---  | --- 
 Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
 Pin Wheel: |  ![alt text][mappin] | Hi Lo: | ![alt text][maphilo]
