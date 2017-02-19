@@ -4,6 +4,8 @@ A 2D strategy game inspired by Microsoft's space combat game: Allegiance
 
 For the Free Allegiance community: http://www.freeallegiance.org/
 
+[Screenshots](#screenshots), [Controls](#controls), [Maps](#maps), [Tech Tree](#tech-tree), [Credits](#credits)
+
 Features
 ------
 - Wormholes & Asteroids
@@ -11,7 +13,9 @@ Features
 - Pilot & Commander AI
 - Missiles, Lasers & Repair weapons
 - Stealth, Scan Range & Signatures
-- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers: ![alt text][ships]
+- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers!
+
+![alt text][ships]
 
 Links | Status
 --- | ---
@@ -20,8 +24,6 @@ Links | Status
 **Issues** | [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
 **License** | [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 **Tweet** | [![Twitter](https://img.shields.io/twitter/url/https/github.com/aarmo/AllegianceForms/releases.svg?style=social)](https://twitter.com/intent/tweet?text=Cool:&url=https:///github.com/aarmo/AllegianceForms)
-
-[Controls](#Controls), [Maps](#Maps), [Tech Tree](#tech-tree), [Credits](#credits)
 
 Screenshots
 ------
