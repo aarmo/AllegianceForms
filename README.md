@@ -134,7 +134,7 @@ Bonus Game!
 [gameover]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_GameOver.png "Game Over"
 [custom]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_CustomGame.png "Custom Game"
 [bonus]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Bonus.png "Dogfight"
-[techtree]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Allegiance-TechTree.png "Tech Tree"
+[techtree]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
 
 [mapsingle]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_SingleRing.png "SingleRing"
 [mapdouble]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_DoubleRing.png "DoubleRing"
