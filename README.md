@@ -15,6 +15,11 @@ Features
 
 ![alt text][ships]
 
+[Roadmap](/Doc/Roadmap.md)
+[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-lightgrey.svg)](https://github.com/aarmo/AllegianceForms/releases)
+[![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/aarmo/AllegianceForms/releases.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
 Screenshots
 ------
