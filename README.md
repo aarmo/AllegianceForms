@@ -16,13 +16,12 @@ Features
 
 Maps
 ------
-- Single Ring: ![alt text][mapsingle]
-- Double Ring: ![alt text][mapdouble]
-- Pin Wheel: ![alt text][mappin]
-- Hi Lo: ![alt text][maphilo]
-- High Higher: ![alt text][maphigh]
-- Grid: ![alt text][mapgrid]
-- Star: ![alt text][mapstar]
+Name |  | Name |
+--- | --- | ---  | --- 
+Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
+Pin Wheel: |  ![alt text][mappin] | Hi Lo: | ![alt text][maphilo]
+High Higher: | ![alt text][maphigh] Grid: | ![alt text][mapgrid]
+Star: | ![alt text][mapstar]
 
 Screenshots
 ------
@@ -30,26 +29,23 @@ Screenshots
 ![alt text][menu]
 
 ###Explore the Map
+![alt text][explore]
 - Discover wormholes to other sectors
 - Find your enemy's bases and miners
-![alt text][explore]
 
 ###Defend your Miners & Constructors
-- Miners collect resources from special asteroids: ![alt text][resourceRock]
 ![alt text][defend]
+- Miners collect resources from special asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="40"/>
 
 ###Build Bases to Expand
-- Outpost, Refinery and Starbase constructors require *Standard* asteroids: ![alt text][standardRock]
-- Supremacy constructors require *Carbon* asteroids: ![alt text][carbonRock]
-- Tactical constructors require *Silicon* asteroids: ![alt text][siliconRock]
-- Expansion constructors require *Uranium* asteroids: ![alt text][uraniumRock]
-![alt text][build1]
 ![alt text][build2]
+- Outpost, Refinery and Starbase constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png" width="60"/>
+- Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="70"/>
+- Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="70"/>
+- Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="70"/>
 
-###Research better Technology
-![alt text][research]
-
-###Battle the Enemy
+###Research Better Technology
+###Battle The Enemy
 ![alt text][battle1]
 ![alt text][battle2]
 ![alt text][gameover]
@@ -106,33 +102,31 @@ Key	| Description
 
 Credits
 ------
-Icons - http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons
-Rocks - Hansjörg Malthaner: http://opengameart.org/users/varkalandar
-Explosion - Tião Ferreira: http://opengameart.org/users/tiao-ferreira
-Sounds - Microsoft Allegiance
+###Icons
+http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
+###Rocks
+Hansjörg Malthaner: http://opengameart.org/users/varkalandar
+###Explosion
+Tião Ferreira: http://opengameart.org/users/tiao-ferreira
+###Sounds
+Originals from the Microsoft Allegiance game.
+
 
 Bonus Game!
 ------
 ### Lucky Dogfight
 ![alt text][bonus]
-[Rock Paper Scissors Lizard Spock](http://www.samkass.com/theories/RPSSL.html)
+[(Rock Paper Scissors Lizard Spock)](http://www.samkass.com/theories/RPSSL.html)
 
-[ships]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Ships.png "Ship Types
+[ships]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Ships.png "Ship Types"
 [menu]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_MainMenu.png "Main Menu"
 [explore]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay06.png "Explore"
 [defend]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay01.png "Defend"
-[build1]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Research_F5.png "Build Constructors"
 [build2]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Build.png "Expand"
-[research]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Research2_F5.png "Research"
 [battle1]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay02.png "Battle"
 [battle2]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay05.png "Battle"
 [gameover]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_GameOver.png "Game Over"
 [custom]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_CustomGame.png "Custom Game"
-[resourceRock]: https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png "Resource Asteroid"
-[standardRock]: https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png "Standard Asteroid (Starbase/Shipyard Tech)"
-[carbonRock]: https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png "Carbon Asteroid (Supremacy Tech)"
-[siliconRock]: https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png "Carbon Asteroid (Supremacy Tech)"
-[uraniumRock]: https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png "Carbon Asteroid (Supremacy Tech)"
 [bonus]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Bonus.png "Dogfight"
 
 [mapsingle]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_SingleRing.png "SingleRing"

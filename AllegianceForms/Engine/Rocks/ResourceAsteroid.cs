@@ -9,13 +9,13 @@ namespace AllegianceForms.Engine.Rocks
         private static string[] _images = new[] { ".\\Art\\Rocks\\helium_1.png", ".\\Art\\Rocks\\helium_2.png", ".\\Art\\Rocks\\helium_3.png", ".\\Art\\Rocks\\helium_4.png" };
 
         public int AvailableResources { get; set; }
-        private int _maxResources = 500;
+        const int MaxResources = 500;
 
         public ResourceAsteroid(Random r, int width, int height, int sectorId)
             : base(_images[r.Next(0, _images.Length)], width, height, sectorId)
         {
             Type = EAsteroidType.Resource;
-            AvailableResources = _maxResources;
+            AvailableResources = (int)(MaxResources * StrategyGame.GameSettings.ResourcesPerRockMultiplier);
         }
 
         public int Mine(int amount)
