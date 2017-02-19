@@ -11,9 +11,7 @@ Features
 - Pilot & Commander AI
 - Missiles, Lasers & Repair weapons
 - Stealth, Scan Range & Signatures
-- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers!
-
-![alt text][ships]
+- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers: ![alt text][ships]
 
 Links | Status
 --- | ---
@@ -22,6 +20,8 @@ Links | Status
 **Issues** | [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
 **License** | [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 **Tweet** | [![Twitter](https://img.shields.io/twitter/url/https/github.com/aarmo/AllegianceForms/releases.svg?style=social)](https://twitter.com/intent/tweet?text=Cool:&url=https:///github.com/aarmo/AllegianceForms)
+
+[Controls](/README.md#Controls), [Maps](/README.md#Maps), [Tech Tree](/README.md#tech-tree), [Credits](/README.md#credits)
 
 Screenshots
 ------
@@ -53,6 +53,8 @@ Screenshots
 
 ###Customise the Game
 ![alt text][custom]
+
+[Home](/README.md)
 
 Controls
 ------
@@ -100,6 +102,8 @@ Key	| Description
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to *Capture* an enemy base.
 
+[Home](/README.md)
+
 Maps
 ------
 Name | Image | Name | Image
@@ -109,9 +113,13 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
+[Home](/README.md)
+
 Tech Tree
 ------
 ![alt text][techtree]
+
+[Home](/README.md)
 
 Credits
 ------
@@ -124,6 +132,9 @@ Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 ###Sounds
 Originals from the Microsoft Allegiance game.
 
+[Home](/README.md)
+
+
 Bonus Game!
 ------
 ### Lucky Dogfight
@@ -131,22 +142,22 @@ Bonus Game!
 
 [(Rock Paper Scissors Lizard Spock)](http://www.samkass.com/theories/RPSSL.html)
 
-[ships]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Ships.png "Ship Types"
-[menu]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_MainMenu.png "Main Menu"
-[explore]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay06.png "Explore"
-[defend]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay01.png "Defend"
-[build2]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Build.png "Expand"
-[battle1]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay02.png "Battle"
-[battle2]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Gameplay05.png "Battle"
-[gameover]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_GameOver.png "Game Over"
-[custom]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_CustomGame.png "Custom Game"
-[bonus]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Screenshots/01a_Bonus.png "Dogfight"
-[techtree]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
+[ships]: /Doc/Images/Ships.png "Ship Types"
+[menu]: /Doc/Screenshots/01a_MainMenu.png "Main Menu"
+[explore]: /Doc/Screenshots/01a_Gameplay06.png "Explore"
+[defend]: /Doc/Screenshots/01a_Gameplay01.png "Defend"
+[build2]: /Doc/Screenshots/01a_Build.png "Expand"
+[battle1]: /Doc/Screenshots/01a_Gameplay02.png "Battle"
+[battle2]: /Doc/Screenshots/01a_Gameplay05.png "Battle"
+[gameover]: /Doc/Screenshots/01a_GameOver.png "Game Over"
+[custom]: /Doc/Screenshots/01a_CustomGame.png "Custom Game"
+[bonus]: /Doc/Screenshots/01a_Bonus.png "Dogfight"
+[techtree]: /Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
 
-[mapsingle]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_SingleRing.png "SingleRing"
-[mapdouble]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_DoubleRing.png "DoubleRing"
-[mappin]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_PinWheel.png "PinWheel"
-[maphilo]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_HiLo.png "HiLo"
-[maphigh]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_HiHigher.png "HiHigher"
-[mapgrid]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_Grid.png "Grid"
-[mapstar]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Map_Star.png "Star"
+[mapsingle]: /Doc/Images/Map_SingleRing.png "SingleRing"
+[mapdouble]: /Doc/Images/Map_DoubleRing.png "DoubleRing"
+[mappin]: /Doc/Images/Map_PinWheel.png "PinWheel"
+[maphilo]: /Doc/Images/Map_HiLo.png "HiLo"
+[maphigh]: /Doc/Images/Map_HiHigher.png "HiHigher"
+[mapgrid]: /Doc/Images/Map_Grid.png "Grid"
+[mapstar]: /Doc/Images/Map_Star.png "Star"
