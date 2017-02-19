@@ -8,7 +8,7 @@ Features
 ------
 - Wormholes & Asteroids
 - Mulitple Maps & Tech Paths
-- Pilot and Commander AI
+- Pilot & Commander AI
 - Missiles, Lasers & Repair weapons
 - Stealth, Scan Range & Signatures
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers!
@@ -36,8 +36,9 @@ Screenshots
 - Supremacy constructors require *Carbon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="35"/>)
 - Tactical constructors require *Silicon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="35"/>)
 - Expansion constructors require *Uranium* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="35"/>)
+- Tower constructors don't require any asteroid to Build
 
-###Research better Technology
+###Upgrade your Technology
 ###Battle the Enemy
 ![alt text][battle1]
 ![alt text][battle2]
@@ -45,8 +46,6 @@ Screenshots
 
 ###Customise the Game
 ![alt text][custom]
-- Many settings to tweak!
-
 
 Controls
 ------
@@ -60,7 +59,7 @@ Key	| Description
 ### General Commands
 Key	| Description
 --- | --- 
-**1-9** | Jump to sector 1-9.
+**1-9** | View sector 1-9.
 **F3** | Show/Hide the Minimap window.
 **F5** | Show/Hide the Research/Construction window.
 **F6** | Show/Hide the Pilot List window.
@@ -92,7 +91,7 @@ Key	| Description
 **R** | Orders the selected unit(s) to repeatedly *Patrol* between these positions.
 **E** | Orders the selected miners(s) to *Mine* around this position.
 **B** | Orders a selected constructor to *Build* near this position.
-**C** | Orders the selected troop transports to capture an enemy base.
+**C** | Orders the selected troop transports to *Capture* an enemy base.
 
 Maps
 ------

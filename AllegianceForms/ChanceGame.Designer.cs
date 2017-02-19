@@ -133,6 +133,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allegiance Forms - Dogfight";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanceGame_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ChanceGame_KeyDown);
             this.ResumeLayout(false);
 

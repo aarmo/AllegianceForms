@@ -364,6 +364,11 @@ namespace AllegianceForms
             var b = sender as Button;
             if (b != null) b.BackColor = Color.Black;
         }
+
+        private void ChanceGame_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            gameTimer.Enabled = false;
+        }
     }
 
     public class ChanceGameRule
