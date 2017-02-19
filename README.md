@@ -2,7 +2,7 @@ AllegianceForms
 ======
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance
 
-And the Free Allegiance community: http://www.freeallegiance.org/
+For the Free Allegiance community: http://www.freeallegiance.org/
 
 Features
 ------
@@ -14,7 +14,7 @@ Features
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers!
 
 ![alt text][ships]
----
+
 
 Screenshots
 ------
@@ -28,14 +28,14 @@ Screenshots
 
 ###Defend your Miners & Constructors
 ![alt text][defend]
-- Miners collect resources from *Special* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="45"/>)
+- Miners collect resources from *Special* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="35"/>)
 
 ###Build Bases to Expand
 ![alt text][build2]
-- Outpost, Refinery and Starbase constructors require *Standard* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png" width="45"/>)
-- Supremacy constructors require *Carbon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="45"/>)
-- Tactical constructors require *Silicon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="45"/>)
-- Expansion constructors require *Uranium* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="45"/>)
+- Outpost, Refinery and Starbase constructors require *Standard* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png" width="35"/>)
+- Supremacy constructors require *Carbon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="35"/>)
+- Tactical constructors require *Silicon* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="35"/>)
+- Expansion constructors require *Uranium* asteroids (<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="35"/>)
 
 ###Research better Technology
 ###Battle the Enemy
@@ -46,7 +46,7 @@ Screenshots
 ###Customise the Game
 ![alt text][custom]
 - Many settings to tweak!
----
+
 
 Controls
 ------
@@ -93,7 +93,6 @@ Key	| Description
 **E** | Orders the selected miners(s) to *Mine* around this position.
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to capture an enemy base.
----
 
 Maps
 ------
@@ -103,7 +102,6 @@ Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
 Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
----
 
 Credits
 ------
@@ -115,12 +113,12 @@ Hansjörg Malthaner: http://opengameart.org/users/varkalandar
 Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 ###Sounds
 Originals from the Microsoft Allegiance game.
----
 
 Bonus Game!
 ------
 ### Lucky Dogfight
 ![alt text][bonus]
+
 [(Rock Paper Scissors Lizard Spock)](http://www.samkass.com/theories/RPSSL.html)
 
 [ships]: https://github.com/aarmo/AllegianceForms/raw/master/Doc/Images/Ships.png "Ship Types"
