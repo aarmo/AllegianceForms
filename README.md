@@ -1,6 +1,7 @@
 AllegianceForms
 ======
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance
+
 And the Free Allegiance community: http://www.freeallegiance.org/
 
 Features
@@ -12,6 +13,7 @@ Features
 - Missiles, Lasers & Repair weapons
 - Scan Range, Stealth and Signature
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers!
+
 ![alt text][ships]
 
 Maps
@@ -20,7 +22,7 @@ Name | Image | Name | Image
 --- | --- | ---  | --- 
 Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
 Pin Wheel: |  ![alt text][mappin] | Hi Lo: | ![alt text][maphilo]
-High Higher: | ![alt text][maphigh] Grid: | ![alt text][mapgrid]
+High Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
 Screenshots
@@ -33,26 +35,31 @@ Screenshots
 - Discover wormholes to other sectors
 - Find your enemy's bases and miners
 
+
 ###Defend your Miners & Constructors
 ![alt text][defend]
-- Miners collect resources from special asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="40"/>
+- Miners collect resources from special asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="20"/>
+
 
 ###Build Bases to Expand
 ![alt text][build2]
-- Outpost, Refinery and Starbase constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png" width="60"/>
-- Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="70"/>
-- Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="70"/>
-- Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="70"/>
+- Outpost, Refinery and Starbase constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_1.png" width="30"/>
+- Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="45"/>
+- Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_1.png" width="45"/>
+- Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_1.png" width="45"/>
+
 
 ###Research Better Technology
-###Battle The Enemy
+###Battle the Enemy
 ![alt text][battle1]
 ![alt text][battle2]
 ![alt text][gameover]
 
+
 ###Customise the Game
-- Tweak many settings to play how you want
 ![alt text][custom]
+- Tweak many settings to play how you want
+
 
 Controls
 ------
