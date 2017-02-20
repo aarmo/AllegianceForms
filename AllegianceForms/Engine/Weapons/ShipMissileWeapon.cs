@@ -15,7 +15,7 @@ namespace AllegianceForms.Engine.Weapons
         public Pen Smoke2 { get; set; }
         public List<MissileProjectile> Missiles { get; set; }
 
-        public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTimeMS, int refireDelayMS, int range, int damage, Ship shooter, Point offset, SolidBrush teamColour) 
+        public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, Point offset, SolidBrush teamColour) 
             : base(fireTimeMS, refireDelayMS, range, damage, shooter, offset)
         {
             _weaponSound = ESounds.missilelock;

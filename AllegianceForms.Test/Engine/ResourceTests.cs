@@ -14,6 +14,7 @@ namespace AllegianceForms.Test.Engine
             StrategyGame.Credits[1] = 0;
             StrategyGame.GameStats = new GameStats();
             StrategyGame.GameSettings = GameSettings.Default();
+            StrategyGame.LoadData();
         }
 
         [TestMethod]

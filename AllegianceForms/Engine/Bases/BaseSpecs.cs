@@ -41,13 +41,15 @@ namespace AllegianceForms.Engine.Bases
             var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
             if (spec == null) return null;
 
+            var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+
             var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, spec.Health, sectorId);
-            bse.Signature = spec.Signature;
-            bse.ScanRange = spec.ScanRange;
+
+            bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange];
+            bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature];
 
             return bse;
         }
-        
     }
 
     public class BaseSpec

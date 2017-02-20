@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace AllegianceForms.Engine.Tech
     public class TechTree
     {
         public List<TechItem> TechItems { get; set; }
+
+        public Dictionary<EGlobalUpgrade, float> ResearchedUpgrades { get; set; }
 
         public static TechTree LoadTechTree(string techFile, int team)
         {
@@ -35,6 +38,12 @@ namespace AllegianceForms.Engine.Tech
         private TechTree(IEnumerable<TechItem> items)
         {
             TechItems = items.ToList();
+            ResearchedUpgrades = new Dictionary<EGlobalUpgrade, float>();
+
+            foreach (var e in (EGlobalUpgrade[])Enum.GetValues(typeof(EGlobalUpgrade)))
+            {
+                ResearchedUpgrades.Add(e, 1);
+            }
         }
         
         public List<int> CompletedTechIds()

@@ -19,16 +19,17 @@ namespace AllegianceForms.Engine.Ships
 
         public const int MineDistance = 100;
         public const int MineAmount = 10;
-        public const int MaxResourceCapacity = 100;
+
+        public int MaxResourceCapacity { get; set; }
 
         private DateTime _shootingStop = DateTime.MaxValue;
         private DateTime _shootingNextTime = DateTime.MinValue;
-        private int _lastHealth = int.MinValue;
+        private float _lastHealth = float.MinValue;
         private DateTime _nextHealthCheckTime = DateTime.MinValue;
         private TimeSpan _healthCheckDelay = new TimeSpan(0, 0, 1);
         private DateTime _callNext = DateTime.MinValue;
 
-        public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, int health, int sectorId)
+        public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, float health, int sectorId)
             : base(imageFilename, width, height, teamColor, team, health, 0, sectorId)
         {
             Type = EShipType.Miner;
@@ -38,9 +39,11 @@ namespace AllegianceForms.Engine.Ships
             ShootingDuration = new TimeSpan(0, 0, 0, 0, 1000);
             ShootingDelay = new TimeSpan(0, 0, 0, 0, 250);
             Shooting = false;
+
+            MaxResourceCapacity = 100;
         }
 
-        public override void Damage(int amount)
+        public override void Damage(float amount)
         {
             base.Damage(amount);
 

@@ -25,7 +25,7 @@ namespace AllegianceForms.Engine.Ships
 
         private int _currentBuildingGlowHalfSize = StartBuildingGlowSize / 2;
 
-        public BuilderShip(string imageFilename, int width, int height, Color teamColor, int team, int health, EBaseType baseType, int sectorId)
+        public BuilderShip(string imageFilename, int width, int height, Color teamColor, int team, float health, EBaseType baseType, int sectorId)
             : base(imageFilename, width, height, teamColor, team, health, 0, sectorId)
         {
             Type = EShipType.Constructor;
@@ -106,7 +106,7 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Damage(int amount)
+        public override void Damage(float amount)
         {
             if (Building) return;
 

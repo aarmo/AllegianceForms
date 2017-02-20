@@ -24,7 +24,7 @@ namespace AllegianceForms
             var m = Pilot as MinerShip;
             var b = Pilot as BuilderShip;
 
-            var info = m != null ? string.Format(" ({0:P})", m.Resources * 1.0f / MinerShip.MaxResourceCapacity) : string.Empty;
+            var info = m != null ? string.Format(" ({0:P})", m.Resources * 1.0f / m.MaxResourceCapacity) : string.Empty;
             if (Pilot.Docked) info += "\n[Docked]";
 
             Image.Image = Pilot.Image;

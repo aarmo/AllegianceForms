@@ -39,7 +39,7 @@ namespace AllegianceForms.Engine.Tech
 
             if (researchPerc < investedPerc)
             {
-                TimeResearched += ms/1000;
+                TimeResearched += ms / 1000;
             }
 
             if (TimeResearched >= DurationSec && AmountInvested >= Cost)
@@ -61,7 +61,7 @@ namespace AllegianceForms.Engine.Tech
             return (Type != ETechType.Construction)
                 || (Name.Contains("Miner") && StrategyGame.NumberOfMinerDrones(Team) < StrategyGame.GameSettings.MinersMaxDrones)
                 || (Name.Contains("Tower") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxTowerDrones)
-                || (Name.Contains("Constructor") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxDrones 
+                || (Name.Contains("Constructor") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxDrones
                     && StrategyGame.AllAsteroids.Count(_ => _.VisibleToTeam[Team - 1] && _.Type == TechItem.GetAsteroidType(Name)) > 0);
         }
 
@@ -83,6 +83,25 @@ namespace AllegianceForms.Engine.Tech
             if (name.Contains("Supremacy")) return EAsteroidType.TechCarbon;
 
             return EAsteroidType.Rock;
+        }
+
+        public static bool IsGlobalUpgrade(string name)
+        {
+            return name.Contains("%") && (name.Contains("+") || name.Contains("-"));
+        }
+
+        public static EGlobalUpgrade GetGlobalUpgradeType(string name)
+        {
+            var n = name.Remove(name.Length - 4).Replace(" ", string.Empty).Trim();
+            return (EGlobalUpgrade)Enum.Parse(typeof(EGlobalUpgrade), n);
+        }
+
+        public void ApplyGlobalUpgrade(TechTree tech)
+        {
+            var type = GetGlobalUpgradeType(Name);
+            var amount = Convert.ToSingle(Name.Substring(Name.Length - 4).Replace("%", string.Empty).Trim()) / 100;
+
+            tech.ResearchedUpgrades[type] = 1 + amount;
         }
     }
 }

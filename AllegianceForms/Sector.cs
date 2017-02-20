@@ -231,9 +231,10 @@ namespace AllegianceForms
             else if (e == EGameEventType.ResearchComplete)
             {
                 var tech = sender as TechItem;
-                if (tech == null || tech.Team != 1) return;
+                if (tech == null) return;
+                if (TechItem.IsGlobalUpgrade(tech.Name)) tech.ApplyGlobalUpgrade(StrategyGame.TechTree[tech.Team - 1]);
 
-                SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+                if (tech.Team == 1) SoundEffect.Play(ESounds.vo_sal_researchcomplete);
             }
             else if (e == EGameEventType.SectorLeftClicked)
             {

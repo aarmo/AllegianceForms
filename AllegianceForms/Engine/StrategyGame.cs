@@ -22,9 +22,9 @@ namespace AllegianceForms.Engine
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
 
-        private const string ShipDataFile = ".\\Data\\Ships.txt";
-        private const string BaseDataFile = ".\\Data\\Bases.txt";
-        private const string TechDataFile = ".\\Data\\Tech.txt";
+        public const string ShipDataFile = ".\\Data\\Ships.txt";
+        public const string BaseDataFile = ".\\Data\\Bases.txt";
+        public const string TechDataFile = ".\\Data\\Tech.txt";
         public const string IconPicDir = ".\\Art\\Trans\\";
         public static GameSettings GameSettings;
         
@@ -387,9 +387,9 @@ namespace AllegianceForms.Engine
             if (team == 1 && sound) SoundEffect.Play(ESounds.payday, true);
 
             var t = team - 1;
-            Credits[t] += (int)(resources * ConversionRate[t] * GameSettings.ResourceConversionRateMultiplier);
-
-            GameStats.TotalResourcesMined[t] += (int)(resources * ConversionRate[t] * GameSettings.ResourceConversionRateMultiplier);
+            var amount = (int)(resources * ConversionRate[t] * GameSettings.ResourceConversionRateMultiplier * TechTree[t].ResearchedUpgrades[EGlobalUpgrade.MinerEfficiency]);
+            Credits[t] += amount;
+            GameStats.TotalResourcesMined[t] += resources;
         }
 
         public static int SpendCredits(int team, int amount)

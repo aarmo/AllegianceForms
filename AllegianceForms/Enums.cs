@@ -95,7 +95,24 @@ namespace AllegianceForms
         Supremacy = 1,
         Tactical = 2,
         Expansion = 3,
-        Base = 4
+        Base = 4,
+    }
+
+    public enum EGlobalUpgrade
+    {
+        ScanRange,
+        ShipSignature,
+
+        RepairHealing,
+        WeaponDamage,
+        WeaponFireRate,
+        MissileTracking,
+        MissileSpeed,
+        ShipHull,
+        ShipSpeed,
+
+        MinerCapacity,
+        MinerEfficiency,
     }
 
     public enum ESounds

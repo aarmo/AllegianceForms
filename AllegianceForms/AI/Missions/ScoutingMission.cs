@@ -10,7 +10,7 @@ namespace AllegianceForms.AI.Missions
 {
     public class ScoutingMission : CommanderMission
     {
-        Dictionary<Ship, int> _lastHealth = new Dictionary<Ship, int>();
+        private Dictionary<Ship, float> _lastHealth = new Dictionary<Ship, float>();
 
         public ScoutingMission(CommanderAI ai, Sector ui) : base(ai, ui)
         { }

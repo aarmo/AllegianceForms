@@ -210,7 +210,7 @@
             this.WormholesVisible.AutoSize = true;
             this.WormholesVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.WormholesVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WormholesVisible.Location = new System.Drawing.Point(85, 153);
+            this.WormholesVisible.Location = new System.Drawing.Point(38, 149);
             this.WormholesVisible.Name = "WormholesVisible";
             this.WormholesVisible.Size = new System.Drawing.Size(81, 17);
             this.WormholesVisible.TabIndex = 13;
@@ -1077,7 +1077,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseWeaponRange.Location = new System.Drawing.Point(268, 338);
+            this.BaseWeaponRange.Location = new System.Drawing.Point(276, 338);
             this.BaseWeaponRange.Name = "BaseWeaponRange";
             this.BaseWeaponRange.Size = new System.Drawing.Size(69, 21);
             this.BaseWeaponRange.TabIndex = 35;
@@ -1094,7 +1094,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseWeaponFireRate.Location = new System.Drawing.Point(268, 365);
+            this.BaseWeaponFireRate.Location = new System.Drawing.Point(276, 365);
             this.BaseWeaponFireRate.Name = "BaseWeaponFireRate";
             this.BaseWeaponFireRate.Size = new System.Drawing.Size(69, 21);
             this.BaseWeaponFireRate.TabIndex = 36;
@@ -1111,7 +1111,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseWeaponDamage.Location = new System.Drawing.Point(268, 392);
+            this.BaseWeaponDamage.Location = new System.Drawing.Point(276, 392);
             this.BaseWeaponDamage.Name = "BaseWeaponDamage";
             this.BaseWeaponDamage.Size = new System.Drawing.Size(69, 21);
             this.BaseWeaponDamage.TabIndex = 37;
@@ -1152,7 +1152,7 @@
             this.Difficulty.Name = "Difficulty";
             this.Difficulty.Size = new System.Drawing.Size(76, 21);
             this.Difficulty.TabIndex = 2;
-            this.Difficulty.Text = "2";
+            this.Difficulty.Text = "Normal";
             this.Difficulty.SelectedIndexChanged += new System.EventHandler(this.Difficulty_SelectedIndexChanged);
             // 
             // StartGame
@@ -1264,7 +1264,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResearchCost.Location = new System.Drawing.Point(268, 223);
+            this.ResearchCost.Location = new System.Drawing.Point(276, 223);
             this.ResearchCost.Name = "ResearchCost";
             this.ResearchCost.Size = new System.Drawing.Size(69, 21);
             this.ResearchCost.TabIndex = 23;
@@ -1290,7 +1290,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResearchTime.Location = new System.Drawing.Point(268, 249);
+            this.ResearchTime.Location = new System.Drawing.Point(276, 249);
             this.ResearchTime.Name = "ResearchTime";
             this.ResearchTime.Size = new System.Drawing.Size(69, 21);
             this.ResearchTime.TabIndex = 24;
@@ -1310,7 +1310,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(370, 368);
+            this.label47.Location = new System.Drawing.Point(371, 341);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(42, 13);
             this.label47.TabIndex = 0;
@@ -1319,7 +1319,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(370, 395);
+            this.label48.Location = new System.Drawing.Point(371, 368);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(53, 13);
             this.label48.TabIndex = 0;
@@ -1328,7 +1328,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(370, 422);
+            this.label49.Location = new System.Drawing.Point(371, 395);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(50, 13);
             this.label49.TabIndex = 0;
@@ -1345,10 +1345,10 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesRange.Location = new System.Drawing.Point(438, 365);
+            this.MissilesRange.Location = new System.Drawing.Point(439, 338);
             this.MissilesRange.Name = "MissilesRange";
             this.MissilesRange.Size = new System.Drawing.Size(69, 21);
-            this.MissilesRange.TabIndex = 39;
+            this.MissilesRange.TabIndex = 38;
             this.MissilesRange.SelectedIndexChanged += new System.EventHandler(this.MissilesRange_SelectedIndexChanged);
             // 
             // MissilesFireRate
@@ -1362,10 +1362,10 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesFireRate.Location = new System.Drawing.Point(438, 392);
+            this.MissilesFireRate.Location = new System.Drawing.Point(439, 365);
             this.MissilesFireRate.Name = "MissilesFireRate";
             this.MissilesFireRate.Size = new System.Drawing.Size(69, 21);
-            this.MissilesFireRate.TabIndex = 40;
+            this.MissilesFireRate.TabIndex = 39;
             this.MissilesFireRate.SelectedIndexChanged += new System.EventHandler(this.MissilesFireRate_SelectedIndexChanged);
             // 
             // MissilesDamage
@@ -1379,10 +1379,10 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesDamage.Location = new System.Drawing.Point(439, 419);
+            this.MissilesDamage.Location = new System.Drawing.Point(440, 392);
             this.MissilesDamage.Name = "MissilesDamage";
             this.MissilesDamage.Size = new System.Drawing.Size(69, 21);
-            this.MissilesDamage.TabIndex = 41;
+            this.MissilesDamage.TabIndex = 40;
             this.MissilesDamage.SelectedIndexChanged += new System.EventHandler(this.MissilesDamage_SelectedIndexChanged);
             // 
             // label50
@@ -1419,7 +1419,7 @@
             this.Team1Colour.BackColor = System.Drawing.Color.Lime;
             this.Team1Colour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Team1Colour.ForeColor = System.Drawing.Color.Black;
-            this.Team1Colour.Location = new System.Drawing.Point(268, 26);
+            this.Team1Colour.Location = new System.Drawing.Point(276, 27);
             this.Team1Colour.Name = "Team1Colour";
             this.Team1Colour.Size = new System.Drawing.Size(69, 28);
             this.Team1Colour.TabIndex = 3;
@@ -1434,7 +1434,7 @@
             this.Team2Colour.BackColor = System.Drawing.Color.LightPink;
             this.Team2Colour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Team2Colour.ForeColor = System.Drawing.Color.Black;
-            this.Team2Colour.Location = new System.Drawing.Point(268, 60);
+            this.Team2Colour.Location = new System.Drawing.Point(276, 61);
             this.Team2Colour.Name = "Team2Colour";
             this.Team2Colour.Size = new System.Drawing.Size(69, 28);
             this.Team2Colour.TabIndex = 4;
@@ -1492,7 +1492,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(370, 449);
+            this.label53.Location = new System.Drawing.Point(371, 422);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(52, 13);
             this.label53.TabIndex = 0;
@@ -1509,16 +1509,16 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesTracking.Location = new System.Drawing.Point(439, 446);
+            this.MissilesTracking.Location = new System.Drawing.Point(440, 419);
             this.MissilesTracking.Name = "MissilesTracking";
             this.MissilesTracking.Size = new System.Drawing.Size(69, 21);
-            this.MissilesTracking.TabIndex = 42;
+            this.MissilesTracking.TabIndex = 41;
             this.MissilesTracking.SelectedIndexChanged += new System.EventHandler(this.MissilesTracking_SelectedIndexChanged);
             // 
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(370, 340);
+            this.label54.Location = new System.Drawing.Point(372, 448);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(41, 13);
             this.label54.TabIndex = 0;
@@ -1535,10 +1535,10 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesSpeed.Location = new System.Drawing.Point(438, 338);
+            this.MissilesSpeed.Location = new System.Drawing.Point(440, 446);
             this.MissilesSpeed.Name = "MissilesSpeed";
             this.MissilesSpeed.Size = new System.Drawing.Size(69, 21);
-            this.MissilesSpeed.TabIndex = 38;
+            this.MissilesSpeed.TabIndex = 42;
             this.MissilesSpeed.SelectedIndexChanged += new System.EventHandler(this.MissilesSpeed_SelectedIndexChanged);
             // 
             // RocksVisible

@@ -8,7 +8,7 @@ namespace AllegianceForms.Engine.Ships
     {
         public List<Weapon> Weapons { get; set; }
         
-        public CombatShip(string imageFilename, int width, int height, Color teamColor, int team, int health, int numPilots, EShipType type, int sectorId)
+        public CombatShip(string imageFilename, int width, int height, Color teamColor, int team, float health, int numPilots, EShipType type, int sectorId)
             : base(imageFilename, width, height, teamColor, team, health, numPilots, sectorId)
         {
             Type = type;

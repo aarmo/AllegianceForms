@@ -21,13 +21,13 @@ namespace AllegianceForms.Engine.Weapons
         public Pen SmokePen2 { get; set; }
         public Ship Target { get; set; }
 
-        public int Damage { get; set; }
+        public float Damage { get; set; }
 
         public RectangleF Bounds => new RectangleF(Center.X-Width/2, Center.Y-Width/2, Width, Width);
 
         private DateTime _expireTime;
 
-        public MissileProjectile(int width, float speed, float tracking, float heading, int damage, int expireMS, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
+        public MissileProjectile(int width, float speed, float tracking, float heading, float damage, int expireMS, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
         {
             Heading = heading;
             Speed = speed;

@@ -7,7 +7,7 @@ namespace AllegianceForms.Engine.Weapons
     {
         public Pen LaserPen { get; set; }
                 
-        public BaseLaserWeapon(Color laserColor, float laserWidth, int fireTimeMS, int refireDelayMS, int range, int damage, Ship shooter, Point offset)
+        public BaseLaserWeapon(Color laserColor, float laserWidth, int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, Point offset)
             : base(fireTimeMS, refireDelayMS, range, damage, shooter, offset)
         {
             _weaponSound = ESounds.plasmamini1;

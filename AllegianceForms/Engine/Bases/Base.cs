@@ -16,11 +16,11 @@ namespace AllegianceForms.Engine.Bases
         public bool Selected { get; set; }
         public Pen SelectedPen { get; set; }
         public Pen BorderPen { get; set; }
-        public int Health { get; set; }
+        public float Health { get; set; }
         public PointF BuildPosition { get; set; }
-        public int ScanRange { get; set; }
+        public float ScanRange { get; set; }
 
-        private int _maxHealth;
+        private float _maxHealth;
         private int _offsetCount = 0;
         private PointF _lastBuildPos = Point.Empty;
         private PointF _nextBuildOffset = Point.Empty;
@@ -28,13 +28,13 @@ namespace AllegianceForms.Engine.Bases
         private TimeSpan _offsetDelay = new TimeSpan(0, 0, 2);
         private Brush _textColor;
 
-        public Base(EBaseType type, int width, int height, Color teamColor, int team, int health, int sectorId)
+        public Base(EBaseType type, int width, int height, Color teamColor, int team, float health, int sectorId)
             : this(string.Empty, type, width, height, teamColor, team, health, sectorId)
         {
         }
 
 
-        protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, int health, int sectorId)
+        protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, float health, int sectorId)
             : base(string.Empty, width, height, sectorId)
         {
             Type = type;
@@ -132,7 +132,7 @@ namespace AllegianceForms.Engine.Bases
             }
         }
 
-        public virtual void Damage(int amount)
+        public virtual void Damage(float amount)
         {
             if (Health - amount <= 0)
             {

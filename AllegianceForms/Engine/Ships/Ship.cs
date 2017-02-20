@@ -20,16 +20,16 @@ namespace AllegianceForms.Engine.Ships
         public EVertDir VerticalDir { get; set; }
         public EHorDir HorizontalDir { get; set; }
         public float Speed { get; set; }
-        public int Health { get; set; }
+        public float Health { get; set; }
         public List<ShipOrder> Orders { get; private set; }
         public ShipOrder CurrentOrder { get; private set; }
         public int NumPilots { get; set; }
-        public int ScanRange { get; set; }
+        public float ScanRange { get; set; }
         public bool Docked { get; set; }
-        public int MaxHealth { get; set; }
+        public float MaxHealth { get; set; }
         
 
-        public Ship(string imageFilename, int width, int height, Color teamColor, int team, int health, int numPilots, int sectorId)
+        public Ship(string imageFilename, int width, int height, Color teamColor, int team, float health, int numPilots, int sectorId)
             : base(imageFilename, width, height, sectorId)
         {
             if (Image != null)
@@ -156,7 +156,7 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public virtual void Damage(int amount)
+        public virtual void Damage(float amount)
         {
             if (!Active || Docked) return;
 
