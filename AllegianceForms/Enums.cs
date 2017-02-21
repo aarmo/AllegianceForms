@@ -68,7 +68,14 @@ namespace AllegianceForms
         TroopTransport,
         Tower,
         MissileTower,
-        RepairTower
+        RepairTower,
+        Corvette,
+        Destroyer,
+        Frigate,
+        Devastator,
+        Cruiser,
+        Battleship,
+        Battlecruiser
     }
 
     public enum EBaseType
@@ -80,6 +87,7 @@ namespace AllegianceForms
         Tactical,
         Supremacy,
         Expansion,
+        Shipyard,
         Tower,
         MissileTower,
         RepairTower,
@@ -94,6 +102,7 @@ namespace AllegianceForms
 
     public enum ETechType
     {
+        ShipyardConstruction = -2,
         Construction = -1,
         Starbase = 0,
         Supremacy = 1,

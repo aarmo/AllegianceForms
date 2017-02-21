@@ -18,6 +18,7 @@ namespace AllegianceForms.Engine
         public float MinersCapacityMultiplier { get; set; }
         public int ConstructorsMaxDrones { get; set; }
         public int ConstructorsMaxTowerDrones { get; set; }
+        public int CapitalMaxDrones { get; set; }
         public Dictionary<EShipType, float> ShipSpeedMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipHealthMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipSignatureMultiplier { get; set; }
@@ -72,6 +73,7 @@ namespace AllegianceForms.Engine
 
                 ConstructorsMaxDrones = 1,
                 ConstructorsMaxTowerDrones = 4,
+                CapitalMaxDrones = 2,
 
                 ResourcesStartingMultiplier = 1,
                 ResourcesPerRockMultiplier = 1,

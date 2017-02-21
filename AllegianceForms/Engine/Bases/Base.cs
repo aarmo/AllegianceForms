@@ -33,7 +33,6 @@ namespace AllegianceForms.Engine.Bases
         {
         }
 
-
         protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, float health, int sectorId)
             : base(string.Empty, width, height, sectorId)
         {

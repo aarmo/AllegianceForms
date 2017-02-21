@@ -5,3 +5,4 @@ Id,Type,Width,Height,Health,Signature,ScanRange
 4,Tactical,65,65,150,2,800
 5,Supremacy,65,65,150,2,800
 6,Expansion,65,65,150,2,800
+7,Shipyard,80,80,150,2,800

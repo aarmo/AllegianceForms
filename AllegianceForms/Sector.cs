@@ -171,7 +171,7 @@ namespace AllegianceForms
                 var tech = sender as TechItem;
                 if (tech == null) return;
 
-                var b1 = StrategyGame.AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Starbase).FirstOrDefault();
+                var b1 = StrategyGame.AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Starbase).LastOrDefault();
                 if (b1 == null) return;
                 Ship drone;
 
@@ -183,6 +183,11 @@ namespace AllegianceForms
                     if (drone == null) return;
 
                     if (tech.Team == 1) SoundEffect.Play(ESounds.vo_miner_report4duty);
+                }
+                else if (tech.Type == ETechType.ShipyardConstruction)
+                {
+                    drone = StrategyGame.Ships.CreateShip(tech.Name, tech.Team, colour, b1.SectorId);
+                    if (drone == null) return;
                 }
                 else
                 {

@@ -21,6 +21,7 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 26,-1,Tactical Constructor,,10000,30,False
 27,-1,Supremacy Constructor,,10000,30,False
 28,-1,Expansion Constructor,,10000,30,False
+29,-1,Shipyard Constructor,,10000,30,False
 
 30,4,Expansion,,0,0,True
 31,3,Upgrade Expansion,30,10000,120,False
@@ -66,3 +67,16 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 93,2,Ship Signature -20%,51|90,5000,60,False
 94,2,Missile Tracking +20%,51|91,2500,60,False
 95,2,Missile Speed +20%,51|92,2500,60,False
+
+100,4,Shipyard,,0,0,True
+101,-2,Upgrade Shipyard (M),100,10000,120,False
+102,-2,Upgrade Shipyard (L),101,10000,120,False
+103,-2,Upgrade Shipyard (XL),102,10000,120,False
+
+110,-2,Corvette,100,500,30,False
+111,-2,Destroyer,101,750,30,False
+112,-2,Frigate,101|4,750,30,False
+113,-2,Devastator,102,1000,30,False
+114,-2,Cruiser,102|4,1000,30,False
+115,-2,Battleship,102,1250,30,False
+116,-2,Battlecruiser,103|4,1250,30,False

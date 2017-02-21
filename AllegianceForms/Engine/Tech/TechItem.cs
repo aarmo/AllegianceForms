@@ -103,5 +103,10 @@ namespace AllegianceForms.Engine.Tech
 
             tech.ResearchedUpgrades[type] = 1 + amount;
         }
+
+        public bool IsConstructionType()
+        {
+            return (Type == ETechType.Construction || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard")));
+        }
     }
 }

@@ -40,6 +40,10 @@ namespace AllegianceForms
             ExpansionButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Expansion)) ? _foreColorActive : _foreColorInActive;
             ExpansionButton.BackColor = (_type == ETechType.Expansion) ? _backColorType : _backColorNotType;
 
+            ShipyardButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Shipyard)) ? _foreColorActive : _foreColorInActive;
+            ShipyardButton.BackColor = (_type == ETechType.ShipyardConstruction) ? _backColorType : _backColorNotType;
+
+
             var items = StrategyGame.TechTree[0].ResearchableItems(_type);
             foreach (var i in items)
             {
@@ -86,7 +90,7 @@ namespace AllegianceForms
 
             foreach (var c in completedTech)
             {
-                if (c.Type == ETechType.Construction)
+                if (c.IsConstructionType())
                 {
                     c.Reset();
                     StrategyGame.OnGameEvent(c, EGameEventType.DroneBuilt);
@@ -166,6 +170,15 @@ namespace AllegianceForms
             var b = sender as Button;
             if (b == null || b.ForeColor != _foreColorActive) return;
             SoundEffect.Play(ESounds.mouseover);
+        }
+
+        private void ShipyardButton_Click(object sender, EventArgs e)
+        {
+            if (ShipyardButton.ForeColor != _foreColorActive) return;
+            SoundEffect.Play(ESounds.mousedown);
+            _type = ETechType.ShipyardConstruction;
+            RefreshItems();
+
         }
     }
 }

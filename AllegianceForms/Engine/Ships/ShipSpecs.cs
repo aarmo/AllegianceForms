@@ -42,6 +42,21 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
+        public CombatShip CreateShip(string name, int team, Color teamColour, int sectorId)
+        {
+            var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
+            var type = (EShipType)Enum.Parse(typeof(EShipType), name);
+
+            var spec = (from s in Ships
+                        where s.Type == type
+                       && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
+                        orderby s.Id descending
+                        select s).FirstOrDefault();
+            if (spec == null) return null;
+
+            return CreateShip(spec, team, teamColour, sectorId);
+        }
+
         public CombatShip CreateCombatShip(int team, Color teamColour, int sectorId)
         {
             var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();

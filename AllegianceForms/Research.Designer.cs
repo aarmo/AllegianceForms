@@ -36,6 +36,7 @@
             this.BorderPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ResearchItems = new System.Windows.Forms.FlowLayoutPanel();
+            this.ShipyardButton = new System.Windows.Forms.Button();
             this.BorderPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -112,6 +113,7 @@
             this.BorderPanel.Controls.Add(this.ConstructionButton);
             this.BorderPanel.Controls.Add(this.StarbaseButton);
             this.BorderPanel.Controls.Add(this.SupremacyButton);
+            this.BorderPanel.Controls.Add(this.ShipyardButton);
             this.BorderPanel.Controls.Add(this.ExpansionButton);
             this.BorderPanel.Controls.Add(this.TacticalButton);
             this.BorderPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -139,6 +141,19 @@
             this.ResearchItems.Size = new System.Drawing.Size(234, 613);
             this.ResearchItems.TabIndex = 3;
             this.ResearchItems.WrapContents = false;
+            // 
+            // ShipyardButton
+            // 
+            this.ShipyardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ShipyardButton.ForeColor = System.Drawing.Color.White;
+            this.ShipyardButton.Location = new System.Drawing.Point(3, 333);
+            this.ShipyardButton.Name = "ShipyardButton";
+            this.ShipyardButton.Size = new System.Drawing.Size(175, 60);
+            this.ShipyardButton.TabIndex = 0;
+            this.ShipyardButton.Text = "Shipyard";
+            this.ShipyardButton.UseVisualStyleBackColor = true;
+            this.ShipyardButton.Click += new System.EventHandler(this.ShipyardButton_Click);
+            this.ShipyardButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
             // 
             // Research
             // 
@@ -174,5 +189,6 @@
         private System.Windows.Forms.Panel BorderPanel;
         private System.Windows.Forms.FlowLayoutPanel ResearchItems;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button ShipyardButton;
     }
 }
