@@ -160,6 +160,16 @@ namespace AllegianceForms.Engine
             return targetBase;
         }
         
+        public static int NumberOfCapitalDrones(int team, string name)
+        {
+            var type = (EShipType)Enum.Parse(typeof(EShipType), name);
+            return (from c in AllUnits
+                    where c.Active
+                    && c.Team == team
+                    && c.Type == type
+                    select c).Count();
+        }
+
         public static int NumberOfMinerDrones(int team)
         {
             return (from c in AllUnits

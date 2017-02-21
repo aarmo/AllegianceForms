@@ -15,7 +15,7 @@ namespace AllegianceForms.Engine.Weapons
         public Pen Smoke2 { get; set; }
         public List<MissileProjectile> Missiles { get; set; }
 
-        public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, Point offset, SolidBrush teamColour) 
+        public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, PointF offset, SolidBrush teamColour) 
             : base(fireTimeMS, refireDelayMS, range, damage, shooter, offset)
         {
             _weaponSound = ESounds.missilelock;
@@ -45,8 +45,8 @@ namespace AllegianceForms.Engine.Weapons
             if (!Shooting && Firing && _shootingNextTime <= DateTime.Now && Target != null)
             {
                 var heading = (float) StrategyGame.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
-
-                Missiles.Add(new MissileProjectile(Width, Speed, Tracking, heading, WeaponDamage, 3000, Shooter.CenterPoint, TeamColour, Smoke1, Smoke2, (Ship)Target));
+                var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
+                Missiles.Add(new MissileProjectile(Width, Speed, Tracking, heading, WeaponDamage, 3000, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
             }
             base.Update();
 

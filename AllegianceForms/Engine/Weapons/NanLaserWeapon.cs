@@ -6,7 +6,7 @@ namespace AllegianceForms.Engine.Weapons
 {
     public class NanLaserWeapon : ShipLaserWeapon
     {
-        public NanLaserWeapon(float laserWidth, int fireTimeMS, int refireDelayMS, float range, float healing, Ship shooter, Point offset)
+        public NanLaserWeapon(float laserWidth, int fireTimeMS, int refireDelayMS, float range, float healing, Ship shooter, PointF offset)
             : base(Color.Aqua, laserWidth, fireTimeMS, refireDelayMS, range, healing, shooter, offset)
         {
             _weaponSound = ESounds.sniperlaser1pwrup;

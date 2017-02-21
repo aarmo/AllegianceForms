@@ -15,7 +15,7 @@ namespace AllegianceForms.Engine.Weapons
         public float WeaponDamage { get; set; }
         public GameEntity Target { get; set; }
         public Ship Shooter { get; set; }
-        public Point FireOffset { get; set; }
+        public PointF FireOffset { get; set; }
 
         protected bool _damageOnShotEnd = true;
         protected bool _playSoundAlways = true;
@@ -23,7 +23,7 @@ namespace AllegianceForms.Engine.Weapons
         protected DateTime _shootingStop = DateTime.MaxValue;
         protected DateTime _shootingNextTime = DateTime.MinValue;
         
-        protected Weapon(int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, Point offset)
+        protected Weapon(int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, PointF offset)
         {
             ShootingDuration = new TimeSpan(0, 0, 0, 0, fireTimeMS);
             ShootingDelay = new TimeSpan(0, 0, 0, 0, refireDelayMS);

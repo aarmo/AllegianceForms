@@ -51,10 +51,11 @@ Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Si
 57,MissileTower,C,1,Dn_hipdcmbmp.png,16,16,100,0,0,300,1,3|4|250|1250|350|5|0|0|8|4,0
 58,MissileTower,C,11,Dn_hipdchbmp.png,16,16,150,0,0,400,1,3|4|250|1250|400|7|0|0|8|5,0
 
-#100,Corvette,C,100,Dn_hicrvbmp.png,32,32,250,0,2,300,2,0|2|250|800|150|10|-6|0>0|2|250|800|150|10|6|0>3|4|250|1250|400|8|0|0|8|5,0
-#101,Destroyer,C,101,Dn_hidesbmp.png,32,32,300,0,3,300,2,,0|2|250|800|175|10|-6|0>0|2|250|800|175|10|6|0>3|4|250|1250|400|8|0|0|8|5>3|4|250|1250|400|8|0|0|8|5,0
-#102,Frigate,C,101,Dn_hifrgbmp.png,32,32,300,0,2,300,2,,0
-#103,Devastator,C,102,Dn_hidevbmp.png,32,32,400,0,3,300,2,,0
-#104,Cruiser,C,102,Dn_hicrsbmp.png,32,32,400,0,3,300,2,,0
-#105,Battleship,C,103,Dn_hibtlbmp.png,32,32,500,0,3,300,2,,0
-#106,Battlecruiser,C,103,Dn_btlship.png,32,32,500,0,3,300,2,,0
+#Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Signature,WeaponData,BaseType
+100,Corvette,C,100,Dn_hicrvbmp.png,32,32,250,0,2,300,2,0|2|250|800|150|10|-6|0>0|2|250|800|150|10|6|0>3|4|250|1250|400|8|0|0|8|5,0
+101,Destroyer,C,101,Dn_hidesbmp.png,32,32,300,0,3,300,2,0|2|250|800|175|10|-6|0>0|2|250|800|175|10|6|0>3|4|250|1250|400|8|-8|0|8|5>3|4|250|1250|400|8|8|0|8|5,0
+102,Frigate,C,101,Dn_hifrgbmp.png,32,32,300,0,2,300,2,,0
+103,Devastator,C,102,Dn_hidevbmp.png,32,32,400,0,3,300,2,,0
+104,Cruiser,C,102,Dn_hicrsbmp.png,32,32,400,0,3,300,2,,0
+105,Battleship,C,103,Dn_btlship.png,32,32,500,0,3,300,2,,0
+106,Battlecruiser,C,103,Dn_hibtlbmp.png,32,32,500,0,3,300,2,,0

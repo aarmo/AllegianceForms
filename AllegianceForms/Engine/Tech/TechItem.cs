@@ -58,7 +58,9 @@ namespace AllegianceForms.Engine.Tech
 
         public bool CanBuild()
         {
-            return (Type != ETechType.Construction)
+            return (Type != ETechType.Construction && Type != ETechType.ShipyardConstruction)
+                || (Type == ETechType.ShipyardConstruction && Name.Contains("Shipyard"))
+                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && StrategyGame.NumberOfCapitalDrones(Team, Name) < StrategyGame.GameSettings.CapitalMaxDrones)
                 || (Name.Contains("Miner") && StrategyGame.NumberOfMinerDrones(Team) < StrategyGame.GameSettings.MinersMaxDrones)
                 || (Name.Contains("Tower") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxTowerDrones)
                 || (Name.Contains("Constructor") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxDrones

@@ -6,7 +6,7 @@ namespace AllegianceForms.Engine.Weapons
 {
     public abstract class ShipWeapon : Weapon
     {
-        protected ShipWeapon(int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, Point offset)
+        protected ShipWeapon(int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, PointF offset)
             : base(fireTimeMS, refireDelayMS, range, damage, shooter, offset)
         {
         }

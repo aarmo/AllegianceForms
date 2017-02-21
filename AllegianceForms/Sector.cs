@@ -128,8 +128,15 @@ namespace AllegianceForms
             _debugForm = new DebugAI(_ai);
             //_ai.Enabled = false;
 
-            // Testing Setup: Crazy money, fast ships & tech, map visible?
-            // Same for Enemy AI!
+#if DEBUG
+            // Testing Setup: Crazy money, fast tech, map visible
+            StrategyGame.AddResources(1, 100000);
+            settings.WormholesVisible = true;
+            settings.ResearchTimeMultiplier = 0.25f;
+            settings.ResearchCostMultiplier = 0.25f;
+#endif
+
+            // Regular Setup:
             for (var t = 1; t <= StrategyGame.NumTeams; t++)
             {
                 StrategyGame.AddResources(t, (int)(StrategyGame.ResourcesInitial * settings.ResourcesStartingMultiplier));
@@ -175,7 +182,6 @@ namespace AllegianceForms
                 if (b1 == null) return;
                 Ship drone;
 
-                var pos = b1.GetNextBuildPosition();
                 var colour = tech.Team == 1 ? _colourTeam1 : _colourTeam2;
                 if (tech.Name == "Miner")
                 {
@@ -186,6 +192,9 @@ namespace AllegianceForms
                 }
                 else if (tech.Type == ETechType.ShipyardConstruction)
                 {
+                    b1 = StrategyGame.AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Shipyard).LastOrDefault();
+                    if (b1 == null) return;
+
                     drone = StrategyGame.Ships.CreateShip(tech.Name, tech.Team, colour, b1.SectorId);
                     if (drone == null) return;
                 }
@@ -224,11 +233,11 @@ namespace AllegianceForms
                         }
                     }
                 }
-
+                
                 drone.CenterX = b1.CenterX;
                 drone.CenterY = b1.CenterY;
                 drone.ShipEvent += F_ShipEvent;
-                drone.OrderShip(new MoveOrder(b1.SectorId, pos, Point.Empty));
+                drone.OrderShip(new MoveOrder(b1.SectorId, b1.GetNextBuildPosition(), Point.Empty));
                 
                 StrategyGame.AddUnit(drone);
             }
@@ -1229,9 +1238,9 @@ namespace AllegianceForms
 
                 if (items.Count > 0)
                 {
-                    items.ForEach(_ => _.UpdateEachSecond(timer.Interval));
-
                     var researchableBefore = _researchForm.ShownResearchableItems(t);
+
+                    items.ForEach(_ => _.UpdateEachSecond(timer.Interval));
                     _researchForm.CheckForCompletedItems(researchableBefore, t);
 
                     if (t == 0)

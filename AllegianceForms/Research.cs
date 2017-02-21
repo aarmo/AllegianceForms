@@ -93,6 +93,7 @@ namespace AllegianceForms
                 if (c.IsConstructionType())
                 {
                     c.Reset();
+                    previouslyResearchableTech.Add(c);
                     StrategyGame.OnGameEvent(c, EGameEventType.DroneBuilt);
                 }
                 else
@@ -178,7 +179,6 @@ namespace AllegianceForms
             SoundEffect.Play(ESounds.mousedown);
             _type = ETechType.ShipyardConstruction;
             RefreshItems();
-
         }
     }
 }

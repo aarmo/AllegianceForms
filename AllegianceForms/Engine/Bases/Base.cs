@@ -125,7 +125,7 @@ namespace AllegianceForms.Engine.Bases
 
             if (Selected)
             {
-                g.DrawRectangle(SelectedPen, b.Left - 2, b.Top - 2, b.Width + 4, b.Height + 4);
+                g.DrawRectangle(SelectedPen, b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
 
                 if (CanLaunchShips()) g.DrawLine(SelectedPen, CenterX, CenterY, BuildPosition.X, BuildPosition.Y);
             }

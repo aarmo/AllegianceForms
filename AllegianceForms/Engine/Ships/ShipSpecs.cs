@@ -281,23 +281,23 @@ namespace AllegianceForms.Engine.Ships
                 {
                     case "0":
                     case "ship":
-                        Weapons.Add(new ShipLaserWeapon(Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new Point(int.Parse(data[6]), int.Parse(data[7]))));
+                        Weapons.Add(new ShipLaserWeapon(Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
 
                     case "1":
                     case "base":
-                        Weapons.Add(new BaseLaserWeapon(Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new Point(int.Parse(data[6]), int.Parse(data[7]))));
+                        Weapons.Add(new BaseLaserWeapon(Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
 
                     case "2":
                     case "nan":
-                        Weapons.Add(new NanLaserWeapon(float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new Point(int.Parse(data[6]), int.Parse(data[7]))));
+                        Weapons.Add(new NanLaserWeapon(float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
 
                     case "3":
                     case "missile":
                         //new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)
-                        Weapons.Add(new ShipMissileWeapon(int.Parse(data[1]), float.Parse(data[8]), float.Parse(data[9]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new Point(int.Parse(data[6]), int.Parse(data[7])), new SolidBrush(Color.Empty)));
+                        Weapons.Add(new ShipMissileWeapon(int.Parse(data[1]), float.Parse(data[8]), float.Parse(data[9]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7])), new SolidBrush(Color.Empty)));
                         break;
                 }
             }
