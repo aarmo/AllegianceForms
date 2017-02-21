@@ -59,14 +59,14 @@ namespace AllegianceForms.Engine.Ships
             return CreateShip(spec, team, teamColour, sectorId);
         }
         
-        public CombatShip CreateTowerShip(int team, Color teamColour, int sectorId)
+        public CombatShip CreateTowerShip(EShipType type, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
             
             // Get the most advanced tower ship
             var spec = (from s in Ships
                         where (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
-                        && s.Type == EShipType.Tower
+                        && s.Type == type
                         orderby s.Id descending
                         select s).FirstOrDefault();
             if (spec == null) return null;

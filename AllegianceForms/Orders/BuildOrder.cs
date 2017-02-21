@@ -1,4 +1,5 @@
 ﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
 using System.Drawing;
@@ -29,7 +30,7 @@ namespace AllegianceForms.Orders
             }
 
             base.Update(ship);
-            if (builder.BaseType != EBaseType.Tower && _targetRock == null)
+            if (!BaseSpecs.IsTower(builder.BaseType) && _targetRock == null)
             {
                 _targetRock = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, StrategyGame.BuildableAsteroids.Where(_ => _.Active && _.SectorId == ship.SectorId && _.VisibleToTeam[ship.Team-1] && _.Type == builder.TargetRockType));
 
@@ -40,7 +41,7 @@ namespace AllegianceForms.Orders
                 }
             }
 
-            if (OrderComplete && (builder.BaseType == EBaseType.Tower || _targetRock != null))
+            if (OrderComplete && (BaseSpecs.IsTower(builder.BaseType) || _targetRock != null))
             {
                 builder.Building = true;
             }

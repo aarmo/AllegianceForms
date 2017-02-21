@@ -66,7 +66,9 @@ namespace AllegianceForms
         Gunship,
         FighterBomber,
         TroopTransport,
-        Tower
+        Tower,
+        MissileTower,
+        RepairTower
     }
 
     public enum EBaseType
@@ -78,7 +80,9 @@ namespace AllegianceForms
         Tactical,
         Supremacy,
         Expansion,
-        Tower
+        Tower,
+        MissileTower,
+        RepairTower,
     }
 
     public enum EOrderType

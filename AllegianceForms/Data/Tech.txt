@@ -8,25 +8,19 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 7,0,Heavy Gunships,2|5,5000,60,False
 8,0,Heavy Scouts,2|3,5000,60,False
 9,0,Advanced Towers,1,5000,30,False
-
-10,0,Scan Range +10%,1,2500,60,False
-11,0,Repair Healing +10%,1,2500,60,False
-12,0,Miner Capacity +10%,1,2500,60,False
-13,0,Miner Efficiency +10%,1,2500,60,False
-
-14,0,Scan Range +20%,2|10,2500,60,False
-14,0,Repair Healing +20%,2|11,2500,60,False
-14,0,Miner Capacity +20%,2|12,2500,60,False
-14,0,Miner Efficiency +20%,2|13,2500,60,False
+10,0,Advanced Repair Towers,1,5000,30,False
+11,0,Advanced Missile Towers,1,5000,30,False
 
 19,-1,Miner,,5000,30,False
 20,-1,Starbase Constructor,,10000,30,False
 21,-1,Refinery Constructor,,5000,30,False
 22,-1,Tower Constructor,,1000,15,False
-23,-1,Outpost Constructor,,5000,30,False
-24,-1,Tactical Constructor,,10000,30,False
-25,-1,Supremacy Constructor,,10000,30,False
-26,-1,Expansion Constructor,,10000,30,False
+23,-1,Repair Tower Constructor,,1000,15,False
+24,-1,Missile Tower Constructor,,1000,15,False
+25,-1,Outpost Constructor,,5000,30,False
+26,-1,Tactical Constructor,,10000,30,False
+27,-1,Supremacy Constructor,,10000,30,False
+28,-1,Expansion Constructor,,10000,30,False
 
 30,4,Expansion,,0,0,True
 31,3,Upgrade Expansion,30,10000,120,False
@@ -34,21 +28,11 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 33,3,Troop Transports,31|5,5000,60,False
 34,3,Heavy Interceptors,32|31,5000,60,False
 
-35,3,Ship Hull +10%,30,5000,60,False
-36,3,Weapon Damage +10%,30,5000,60,False
-37,3,Ship Hull +20%,31|35,5000,60,False
-38,3,Weapon Damage +20%,31|36,5000,60,False
-
 40,4,Supremacy,,0,0,True
 41,1,Upgrade Supremacy,40,10000,120,False
 42,1,Enhanced Fighter,40,5000,60,False
 43,1,Fighter Bomber,41|4,5000,60,False
 44,1,Advanced Fighter,41|42,5000,60,False
-
-45,1,Ship Speed +10%,40,5000,60,False
-46,1,Weapon Fire Rate +10%,40,5000,60,False
-47,1,Ship Speed +20%,41|45,5000,60,False
-48,1,Weapon Fire Rate +20%,41|46,5000,60,False
 
 50,4,Tactical,,0,0,True
 51,2,Upgrade Tactical,50,10000,120,False
@@ -57,9 +41,28 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 54,2,Stealth Bomber,51|4,5000,60,False
 55,2,Advanced Stealth Bomber,54,5000,60,False
 
-56,2,Ship Signature -10%,50,5000,60,False
-57,2,Missile Tracking +10%,50,2500,60,False
-58,2,Missile Speed +10%,50,2500,60,False
-59,2,Ship Signature -20%,51|56,5000,60,False
-60,2,Missile Tracking +20%,51|57,2500,60,False
-61,2,Missile Speed +20%,51|58,2500,60,False
+60,0,Scan Range +10%,1,2500,60,False
+61,0,Repair Healing +10%,1,2500,60,False
+62,0,Miner Capacity +10%,1,2500,60,False
+63,0,Miner Efficiency +10%,1,2500,60,False
+64,0,Scan Range +20%,2|60,2500,60,False
+65,0,Repair Healing +20%,2|61,2500,60,False
+66,0,Miner Capacity +20%,2|62,2500,60,False
+67,0,Miner Efficiency +20%,2|63,2500,60,False
+
+70,3,Ship Hull +10%,30,5000,60,False
+71,3,Weapon Damage +10%,30,5000,60,False
+72,3,Ship Hull +20%,31|70,5000,60,False
+73,3,Weapon Damage +20%,31|71,5000,60,False
+
+80,1,Ship Speed +10%,40,5000,60,False
+81,1,Weapon Fire Rate +10%,40,5000,60,False
+82,1,Ship Speed +20%,41|80,5000,60,False
+83,1,Weapon Fire Rate +20%,41|81,5000,60,False
+
+90,2,Ship Signature -10%,50,5000,60,False
+91,2,Missile Tracking +10%,50,2500,60,False
+92,2,Missile Speed +10%,50,2500,60,False
+93,2,Ship Signature -20%,51|90,5000,60,False
+94,2,Missile Tracking +20%,51|91,2500,60,False
+95,2,Missile Speed +20%,51|92,2500,60,False

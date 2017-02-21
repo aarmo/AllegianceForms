@@ -36,6 +36,11 @@ namespace AllegianceForms.Engine.Bases
             }
         }
 
+        public static bool IsTower(EBaseType type)
+        {
+            return type == EBaseType.MissileTower || type == EBaseType.Tower || type == EBaseType.RepairTower;
+        }
+
         public Base CreateBase(EBaseType baseType, int team, Color teamColour, int sectorId)
         {
             var spec = Bases.FirstOrDefault(_ => _.Type == baseType);

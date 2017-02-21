@@ -70,7 +70,7 @@ namespace AllegianceForms.Engine.Tech
             const string conName = "Constructor";
             if (!name.Contains(conName)) return EBaseType.None;
 
-            var bName = name.Replace(conName, string.Empty).Trim();
+            var bName = name.Replace(conName, string.Empty).Replace(" ", string.Empty).Trim();
             if (string.IsNullOrWhiteSpace(bName)) return EBaseType.None;
 
             return (EBaseType)Enum.Parse(typeof(EBaseType), bName);

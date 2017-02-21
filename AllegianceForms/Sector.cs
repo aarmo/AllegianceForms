@@ -186,15 +186,14 @@ namespace AllegianceForms
                 }
                 else
                 {
-                    var bName = tech.Name.Replace("Constructor", string.Empty).Trim();
-                    var bType = (EBaseType)Enum.Parse(typeof(EBaseType), bName);
+                    var bType = TechItem.GetBaseType(tech.Name);
 
                     drone = StrategyGame.Ships.CreateBuilderShip(bType, tech.Team, colour, b1.SectorId);
                     if (drone == null) return;
                     var builder = drone as BuilderShip;
                     if (builder == null) return;
 
-                    if (tech.Team == 1 && builder.BaseType == EBaseType.Tower)
+                    if (tech.Team == 1 && BaseSpecs.IsTower(builder.BaseType))
                     {
                         SoundEffect.Play(ESounds.vo_request_tower);
                     }
@@ -457,9 +456,10 @@ namespace AllegianceForms
             if (e == EShipEventType.BuildingStarted)
             {
                 var b = sender as BuilderShip;
-                if (b != null && b.BaseType == EBaseType.Tower)
+                if (b != null && BaseSpecs.IsTower(b.BaseType))
                 {
-                    var tower = StrategyGame.Ships.CreateTowerShip(b.Team, b.Colour, b.SectorId);
+                    var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
+                    var tower = StrategyGame.Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
                     if (tower == null) return;
 
                     tower.CenterX = b.CenterX;
