@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\CommanderTests.cs" />
+    <Compile Include="Balance\BaseBalanceTests.cs" />
     <Compile Include="Engine\GlobalUpgradeTests.cs" />
     <Compile Include="Engine\MapPathfindingTests.cs" />
     <Compile Include="Engine\MathTests.cs" />
