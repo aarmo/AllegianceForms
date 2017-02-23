@@ -34,6 +34,8 @@ namespace AllegianceForms.Engine.Weapons
         {
             foreach (var m in Missiles)
             {
+                if (m.SectorId != Shooter.SectorId) continue;
+
                 m.Draw(g);
             }
         }
@@ -46,7 +48,7 @@ namespace AllegianceForms.Engine.Weapons
             {
                 var heading = (float) StrategyGame.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
-                Missiles.Add(new MissileProjectile(Width, Speed, Tracking, heading, WeaponDamage, 3000, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
+                Missiles.Add(new MissileProjectile(Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 3000, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
             }
             base.Update();
 

@@ -20,10 +20,15 @@ namespace AllegianceForms.Engine.Weapons
             var t = Target as Ship;
             if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Health == t.MaxHealth || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var friendInRange = StrategyGame.AllUnits.FirstOrDefault(_ => _.Active && _.Team == Shooter.Team && !_.Docked && Shooter.SectorId == _.SectorId && _.Health < _.MaxHealth && _ != Shooter && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
-                if (friendInRange != null)
+                var friendsInRange = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == Shooter.Team && !_.Docked && Shooter.SectorId == _.SectorId && _.Health < _.MaxHealth && _ != Shooter && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange)).ToList();
+                if (friendsInRange.Count > 1)
                 {
-                    Target = friendInRange;
+                    Target = friendsInRange[StrategyGame.Random.Next(friendsInRange.Count)];
+                    Firing = true;
+                }
+                else if (friendsInRange.Count == 1)
+                {
+                    Target = friendsInRange[0];
                     Firing = true;
                 }
                 else

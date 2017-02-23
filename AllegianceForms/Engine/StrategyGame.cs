@@ -244,8 +244,7 @@ namespace AllegianceForms.Engine
 
                             if (!preVis && t == 0 && !bbrSoundPlayed && (s.IsCapitalShip()))
                             {
-                                //TODO: CAPITAL SHIP SIGHTED SOUND
-                                //SoundEffect.Play(ESounds., true);
+                                SoundEffect.Play(ESounds.vo_sal_capitalsighted, true);
                                 bbrSoundPlayed = true;
                             }
 

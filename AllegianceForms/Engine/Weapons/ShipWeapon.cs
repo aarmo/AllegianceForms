@@ -29,10 +29,16 @@ namespace AllegianceForms.Engine.Weapons
             var t = Target as Ship;
             if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || !t.VisibleToTeam[Shooter.Team - 1] || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var enemyInRange = StrategyGame.AllUnits.FirstOrDefault(_ => _.Active && _.Team != Shooter.Team && !_.Docked && Shooter.SectorId == _.SectorId && _.VisibleToTeam[Shooter.Team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
-                if (enemyInRange != null)
+                var enemysInRange = StrategyGame.AllUnits.Where(_ => _.Active && _.Team != Shooter.Team && !_.Docked && Shooter.SectorId == _.SectorId && _.VisibleToTeam[Shooter.Team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange)).ToList();
+                
+                if (enemysInRange.Count > 1)
                 {
-                    Target = enemyInRange;
+                    Target = enemysInRange[StrategyGame.Random.Next(enemysInRange.Count)];
+                    Firing = true;
+                }
+                else if (enemysInRange.Count == 1)
+                {
+                    Target = enemysInRange[0];
                     Firing = true;
                 }
                 else

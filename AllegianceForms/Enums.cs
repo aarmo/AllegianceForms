@@ -197,6 +197,7 @@ namespace AllegianceForms
         vo_request_miner,
         vo_request_tower,
         vo_sal_bombersighted,
+        vo_sal_capitalsighted,
         vo_sal_minercritical,
         vo_sal_minerpartial,
         vo_sal_newequip,

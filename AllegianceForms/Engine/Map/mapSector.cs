@@ -33,6 +33,11 @@ namespace AllegianceForms.Engine.Map
             Colour1 = Colour2 = _originalColour = new SolidBrush(Color.DimGray);
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public int CompareTo(object obj)
         {
             var o = (MapSector)obj;

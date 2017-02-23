@@ -137,6 +137,8 @@ namespace AllegianceForms
             settings.WormholesVisible = true;
             settings.ResearchTimeMultiplier = 0.25f;
             settings.ResearchCostMultiplier = 0.25f;
+
+            enemyAIDebugToolStripMenuItem_Click(null, null);
 #endif
 
             // Regular Setup:
@@ -170,8 +172,6 @@ namespace AllegianceForms
             StrategyGame.UpdateVisibility(true);
             StrategyGame.GameEvent += StrategyGame_GameEvent;
             miniMapToolStripMenuItem_Click(null, null);
-            
-            //enemyAIDebugToolStripMenuItem_Click(null, null);
         }
 
         private void StrategyGame_GameEvent(object sender, EGameEventType e)
@@ -300,7 +300,7 @@ namespace AllegianceForms
                 var s = sender as GameAlert;
                 if (s == null) return;
 
-                if (_currentSector.Id != s.SectorId) _alertSectorId  = s.SectorId;
+                _alertSectorId  = s.SectorId;
                 _alertExpire = DateTime.Now + _alertDuration;
                 AlertMessage.Text = s.Message;
                 AlertMessage.Visible = true;
@@ -887,11 +887,12 @@ namespace AllegianceForms
             }
             else if (e.KeyCode == Keys.Space)
             {
-                if (AlertMessage.Visible || _alertSectorId > -1)
+                if (_alertSectorId > -1)
                 {
                     var lastSectorId = _currentSector.Id;
-                    SwitchSector(_alertSectorId);
+                    SwitchSector(_alertSectorId+1);
                     _alertSectorId = lastSectorId;
+                    Focus();
                     return;
                 }
             }
@@ -1301,7 +1302,7 @@ namespace AllegianceForms
                 _pilotList.RefreshPilotList();
             }
 
-            if (AlertMessage.Visible && _alertExpire >= DateTime.Now)
+            if (AlertMessage.Visible && DateTime.Now >= _alertExpire)
             {
                 AlertMessage.Visible = false;
             }

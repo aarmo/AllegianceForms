@@ -6,6 +6,7 @@ namespace AllegianceForms.Engine.Weapons
 {
     public class MissileProjectile
     {
+        public int SectorId { get; set; }
         public float Heading { get; set; }
         public float Speed { get; set; }
         public float Tracking { get; set; }
@@ -27,8 +28,9 @@ namespace AllegianceForms.Engine.Weapons
 
         private DateTime _expireTime;
 
-        public MissileProjectile(int width, float speed, float tracking, float heading, float damage, int expireMS, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
+        public MissileProjectile(int sectorId, int width, float speed, float tracking, float heading, float damage, int expireMS, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
         {
+            SectorId = sectorId;
             Heading = heading;
             Speed = speed;
             Tracking = tracking;
@@ -45,6 +47,7 @@ namespace AllegianceForms.Engine.Weapons
 
         public virtual void Draw(Graphics g)
         {
+            if (!Active) return;
             var b = Bounds;
             g.DrawLine(SmokePen2, LastPoint, PreviousPoint);
             g.DrawLine(SmokePen1, Center, PreviousPoint);
