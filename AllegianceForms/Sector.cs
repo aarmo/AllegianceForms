@@ -368,6 +368,10 @@ namespace AllegianceForms
                     case (EBaseType.Refinery):
                         SoundEffect.Play(sender.Team == 2 ? ESounds.vo_destroy_enemyrefinery : ESounds.vo_destroy_refinery, true);
                         break;
+
+                    case (EBaseType.Shipyard):
+                        SoundEffect.Play(sender.Team == 2 ? ESounds.vo_destroy_enemyshipyard : ESounds.vo_destroy_shipyard, true);
+                        break;
                 }
                 
                 CheckForGameOver();
@@ -394,6 +398,10 @@ namespace AllegianceForms
                         
                     case (EBaseType.Tactical):
                         SoundEffect.Play(sender.Team == 2 ? ESounds.vo_capture_tactical : ESounds.vo_capture_enemytactical, true);
+                        break;
+
+                    case (EBaseType.Shipyard):
+                        SoundEffect.Play(sender.Team == 2 ? ESounds.vo_capture_shipyard : ESounds.vo_capture_enemyshipyard, true);
                         break;
                 }
 
@@ -537,6 +545,9 @@ namespace AllegianceForms
                                 break;
                             case EBaseType.Expansion:
                                 SoundEffect.Play(ESounds.vo_builder_expansion, true);
+                                break;
+                            case EBaseType.Shipyard:
+                                SoundEffect.Play(ESounds.vo_builder_shipyard, true);
                                 break;
                         }
 
