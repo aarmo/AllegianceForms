@@ -56,9 +56,11 @@ namespace AllegianceForms.Engine.Ships
 
             if (Team == 1 && !Docked && DateTime.Now > _callNext)
             {
-                SoundEffect.Play(ESounds.vo_miner_underattack, true);
-                OrderShip(new DockOrder(this));
                 _callNext = DateTime.Now.AddSeconds(4);
+
+                StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
+
+                SoundEffect.Play(ESounds.vo_miner_underattack, true);
             }
         }
 
@@ -121,11 +123,15 @@ namespace AllegianceForms.Engine.Ships
                 if (Health < _lastHealth)
                 {
                     _lastHealth = Health;
+
                     // Under attack - Dock now!
+                    if (Team == 1 && DateTime.Now > _callNext)
+                    {
+                        _callNext = DateTime.Now.AddSeconds(4);
+                        SoundEffect.Play(ESounds.vo_miner_dontgetpaid, true);
+                    }
 
-                    if (Team == 1) SoundEffect.Play(ESounds.vo_miner_dontgetpaid, true);
                     OrderShip(new DockOrder(this));
-
                     return;
                 }
                 _nextHealthCheckTime = DateTime.Now + _healthCheckDelay;

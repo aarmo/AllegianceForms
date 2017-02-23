@@ -73,7 +73,6 @@ namespace AllegianceForms.Engine
 
         public static GameEntity NextWormholeEnd(int team, int fromSectorId, int toSectorId, out GameEntity _otherEnd)
         {
-            // TODO: This no longer checks if the wormholes are visible!
             var path = Map.ShortestPath(team, fromSectorId, toSectorId);
 
             _otherEnd = null;
@@ -230,11 +229,26 @@ namespace AllegianceForms.Engine
                                 soundPlayed = true;
                             }
 
+                            if (!preVis && t == 0 && s.CanAttackBases() && AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == s.SectorId && _.CanLaunchShips()))
+                            {
+                                SoundEffect.Play(ESounds.vo_sal_stationrisk, true);
+                                OnGameEvent(new GameAlert(s.SectorId, $"Station at risk by {s.Type} in {Map.Sectors[s.SectorId]}!"), EGameEventType.ImportantMessage);
+                                bbrSoundPlayed = true;
+                            }
+
                             if (!preVis && t == 0 && !bbrSoundPlayed && (s.Type == EShipType.Bomber || s.Type == EShipType.FighterBomber || s.Type == EShipType.StealthBomber))
                             {
                                 SoundEffect.Play(ESounds.vo_sal_bombersighted, true);
                                 bbrSoundPlayed = true;
                             }
+
+                            if (!preVis && t == 0 && !bbrSoundPlayed && (s.IsCapitalShip()))
+                            {
+                                //TODO: CAPITAL SHIP SIGHTED SOUND
+                                //SoundEffect.Play(ESounds., true);
+                                bbrSoundPlayed = true;
+                            }
+
                             s.VisibleToTeam[t] = true;
                         }
                     }

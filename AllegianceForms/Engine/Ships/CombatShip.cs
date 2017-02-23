@@ -39,7 +39,7 @@ namespace AllegianceForms.Engine.Ships
         
         public override bool CanAttackBases()
         {
-            return Type == EShipType.Bomber || Type == EShipType.FighterBomber || Type == EShipType.StealthBomber || Type == EShipType.TroopTransport;
+            return Type == EShipType.TroopTransport || (Weapons != null && Weapons.Exists(_ => _.GetType() == typeof(BaseLaserWeapon)));
         }
 
         public override bool CanAttackShips()

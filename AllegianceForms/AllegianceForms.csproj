@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Engine\Animation.cs" />
     <Compile Include="Engine\Bases\BaseSpecs.cs" />
+    <Compile Include="Engine\GameAlert.cs" />
     <Compile Include="Engine\GameSettings.cs" />
     <Compile Include="Engine\GameStats.cs" />
     <Compile Include="Engine\Map\GameMap.cs" />

@@ -114,8 +114,9 @@ namespace AllegianceForms.Engine.Ships
 
             if (Team == 1 && !Docked && DateTime.Now > _callNext)
             {
-                SoundEffect.Play(ESounds.vo_miner_underattack);
-                _callNext = DateTime.Now.AddSeconds(3);
+                _callNext = DateTime.Now.AddSeconds(4);
+                StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
+                SoundEffect.Play(ESounds.vo_miner_underattack, true);
             }
         }
 

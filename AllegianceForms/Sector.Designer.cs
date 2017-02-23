@@ -69,6 +69,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.WinLose = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.AlertMessage = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -87,7 +88,7 @@
             this.PilotsLabel,
             this.CommandsLabel,
             this.toolStripDropDownButton1});
-            this.statusStrip.Location = new System.Drawing.Point(0, 731);
+            this.statusStrip.Location = new System.Drawing.Point(0, 711);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1184, 30);
             this.statusStrip.TabIndex = 10;
@@ -502,12 +503,25 @@
             this.label1.Text = "Game Over";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // AlertMessage
+            // 
+            this.AlertMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AlertMessage.ForeColor = System.Drawing.Color.DimGray;
+            this.AlertMessage.Location = new System.Drawing.Point(12, 13);
+            this.AlertMessage.Name = "AlertMessage";
+            this.AlertMessage.Size = new System.Drawing.Size(1160, 41);
+            this.AlertMessage.TabIndex = 12;
+            this.AlertMessage.Text = "[Alert Message]";
+            this.AlertMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.AlertMessage.Visible = false;
+            // 
             // Sector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.ClientSize = new System.Drawing.Size(1184, 741);
+            this.Controls.Add(this.AlertMessage);
             this.Controls.Add(this.GameOverPanel);
             this.Controls.Add(this.statusStrip);
             this.DoubleBuffered = true;
@@ -577,6 +591,7 @@
         private System.Windows.Forms.Label WinLose;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Team2;
+        private System.Windows.Forms.Label AlertMessage;
     }
 }
 

@@ -24,7 +24,8 @@ namespace AllegianceForms
         SectorRightClicked,
         ShipLaunched,
         ShipClicked,
-        MissileHit
+        MissileHit,
+        ImportantMessage
     }
 
     public enum EVertDir

@@ -47,6 +47,9 @@ namespace AllegianceForms
         private Random _rnd = new Random();
         private int _lastCredits = 0;
         private int _lastPilots = 0;
+        private int _alertSectorId = -1;
+        private DateTime _alertExpire = DateTime.MinValue;
+        private TimeSpan _alertDuration = new TimeSpan(0, 0, 0, 3);
         
         private CommanderAI _ai;
         
@@ -291,6 +294,16 @@ namespace AllegianceForms
                 if (s == null) return;
 
                 CreateExplosion(s.Bounds, s.SectorId);
+            }
+            else if (e == EGameEventType.ImportantMessage)
+            {
+                var s = sender as GameAlert;
+                if (s == null) return;
+
+                if (_currentSector.Id != s.SectorId) _alertSectorId  = s.SectorId;
+                _alertExpire = DateTime.Now + _alertDuration;
+                AlertMessage.Text = s.Message;
+                AlertMessage.Visible = true;
             }
         }
 
@@ -861,6 +874,16 @@ namespace AllegianceForms
                 if (_researchForm.Visible) researchToolStripMenuItem_Click(sender, null);
                 if (_pilotList.Visible) pilotListToolStripMenuItem_Click(sender, null);
             }
+            else if (e.KeyCode == Keys.Space)
+            {
+                if (AlertMessage.Visible || _alertSectorId > -1)
+                {
+                    var lastSectorId = _currentSector.Id;
+                    SwitchSector(_alertSectorId);
+                    _alertSectorId = lastSectorId;
+                    return;
+                }
+            }
             else
             {
                 switch (e.KeyCode)
@@ -1265,6 +1288,11 @@ namespace AllegianceForms
             if (_pilotList.Visible)
             {
                 _pilotList.RefreshPilotList();
+            }
+
+            if (AlertMessage.Visible && _alertExpire >= DateTime.Now)
+            {
+                AlertMessage.Visible = false;
             }
         }
 
