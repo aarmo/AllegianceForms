@@ -128,6 +128,8 @@
     </Compile>
     <Compile Include="Engine\Animation.cs" />
     <Compile Include="Engine\Bases\BaseSpecs.cs" />
+    <Compile Include="Engine\Factions\Faction.cs" />
+    <Compile Include="Engine\Factions\FactionBonus.cs" />
     <Compile Include="Engine\GameAlert.cs" />
     <Compile Include="Engine\GameSettings.cs" />
     <Compile Include="Engine\GameStats.cs" />
@@ -1260,6 +1262,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\wormhole.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Names-Faction.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Names-Sector.txt">
