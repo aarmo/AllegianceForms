@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Map;
+﻿using AllegianceForms.Engine.Factions;
+using AllegianceForms.Engine.Map;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +12,9 @@ namespace AllegianceForms.Engine
         public string MapName { get; set; }
         public int Team1ColourARBG { get; set; }
         public int Team2ColourARBG { get; set; }
+        public Faction Team1Faction { get; set; }
+        public Faction Team2Faction { get; set; }
+
         public bool WormholesVisible { get; set; }
         public float WormholesSignatureMultiplier { get; set; }
         public int MinersInitial { get; set; }
@@ -58,6 +62,9 @@ namespace AllegianceForms.Engine
                 MapName = GameMaps.RandomName(), // "Brawl",
                 WormholesVisible = false,
                 RocksVisible = false,
+
+                Team1Faction = Faction.Default(),
+                Team2Faction = Faction.Random(),
 
                 NumPilots = 16,
                 AiDifficulty = 1,

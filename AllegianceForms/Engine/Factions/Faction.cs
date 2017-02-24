@@ -20,10 +20,26 @@ namespace AllegianceForms.Engine.Factions
 
         public static RandomString FactionNames = new RandomString(".\\Data\\Names-Faction.txt");
 
-        public static Faction Random()
+        public static Faction Default()
+        {
+            return new Faction("Default");
+        }
+
+        public static Faction CreateFaction(string name)
+        {
+            switch (name)
+            {
+                case "Default":
+                    return Default();
+                default:
+                    return Random();
+            }
+        }
+
+        public static Faction Random(int min = 10)
         {
             var f = new Faction(FactionNames.NextString);
-            f.Bonuses.Randomise();
+            f.Bonuses.Randomise(min);
 
             return f;
         }
