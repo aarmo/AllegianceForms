@@ -3,6 +3,7 @@
 </p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
 [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md)
 [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
@@ -11,13 +12,11 @@
 
 Overview
 ------
-A 2D strategy game inspired by Microsoft's space combat game: Allegiance
-
-For the Free Allegiance community: http://www.freeallegiance.org/
+A 2D strategy game inspired by Microsoft's space combat game: Allegiance. 
+Made for the Free Allegiance community: http://www.freeallegiance.org/
 
 [Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
 
-<br/>
 Features
 ------
 - Mulitple [Maps](#maps) & [Tech Paths](#tech-tree)
@@ -30,24 +29,20 @@ Features
 <br/>
 ![alt text][capships]
 
-<br/>
 Screenshots
 ------
 ###Main Menu
 ![alt text][menu]
 
-<br/>
 ###Explore the map
 ![alt text][explore]
 - Discover wormholes to other sectors
 - Find your enemy's bases and miners
 
-<br/>
 ###Defend your miners & constructors
 ![alt text][defend]
 - Miners collect resources from *Helium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
 
-<br/>
 ###Build bases & expand
 ![alt text][build2]
 - Outpost, Refinery, Starbase and Shipyard constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
@@ -56,20 +51,17 @@ Screenshots
 - Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_3.png" width="30"/>
 - Tower constructors require *No* asteroids.
 
-<br/>
 ###Upgrade your tech & battle the enemy
 ![alt text][battle1]
 ![alt text][battle2]
 ![alt text][gameover]
 
-<br/>
 ###Customise the Game
 ![alt text][custom]
 ![alt text][faction]
 
-[Home](#allegianceforms)
+[Home](#overview)
 
-<br/>
 Controls
 ------
 ### Selection
@@ -116,9 +108,8 @@ Key	| Description
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to *Capture* an enemy base.
 
-[Home](#allegianceforms)
+[Home](#overview)
 
-<br/>
 Maps
 ------
 Name | Image | Name | Image
@@ -128,15 +119,14 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
-[Home](#allegianceforms)
+[Home](#overview)
 
 Tech Tree
 ------
 ![alt text][techtree]
 
-[Home](#allegianceforms)
+[Home](#overview)
 
-<br/>
 Credits
 ------
 Resource | Credit
@@ -144,11 +134,10 @@ Resource | Credit
 **Icons** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
 **Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar
 **Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
-**Game Sounds** | Microsoft's Allegiance: : http://www.freeallegiance.org
+**Game Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
 
-[Home](#allegianceforms)
+[Home](#overview)
 
-<br/>
 <br/>
 Bonus Game
 ------
@@ -159,7 +148,7 @@ Bonus Game
 
 [ships]: /Doc/Images/Ships.png "Ship Types"
 [capships]: /Doc/Images/CapShips.png "Capital Ships"
-[menu]: /Doc/Screenshots/01a_MainMenu.png "Main Menu"
+[menu]: /Doc/Screenshots/MainMenu.png "Main Menu"
 [explore]: /Doc/Screenshots/01a_Gameplay06.png "Explore"
 [defend]: /Doc/Screenshots/01a_Gameplay01.png "Defend"
 [build2]: /Doc/Screenshots/01a_Build.png "Expand"

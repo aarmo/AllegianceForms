@@ -32,18 +32,16 @@
             this.Skirmish = new System.Windows.Forms.Button();
             this.Dogfight = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.AppVersion = new System.Windows.Forms.Label();
             this.CustomGame = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Skirmish
             // 
             this.Skirmish.BackColor = System.Drawing.Color.Black;
             this.Skirmish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Skirmish.Location = new System.Drawing.Point(12, 105);
+            this.Skirmish.Location = new System.Drawing.Point(54, 159);
             this.Skirmish.Name = "Skirmish";
             this.Skirmish.Size = new System.Drawing.Size(163, 45);
             this.Skirmish.TabIndex = 1;
@@ -56,7 +54,7 @@
             // Dogfight
             // 
             this.Dogfight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Dogfight.Location = new System.Drawing.Point(12, 156);
+            this.Dogfight.Location = new System.Drawing.Point(54, 210);
             this.Dogfight.Name = "Dogfight";
             this.Dogfight.Size = new System.Drawing.Size(260, 45);
             this.Dogfight.TabIndex = 1;
@@ -69,7 +67,7 @@
             // Exit
             // 
             this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Exit.Location = new System.Drawing.Point(12, 237);
+            this.Exit.Location = new System.Drawing.Point(54, 301);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(260, 45);
             this.Exit.TabIndex = 1;
@@ -79,36 +77,14 @@
             this.Exit.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.Exit.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, -11);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(284, 102);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(191, 78);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 24);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Forms";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // AppVersion
             // 
             this.AppVersion.BackColor = System.Drawing.Color.Transparent;
             this.AppVersion.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppVersion.ForeColor = System.Drawing.Color.Lime;
-            this.AppVersion.Location = new System.Drawing.Point(10, 285);
+            this.AppVersion.Location = new System.Drawing.Point(3, 349);
             this.AppVersion.Name = "AppVersion";
-            this.AppVersion.Size = new System.Drawing.Size(272, 23);
+            this.AppVersion.Size = new System.Drawing.Size(366, 32);
             this.AppVersion.TabIndex = 3;
             this.AppVersion.Text = "(ALPHA) v0.1a";
             this.AppVersion.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -117,7 +93,7 @@
             // 
             this.CustomGame.BackColor = System.Drawing.Color.Black;
             this.CustomGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CustomGame.Location = new System.Drawing.Point(181, 105);
+            this.CustomGame.Location = new System.Drawing.Point(223, 159);
             this.CustomGame.Name = "CustomGame";
             this.CustomGame.Size = new System.Drawing.Size(91, 45);
             this.CustomGame.TabIndex = 1;
@@ -127,16 +103,25 @@
             this.CustomGame.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.CustomGame.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(369, 156);
+            this.label1.TabIndex = 4;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(284, 312);
-            this.Controls.Add(this.AppVersion);
+            this.ClientSize = new System.Drawing.Size(369, 382);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.AppVersion);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.Dogfight);
             this.Controls.Add(this.CustomGame);
@@ -148,7 +133,6 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allegiance Forms";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -158,9 +142,8 @@
         private System.Windows.Forms.Button Skirmish;
         private System.Windows.Forms.Button Dogfight;
         private System.Windows.Forms.Button Exit;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label AppVersion;
         private System.Windows.Forms.Button CustomGame;
+        private System.Windows.Forms.Label label1;
     }
 }
