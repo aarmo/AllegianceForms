@@ -63,7 +63,7 @@ namespace AllegianceForms.Engine
                 RocksVisible = false,
 
                 Team1Faction = Faction.Default(),
-                Team2Faction = Faction.Random(),
+                Team2Faction = Faction.Default(),
 
                 NumPilots = 16,
                 AiDifficulty = 1,

@@ -56,48 +56,41 @@ namespace AllegianceForms
         public Sector(GameSettings settings)
         {
             InitializeComponent();
+
+            StrategyGame.LoadData();
             StrategyGame.ResetGame(settings);
+            StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
+
+#if DEBUG
+            // Testing Setup: crazy money, fast tech, map visible
+            StrategyGame.AddResources(1, 100000, false);
+            settings.WormholesVisible = true;
+            settings.ResearchTimeMultiplier = 0.25f;
+            settings.ResearchCostMultiplier = 0.25f;
+#endif
+            StrategyGame.InitialiseGame();
 
             Width = StrategyGame.ScreenWidth;
             Height = StrategyGame.ScreenHeight;
             _frame = new Bitmap(Width, Height);
             _bg = Image.FromFile(".\\Art\\Backgrounds\\stars.png");
             _bgBrush = new TextureBrush(_bg);
-            var centerPos = new Point(Width / 2, Height / 2);
-
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
             _colourTeam1 = Color.FromArgb(settings.Team1ColourARBG);
             _colourTeam2 = Color.FromArgb(settings.Team2ColourARBG);
             _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
             _sensorBrush = new SolidBrush(StrategyGame.NewAlphaColour(5, _colourTeam1));
-            
-            StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
+            _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
             _currentSector = StrategyGame.Map.Sectors.First(_ => _.StartingSector);
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
 
-            StrategyGame.LoadData();
-            _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
-
             // Friendlies
-            StrategyGame.DockedPilots[0] = settings.NumPilots;
             var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, 1, _colourTeam1, _currentSector.Id);
             b1.CenterX = 100;
             b1.CenterY = 100;
             b1.BaseEvent += B_BaseEvent;
             StrategyGame.AddBase(b1);
-            StrategyGame.GameStats.TotalBasesBuilt[0] = 1;
-
-            /*
-            // Test Ship!
-            var testShip = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, _colourTeam1, _currentSector.Id);
-            testShip.Weapons.Add(new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)));
-            testShip.MaxHealth = testShip.Health = 1000;
-            testShip.CenterX = b1.CenterX + 100;
-            testShip.CenterY = b1.CenterY + 80;
-            testShip.ShipEvent += F_ShipEvent;
-            StrategyGame.AddUnit(testShip);
-            */
-
+            StrategyGame.GameStats.TotalBasesBuilt[0] = 1;            
             for (var i = 0; i < settings.MinersInitial; i++)
             {
                 var startingMiner = StrategyGame.Ships.CreateMinerShip(1, _colourTeam1, _currentSector.Id);
@@ -123,39 +116,17 @@ namespace AllegianceForms
                 startingMiner.ShipEvent += F_ShipEvent;
                 StrategyGame.AddUnit(startingMiner);
             }
+
+            // AI
             _ai = new CommanderAI(2, _colourTeam2, this, true);
             StrategyGame.AICommanders[1] = _ai;
             _ai.SetDifficulty(settings.AiDifficulty);
             StrategyGame.DockedPilots[1] = (int)(settings.NumPilots * _ai.CheatAdditionalPilots);
-
             _debugForm = new DebugAI(_ai);
             //_ai.Enabled = false;
+            //enemyAIDebugToolStripMenuItem_Click(null, null);
 
-#if DEBUG
-            // Testing Setup: Crazy money, fast tech, map visible
-            StrategyGame.AddResources(1, 100000);
-            settings.WormholesVisible = true;
-            settings.ResearchTimeMultiplier = 0.25f;
-            settings.ResearchCostMultiplier = 0.25f;
-
-            enemyAIDebugToolStripMenuItem_Click(null, null);
-#endif
-
-            // Regular Setup:
-            for (var t = 1; t <= StrategyGame.NumTeams; t++)
-            {
-                StrategyGame.AddResources(t, (int)(StrategyGame.ResourcesInitial * settings.ResourcesStartingMultiplier));
-                StrategyGame.Map.SetVisibilityToTeam(t, settings.WormholesVisible);
-                var faction = StrategyGame.Faction[t - 1];
-
-                foreach (var tech in StrategyGame.TechTree[t-1].TechItems)
-                {
-                    tech.Cost = (int)(tech.Cost * settings.ResearchCostMultiplier * (1 + (1 - faction.Bonuses.ResearchCost)));
-                    tech.DurationSec = (int)(tech.DurationSec * settings.ResearchTimeMultiplier * (1 + (1 - faction.Bonuses.ResearchTime)));
-                }
-            }
-
-            // Setup explosions
+            // Explosions
             var explosionFrames = new string[10];
             for (var i = 0; i < 10; i++)
             {
@@ -168,10 +139,12 @@ namespace AllegianceForms
                 _explosions.Add(a);
             }
 
+
             // Final setup
             _currentSector.VisibleToTeam[0] = true;
             StrategyGame.UpdateVisibility(true);
             StrategyGame.GameEvent += StrategyGame_GameEvent;
+
             miniMapToolStripMenuItem_Click(null, null);
         }
 

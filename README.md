@@ -1,63 +1,75 @@
-AllegianceForms
+<center>
+![alt text][logo]
+<br/>
+Allegiance Forms
 ======
+<br/>
+[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases) | [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md) | [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues) | ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) | [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
+<br/>
+[Features](#features) [Screenshots](#screenshots) [Controls](#controls) [Maps](#maps) [Tech Tree](#tech-tree) [Credits](#credits)
+</center>
+
+Overview
+------
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance
 
 For the Free Allegiance community: http://www.freeallegiance.org/
 
-[Screenshots](#screenshots), [Controls](#controls), [Maps](#maps), [Tech Tree](#tech-tree), [Credits](#credits)
-
+<br/>
+<br/>
 Features
 ------
-- Wormholes & Asteroids
-- Mulitple Maps & Tech Paths
+- Mulitple [Maps](#maps) & [Tech Paths](#tech-tree)
+- Customisable Game Settings
+- Randomised Factions
 - Pilot & Commander AI
-- Missiles, Lasers & Repair weapons
-- Stealth, Scan Range & Signatures
-- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports & Defensive Towers!
+- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers and Capital Ships!
 
 ![alt text][ships]
+![alt text][capships]
 
-Links | Status
---- | ---
-**Current Version** | [![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
-**Roadmap** | [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md)
-**Issues** | [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
-**License** | [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
-**Tweet** | [![Twitter](https://img.shields.io/twitter/url/https/github.com/aarmo/AllegianceForms/releases.svg?style=social)](https://twitter.com/intent/tweet?text=Cool:&url=https:///github.com/aarmo/AllegianceForms)
-
+<br/>
+<br/>
 Screenshots
 ------
 ###Main Menu
 ![alt text][menu]
 
-###Explore the Map
+<br/>
+###Explore the map
 ![alt text][explore]
 - Discover wormholes to other sectors
 - Find your enemy's bases and miners
 
-###Defend your Miners & Constructors
+<br/>
+###Defend your miners & constructors
 ![alt text][defend]
-- Miners collect resources from *Special* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
+- Miners collect resources from *Helium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
 
-###Build Bases to Expand
+<br/>
+###Build bases & expand
 ![alt text][build2]
-- Outpost, Refinery and Starbase constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
+- Outpost, Refinery, Starbase and Shipyard constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
 - Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="30"/>
 - Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_2.png" width="30"/>
 - Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_3.png" width="30"/>
 - Tower constructors require *No* asteroids.
 
-###Upgrade your Technology
-###Battle the Enemy
+<br/>
+###Upgrade your tech & battle the enemy
 ![alt text][battle1]
 ![alt text][battle2]
 ![alt text][gameover]
 
+<br/>
 ###Customise the Game
 ![alt text][custom]
+![alt text][faction]
 
-[Home](#allegianceforms)
+<center>[Home](#allegianceforms)</center>
 
+<br/>
+<br/>
 Controls
 ------
 ### Selection
@@ -104,8 +116,10 @@ Key	| Description
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to *Capture* an enemy base.
 
-[Home](#allegianceforms)
+<center>[Home](#allegianceforms)</center>
 
+<br/>
+<br/>
 Maps
 ------
 Name | Image | Name | Image
@@ -115,28 +129,29 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
-[Home](#allegianceforms)
+<center>[Home](#allegianceforms)</center>
 
 Tech Tree
 ------
 ![alt text][techtree]
 
-[Home](#allegianceforms)
+<br/>
+<br/>
+<center>[Home](#allegianceforms)</center>
 
 Credits
 ------
-###Icons
-http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
-###Rocks
-Hansjörg Malthaner: http://opengameart.org/users/varkalandar
-###Explosion
-Tião Ferreira: http://opengameart.org/users/tiao-ferreira
-###Sounds
-Originals from the Microsoft Allegiance game.
+Resource | Credit
+--- | ---
+**Icons** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
+**Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar
+**Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
+**Game Sounds** | Microsoft's Allegiance: : http://www.freeallegiance.org
 
-[Home](#allegianceforms)
+<center>[Home](#allegianceforms)</center>
 
-
+<br/>
+<br/>
 Bonus Game
 ------
 ### Lucky Dogfight
@@ -145,6 +160,7 @@ Bonus Game
 [(Rock Paper Scissors Lizard Spock)](http://www.samkass.com/theories/RPSSL.html)
 
 [ships]: /Doc/Images/Ships.png "Ship Types"
+[capships]: /Doc/Images/CapShips.png "Capital Ships"
 [menu]: /Doc/Screenshots/01a_MainMenu.png "Main Menu"
 [explore]: /Doc/Screenshots/01a_Gameplay06.png "Explore"
 [defend]: /Doc/Screenshots/01a_Gameplay01.png "Defend"
@@ -153,6 +169,7 @@ Bonus Game
 [battle2]: /Doc/Screenshots/01a_Gameplay05.png "Battle"
 [gameover]: /Doc/Screenshots/01a_GameOver.png "Game Over"
 [custom]: /Doc/Screenshots/01a_CustomGame.png "Custom Game"
+[faction]: /Doc/Screenshots/01a_Faction.png "Custom Factions"
 [bonus]: /Doc/Screenshots/01a_Bonus.png "Dogfight"
 [techtree]: /Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
 
@@ -163,3 +180,5 @@ Bonus Game
 [maphigh]: /Doc/Images/Map_HiHigher.png "HiHigher"
 [mapgrid]: /Doc/Images/Map_Grid.png "Grid"
 [mapstar]: /Doc/Images/Map_Star.png "Star"
+
+[logo]: /AllegianceForms/Art/header_logo.png "Alegiance"

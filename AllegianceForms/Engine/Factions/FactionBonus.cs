@@ -34,10 +34,10 @@ namespace AllegianceForms.Engine.Factions
             switch (StrategyGame.Random.Next(NumBonuses))
             {
                 case 0:
-                    ResearchTime += amount;
+                    ResearchTime -= amount;
                     break;
                 case 1:
-                    ResearchCost += amount;
+                    ResearchCost -= amount;
                     break;
                 case 2:
                     Speed += amount;
@@ -49,7 +49,7 @@ namespace AllegianceForms.Engine.Factions
                     ScanRange += amount;
                     break;
                 case 5:
-                    Signature += amount;
+                    Signature -= amount;
                     break;
                 case 6:
                     FireRate += amount;
@@ -73,7 +73,17 @@ namespace AllegianceForms.Engine.Factions
         {
             get
             {
-                return ResearchTime + ResearchCost + Speed + ScanRange + Signature + FireRate + MissileSpeed + MissileTracking + MiningCapacity + MiningEfficiency + Health;
+                return (1 - ResearchTime)
+                    + (1 - ResearchCost)
+                    + (Speed - 1)
+                    + (ScanRange - 1)
+                    + (1 - Signature)
+                    + (FireRate - 1)
+                    + (MissileSpeed - 1)
+                    + (MissileTracking - 1)
+                    + (MiningCapacity - 1)
+                    + (MiningEfficiency - 1)
+                    + (Health - 1);
             }
         }
         
@@ -94,7 +104,7 @@ namespace AllegianceForms.Engine.Factions
 
         public bool IsBalanced()
         {
-            return Math.Round(TotalBonus, 2) == NumBonuses;
+            return Math.Round(TotalBonus, 2) == 0;
         }
 
         public void Randomise(int min)

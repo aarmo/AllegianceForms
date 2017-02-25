@@ -57,7 +57,6 @@ namespace AllegianceForms.Test.Faction
                 && _target.Name != f.Name;
 
             different.ShouldBe(true);
-
         }
 
     }

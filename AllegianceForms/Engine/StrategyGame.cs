@@ -444,6 +444,23 @@ namespace AllegianceForms.Engine
             BuildableAsteroids.Clear();
         }
 
+        public static void InitialiseGame(bool sound = true)
+        {
+            for (var t = 0; t < StrategyGame.NumTeams; t++)
+            {
+                StrategyGame.DockedPilots[t] = GameSettings.NumPilots;
+                StrategyGame.AddResources(t+1, (int)(StrategyGame.ResourcesInitial * GameSettings.ResourcesStartingMultiplier), sound);
+                StrategyGame.Map.SetVisibilityToTeam(t+1, GameSettings.WormholesVisible);
+
+                var faction = StrategyGame.Faction[t];
+                foreach (var tech in StrategyGame.TechTree[t].TechItems)
+                {
+                    tech.Cost = (int)(tech.Cost * GameSettings.ResearchCostMultiplier * faction.Bonuses.ResearchCost);
+                    tech.DurationSec = (int)(tech.DurationSec * GameSettings.ResearchTimeMultiplier * faction.Bonuses.ResearchTime);
+                }
+            }
+        }
+
         public static void LoadData()
         {
             Ships = ShipSpecs.LoadShipSpecs(ShipDataFile);
