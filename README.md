@@ -1,14 +1,13 @@
-<center>
+<p align="center">
 ![alt text][logo]
-<br/>
 Allegiance Forms
 ======
-<br/>
-[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases) | [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md) | [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues) | ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) | [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
-<br/>
-[Features](#features) [Screenshots](#screenshots) [Controls](#controls) [Maps](#maps) [Tech Tree](#tech-tree) [Credits](#credits)
-</center>
+[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases) [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md) [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues) | ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 
+[Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
+</p>
+<br/>
+<br/>
 Overview
 ------
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance
