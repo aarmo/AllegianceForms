@@ -1,8 +1,7 @@
 <p align="center">
 <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/header_logo.png" />
-<H1>Allegiance Forms </H1>
 </p>
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
 [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md)
@@ -10,19 +9,14 @@
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 
-<br/>
-<br/>
-[Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
-
-<br/>
-<br/>
 Overview
 ------
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance
 
 For the Free Allegiance community: http://www.freeallegiance.org/
 
-<br/>
+[Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
+
 <br/>
 Features
 ------
@@ -33,9 +27,9 @@ Features
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers and Capital Ships!
 
 ![alt text][ships]
+<br/>
 ![alt text][capships]
 
-<br/>
 <br/>
 Screenshots
 ------
@@ -73,9 +67,8 @@ Screenshots
 ![alt text][custom]
 ![alt text][faction]
 
-<center>[Home](#allegianceforms)</center>
+[Home](#allegianceforms)
 
-<br/>
 <br/>
 Controls
 ------
@@ -123,9 +116,8 @@ Key	| Description
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to *Capture* an enemy base.
 
-<center>[Home](#allegianceforms)</center>
+[Home](#allegianceforms)
 
-<br/>
 <br/>
 Maps
 ------
@@ -136,16 +128,15 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
-<center>[Home](#allegianceforms)</center>
+[Home](#allegianceforms)
 
 Tech Tree
 ------
 ![alt text][techtree]
 
-<br/>
-<br/>
-<center>[Home](#allegianceforms)</center>
+[Home](#allegianceforms)
 
+<br/>
 Credits
 ------
 Resource | Credit
@@ -155,7 +146,7 @@ Resource | Credit
 **Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 **Game Sounds** | Microsoft's Allegiance: : http://www.freeallegiance.org
 
-<center>[Home](#allegianceforms)</center>
+[Home](#allegianceforms)
 
 <br/>
 <br/>
