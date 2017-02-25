@@ -6,20 +6,32 @@ namespace AllegianceForms.Engine.Factions
     {
         public float ResearchTime { get; set; }
         public float ResearchCost { get; set; }
+
         public float Speed { get; set; }
         public float Health { get; set; }
+
         public float ScanRange { get; set; }
         public float Signature { get; set; }
+
         public float FireRate { get; set; }
-        public float Regneration { get; set; }
-        public float MiningSpeed { get; set; }
+        public float MissileTracking { get; set; }
+        public float MissileSpeed { get; set; }
+
         public float MiningCapacity { get; set; }
+        public float MiningEfficiency { get; set; }
+
+        public const int NumBonuses = 11;
+
+        public FactionBonus()
+        {
+            Reset();
+        }
 
         public void IncreaseRandomBonus(int inc)
         {
             var amount = inc / 10f;
 
-            switch (StrategyGame.Random.Next(10))
+            switch (StrategyGame.Random.Next(NumBonuses))
             {
                 case 0:
                     ResearchTime += amount;
@@ -31,25 +43,28 @@ namespace AllegianceForms.Engine.Factions
                     Speed += amount;
                     break;
                 case 3:
-                    ScanRange += amount;
+                    Health += amount;
                     break;
                 case 4:
-                    Signature += amount;
+                    ScanRange += amount;
                     break;
                 case 5:
-                    FireRate += amount;
+                    Signature += amount;
                     break;
                 case 6:
-                    Regneration += amount;
+                    FireRate += amount;
                     break;
                 case 7:
-                    MiningSpeed += amount;
+                    MissileTracking += amount;
                     break;
                 case 8:
-                    MiningCapacity += amount;
+                    MissileSpeed += amount;
                     break;
                 case 9:
-                    Health += amount;
+                    MiningCapacity += amount;
+                    break;
+                case 10:
+                    MiningEfficiency += amount;
                     break;
             }
         }
@@ -58,27 +73,28 @@ namespace AllegianceForms.Engine.Factions
         {
             get
             {
-                return ResearchTime + ResearchCost + Speed + ScanRange + Signature + FireRate + Regneration + MiningSpeed + MiningCapacity + Health;
+                return ResearchTime + ResearchCost + Speed + ScanRange + Signature + FireRate + MissileSpeed + MissileTracking + MiningCapacity + MiningEfficiency + Health;
             }
         }
         
         public void Reset()
         {
-            ResearchTime = 0;
-            ResearchCost = 0;
-            Speed = 0;
-            ScanRange = 0;
-            Signature = 0;
-            FireRate = 0;
-            Regneration = 0;
-            MiningSpeed = 0;
-            MiningCapacity = 0;
-            Health = 0;
+            ResearchTime = 1;
+            ResearchCost = 1;
+            Speed = 1;
+            ScanRange = 1;
+            Signature = 1;
+            FireRate = 1;
+            MissileSpeed = 1;
+            MissileTracking = 1;
+            MiningEfficiency = 1;
+            MiningCapacity = 1;
+            Health = 1;
         }
 
         public bool IsBalanced()
         {
-            return Math.Round(TotalBonus) == 0;
+            return Math.Round(TotalBonus, 2) == NumBonuses;
         }
 
         public void Randomise(int min)

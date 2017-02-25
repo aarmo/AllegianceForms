@@ -146,11 +146,12 @@ namespace AllegianceForms
             {
                 StrategyGame.AddResources(t, (int)(StrategyGame.ResourcesInitial * settings.ResourcesStartingMultiplier));
                 StrategyGame.Map.SetVisibilityToTeam(t, settings.WormholesVisible);
+                var faction = StrategyGame.Faction[t - 1];
 
                 foreach (var tech in StrategyGame.TechTree[t-1].TechItems)
                 {
-                    tech.Cost = (int)(tech.Cost * settings.ResearchCostMultiplier);
-                    tech.DurationSec = (int)(tech.DurationSec * settings.ResearchTimeMultiplier);
+                    tech.Cost = (int)(tech.Cost * settings.ResearchCostMultiplier * (1 + (1 - faction.Bonuses.ResearchCost)));
+                    tech.DurationSec = (int)(tech.DurationSec * settings.ResearchTimeMultiplier * (1 + (1 - faction.Bonuses.ResearchTime)));
                 }
             }
 

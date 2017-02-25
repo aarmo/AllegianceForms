@@ -107,19 +107,20 @@ namespace AllegianceForms.Engine.Ships
 
         private CombatShip CreateShip(ShipSpec spec, int team, Color teamColour, int sectorId)
         {
-            var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+            var t = team - 1;
+            var faction = StrategyGame.Faction[t];
+            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
+            var settings = StrategyGame.GameSettings;
 
             var ship = new CombatShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
-                    , spec.Health * research[EGlobalUpgrade.ShipHull], spec.NumPilots, spec.Type, sectorId);
+                    , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, spec.NumPilots, spec.Type, sectorId);
 
-            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange];
-            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature];
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed];
+            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
+            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
 
             if (spec.Weapons != null)
             {
-                var settings = StrategyGame.GameSettings;
-
                 foreach (var w in spec.Weapons)
                 {
                     var nl = w as NanLaserWeapon;
@@ -127,7 +128,7 @@ namespace AllegianceForms.Engine.Ships
                     {
                         var clone = new NanLaserWeapon(nl.LaserPen.Width
                             , (int)nl.ShootingDuration.TotalMilliseconds
-                            , (int)(nl.ShootingDelay.TotalMilliseconds / (settings.NanWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate]))
+                            , (int)(nl.ShootingDelay.TotalMilliseconds / (settings.NanWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , nl.WeaponRange * settings.NanWeaponRangeMultiplier
                             , nl.WeaponDamage * settings.NanWeaponHealingMultiplier * research[EGlobalUpgrade.RepairHealing]
                             , ship, nl.FireOffset);
@@ -142,7 +143,7 @@ namespace AllegianceForms.Engine.Ships
                         if (c.Name == "0") c = teamColour;
                         var clone = new ShipLaserWeapon(c, sl.LaserPen.Width
                             , (int)sl.ShootingDuration.TotalMilliseconds
-                            , (int)(sl.ShootingDelay.TotalMilliseconds / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate]))
+                            , (int)(sl.ShootingDelay.TotalMilliseconds / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , sl.WeaponRange * settings.AntiShipWeaponRangeMultiplier
                             , sl.WeaponDamage * settings.AntiShipWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, sl.FireOffset);
@@ -154,10 +155,10 @@ namespace AllegianceForms.Engine.Ships
                     if (ml != null)
                     {
                         var clone = new ShipMissileWeapon(ml.Width
-                            , ml.Speed * settings.MissileWeaponSpeedMultiplier * research[EGlobalUpgrade.MissileSpeed]
-                            , ml.Tracking * settings.MissileWeaponTrackingMultiplier * research[EGlobalUpgrade.MissileTracking]
+                            , ml.Speed * settings.MissileWeaponSpeedMultiplier * research[EGlobalUpgrade.MissileSpeed] * faction.Bonuses.MissileSpeed
+                            , ml.Tracking * settings.MissileWeaponTrackingMultiplier * research[EGlobalUpgrade.MissileTracking] * faction.Bonuses.MissileTracking
                             , (int)ml.ShootingDuration.TotalMilliseconds
-                            , (int)(ml.ShootingDelay.TotalMilliseconds / (settings.MissileWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate]))
+                            , (int)(ml.ShootingDelay.TotalMilliseconds / (settings.MissileWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , ml.WeaponRange * settings.MissileWeaponRangeMultiplier
                             , ml.WeaponDamage * settings.MissileWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, Point.Empty, new SolidBrush(teamColour));
@@ -172,7 +173,7 @@ namespace AllegianceForms.Engine.Ships
                         if (c.Name == "0") c = teamColour;
                         var clone = new BaseLaserWeapon(c, bl.LaserPen.Width
                             , (int)bl.ShootingDuration.TotalMilliseconds
-                            , (int)(bl.ShootingDelay.TotalMilliseconds / (settings.AntiBaseWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate]))
+                            , (int)(bl.ShootingDelay.TotalMilliseconds / (settings.AntiBaseWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , bl.WeaponRange * settings.AntiBaseWeaponRangeMultiplier
                             , bl.WeaponDamage * settings.AntiBaseWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, bl.FireOffset);
@@ -190,19 +191,23 @@ namespace AllegianceForms.Engine.Ships
             var spec = Ships.FirstOrDefault(_ => _.BaseType == baseType && _.Type == EShipType.Constructor);
             if (spec == null) return null;
 
-            var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+            var t = team - 1;
+            var faction = StrategyGame.Faction[t];
+            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
+            var settings = StrategyGame.GameSettings;
+            
             var ship = new BuilderShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
-                , spec.Health * research[EGlobalUpgrade.ShipHull], baseType, sectorId);
+                , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, baseType, sectorId);
 
-            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange];
-            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature];
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed];
+            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
+            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
 
             ship.Name = baseType.ToString();
             ship.TextOffsetY = -15;
             ship.TextBrush = new SolidBrush(teamColour);
 
-            StrategyGame.GameStats.TotalConstructorsBuilt[ship.Team - 1]++;
+            StrategyGame.GameStats.TotalConstructorsBuilt[t]++;
 
             return ship;
         }
@@ -212,16 +217,21 @@ namespace AllegianceForms.Engine.Ships
             var spec = Ships.FirstOrDefault(_ => _.Type == EShipType.Miner);
             if (spec == null) return null;
 
-            var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+            var t = team - 1;
+            var faction = StrategyGame.Faction[t];
+            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
+            var settings = StrategyGame.GameSettings;
+
             var ship = new MinerShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
-                , spec.Health * research[EGlobalUpgrade.ShipHull], sectorId);
+                , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
-            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange];
-            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature];
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed];
-            ship.MaxResourceCapacity = (int)(ship.MaxResourceCapacity * research[EGlobalUpgrade.MinerCapacity]);
+            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
+            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
 
-            StrategyGame.GameStats.TotalMinersBuilt[ship.Team - 1]++;
+            ship.MaxResourceCapacity = (int)(ship.MaxResourceCapacity * research[EGlobalUpgrade.MinerCapacity] * settings.MinersCapacityMultiplier * faction.Bonuses.MiningCapacity);
+
+            StrategyGame.GameStats.TotalMinersBuilt[t]++;
 
             return ship;
         }
@@ -231,14 +241,18 @@ namespace AllegianceForms.Engine.Ships
             var spec = Ships.FirstOrDefault(_ => _.Type == EShipType.Lifepod);
             if (spec == null) return null;
 
-            var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+            var t = team - 1;
+            var faction = StrategyGame.Faction[t];
+            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
+            var settings = StrategyGame.GameSettings;
+
             var ship = new Ship(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
-                , spec.Health * research[EGlobalUpgrade.ShipHull], 1, sectorId);
+                , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, 1, sectorId);
             ship.Type = EShipType.Lifepod;
 
-            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange];
-            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature];
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed];
+            ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
+            ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
 
             return ship;
         }

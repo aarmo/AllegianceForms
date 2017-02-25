@@ -162,6 +162,12 @@
     <Compile Include="Engine\Weapons\Weapon.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Engine\Ships\Ship.cs" />
+    <Compile Include="FactionDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FactionDetails.Designer.cs">
+      <DependentUpon>FactionDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DebugAI.resx">
       <DependentUpon>DebugAI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FactionDetails.resx">
+      <DependentUpon>FactionDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Map.resx">
       <DependentUpon>Map.cs</DependentUpon>

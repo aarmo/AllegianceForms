@@ -23,6 +23,17 @@ namespace AllegianceForms
                              select f.Substring(f.LastIndexOf("\\") + 1)).ToArray();
 
             CustomPresets.Items.AddRange(filenames);
+
+            foreach (EShipType e in Enum.GetValues(typeof(EShipType)))
+            {
+                ShipType.Items.Add(e);
+            }
+            foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))
+            {
+                if (e == EBaseType.None || e.ToString().Contains("Tower")) continue;
+
+                BaseType.Items.Add(e);
+            }
         }
 
         public void LoadSettings(GameSettings s)
@@ -34,6 +45,8 @@ namespace AllegianceForms
             Difficulty.SelectedIndex = s.AiDifficulty;
             Team1Colour.BackColor = Color.FromArgb(s.Team1ColourARBG);
             Team2Colour.BackColor = Color.FromArgb(s.Team2ColourARBG);
+            Team1Faction.Text = s.Team1Faction.Name;
+            Team2Faction.Text = s.Team2Faction.Name;
 
             ResearchCost.Text = s.ResearchCostMultiplier.ToString("P0");
             ResearchTime.Text = s.ResearchTimeMultiplier.ToString("P0");
@@ -66,8 +79,8 @@ namespace AllegianceForms
             MinersMax.Text = s.MinersMaxDrones.ToString();
             MinerCapacity.Text = s.MinersCapacityMultiplier.ToString("P0");
 
-            ShipType.SelectedIndex = 1;
-            BaseType.SelectedIndex = 0;
+            ShipType.Text = "Scout";
+            BaseType.Text = "Outpost";
 
             ResourcesStarting.Text = s.ResourcesStartingMultiplier.ToString("P0");
             ResourcesPerRock.Text = s.ResourcesPerRockMultiplier.ToString("P0");
@@ -107,7 +120,7 @@ namespace AllegianceForms
             var b = sender as Button;
             if (b != null && b.Text != "Change") b.BackColor = Color.Black;
         }
-
+        
         private void ShipType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var sType = (EShipType)Enum.Parse(typeof(EShipType), ShipType.Text);
@@ -599,6 +612,34 @@ namespace AllegianceForms
 
             Settings.MissileWeaponTrackingMultiplier = float.Parse(p) / 100f;
             CustomPresets.Text = string.Empty;
+        }
+
+        private void Team1Faction_Click(object sender, EventArgs e)
+        {
+            var f = Settings.Team1Faction.Clone();
+
+            var form = new FactionDetails();
+            form.LoadFaction(f);
+
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                Settings.Team1Faction = form.Faction;
+                Team1Faction.Text = Settings.Team1Faction.Name;
+            }
+        }
+
+        private void Team2Faction_Click(object sender, EventArgs e)
+        {
+            var f = Settings.Team2Faction.Clone();
+
+            var form = new FactionDetails();
+            form.LoadFaction(f);
+
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                Settings.Team2Faction = form.Faction;
+                Team2Faction.Text = Settings.Team2Faction.Name;
+            }
         }
     }
 }

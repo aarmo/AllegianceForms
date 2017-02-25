@@ -1,5 +1,6 @@
 ﻿using AllegianceForms.AI;
 using AllegianceForms.Engine.Bases;
+using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
@@ -36,6 +37,7 @@ namespace AllegianceForms.Engine
 
         public static float[] ConversionRate = new float[] { 5f, 5f };
         public static TechTree[] TechTree = new TechTree[NumTeams];
+        public static Faction[] Faction = new Faction[NumTeams];
         public static ShipSpecs Ships;
         public static BaseSpecs Bases;
         
@@ -410,7 +412,7 @@ namespace AllegianceForms.Engine
             if (team == 1 && sound) SoundEffect.Play(ESounds.payday, true);
 
             var t = team - 1;
-            var amount = (int)(resources * ConversionRate[t] * GameSettings.ResourceConversionRateMultiplier * TechTree[t].ResearchedUpgrades[EGlobalUpgrade.MinerEfficiency]);
+            var amount = (int)(resources * ConversionRate[t] * GameSettings.ResourceConversionRateMultiplier * TechTree[t].ResearchedUpgrades[EGlobalUpgrade.MinerEfficiency] * Faction[t].Bonuses.MiningEfficiency);
             Credits[t] += amount;
             GameStats.TotalResourcesMined[t] += resources;
         }
@@ -431,6 +433,9 @@ namespace AllegianceForms.Engine
             ConversionRate = new[] { 5f, 5f };
             GameStats = new GameStats();
             GameSettings = settings;
+
+            Faction[0] = settings.Team1Faction.Clone();
+            Faction[1] = settings.Team2Faction.Clone();
 
             AllUnits.Clear();
             AllBases.Clear();

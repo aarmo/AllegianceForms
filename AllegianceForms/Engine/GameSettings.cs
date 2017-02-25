@@ -14,7 +14,6 @@ namespace AllegianceForms.Engine
         public int Team2ColourARBG { get; set; }
         public Faction Team1Faction { get; set; }
         public Faction Team2Faction { get; set; }
-
         public bool WormholesVisible { get; set; }
         public float WormholesSignatureMultiplier { get; set; }
         public int MinersInitial { get; set; }

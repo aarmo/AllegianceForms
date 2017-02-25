@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomiseSetttings));
             this.label1 = new System.Windows.Forms.Label();
             this.MapList = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -135,6 +136,9 @@
             this.label54 = new System.Windows.Forms.Label();
             this.MissilesSpeed = new System.Windows.Forms.ComboBox();
             this.RocksVisible = new System.Windows.Forms.CheckBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.Team1Faction = new System.Windows.Forms.Button();
+            this.Team2Faction = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             this.SuspendLayout();
             // 
@@ -210,7 +214,7 @@
             this.WormholesVisible.AutoSize = true;
             this.WormholesVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.WormholesVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WormholesVisible.Location = new System.Drawing.Point(38, 149);
+            this.WormholesVisible.Location = new System.Drawing.Point(38, 153);
             this.WormholesVisible.Name = "WormholesVisible";
             this.WormholesVisible.Size = new System.Drawing.Size(81, 17);
             this.WormholesVisible.TabIndex = 13;
@@ -221,7 +225,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 125);
+            this.label4.Location = new System.Drawing.Point(23, 129);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 0;
@@ -238,9 +242,9 @@
             "100%",
             "150%",
             "200%"});
-            this.WormholeSig.Location = new System.Drawing.Point(90, 122);
+            this.WormholeSig.Location = new System.Drawing.Point(90, 126);
             this.WormholeSig.Name = "WormholeSig";
-            this.WormholeSig.Size = new System.Drawing.Size(76, 21);
+            this.WormholeSig.Size = new System.Drawing.Size(71, 21);
             this.WormholeSig.TabIndex = 12;
             this.WormholeSig.SelectedIndexChanged += new System.EventHandler(this.WormholeSig_SelectedIndexChanged);
             // 
@@ -249,7 +253,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Lime;
-            this.label5.Location = new System.Drawing.Point(13, 103);
+            this.label5.Location = new System.Drawing.Point(13, 107);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 16);
             this.label5.TabIndex = 4;
@@ -260,7 +264,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Lime;
-            this.label6.Location = new System.Drawing.Point(524, 7);
+            this.label6.Location = new System.Drawing.Point(360, 107);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 16);
             this.label6.TabIndex = 4;
@@ -269,7 +273,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(534, 34);
+            this.label7.Location = new System.Drawing.Point(370, 134);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(34, 13);
             this.label7.TabIndex = 0;
@@ -291,7 +295,7 @@
             "8",
             "9",
             "10"});
-            this.MinersInitial.Location = new System.Drawing.Point(603, 31);
+            this.MinersInitial.Location = new System.Drawing.Point(439, 131);
             this.MinersInitial.Name = "MinersInitial";
             this.MinersInitial.Size = new System.Drawing.Size(42, 21);
             this.MinersInitial.TabIndex = 9;
@@ -300,7 +304,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(534, 61);
+            this.label8.Location = new System.Drawing.Point(370, 161);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 0;
@@ -322,7 +326,7 @@
             "8",
             "9",
             "10"});
-            this.MinersMax.Location = new System.Drawing.Point(603, 56);
+            this.MinersMax.Location = new System.Drawing.Point(439, 156);
             this.MinersMax.Name = "MinersMax";
             this.MinersMax.Size = new System.Drawing.Size(42, 21);
             this.MinersMax.TabIndex = 10;
@@ -331,7 +335,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(534, 88);
+            this.label9.Location = new System.Drawing.Point(370, 188);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 13);
             this.label9.TabIndex = 0;
@@ -348,7 +352,7 @@
             "100%",
             "150%",
             "200%"});
-            this.MinerCapacity.Location = new System.Drawing.Point(603, 85);
+            this.MinerCapacity.Location = new System.Drawing.Point(439, 185);
             this.MinerCapacity.Name = "MinerCapacity";
             this.MinerCapacity.Size = new System.Drawing.Size(69, 21);
             this.MinerCapacity.TabIndex = 11;
@@ -359,7 +363,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Lime;
-            this.label10.Location = new System.Drawing.Point(524, 122);
+            this.label10.Location = new System.Drawing.Point(360, 226);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(98, 16);
             this.label10.TabIndex = 4;
@@ -368,7 +372,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(534, 147);
+            this.label11.Location = new System.Drawing.Point(370, 251);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 13);
             this.label11.TabIndex = 0;
@@ -390,7 +394,7 @@
             "8",
             "9",
             "10"});
-            this.ConstructorsMax.Location = new System.Drawing.Point(603, 144);
+            this.ConstructorsMax.Location = new System.Drawing.Point(439, 248);
             this.ConstructorsMax.Name = "ConstructorsMax";
             this.ConstructorsMax.Size = new System.Drawing.Size(42, 21);
             this.ConstructorsMax.TabIndex = 17;
@@ -401,7 +405,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Lime;
-            this.label12.Location = new System.Drawing.Point(524, 204);
+            this.label12.Location = new System.Drawing.Point(692, 323);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 16);
             this.label12.TabIndex = 4;
@@ -413,20 +417,7 @@
             this.ShipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ShipType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShipType.FormattingEnabled = true;
-            this.ShipType.Items.AddRange(new object[] {
-            "Lifepod",
-            "Scout",
-            "Fighter",
-            "Interceptor",
-            "Bomber",
-            "Miner",
-            "Constructor",
-            "StealthFighter",
-            "StealthBomber",
-            "Gunship",
-            "FighterBomber",
-            "TroopTransport"});
-            this.ShipType.Location = new System.Drawing.Point(581, 203);
+            this.ShipType.Location = new System.Drawing.Point(749, 322);
             this.ShipType.Name = "ShipType";
             this.ShipType.Size = new System.Drawing.Size(91, 21);
             this.ShipType.TabIndex = 28;
@@ -435,7 +426,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(534, 260);
+            this.label13.Location = new System.Drawing.Point(702, 379);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 0;
@@ -452,7 +443,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipSig.Location = new System.Drawing.Point(603, 257);
+            this.ShipSig.Location = new System.Drawing.Point(771, 376);
             this.ShipSig.Name = "ShipSig";
             this.ShipSig.Size = new System.Drawing.Size(69, 21);
             this.ShipSig.TabIndex = 30;
@@ -461,7 +452,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(534, 233);
+            this.label14.Location = new System.Drawing.Point(702, 352);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(41, 13);
             this.label14.TabIndex = 0;
@@ -478,7 +469,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipHealth.Location = new System.Drawing.Point(603, 230);
+            this.ShipHealth.Location = new System.Drawing.Point(771, 349);
             this.ShipHealth.Name = "ShipHealth";
             this.ShipHealth.Size = new System.Drawing.Size(69, 21);
             this.ShipHealth.TabIndex = 29;
@@ -495,7 +486,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipSpeed.Location = new System.Drawing.Point(603, 284);
+            this.ShipSpeed.Location = new System.Drawing.Point(771, 403);
             this.ShipSpeed.Name = "ShipSpeed";
             this.ShipSpeed.Size = new System.Drawing.Size(69, 21);
             this.ShipSpeed.TabIndex = 31;
@@ -504,7 +495,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(534, 287);
+            this.label15.Location = new System.Drawing.Point(702, 406);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 13);
             this.label15.TabIndex = 0;
@@ -513,7 +504,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(370, 260);
+            this.label16.Location = new System.Drawing.Point(702, 282);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(55, 13);
             this.label16.TabIndex = 0;
@@ -522,7 +513,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(370, 233);
+            this.label17.Location = new System.Drawing.Point(702, 255);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 13);
             this.label17.TabIndex = 0;
@@ -534,14 +525,7 @@
             this.BaseType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BaseType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BaseType.FormattingEnabled = true;
-            this.BaseType.Items.AddRange(new object[] {
-            "Outpost",
-            "Starbase",
-            "Refinery",
-            "Tactical",
-            "Supremacy",
-            "Expansion"});
-            this.BaseType.Location = new System.Drawing.Point(422, 203);
+            this.BaseType.Location = new System.Drawing.Point(754, 225);
             this.BaseType.Name = "BaseType";
             this.BaseType.Size = new System.Drawing.Size(86, 21);
             this.BaseType.TabIndex = 25;
@@ -558,7 +542,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseSig.Location = new System.Drawing.Point(439, 257);
+            this.BaseSig.Location = new System.Drawing.Point(771, 279);
             this.BaseSig.Name = "BaseSig";
             this.BaseSig.Size = new System.Drawing.Size(69, 21);
             this.BaseSig.TabIndex = 27;
@@ -575,7 +559,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseHealth.Location = new System.Drawing.Point(439, 230);
+            this.BaseHealth.Location = new System.Drawing.Point(771, 252);
             this.BaseHealth.Name = "BaseHealth";
             this.BaseHealth.Size = new System.Drawing.Size(69, 21);
             this.BaseHealth.TabIndex = 26;
@@ -586,7 +570,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Lime;
-            this.label18.Location = new System.Drawing.Point(360, 204);
+            this.label18.Location = new System.Drawing.Point(692, 226);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(56, 16);
             this.label18.TabIndex = 4;
@@ -595,7 +579,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(370, 56);
+            this.label19.Location = new System.Drawing.Point(195, 156);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(55, 13);
             this.label19.TabIndex = 0;
@@ -604,7 +588,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(370, 29);
+            this.label20.Location = new System.Drawing.Point(195, 129);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(46, 13);
             this.label20.TabIndex = 0;
@@ -621,7 +605,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResourcesPerRock.Location = new System.Drawing.Point(439, 53);
+            this.ResourcesPerRock.Location = new System.Drawing.Point(264, 153);
             this.ResourcesPerRock.Name = "ResourcesPerRock";
             this.ResourcesPerRock.Size = new System.Drawing.Size(68, 21);
             this.ResourcesPerRock.TabIndex = 6;
@@ -638,7 +622,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResourcesStarting.Location = new System.Drawing.Point(439, 26);
+            this.ResourcesStarting.Location = new System.Drawing.Point(264, 126);
             this.ResourcesStarting.Name = "ResourcesStarting";
             this.ResourcesStarting.Size = new System.Drawing.Size(68, 21);
             this.ResourcesStarting.TabIndex = 5;
@@ -649,7 +633,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Lime;
-            this.label21.Location = new System.Drawing.Point(360, 7);
+            this.label21.Location = new System.Drawing.Point(185, 107);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(87, 16);
             this.label21.TabIndex = 4;
@@ -658,7 +642,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(370, 83);
+            this.label22.Location = new System.Drawing.Point(195, 183);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(63, 13);
             this.label22.TabIndex = 0;
@@ -675,7 +659,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResourceConversion.Location = new System.Drawing.Point(439, 80);
+            this.ResourceConversion.Location = new System.Drawing.Point(264, 180);
             this.ResourceConversion.Name = "ResourceConversion";
             this.ResourceConversion.Size = new System.Drawing.Size(68, 21);
             this.ResourceConversion.TabIndex = 7;
@@ -684,7 +668,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(370, 110);
+            this.label23.Location = new System.Drawing.Point(195, 210);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(59, 13);
             this.label23.TabIndex = 0;
@@ -701,7 +685,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResourcesEachTick.Location = new System.Drawing.Point(439, 107);
+            this.ResourcesEachTick.Location = new System.Drawing.Point(264, 207);
             this.ResourcesEachTick.Name = "ResourcesEachTick";
             this.ResourcesEachTick.Size = new System.Drawing.Size(68, 21);
             this.ResourcesEachTick.TabIndex = 8;
@@ -712,7 +696,7 @@
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.Lime;
-            this.label24.Location = new System.Drawing.Point(13, 184);
+            this.label24.Location = new System.Drawing.Point(13, 188);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(155, 16);
             this.label24.TabIndex = 4;
@@ -721,7 +705,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(23, 206);
+            this.label25.Location = new System.Drawing.Point(23, 210);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(35, 13);
             this.label25.TabIndex = 0;
@@ -743,7 +727,7 @@
             "8",
             "9",
             "10"});
-            this.AsteroidsTech.Location = new System.Drawing.Point(90, 203);
+            this.AsteroidsTech.Location = new System.Drawing.Point(90, 207);
             this.AsteroidsTech.Name = "AsteroidsTech";
             this.AsteroidsTech.Size = new System.Drawing.Size(42, 21);
             this.AsteroidsTech.TabIndex = 19;
@@ -752,7 +736,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(23, 233);
+            this.label26.Location = new System.Drawing.Point(23, 237);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(56, 13);
             this.label26.TabIndex = 0;
@@ -774,7 +758,7 @@
             "8",
             "9",
             "10"});
-            this.AsteroidResource.Location = new System.Drawing.Point(90, 230);
+            this.AsteroidResource.Location = new System.Drawing.Point(90, 234);
             this.AsteroidResource.Name = "AsteroidResource";
             this.AsteroidResource.Size = new System.Drawing.Size(42, 21);
             this.AsteroidResource.TabIndex = 20;
@@ -783,7 +767,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(23, 260);
+            this.label27.Location = new System.Drawing.Point(23, 264);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(47, 13);
             this.label27.TabIndex = 0;
@@ -805,7 +789,7 @@
             "8",
             "9",
             "10"});
-            this.AsteroidGeneral.Location = new System.Drawing.Point(90, 257);
+            this.AsteroidGeneral.Location = new System.Drawing.Point(90, 261);
             this.AsteroidGeneral.Name = "AsteroidGeneral";
             this.AsteroidGeneral.Size = new System.Drawing.Size(42, 21);
             this.AsteroidGeneral.TabIndex = 21;
@@ -816,7 +800,7 @@
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.ForeColor = System.Drawing.Color.Lime;
-            this.label28.Location = new System.Drawing.Point(204, 103);
+            this.label28.Location = new System.Drawing.Point(524, 226);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(106, 16);
             this.label28.TabIndex = 0;
@@ -827,7 +811,7 @@
             this.AllowTechExp.AutoSize = true;
             this.AllowTechExp.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AllowTechExp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllowTechExp.Location = new System.Drawing.Point(235, 122);
+            this.AllowTechExp.Location = new System.Drawing.Point(555, 245);
             this.AllowTechExp.Name = "AllowTechExp";
             this.AllowTechExp.Size = new System.Drawing.Size(75, 17);
             this.AllowTechExp.TabIndex = 14;
@@ -840,7 +824,7 @@
             this.AllowTechTac.AutoSize = true;
             this.AllowTechTac.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AllowTechTac.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllowTechTac.Location = new System.Drawing.Point(246, 168);
+            this.AllowTechTac.Location = new System.Drawing.Point(566, 291);
             this.AllowTechTac.Name = "AllowTechTac";
             this.AllowTechTac.Size = new System.Drawing.Size(64, 17);
             this.AllowTechTac.TabIndex = 16;
@@ -853,7 +837,7 @@
             this.AllowTechSup.AutoSize = true;
             this.AllowTechSup.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AllowTechSup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AllowTechSup.Location = new System.Drawing.Point(231, 145);
+            this.AllowTechSup.Location = new System.Drawing.Point(551, 268);
             this.AllowTechSup.Name = "AllowTechSup";
             this.AllowTechSup.Size = new System.Drawing.Size(79, 17);
             this.AllowTechSup.TabIndex = 15;
@@ -864,7 +848,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(23, 341);
+            this.label29.Location = new System.Drawing.Point(195, 345);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(42, 13);
             this.label29.TabIndex = 0;
@@ -881,7 +865,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipWeaponRange.Location = new System.Drawing.Point(90, 338);
+            this.ShipWeaponRange.Location = new System.Drawing.Point(262, 342);
             this.ShipWeaponRange.Name = "ShipWeaponRange";
             this.ShipWeaponRange.Size = new System.Drawing.Size(69, 21);
             this.ShipWeaponRange.TabIndex = 32;
@@ -890,7 +874,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(23, 368);
+            this.label30.Location = new System.Drawing.Point(195, 372);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(53, 13);
             this.label30.TabIndex = 0;
@@ -907,7 +891,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipWeaponFireRate.Location = new System.Drawing.Point(90, 365);
+            this.ShipWeaponFireRate.Location = new System.Drawing.Point(262, 369);
             this.ShipWeaponFireRate.Name = "ShipWeaponFireRate";
             this.ShipWeaponFireRate.Size = new System.Drawing.Size(69, 21);
             this.ShipWeaponFireRate.TabIndex = 33;
@@ -916,7 +900,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(23, 389);
+            this.label31.Location = new System.Drawing.Point(195, 393);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(50, 13);
             this.label31.TabIndex = 0;
@@ -933,7 +917,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipWeaponDamage.Location = new System.Drawing.Point(90, 392);
+            this.ShipWeaponDamage.Location = new System.Drawing.Point(262, 396);
             this.ShipWeaponDamage.Name = "ShipWeaponDamage";
             this.ShipWeaponDamage.Size = new System.Drawing.Size(69, 21);
             this.ShipWeaponDamage.TabIndex = 34;
@@ -944,7 +928,7 @@
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label32.ForeColor = System.Drawing.Color.Lime;
-            this.label32.Location = new System.Drawing.Point(13, 319);
+            this.label32.Location = new System.Drawing.Point(185, 323);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(136, 16);
             this.label32.TabIndex = 4;
@@ -953,7 +937,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(534, 341);
+            this.label33.Location = new System.Drawing.Point(534, 345);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(42, 13);
             this.label33.TabIndex = 0;
@@ -962,7 +946,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(534, 368);
+            this.label34.Location = new System.Drawing.Point(534, 372);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(53, 13);
             this.label34.TabIndex = 0;
@@ -971,7 +955,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(534, 395);
+            this.label35.Location = new System.Drawing.Point(534, 399);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(46, 13);
             this.label35.TabIndex = 0;
@@ -988,7 +972,7 @@
             "100%",
             "150%",
             "200%"});
-            this.NanWeaponRange.Location = new System.Drawing.Point(603, 338);
+            this.NanWeaponRange.Location = new System.Drawing.Point(603, 342);
             this.NanWeaponRange.Name = "NanWeaponRange";
             this.NanWeaponRange.Size = new System.Drawing.Size(69, 21);
             this.NanWeaponRange.TabIndex = 43;
@@ -1005,7 +989,7 @@
             "100%",
             "150%",
             "200%"});
-            this.NanWeaponFireRate.Location = new System.Drawing.Point(603, 365);
+            this.NanWeaponFireRate.Location = new System.Drawing.Point(603, 369);
             this.NanWeaponFireRate.Name = "NanWeaponFireRate";
             this.NanWeaponFireRate.Size = new System.Drawing.Size(69, 21);
             this.NanWeaponFireRate.TabIndex = 44;
@@ -1022,7 +1006,7 @@
             "100%",
             "150%",
             "200%"});
-            this.NanWeaponHealing.Location = new System.Drawing.Point(603, 392);
+            this.NanWeaponHealing.Location = new System.Drawing.Point(603, 396);
             this.NanWeaponHealing.Name = "NanWeaponHealing";
             this.NanWeaponHealing.Size = new System.Drawing.Size(69, 21);
             this.NanWeaponHealing.TabIndex = 45;
@@ -1033,7 +1017,7 @@
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.Lime;
-            this.label36.Location = new System.Drawing.Point(524, 319);
+            this.label36.Location = new System.Drawing.Point(524, 323);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(121, 16);
             this.label36.TabIndex = 4;
@@ -1042,7 +1026,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(216, 341);
+            this.label37.Location = new System.Drawing.Point(372, 345);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(42, 13);
             this.label37.TabIndex = 0;
@@ -1051,7 +1035,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(216, 368);
+            this.label38.Location = new System.Drawing.Point(372, 372);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(53, 13);
             this.label38.TabIndex = 0;
@@ -1060,7 +1044,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(216, 395);
+            this.label39.Location = new System.Drawing.Point(372, 399);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(50, 13);
             this.label39.TabIndex = 0;
@@ -1077,7 +1061,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseWeaponRange.Location = new System.Drawing.Point(276, 338);
+            this.BaseWeaponRange.Location = new System.Drawing.Point(432, 342);
             this.BaseWeaponRange.Name = "BaseWeaponRange";
             this.BaseWeaponRange.Size = new System.Drawing.Size(69, 21);
             this.BaseWeaponRange.TabIndex = 35;
@@ -1094,7 +1078,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseWeaponFireRate.Location = new System.Drawing.Point(276, 365);
+            this.BaseWeaponFireRate.Location = new System.Drawing.Point(432, 369);
             this.BaseWeaponFireRate.Name = "BaseWeaponFireRate";
             this.BaseWeaponFireRate.Size = new System.Drawing.Size(69, 21);
             this.BaseWeaponFireRate.TabIndex = 36;
@@ -1111,7 +1095,7 @@
             "100%",
             "150%",
             "200%"});
-            this.BaseWeaponDamage.Location = new System.Drawing.Point(276, 392);
+            this.BaseWeaponDamage.Location = new System.Drawing.Point(432, 396);
             this.BaseWeaponDamage.Name = "BaseWeaponDamage";
             this.BaseWeaponDamage.Size = new System.Drawing.Size(69, 21);
             this.BaseWeaponDamage.TabIndex = 37;
@@ -1122,7 +1106,7 @@
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label40.ForeColor = System.Drawing.Color.Lime;
-            this.label40.Location = new System.Drawing.Point(204, 319);
+            this.label40.Location = new System.Drawing.Point(360, 323);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(141, 16);
             this.label40.TabIndex = 4;
@@ -1160,7 +1144,7 @@
             this.StartGame.BackColor = System.Drawing.Color.Black;
             this.StartGame.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.StartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StartGame.Location = new System.Drawing.Point(435, 482);
+            this.StartGame.Location = new System.Drawing.Point(435, 473);
             this.StartGame.Name = "StartGame";
             this.StartGame.Size = new System.Drawing.Size(125, 45);
             this.StartGame.TabIndex = 50;
@@ -1175,7 +1159,7 @@
             this.Cancel.BackColor = System.Drawing.Color.Black;
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel.Location = new System.Drawing.Point(573, 482);
+            this.Cancel.Location = new System.Drawing.Point(573, 473);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(125, 45);
             this.Cancel.TabIndex = 51;
@@ -1189,7 +1173,7 @@
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label42.ForeColor = System.Drawing.Color.Lime;
-            this.label42.Location = new System.Drawing.Point(13, 496);
+            this.label42.Location = new System.Drawing.Point(13, 487);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(65, 16);
             this.label42.TabIndex = 4;
@@ -1200,7 +1184,7 @@
             this.CustomPresets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CustomPresets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CustomPresets.FormattingEnabled = true;
-            this.CustomPresets.Location = new System.Drawing.Point(81, 495);
+            this.CustomPresets.Location = new System.Drawing.Point(81, 486);
             this.CustomPresets.Name = "CustomPresets";
             this.CustomPresets.Size = new System.Drawing.Size(110, 21);
             this.CustomPresets.TabIndex = 46;
@@ -1209,9 +1193,9 @@
             // 
             this.SavePreset.BackColor = System.Drawing.Color.Black;
             this.SavePreset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SavePreset.Location = new System.Drawing.Point(258, 494);
+            this.SavePreset.Location = new System.Drawing.Point(258, 485);
             this.SavePreset.Name = "SavePreset";
-            this.SavePreset.Size = new System.Drawing.Size(55, 21);
+            this.SavePreset.Size = new System.Drawing.Size(55, 22);
             this.SavePreset.TabIndex = 48;
             this.SavePreset.Text = "Save";
             this.SavePreset.UseVisualStyleBackColor = false;
@@ -1223,9 +1207,9 @@
             // 
             this.LoadPreset.BackColor = System.Drawing.Color.Black;
             this.LoadPreset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoadPreset.Location = new System.Drawing.Point(199, 494);
+            this.LoadPreset.Location = new System.Drawing.Point(199, 485);
             this.LoadPreset.Name = "LoadPreset";
-            this.LoadPreset.Size = new System.Drawing.Size(55, 21);
+            this.LoadPreset.Size = new System.Drawing.Size(55, 22);
             this.LoadPreset.TabIndex = 47;
             this.LoadPreset.Text = "Load";
             this.LoadPreset.UseVisualStyleBackColor = false;
@@ -1238,7 +1222,7 @@
             this.label43.AutoSize = true;
             this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label43.ForeColor = System.Drawing.Color.Lime;
-            this.label43.Location = new System.Drawing.Point(204, 204);
+            this.label43.Location = new System.Drawing.Point(524, 107);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(138, 16);
             this.label43.TabIndex = 0;
@@ -1247,7 +1231,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(214, 226);
+            this.label44.Location = new System.Drawing.Point(534, 129);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(31, 13);
             this.label44.TabIndex = 0;
@@ -1264,7 +1248,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResearchCost.Location = new System.Drawing.Point(276, 223);
+            this.ResearchCost.Location = new System.Drawing.Point(596, 126);
             this.ResearchCost.Name = "ResearchCost";
             this.ResearchCost.Size = new System.Drawing.Size(69, 21);
             this.ResearchCost.TabIndex = 23;
@@ -1273,7 +1257,7 @@
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(214, 252);
+            this.label45.Location = new System.Drawing.Point(534, 155);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(33, 13);
             this.label45.TabIndex = 0;
@@ -1290,7 +1274,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ResearchTime.Location = new System.Drawing.Point(276, 249);
+            this.ResearchTime.Location = new System.Drawing.Point(596, 152);
             this.ResearchTime.Name = "ResearchTime";
             this.ResearchTime.Size = new System.Drawing.Size(69, 21);
             this.ResearchTime.TabIndex = 24;
@@ -1301,7 +1285,7 @@
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label46.ForeColor = System.Drawing.Color.Lime;
-            this.label46.Location = new System.Drawing.Point(360, 319);
+            this.label46.Location = new System.Drawing.Point(13, 323);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(69, 16);
             this.label46.TabIndex = 4;
@@ -1310,7 +1294,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(371, 341);
+            this.label47.Location = new System.Drawing.Point(24, 345);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(42, 13);
             this.label47.TabIndex = 0;
@@ -1319,7 +1303,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(371, 368);
+            this.label48.Location = new System.Drawing.Point(24, 372);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(53, 13);
             this.label48.TabIndex = 0;
@@ -1328,7 +1312,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(371, 395);
+            this.label49.Location = new System.Drawing.Point(24, 399);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(50, 13);
             this.label49.TabIndex = 0;
@@ -1345,7 +1329,7 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesRange.Location = new System.Drawing.Point(439, 338);
+            this.MissilesRange.Location = new System.Drawing.Point(92, 342);
             this.MissilesRange.Name = "MissilesRange";
             this.MissilesRange.Size = new System.Drawing.Size(69, 21);
             this.MissilesRange.TabIndex = 38;
@@ -1362,7 +1346,7 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesFireRate.Location = new System.Drawing.Point(439, 365);
+            this.MissilesFireRate.Location = new System.Drawing.Point(92, 369);
             this.MissilesFireRate.Name = "MissilesFireRate";
             this.MissilesFireRate.Size = new System.Drawing.Size(69, 21);
             this.MissilesFireRate.TabIndex = 39;
@@ -1379,7 +1363,7 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesDamage.Location = new System.Drawing.Point(440, 392);
+            this.MissilesDamage.Location = new System.Drawing.Point(93, 396);
             this.MissilesDamage.Name = "MissilesDamage";
             this.MissilesDamage.Size = new System.Drawing.Size(69, 21);
             this.MissilesDamage.TabIndex = 40;
@@ -1408,7 +1392,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(214, 68);
+            this.label52.Location = new System.Drawing.Point(214, 69);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(46, 13);
             this.label52.TabIndex = 0;
@@ -1448,7 +1432,7 @@
             // 
             this.ResetPreset.BackColor = System.Drawing.Color.Black;
             this.ResetPreset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetPreset.Location = new System.Drawing.Point(319, 494);
+            this.ResetPreset.Location = new System.Drawing.Point(319, 485);
             this.ResetPreset.Name = "ResetPreset";
             this.ResetPreset.Size = new System.Drawing.Size(55, 22);
             this.ResetPreset.TabIndex = 49;
@@ -1461,7 +1445,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(534, 174);
+            this.label3.Location = new System.Drawing.Point(370, 278);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 0;
@@ -1483,7 +1467,7 @@
             "8",
             "9",
             "10"});
-            this.MaxTowerDrones.Location = new System.Drawing.Point(603, 169);
+            this.MaxTowerDrones.Location = new System.Drawing.Point(439, 273);
             this.MaxTowerDrones.Name = "MaxTowerDrones";
             this.MaxTowerDrones.Size = new System.Drawing.Size(42, 21);
             this.MaxTowerDrones.TabIndex = 18;
@@ -1492,7 +1476,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(371, 422);
+            this.label53.Location = new System.Drawing.Point(24, 426);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(52, 13);
             this.label53.TabIndex = 0;
@@ -1509,7 +1493,7 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesTracking.Location = new System.Drawing.Point(440, 419);
+            this.MissilesTracking.Location = new System.Drawing.Point(93, 423);
             this.MissilesTracking.Name = "MissilesTracking";
             this.MissilesTracking.Size = new System.Drawing.Size(69, 21);
             this.MissilesTracking.TabIndex = 41;
@@ -1518,7 +1502,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(372, 448);
+            this.label54.Location = new System.Drawing.Point(25, 452);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(41, 13);
             this.label54.TabIndex = 0;
@@ -1535,7 +1519,7 @@
             "100%",
             "150%",
             "200%"});
-            this.MissilesSpeed.Location = new System.Drawing.Point(440, 446);
+            this.MissilesSpeed.Location = new System.Drawing.Point(93, 450);
             this.MissilesSpeed.Name = "MissilesSpeed";
             this.MissilesSpeed.Size = new System.Drawing.Size(69, 21);
             this.MissilesSpeed.TabIndex = 42;
@@ -1546,13 +1530,54 @@
             this.RocksVisible.AutoSize = true;
             this.RocksVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.RocksVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RocksVisible.Location = new System.Drawing.Point(38, 285);
+            this.RocksVisible.Location = new System.Drawing.Point(38, 289);
             this.RocksVisible.Name = "RocksVisible";
             this.RocksVisible.Size = new System.Drawing.Size(81, 17);
             this.RocksVisible.TabIndex = 22;
             this.RocksVisible.Text = "Start Visible:";
             this.RocksVisible.UseVisualStyleBackColor = true;
             this.RocksVisible.CheckedChanged += new System.EventHandler(this.RocksVisible_CheckedChanged);
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.ForeColor = System.Drawing.Color.Lime;
+            this.label55.Location = new System.Drawing.Point(360, 7);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(71, 16);
+            this.label55.TabIndex = 0;
+            this.label55.Text = "Factions:";
+            // 
+            // Team1Faction
+            // 
+            this.Team1Faction.BackColor = System.Drawing.Color.Black;
+            this.Team1Faction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Team1Faction.Font = new System.Drawing.Font("Palatino Linotype", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Team1Faction.Location = new System.Drawing.Point(373, 26);
+            this.Team1Faction.Name = "Team1Faction";
+            this.Team1Faction.Size = new System.Drawing.Size(292, 29);
+            this.Team1Faction.TabIndex = 47;
+            this.Team1Faction.Text = "...";
+            this.Team1Faction.UseVisualStyleBackColor = false;
+            this.Team1Faction.Click += new System.EventHandler(this.Team1Faction_Click);
+            this.Team1Faction.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Team1Faction.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
+            // Team2Faction
+            // 
+            this.Team2Faction.BackColor = System.Drawing.Color.Black;
+            this.Team2Faction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Team2Faction.Font = new System.Drawing.Font("Palatino Linotype", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Team2Faction.Location = new System.Drawing.Point(373, 62);
+            this.Team2Faction.Name = "Team2Faction";
+            this.Team2Faction.Size = new System.Drawing.Size(292, 28);
+            this.Team2Faction.TabIndex = 47;
+            this.Team2Faction.Text = "...";
+            this.Team2Faction.UseVisualStyleBackColor = false;
+            this.Team2Faction.Click += new System.EventHandler(this.Team2Faction_Click);
+            this.Team2Faction.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Team2Faction.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // CustomiseSetttings
             // 
@@ -1561,11 +1586,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.Cancel;
-            this.ClientSize = new System.Drawing.Size(703, 531);
+            this.ClientSize = new System.Drawing.Size(848, 526);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Team2Colour);
             this.Controls.Add(this.Team1Colour);
             this.Controls.Add(this.ResetPreset);
+            this.Controls.Add(this.Team2Faction);
+            this.Controls.Add(this.Team1Faction);
             this.Controls.Add(this.LoadPreset);
             this.Controls.Add(this.SavePreset);
             this.Controls.Add(this.StartGame);
@@ -1658,6 +1685,7 @@
             this.Controls.Add(this.label37);
             this.Controls.Add(this.label43);
             this.Controls.Add(this.label28);
+            this.Controls.Add(this.label55);
             this.Controls.Add(this.label50);
             this.Controls.Add(this.label41);
             this.Controls.Add(this.label29);
@@ -1670,11 +1698,12 @@
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "CustomiseSetttings";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Allegiance Forms - Custom Conquest Game";
+            this.Text = "Allegiance Forms - Custom Settings";
             this.Load += new System.EventHandler(this.CustomiseSetttings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).EndInit();
             this.ResumeLayout(false);
@@ -1791,5 +1820,8 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.ComboBox MissilesSpeed;
         private System.Windows.Forms.CheckBox RocksVisible;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Button Team1Faction;
+        private System.Windows.Forms.Button Team2Faction;
     }
 }

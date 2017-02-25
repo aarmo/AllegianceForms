@@ -1,5 +1,4 @@
-﻿using AllegianceForms.Engine.Ships;
-using CsvHelper;
+﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
@@ -46,13 +45,15 @@ namespace AllegianceForms.Engine.Bases
             var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
             if (spec == null) return null;
 
+            var faction = StrategyGame.Faction[team - 1];
             var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+            var settings = StrategyGame.GameSettings;
 
-            var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, spec.Health, sectorId);
+            var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
-            bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange];
-            bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature];
-
+            bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
+            bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
+            
             return bse;
         }
     }
@@ -67,4 +68,4 @@ namespace AllegianceForms.Engine.Bases
         public int ScanRange { get; set; }
         public float Signature { get; set; }
     }
-    }
+}

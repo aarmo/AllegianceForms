@@ -1,4 +1,5 @@
 ﻿using AllegianceForms.Engine.Generation;
+using Newtonsoft.Json;
 
 namespace AllegianceForms.Engine.Factions
 {
@@ -42,6 +43,12 @@ namespace AllegianceForms.Engine.Factions
             f.Bonuses.Randomise(min);
 
             return f;
+        }
+
+        public Faction Clone()
+        {
+            var json = JsonConvert.SerializeObject(this); 
+            return JsonConvert.DeserializeObject<Faction>(json);
         }
     }
 }

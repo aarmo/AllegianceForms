@@ -24,7 +24,7 @@ namespace AllegianceForms.Test.Faction
         public void RandomHasRandomBonuses()
         {
             var b = _target.Bonuses;
-            var different = (b.FireRate != 0 || b.MiningCapacity != 0 || b.MiningSpeed != 0 || b.Regneration != 0 || b.ResearchCost != 0 || b.ResearchTime != 0 || b.ScanRange != 0 || b.Signature != 0 || b.Speed != 0);
+            var different = (b.FireRate != 0 || b.MiningCapacity != 0 || b.MiningEfficiency != 0 || b.MissileSpeed != 0 || b.MissileTracking != 0 || b.ResearchCost != 0 || b.ResearchTime != 0 || b.ScanRange != 0 || b.Signature != 0 || b.Speed != 0);
 
             different.ShouldBe(true);
         }
@@ -45,8 +45,9 @@ namespace AllegianceForms.Test.Faction
 
             var different = (b1.FireRate != b1.FireRate 
                 || b1.MiningCapacity != b2.MiningCapacity 
-                || b1.MiningSpeed != b2.MiningSpeed 
-                || b1.Regneration != b2.Regneration 
+                || b1.MiningEfficiency != b2.MiningEfficiency
+                || b1.MissileSpeed != b2.MissileSpeed
+                || b1.MissileTracking != b2.MissileTracking
                 || b1.ResearchCost != b2.ResearchCost 
                 || b1.ResearchTime != b2.ResearchTime 
                 || b1.ScanRange != b2.ScanRange 
