@@ -3,7 +3,7 @@
 </p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
 [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md)
 [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
@@ -12,10 +12,11 @@
 
 Overview
 ------
-A 2D strategy game inspired by Microsoft's space combat game: Allegiance. 
+A 2D strategy game inspired by Microsoft's space combat game: Allegiance.
+
 Made for the Free Allegiance community: http://www.freeallegiance.org/
 
-[Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
+[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)
 
 Features
 ------
@@ -60,7 +61,7 @@ Screenshots
 ![alt text][custom]
 ![alt text][faction]
 
-[Home](#overview)
+[Overview](#overview)
 
 Controls
 ------
@@ -108,7 +109,7 @@ Key	| Description
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders the selected troop transports to *Capture* an enemy base.
 
-[Home](#overview)
+[Overview](#overview)
 
 Maps
 ------
@@ -119,13 +120,13 @@ Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
 Star: | ![alt text][mapstar]
 
-[Home](#overview)
+[Overview](#overview)
 
 Tech Tree
 ------
 ![alt text][techtree]
 
-[Home](#overview)
+[Overview](#overview)
 
 Credits
 ------
@@ -136,7 +137,7 @@ Resource | Credit
 **Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 **Game Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
 
-[Home](#overview)
+[Overview](#overview)
 
 <br/>
 Bonus Game
