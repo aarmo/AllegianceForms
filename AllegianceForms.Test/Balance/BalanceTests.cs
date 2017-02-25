@@ -61,6 +61,7 @@ namespace AllegianceForms.Test.Balance
         [TestMethod]
         public void ShipStatsAreBalanced()
         {
+            var settings = StrategyGame.GameSettings;
             var ships = StrategyGame.Ships.Ships;
             var results = new List<BalanceStat>();
 
@@ -87,22 +88,29 @@ namespace AllegianceForms.Test.Balance
                 var weaponFactor = Math.Abs((b.TotalWeaponDamage + b.TotalWeaponRange)
                     / (b.TotalShootingDelayMS + b.TotalShootingDurationMS));
 
-                b.Factor = (s.Health + s.ScanRange + s.Signature - s.NumPilots + s.Speed)
-                    / (b.TotalTechCost + b.TotalTechDurationS);
+                var numbersAvailable = (Ship.IsCapitalShip(s.Type) ? settings.CapitalMaxDrones : (s.NumPilots > 0 ? settings.NumPilots / s.NumPilots : settings.ConstructorsMaxTowerDrones));
+
+                b.Factor = weaponFactor + ((s.Health + s.ScanRange + s.Signature + s.Speed) * numbersAvailable / (b.TotalTechCost + b.TotalTechDurationS));
 
                 results.Add(b);
             }
             results = results.OrderByDescending(_ => _.Factor).ToList();
+            var diff = results.Max(_ => _.Factor) - results.Min(_ => _.Factor);
 
             results.Count.ShouldBeGreaterThan(0);
+            diff.ShouldBeLessThan(0.51f);
         }
 
         private void AddAllReqTech(ShipSpec ship, List<TechItem> tech)
         {
             if (ship.DependsOnTechIds == null || ship.DependsOnTechIds.Length == 0)
                 return;
-
             var allTech = StrategyGame.TechTree[0].TechItems;
+            if (Ship.IsCapitalShip(ship.Type))
+            {
+                var capTech = allTech.FirstOrDefault(_ => _.Type == ETechType.ShipyardConstruction && _.Name == ship.Type.ToString());
+                if (capTech != null) tech.Add(capTech);
+            }
             var shipTech = (from t in allTech
                             where ship.DependsOnTechIds.Contains(t.Id)
                             && !tech.Any(_ => _.Id == t.Id)

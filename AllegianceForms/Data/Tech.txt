@@ -24,23 +24,23 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 29,-1,Shipyard Constructor,,10000,10,False
 
 30,4,Expansion,,0,0,True
-31,3,Upgrade Expansion,30,10000,120,False
-32,3,Interceptors,30,5000,60,False
-33,3,Troop Transports,31|5,5000,60,False
-34,3,Heavy Interceptors,32|31,5000,60,False
+31,3,Upgrade Expansion,30,10000,60,False
+32,3,Interceptors,30,5000,30,False
+33,3,Troop Transports,31|5,5000,30,False
+34,3,Heavy Interceptors,32|31,5000,30,False
 
 40,4,Supremacy,,0,0,True
-41,1,Upgrade Supremacy,40,10000,120,False
-42,1,Enhanced Fighter,40,5000,60,False
-43,1,Fighter Bomber,41|4,5000,60,False
-44,1,Advanced Fighter,41|42,5000,60,False
+41,1,Upgrade Supremacy,40,10000,60,False
+42,1,Enhanced Fighter,40,5000,30,False
+43,1,Fighter Bomber,41|4,5000,30,False
+44,1,Advanced Fighter,41|42,5000,30,False
 
 50,4,Tactical,,0,0,True
-51,2,Upgrade Tactical,50,10000,120,False
-52,2,Stealth Fighter,50,5000,60,False
-53,2,Advanced Stealth Fighter,51|52,5000,60,False
-54,2,Stealth Bomber,51|4,5000,60,False
-55,2,Advanced Stealth Bomber,54,5000,60,False
+51,2,Upgrade Tactical,50,10000,60,False
+52,2,Stealth Fighter,50,5000,30,False
+53,2,Advanced Stealth Fighter,51|52,5000,30,False
+54,2,Stealth Bomber,51|4,5000,30,False
+55,2,Advanced Stealth Bomber,54,5000,30,False
 
 60,0,Scan Range +10%,1,2500,60,False
 61,0,Repair Healing +10%,1,2500,60,False
@@ -69,14 +69,14 @@ Id,Type,Name,PreReqsIds,Cost,DurationSec,Completed
 95,2,Missile Speed +20%,51|92,2500,60,False
 
 100,4,Shipyard,,0,0,True
-101,-2,Upgrade Shipyard (M),100,10000,30,False
-102,-2,Upgrade Shipyard (L),101,10000,30,False
-103,-2,Upgrade Shipyard (XL),102,10000,30,False
+101,-2,Upgrade Shipyard (M),100,10000,120,False
+102,-2,Upgrade Shipyard (L),101,10000,120,False
+103,-2,Upgrade Shipyard (XL),102,10000,120,False
 
-110,-2,Corvette,100,500,10,False
-111,-2,Destroyer,101,750,10,False
-112,-2,Frigate,101|4,750,10,False
-113,-2,Devastator,102,1000,10,False
-114,-2,Cruiser,102|4,1000,10,False
-115,-2,Battleship,102,1250,10,False
-116,-2,Battlecruiser,103|4,1250,10,False
+110,-2,Corvette,100,500,15,False
+111,-2,Destroyer,101,750,15,False
+112,-2,Frigate,101|4,750,15,False
+113,-2,Devastator,102,1000,15,False
+114,-2,Cruiser,102|4,1000,15,False
+115,-2,Battleship,102,1250,15,False
+116,-2,Battlecruiser,103|4,1250,15,False

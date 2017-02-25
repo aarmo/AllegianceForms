@@ -212,13 +212,12 @@ namespace AllegianceForms.Engine.Ships
         {
             return false;
         }
-
-        public bool IsCapitalShip()
+        public static bool IsCapitalShip(EShipType type)
         {
-            return (Type == EShipType.Battlecruiser || Type == EShipType.Battleship 
-                || Type == EShipType.Corvette || Type == EShipType.Cruiser 
-                || Type == EShipType.Destroyer || Type == EShipType.Devastator 
-                || Type == EShipType.Frigate);
+            return (type == EShipType.Battlecruiser || type == EShipType.Battleship
+                || type == EShipType.Corvette || type == EShipType.Cruiser
+                || type == EShipType.Destroyer || type == EShipType.Devastator
+                || type == EShipType.Frigate);
         }
 
         protected void OnShipEvent(EShipEventType e)

@@ -73,7 +73,7 @@ namespace AllegianceForms.Engine.Ships
 
             return CreateShip(spec, team, teamColour, sectorId);
         }
-        
+
         public CombatShip CreateTowerShip(EShipType type, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
