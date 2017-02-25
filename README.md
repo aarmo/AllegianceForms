@@ -1,11 +1,19 @@
 <p align="center">
-![alt text][logo]
-Allegiance Forms
-======
-[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases) [![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md) [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues) | ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
-
-[Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
+<img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/header_logo.png" />
+<H1>Allegiance Forms </H1>
 </p>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
+[![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md)
+[![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
+
+<br/>
+<br/>
+[Features](#features)&nbsp;&nbsp;&nbsp;[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Maps](#maps)&nbsp;&nbsp;&nbsp;[Tech Tree](#tech-tree)&nbsp;&nbsp;&nbsp;[Credits](#credits)
+
 <br/>
 <br/>
 Overview
@@ -179,5 +187,3 @@ Bonus Game
 [maphigh]: /Doc/Images/Map_HiHigher.png "HiHigher"
 [mapgrid]: /Doc/Images/Map_Grid.png "Grid"
 [mapstar]: /Doc/Images/Map_Star.png "Star"
-
-[logo]: /AllegianceForms/Art/header_logo.png "Alegiance"
