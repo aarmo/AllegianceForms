@@ -41,11 +41,28 @@ namespace AllegianceForms.Test.Balance
             diff.ShouldBeLessThan(0.1f);
         }
 
+
+        private class BalanceStat
+        {
+            public double TotalWeaponDamage;
+            public double TotalWeaponRange;
+            public double TotalShootingDelayMS;
+            public double TotalShootingDurationMS;
+            public double TotalTechCost;
+            public double TotalTechDurationS;
+
+            public ShipSpec Spec;
+            public EShipType Type;
+            public List<TechItem> RequiredTech;
+
+            public double Factor;
+        }
+
         [TestMethod]
         public void ShipStatsAreBalanced()
         {
             var ships = StrategyGame.Ships.Ships;
-            var results = new List<double>();
+            var results = new List<BalanceStat>();
 
             foreach (var s in ships)
             {
@@ -53,18 +70,31 @@ namespace AllegianceForms.Test.Balance
 
                 var reqTech = new List<TechItem>();
                 AddAllReqTech(s, reqTech);
+                
+                var b = new BalanceStat()
+                {
+                    RequiredTech = reqTech,
+                    Spec = s,
+                    Type = s.Type,
+                    TotalShootingDelayMS = s.Weapons.Sum(_ => _.ShootingDelay.TotalMilliseconds),
+                    TotalShootingDurationMS = s.Weapons.Sum(_ => _.ShootingDuration.TotalMilliseconds),
+                    TotalTechCost = reqTech.Sum(_ => _.Cost),
+                    TotalTechDurationS = reqTech.Sum(_ => _.DurationSec),
+                    TotalWeaponDamage = s.Weapons.Sum(_ => _.WeaponDamage),
+                    TotalWeaponRange = s.Weapons.Sum(_ => _.WeaponRange)
+                };
 
-                var weaponFactor = Math.Abs((1f * s.Weapons.Sum(_ => _.WeaponDamage) + s.Weapons.Sum(_ => _.WeaponRange)) 
-                    / (s.Weapons.Sum(_ => _.ShootingDelay.TotalMilliseconds) + s.Weapons.Sum(_ => _.ShootingDuration.TotalMilliseconds)));
+                var weaponFactor = Math.Abs((b.TotalWeaponDamage + b.TotalWeaponRange)
+                    / (b.TotalShootingDelayMS + b.TotalShootingDurationMS));
 
-                var factor = (1f * s.Health + s.ScanRange + s.Signature - s.NumPilots + s.Speed) 
-                    / (reqTech.Sum(_ => _.Cost) + reqTech.Sum(_ => _.DurationSec));
+                b.Factor = (s.Health + s.ScanRange + s.Signature - s.NumPilots + s.Speed)
+                    / (b.TotalTechCost + b.TotalTechDurationS);
 
-                results.Add(factor + weaponFactor);
+                results.Add(b);
             }
-            
-            var diff = results.Max() - results.Min();
-            diff.ShouldBeLessThan(0.5f);
+            results = results.OrderByDescending(_ => _.Factor).ToList();
+
+            results.Count.ShouldBeGreaterThan(0);
         }
 
         private void AddAllReqTech(ShipSpec ship, List<TechItem> tech)
