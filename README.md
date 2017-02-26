@@ -7,7 +7,7 @@
 [![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
 [![Next Version](https://img.shields.io/badge/release-v0.2%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
 [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
-!![alt text][contribute]
+![alt text][contribute]
 [![GitHub license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 
 Overview
