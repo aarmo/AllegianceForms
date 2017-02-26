@@ -4,6 +4,9 @@ namespace AllegianceForms.Engine.Factions
 {
     public class FactionBonus
     {
+        public const float MaxBonus = 1.5f;
+        public const float MinBonus = 0.5f;
+
         public float ResearchTime { get; set; }
         public float ResearchCost { get; set; }
 

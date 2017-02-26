@@ -1,14 +1,10 @@
 ﻿using AllegianceForms.Engine;
 using AllegianceForms.Engine.Factions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AllegianceForms
@@ -133,6 +129,8 @@ namespace AllegianceForms
 
         private void ResearchTimeUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.ResearchTime >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.ResearchTime += 0.1f;
             ResearchTime.Text = Faction.Bonuses.ResearchTime.ToString("P0");
             RefreshBalance();
@@ -140,6 +138,8 @@ namespace AllegianceForms
 
         private void ResearchTimeDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.ResearchTime <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.ResearchTime -= 0.1f;
             ResearchTime.Text = Faction.Bonuses.ResearchTime.ToString("P0");
             RefreshBalance();
@@ -147,6 +147,8 @@ namespace AllegianceForms
 
         private void ResearchCostUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.ResearchCost >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.ResearchCost += 0.1f;
             ResearchCost.Text = Faction.Bonuses.ResearchCost.ToString("P0");
             RefreshBalance();
@@ -154,6 +156,8 @@ namespace AllegianceForms
 
         private void ResearchCostDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.ResearchCost <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.ResearchCost -= 0.1f;
             ResearchCost.Text = Faction.Bonuses.ResearchCost.ToString("P0");
             RefreshBalance();
@@ -161,6 +165,8 @@ namespace AllegianceForms
 
         private void SpeedUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.Speed >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.Speed += 0.1f;
             Speed.Text = Faction.Bonuses.Speed.ToString("P0");
             RefreshBalance();
@@ -168,6 +174,8 @@ namespace AllegianceForms
 
         private void SpeedDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.Speed <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.Speed -= 0.1f;
             Speed.Text = Faction.Bonuses.Speed.ToString("P0");
             RefreshBalance();
@@ -175,6 +183,8 @@ namespace AllegianceForms
 
         private void HealthUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.Health >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.Health += 0.1f;
             Health.Text = Faction.Bonuses.Health.ToString("P0");
             RefreshBalance();
@@ -182,6 +192,8 @@ namespace AllegianceForms
 
         private void ScanRangeUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.ScanRange >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.ScanRange += 0.1f;
             ScanRange.Text = Faction.Bonuses.ScanRange.ToString("P0");
             RefreshBalance();
@@ -189,6 +201,8 @@ namespace AllegianceForms
 
         private void SignatureUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.Signature >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.Signature += 0.1f;
             Signature.Text = Faction.Bonuses.Signature.ToString("P0");
             RefreshBalance();
@@ -196,6 +210,8 @@ namespace AllegianceForms
 
         private void FireRateUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.FireRate >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.FireRate += 0.1f;
             FireRate.Text = Faction.Bonuses.FireRate.ToString("P0");
             RefreshBalance();
@@ -203,6 +219,8 @@ namespace AllegianceForms
 
         private void MiningCapacityUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MiningCapacity >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.MiningCapacity += 0.1f;
             MiningCapacity.Text = Faction.Bonuses.MiningCapacity.ToString("P0");
             RefreshBalance();
@@ -210,6 +228,8 @@ namespace AllegianceForms
 
         private void MiningCapacityDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MiningCapacity <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.MiningCapacity -= 0.1f;
             MiningCapacity.Text = Faction.Bonuses.MiningCapacity.ToString("P0");
             RefreshBalance();
@@ -217,6 +237,8 @@ namespace AllegianceForms
 
         private void FireRateDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.FireRate <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.FireRate -= 0.1f;
             FireRate.Text = Faction.Bonuses.FireRate.ToString("P0");
             RefreshBalance();
@@ -224,6 +246,8 @@ namespace AllegianceForms
 
         private void SignatureDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.Signature <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.Signature -= 0.1f;
             Signature.Text = Faction.Bonuses.Signature.ToString("P0");
             RefreshBalance();
@@ -231,6 +255,8 @@ namespace AllegianceForms
 
         private void ScanRangeDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.ScanRange <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.ScanRange -= 0.1f;
             ScanRange.Text = Faction.Bonuses.ScanRange.ToString("P0");
             RefreshBalance();
@@ -238,6 +264,8 @@ namespace AllegianceForms
 
         private void HealthDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.Health <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.Health -= 0.1f;
             Health.Text = Faction.Bonuses.Health.ToString("P0");
             RefreshBalance();
@@ -258,6 +286,8 @@ namespace AllegianceForms
 
         private void MissileSpeedUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MissileSpeed >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.MissileSpeed += 0.1f;
             MissileSpeed.Text = Faction.Bonuses.MissileSpeed.ToString("P0");
             RefreshBalance();
@@ -265,6 +295,8 @@ namespace AllegianceForms
 
         private void MissileSpeedDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MissileSpeed <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.MissileSpeed -= 0.1f;
             MissileSpeed.Text = Faction.Bonuses.MissileSpeed.ToString("P0");
             RefreshBalance();
@@ -272,6 +304,8 @@ namespace AllegianceForms
 
         private void MissileTrackingUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MissileTracking >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.MissileTracking += 0.1f;
             MissileTracking.Text = Faction.Bonuses.MissileTracking.ToString("P0");
             RefreshBalance();
@@ -279,6 +313,8 @@ namespace AllegianceForms
 
         private void MissileTrackingDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MissileTracking <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.MissileTracking -= 0.1f;
             MissileTracking.Text = Faction.Bonuses.MissileTracking.ToString("P0");
             RefreshBalance();
@@ -286,6 +322,8 @@ namespace AllegianceForms
 
         private void MiningSpeedUp_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MiningEfficiency >= FactionBonus.MaxBonus) return;
+
             Faction.Bonuses.MiningEfficiency += 0.1f;
             MiningEfficiency.Text = Faction.Bonuses.MiningEfficiency.ToString("P0");
             RefreshBalance();
@@ -293,6 +331,8 @@ namespace AllegianceForms
 
         private void MiningSpeedDown_Click(object sender, EventArgs e)
         {
+            if (Faction.Bonuses.MiningEfficiency <= FactionBonus.MinBonus) return;
+
             Faction.Bonuses.MiningEfficiency -= 0.1f;
             MiningEfficiency.Text = Faction.Bonuses.MiningEfficiency.ToString("P0");
             RefreshBalance();
