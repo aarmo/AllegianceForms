@@ -168,4 +168,4 @@ Bonus Game
 [mapgrid]: /Doc/Images/Map_Grid.png "Grid"
 [mapstar]: /Doc/Images/Map_Star.png "Star"
 
-[contribute]: /Doc/Images/contributions-welcome-brightgreen.svg "Contributions welcome"
+[contribute]: /Doc/Images/contributions-welcome-brightgreen.png "Contributions welcome"
