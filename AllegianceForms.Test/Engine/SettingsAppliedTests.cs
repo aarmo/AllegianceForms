@@ -1,9 +1,11 @@
 ﻿using AllegianceForms.Engine;
 using AllegianceForms.Engine.Map;
+using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace AllegianceForms.Test.Engine
@@ -18,233 +20,419 @@ namespace AllegianceForms.Test.Engine
         {
             _settings = GameSettings.Default();
             StrategyGame.LoadData();
+        }
+        
+        private void LoadSettings()
+        {
             StrategyGame.ResetGame(_settings);
             StrategyGame.Map = GameMaps.LoadMap(_settings.MapName);
+            StrategyGame.InitialiseGame(false);
         }
 
         [TestMethod]
-        public void CheckFactionResearchTime()
+        public void CheckSettingsNumPilots()
         {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.ResearchTime = multiplier;
-            StrategyGame.InitialiseGame(false);
+            _settings.NumPilots = 8;
+            LoadSettings();
 
-            for (var i = 0; i < StrategyGame.TechTree[0].TechItems.Count; i++)
+            StrategyGame.DockedPilots[0].ShouldBe(8);
+        }
+
+        [TestMethod]
+        public void CheckSettingWormholeVisible()
+        {
+            _settings.WormholesVisible = true;
+            LoadSettings();
+            foreach (var w in StrategyGame.Map.Wormholes)
             {
-                var item1 = StrategyGame.TechTree[0].TechItems[i];
-                var item2 = StrategyGame.TechTree[1].TechItems[i];
+                w.Sector1.VisibleToTeam[0].ShouldBe(true);
+                w.Sector1.VisibleToTeam[1].ShouldBe(true);
 
-                item2.DurationSec.ShouldBe((int)(multiplier * item1.DurationSec));
+                w.Sector2.VisibleToTeam[0].ShouldBe(true);
+                w.Sector2.VisibleToTeam[1].ShouldBe(true);
             }
         }
 
         [TestMethod]
-        public void CheckFactionResearchCost()
+        public void CheckSettingsWormholeSignature()
         {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.ResearchCost = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            for (var i = 0; i < StrategyGame.TechTree[0].TechItems.Count; i++)
+            var value = 0.5f;
+            _settings.WormholesSignatureMultiplier = value;
+            LoadSettings();
+            foreach (var w in StrategyGame.Map.Wormholes)
             {
-                var item1 = StrategyGame.TechTree[0].TechItems[i];
-                var item2 = StrategyGame.TechTree[1].TechItems[i];
-
-                item2.Cost.ShouldBe((int)(multiplier * item1.Cost));
+                w.End1.Signature.ShouldBe(value * value);
+                w.End2.Signature.ShouldBe(value * value);
             }
         }
 
         [TestMethod]
-        public void CheckFactionSpeed()
+        public void CheckSettingsShipSpeed_Scout()
         {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.Speed = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var builder1 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
-            var builder2 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
-            builder2.Speed.ShouldBe(multiplier * builder1.Speed);
-
-            var combat1 = StrategyGame.Ships.CreateCombatShip(1, Color.White, 1);
-            var combat2 = StrategyGame.Ships.CreateCombatShip(2, Color.White, 1);
-            combat2.Speed.ShouldBe(multiplier * combat1.Speed);
-
-            var miner1 = StrategyGame.Ships.CreateMinerShip(1, Color.White, 1);
-            var miner2 = StrategyGame.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.Speed.ShouldBe(multiplier * miner1.Speed);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Speed.ShouldBe(multiplier * tower1.Speed);
-        }
-
-        [TestMethod]
-        public void CheckFactionHealth()
-        {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.Health = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var builder1 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
-            var builder2 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
-            builder2.Health.ShouldBe(multiplier * builder1.Health);
-
-            var combat1 = StrategyGame.Ships.CreateCombatShip(1, Color.White, 1);
-            var combat2 = StrategyGame.Ships.CreateCombatShip(2, Color.White, 1);
-            combat2.Health.ShouldBe(multiplier * combat1.Health);
-
-            var miner1 = StrategyGame.Ships.CreateMinerShip(1, Color.White, 1);
-            var miner2 = StrategyGame.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.Health.ShouldBe(multiplier * miner1.Health);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Health.ShouldBe(multiplier * tower1.Health);
-        }
-
-        [TestMethod]
-        public void CheckFactionScanRange()
-        {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.ScanRange = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var builder1 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
-            var builder2 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
-            builder2.ScanRange.ShouldBe(multiplier * builder1.ScanRange);
-
-            var combat1 = StrategyGame.Ships.CreateCombatShip(1, Color.White, 1);
-            var combat2 = StrategyGame.Ships.CreateCombatShip(2, Color.White, 1);
-            combat2.ScanRange.ShouldBe(multiplier * combat1.ScanRange);
-
-            var miner1 = StrategyGame.Ships.CreateMinerShip(1, Color.White, 1);
-            var miner2 = StrategyGame.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.ScanRange.ShouldBe(multiplier * miner1.ScanRange);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.ScanRange.ShouldBe(multiplier * tower1.ScanRange);
-        }
-
-        [TestMethod]
-        public void CheckFactionSignature()
-        {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.Signature = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var builder1 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
-            var builder2 = StrategyGame.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
-            builder2.Signature.ShouldBe(multiplier * builder1.Signature);
-
-            var combat1 = StrategyGame.Ships.CreateCombatShip(1, Color.White, 1);
-            var combat2 = StrategyGame.Ships.CreateCombatShip(2, Color.White, 1);
-            combat2.Signature.ShouldBe(multiplier * combat1.Signature);
-
-            var miner1 = StrategyGame.Ships.CreateMinerShip(1, Color.White, 1);
-            var miner2 = StrategyGame.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.Signature.ShouldBe(multiplier * miner1.Signature);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Signature.ShouldBe(multiplier * tower1.Signature);
-        }
-
-        [TestMethod]
-        public void CheckFactionFireRate()
-        {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.FireRate = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
-            var tm1 = tower1.Weapons[0];
-            var tm2 = tower2.Weapons[0];
-            tm1.ShootingDelay.TotalMilliseconds.ShouldBe(multiplier * tm2.ShootingDelay.TotalMilliseconds);
-            tm1.ShootingDuration.TotalMilliseconds.ShouldBe(tm2.ShootingDuration.TotalMilliseconds);
-
-            var fig1 = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
-            var fig2 = StrategyGame.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
-            var fm1 = fig1.Weapons[0];
-            var fm2 = fig2.Weapons[0];
-            fm1.ShootingDelay.TotalMilliseconds.ShouldBe(multiplier * fm2.ShootingDelay.TotalMilliseconds);
-            fm1.ShootingDuration.TotalMilliseconds.ShouldBe(fm2.ShootingDuration.TotalMilliseconds);
-
-            var nan1 = StrategyGame.Ships.CreateCombatShip(Keys.S, 1, Color.White, 1);
-            var nan2 = StrategyGame.Ships.CreateCombatShip(Keys.S, 2, Color.White, 1);
-            var nm1 = fig1.Weapons[0];
-            var nm2 = fig2.Weapons[0];
-            nm1.ShootingDelay.TotalMilliseconds.ShouldBe(multiplier * nm2.ShootingDelay.TotalMilliseconds);
-            nm1.ShootingDuration.TotalMilliseconds.ShouldBe(nm2.ShootingDuration.TotalMilliseconds);
-        }
-
-        [TestMethod]
-        public void CheckFactionMissileTracking()
-        {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.MissileTracking = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
-            var tm1 = tower1.Weapons[0] as ShipMissileWeapon;
-            var tm2 = tower2.Weapons[0] as ShipMissileWeapon;
-            tm2.Tracking.ShouldBe(multiplier * tm1.Tracking);
-
-            var fig1 = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
-            var fig2 = StrategyGame.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
-            var fm1 = fig1.Weapons[1] as ShipMissileWeapon;
-            var fm2 = fig2.Weapons[1] as ShipMissileWeapon;
-            fm2.Tracking.ShouldBe(multiplier * fm1.Tracking);
-        }
-
-        [TestMethod]
-        public void CheckFactionMissileSpeed()
-        {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.MissileSpeed = multiplier;
-            StrategyGame.InitialiseGame(false);
-
-            var tower1 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
-            var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
-            var m1 = tower1.Weapons[0] as ShipMissileWeapon;
-            var m2 = tower2.Weapons[0] as ShipMissileWeapon;
-            m2.Speed.ShouldBe(multiplier * m1.Speed);
+            var value = 0.5f;
+            _settings.ShipSpeedMultiplier[EShipType.Scout] = value;
+            LoadSettings();
             
-            var fig1 = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
-            var fig2 = StrategyGame.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
-            var fm1 = fig1.Weapons[1] as ShipMissileWeapon;
-            var fm2 = fig2.Weapons[1] as ShipMissileWeapon;
-            fm2.Speed.ShouldBe(multiplier * fm1.Speed);
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            if (tech == null) return;
+            var scout = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+
+            scout.Speed.ShouldBe(tech.Speed * value);
         }
 
         [TestMethod]
-        public void CheckFactionMiningCapacity()
+        public void CheckSettingShipHealth_Scout()
         {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.MiningCapacity = multiplier;
-            StrategyGame.InitialiseGame(false);
-            
-            var miner1 = StrategyGame.Ships.CreateMinerShip(1, Color.White, 1);
-            var miner2 = StrategyGame.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.MaxResourceCapacity.ShouldBe((int)(multiplier * miner1.MaxResourceCapacity));
+            var value = 0.5f;
+            _settings.ShipHealthMultiplier[EShipType.Scout] = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            if (tech == null) return;
+            var scout = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+
+            scout.Health.ShouldBe(tech.Health * value);
         }
 
         [TestMethod]
-        public void CheckFactionMiningEfficiency()
+        public void CheckSettingShipSignature_Scout()
         {
-            var multiplier = 0.5f;
-            StrategyGame.Faction[1].Bonuses.MiningEfficiency = multiplier;
-            StrategyGame.InitialiseGame(false);
+            var value = 0.5f;
+            _settings.ShipSignatureMultiplier[EShipType.Scout] = value;
+            LoadSettings();
 
-            StrategyGame.AddResources(1, 100, false);
-            StrategyGame.AddResources(2, 100, false);
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            if (tech == null) return;
+            var scout = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
 
-            var creds1 = StrategyGame.Credits[0];
-            var creds2 = StrategyGame.Credits[1];
+            scout.Signature.ShouldBe(tech.Signature * value);
+        }
 
-            creds2.ShouldBe((int)(multiplier * creds1));
+        [TestMethod]
+        public void CheckSettingStationHealth_Outpost()
+        {
+            var value = 0.5f;
+            _settings.StationHealthMultiplier[EBaseType.Outpost] = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Outpost);
+            if (tech == null) return;
+            var outpost = StrategyGame.Bases.CreateBase(EBaseType.Outpost, 1, Color.White, 1);
+
+            outpost.Health.ShouldBe(tech.Health * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingStationSignature_Outpost()
+        {
+            var value = 0.5f;
+            _settings.StationSignatureMultiplier[EBaseType.Outpost] = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Outpost);
+            if (tech == null) return;
+            var outpost = StrategyGame.Bases.CreateBase(EBaseType.Outpost, 1, Color.White, 1);
+
+            outpost.Signature.ShouldBe(tech.Signature * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingResourcesStartig()
+        {
+            var value = 0.5f;
+            _settings.ResourcesStartingMultiplier = value;
+            LoadSettings();
+
+            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[0] * value));
+            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[1] * value));
+        }
+
+        [TestMethod]
+        public void CheckSettingsResourcesPerRock()
+        {
+            var value = 0.5f;
+            _settings.ResourcesPerRockMultiplier = value;
+            LoadSettings();
+
+            foreach (var r in StrategyGame.ResourceAsteroids)
+            {
+                r.AvailableResources.ShouldBe((int)(ResourceAsteroid.MaxResources * value));
+            }
+        }
+
+        [TestMethod]
+        public void CheckSettingsResourceConversion()
+        {
+            var value = 0.5f;
+            _settings.ResourceConversionRateMultiplier = value;
+            LoadSettings();
+
+            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[0] * value));
+            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[1] * value));
+        }
+
+        [TestMethod]
+        public void CheckSettingRocksPerSector_Tech()
+        {
+            var value = 5;
+            _settings.RocksPerSectorTech = value;
+            LoadSettings();
+
+            foreach (var s in StrategyGame.Map.Sectors)
+            {
+                var rocks = StrategyGame.BuildableAsteroids.Count(_ => _.SectorId == s.Id && _.Type != EAsteroidType.Rock);
+                rocks.ShouldBe(value);
+            }
+        }
+
+        [TestMethod]
+        public void CheckSettingsRocksPerSector_Resource()
+        {
+            var value = 5;
+            _settings.RocksPerSectorResource = value;
+            LoadSettings();
+
+            foreach (var s in StrategyGame.Map.Sectors)
+            {
+                var rocks = StrategyGame.ResourceAsteroids.Count(_ => _.SectorId == s.Id);
+                rocks.ShouldBe(value);
+            }
+        }
+
+        [TestMethod]
+        public void CheckSettingsRocksVisible()
+        {
+            _settings.RocksVisible = true;
+            LoadSettings();
+
+            StrategyGame.AllAsteroids.ShouldAllBe(_ => _.VisibleToTeam[0] && _.VisibleToTeam[1]);
+        }
+
+        [TestMethod]
+        public void CheckSettingsAntiShipWeaponRange()
+        {
+            var value = 0.5f;
+            _settings.AntiShipWeaponRangeMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[0];
+            var tw = tech.Weapons[0];
+
+            w.WeaponRange.ShouldBe(tw.WeaponRange * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsAntiShipWeaponFireRate()
+        {
+            var value = 0.5f;
+            _settings.AntiShipWeaponFireRateMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[0];
+            var tw = tech.Weapons[0];
+
+            w.ShootingDelay.TotalMilliseconds.ShouldBe(tw.ShootingDelay.TotalMilliseconds / value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsAntiShipWeaponDamage()
+        {
+            var value = 0.5f;
+            _settings.AntiShipWeaponDamageMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[0];
+            var tw = tech.Weapons[0];
+
+            w.WeaponDamage.ShouldBe(tw.WeaponDamage * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsNanWeaponRange()
+        {
+            var value = 0.5f;
+            _settings.NanWeaponRangeMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            if (tech == null) return;
+            var ship = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+
+            var w = ship.Weapons[0];
+            var tw = tech.Weapons[0];
+
+            w.WeaponRange.ShouldBe(tw.WeaponRange * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsNanWeaponFireRate()
+        {
+            var value = 0.5f;
+            _settings.NanWeaponFireRateMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            if (tech == null) return;
+            var ship = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+
+            var w = ship.Weapons[0];
+            var tw = tech.Weapons[0];
+
+            w.ShootingDelay.TotalMilliseconds.ShouldBe(tw.ShootingDelay.TotalMilliseconds / value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsNanWeaponHealing()
+        {
+            var value = 0.5f;
+            _settings.NanWeaponHealingMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            if (tech == null) return;
+            var ship = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+
+            var w = ship.Weapons[0];
+            var tw = tech.Weapons[0];
+
+            w.WeaponDamage.ShouldBe(tw.WeaponDamage * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsMissileWeaponRange()
+        {
+            var value = 0.5f;
+            _settings.MissileWeaponRangeMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[1];
+            var tw = tech.Weapons[1];
+
+            w.WeaponRange.ShouldBe(tw.WeaponRange * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsMissileWeaponFireRate()
+        {
+            var value = 0.5f;
+            _settings.MissileWeaponFireRateMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[1];
+            var tw = tech.Weapons[1];
+
+            w.ShootingDelay.TotalMilliseconds.ShouldBe(tw.ShootingDelay.TotalMilliseconds / value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsMissileWeaponDamage()
+        {
+            var value = 0.5f;
+            _settings.MissileWeaponDamageMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[1];
+            var tw = tech.Weapons[1];
+
+            w.WeaponDamage.ShouldBe(tw.WeaponDamage * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsMissileWeaponSpeed()
+        {
+            var value = 0.5f;
+            _settings.MissileWeaponSpeedMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[1] as ShipMissileWeapon;
+            var tw = tech.Weapons[1] as ShipMissileWeapon;
+
+            w.Speed.ShouldBe(tw.Speed * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsMissileWeaponTracking()
+        {
+            var value = 0.5f;
+            _settings.MissileWeaponTrackingMultiplier = value;
+            LoadSettings();
+
+            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            if (tech == null) return;
+            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+
+            var w = fig.Weapons[1] as ShipMissileWeapon;
+            var tw = tech.Weapons[1] as ShipMissileWeapon;
+
+            w.Tracking.ShouldBe(tw.Tracking * value);
+        }
+
+        [TestMethod]
+        public void CheckSettingsResearchTime()
+        {
+            var value = 0.5f;
+            _settings.ResearchTimeMultiplier = value;
+            LoadSettings();
+            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(StrategyGame.TechDataFile, 0);
+
+            for (var t = 0; t < StrategyGame.TechTree.Length; t++)
+            {
+                for (var i = 0; i < StrategyGame.TechTree[t].TechItems.Count; i++)
+                {
+                    var item = StrategyGame.TechTree[t].TechItems[i];
+                    var original = techData.TechItems[i];
+
+                    item.DurationSec.ShouldBe((int)(original.DurationSec * value));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void CheckSettingResearchCost()
+        {
+            var value = 0.5f;
+            _settings.ResearchCostMultiplier = value;
+            LoadSettings();
+            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(StrategyGame.TechDataFile, 0);
+
+            for (var t = 0; t < StrategyGame.TechTree.Length; t++)
+            {
+                for (var i = 0; i < StrategyGame.TechTree[t].TechItems.Count; i++)
+                {
+                    var item = StrategyGame.TechTree[t].TechItems[i];
+                    var original = techData.TechItems[i];
+
+                    item.Cost.ShouldBe((int)(original.Cost * value));
+                }
+            }
         }
     }
 }
