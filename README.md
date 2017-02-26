@@ -5,10 +5,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
-[![Next Version](https://img.shields.io/badge/release-v0.2%20beta-lightgrey.svg)](/Doc/Roadmap.md)
+[![Next Version](https://img.shields.io/badge/release-v0.2%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
 [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 
 Overview
 ------
