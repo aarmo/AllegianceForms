@@ -61,8 +61,11 @@ namespace AllegianceForms.AI
         private int _cheatCreditsLastsSeconds = 10;
         private float _cheatVisibilityChance = 0.025f;
         private int _cheatVisibilityLastsSeconds = 5;
+        private int _limitActionsPerMinute = 300;
+        private TimeSpan _limitActionsDelay;
         private DateTime _cheatVisibilityExpires = DateTime.MinValue;
         private DateTime _cheatCreditExpires = DateTime.MinValue;
+        private DateTime _nextActionAllowed = DateTime.MinValue;
 
         private float _scoutFocus = 1;
         private float _baseDefenseFocus = 8;
@@ -114,6 +117,8 @@ namespace AllegianceForms.AI
             }
         }
 
+
+        // 0-3 (Easy - Very Hard)
         public void SetDifficulty(int i)
         {
             _cheatCreditsChance = 0.025f*i;
@@ -121,11 +126,15 @@ namespace AllegianceForms.AI
             _cheatVisibilityChance = 0.005f*i;
             _cheatVisibilityLastsSeconds = 2*i;
             CheatAdditionalPilots = 1 + (0.25f * i);
+
+            _limitActionsPerMinute = 480 + (i * 120);
+            _limitActionsDelay = TimeSpan.FromMilliseconds(60000 / _limitActionsPerMinute);
         }
         
         public void Update()
         {
-            if (!Enabled) return;
+            if (!Enabled || _nextActionAllowed > DateTime.Now) return;
+            
             UpdatePriorities();
             UpdateCheats();
             if (CheatCredits) StrategyGame.AddResources(Team, CheatCreditAmout);
@@ -226,6 +235,8 @@ namespace AllegianceForms.AI
                     }
                 }
             }
+
+            _nextActionAllowed = DateTime.Now + _limitActionsDelay;
         }
 
         private void UpdateCheats()

@@ -1131,7 +1131,8 @@
             this.Difficulty.Items.AddRange(new object[] {
             "Easy",
             "Normal",
-            "Hard"});
+            "Hard",
+            "Insane"});
             this.Difficulty.Location = new System.Drawing.Point(90, 59);
             this.Difficulty.Name = "Difficulty";
             this.Difficulty.Size = new System.Drawing.Size(76, 21);
