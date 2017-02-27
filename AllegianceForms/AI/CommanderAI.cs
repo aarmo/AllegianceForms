@@ -189,6 +189,7 @@ namespace AllegianceForms.AI
                     var hasExpTech = Bases.Any(_ => _.Active && _.Team == Team && _.Type == EBaseType.Expansion);
                     var hasSupTech = Bases.Any(_ => _.Active && _.Team == Team && _.Type == EBaseType.Supremacy);
                     var hasTacTech = Bases.Any(_ => _.Active && _.Team == Team && _.Type == EBaseType.Tactical);
+                    var hasCapTech = Bases.Any(_ => _.Active && _.Team == Team && _.Type == EBaseType.Shipyard);
 
                     if (funds > 0)
                     {
@@ -206,7 +207,11 @@ namespace AllegianceForms.AI
                         if (c.Key == EAiCreditPriorities.Defense || NextTech == null)
                         {
                             NextTech = tech.FirstOrDefault(_ => !_.Name.Contains("Bomber") && _.AmountInvested < _.Cost &&
-                                ((_.Type == ETechType.Starbase) || (_.Type == ETechType.Tactical && hasTacTech) || (_.Type == ETechType.Expansion && hasExpTech) || (_.Type == ETechType.Supremacy && hasSupTech)
+                                ((_.Type == ETechType.Starbase)
+                                    || (_.Type == ETechType.ShipyardConstruction && hasCapTech)
+                                    || (_.Type == ETechType.Supremacy && hasSupTech)
+                                    || (_.Type == ETechType.Tactical && hasTacTech) 
+                                    || (_.Type == ETechType.Expansion && hasExpTech)
                                 ));
                         }
 
