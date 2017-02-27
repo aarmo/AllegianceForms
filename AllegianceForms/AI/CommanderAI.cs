@@ -201,14 +201,17 @@ namespace AllegianceForms.AI
                         if (c.Key == EAiCreditPriorities.Offense || (c.Key == EAiCreditPriorities.Expansion && NextTech == null))
                         {
                             NextTech = tech.FirstOrDefault(_ => _.Name.Contains("Bomber") && _.AmountInvested < _.Cost && 
-                                ((_.Type == ETechType.Starbase) || (_.Type == ETechType.Tactical && hasTacTech) || (_.Type == ETechType.Expansion && hasExpTech) || (_.Type == ETechType.Supremacy && hasSupTech)
+                                ((_.Type == ETechType.Starbase)
+                                || (_.Type == ETechType.Tactical && hasTacTech) 
+                                || (_.Type == ETechType.Expansion && hasExpTech) 
+                                || (_.Type == ETechType.Supremacy && hasSupTech)
                                 ));
                         }
                         if (c.Key == EAiCreditPriorities.Defense || NextTech == null)
                         {
                             NextTech = tech.FirstOrDefault(_ => !_.Name.Contains("Bomber") && _.AmountInvested < _.Cost &&
                                 ((_.Type == ETechType.Starbase)
-                                    || (_.Type == ETechType.ShipyardConstruction && hasCapTech)
+                                    || (_.Type == ETechType.ShipyardConstruction && hasCapTech && _.CanBuild())
                                     || (_.Type == ETechType.Supremacy && hasSupTech)
                                     || (_.Type == ETechType.Tactical && hasTacTech) 
                                     || (_.Type == ETechType.Expansion && hasExpTech)

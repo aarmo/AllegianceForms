@@ -71,8 +71,7 @@ namespace AllegianceForms.Engine
         public const int ScreenWidth = 1200;
         public const int ScreenHeight = 800;
         private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-
-
+        
         public static GameEntity NextWormholeEnd(int team, int fromSectorId, int toSectorId, out GameEntity _otherEnd)
         {
             var path = Map.ShortestPath(team, fromSectorId, toSectorId);
@@ -246,7 +245,7 @@ namespace AllegianceForms.Engine
 
                             if (!preVis && t == 0 && !bbrSoundPlayed && (Ship.IsCapitalShip(s.Type)))
                             {
-                                SoundEffect.Play(ESounds.vo_sal_capitalsighted, true);
+                                SoundEffect.Play(ESounds.vo_sal_capitalsighted);
                                 bbrSoundPlayed = true;
                             }
 

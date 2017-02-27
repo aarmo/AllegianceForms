@@ -129,7 +129,7 @@ Tech Tree
 
 Credits
 ------
-Resource | Credit
+Item | Source
 --- | ---
 **Icons** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
 **Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar

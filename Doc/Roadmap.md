@@ -9,8 +9,8 @@ Next Release Roadmap
 - ~~Add more towers (missile/repair)~~
 - ~~Add capital ships (shipyard tech. Light: Corvette. Medium: Frigate, Destroyer. Heavy: Cruiser, Devastator. Super Heavy: Battlecruiser, Battleship)~~
 - ~~Faction differences (Random faction stats, integrate faction editor, save/load presets)~~
+- ~~AI improvements (Use scouts to repair bombers, support troop transports & cap ships)~~
 - Balance pass
-- AI improvements (Use scouts to repair bombers, support troop transports & cap ships)
 
 Future Roadmap
 ------
