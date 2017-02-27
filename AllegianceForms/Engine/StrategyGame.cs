@@ -497,7 +497,7 @@ namespace AllegianceForms.Engine
             OnGameEvent(ship, EGameEventType.ShipLaunched);
         }
 
-        public static void DockShip(int team, int numPilots)
+        public static void DockPilots(int team, int numPilots)
         {
             DockedPilots[team - 1] += numPilots;
         }

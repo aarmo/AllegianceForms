@@ -18,7 +18,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void DockPilots()
         {
-            StrategyGame.DockShip(2, 10);
+            StrategyGame.DockPilots(2, 10);
 
             StrategyGame.DockedPilots[0].ShouldBe(0);
             StrategyGame.DockedPilots[1].ShouldBe(10);

@@ -112,11 +112,11 @@ namespace AllegianceForms.Engine.Ships
             
             Health = MaxHealth;
 
-            if (Type != EShipType.Miner && Type != EShipType.Constructor && Orders.Count == 0)
+            if (Ship.CanDock(Type) && Orders.Count == 0)
             {
                 // we are done for now
                 Active = false;
-                StrategyGame.DockShip(Team, NumPilots);
+                StrategyGame.DockPilots(Team, NumPilots);
             }
             
             if (Orders.Count == 0)
@@ -212,6 +212,12 @@ namespace AllegianceForms.Engine.Ships
         {
             return false;
         }
+
+        public static bool CanDock(EShipType type)
+        {
+            return (type != EShipType.Miner && type != EShipType.Constructor && !Ship.IsCapitalShip(type));
+        }
+
         public static bool IsCapitalShip(EShipType type)
         {
             return (type == EShipType.Battlecruiser || type == EShipType.Battleship

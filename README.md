@@ -4,8 +4,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Current Version](https://img.shields.io/badge/release-v0.1%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
-[![Next Version](https://img.shields.io/badge/release-v0.2%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
+[![Current Version](https://img.shields.io/badge/release-v0.2%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
+[![Next Version](https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
 [![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
 ![alt text][contribute]
 [![GitHub license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
@@ -75,6 +75,7 @@ Key	| Description
 Key	| Description
 --- | --- 
 **1-9** | View sector 1-9.
+**Space** | Switch between the sector of the last alert.
 **F3** | Show/Hide the Minimap window.
 **F5** | Show/Hide the Research/Construction window.
 **F6** | Show/Hide the Pilot List window.
