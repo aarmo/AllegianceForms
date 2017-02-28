@@ -43,10 +43,10 @@ namespace AllegianceForms
             MapList.Text = s.MapName;
             Pilots.Value = s.NumPilots;
             Difficulty.SelectedIndex = s.AiDifficulty;
-            Team1Colour.BackColor = Color.FromArgb(s.Team1ColourARBG);
-            Team2Colour.BackColor = Color.FromArgb(s.Team2ColourARBG);
-            Team1Faction.Text = s.Team1Faction.Name;
-            Team2Faction.Text = s.Team2Faction.Name;
+            Team1Colour.BackColor = Color.FromArgb(s.TeamColours[0]);
+            Team2Colour.BackColor = Color.FromArgb(s.TeamColours[1]);
+            Team1Faction.Text = s.TeamFactions[0].Name;
+            Team2Faction.Text = s.TeamFactions[1].Name;
 
             ResearchCost.Text = s.ResearchCostMultiplier.ToString("P0");
             ResearchTime.Text = s.ResearchTimeMultiplier.ToString("P0");
@@ -502,7 +502,7 @@ namespace AllegianceForms
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 s.BackColor = colorDialog.Color;
-                Settings.Team1ColourARBG = s.BackColor.ToArgb();
+                Settings.TeamColours[0] = s.BackColor.ToArgb();
             }
         }
 
@@ -515,7 +515,7 @@ namespace AllegianceForms
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 s.BackColor = colorDialog.Color;
-                Settings.Team2ColourARBG = s.BackColor.ToArgb();
+                Settings.TeamColours[1] = s.BackColor.ToArgb();
             }
         }
 
@@ -616,29 +616,29 @@ namespace AllegianceForms
 
         private void Team1Faction_Click(object sender, EventArgs e)
         {
-            var f = Settings.Team1Faction.Clone();
+            var f = Settings.TeamFactions[0].Clone();
 
             var form = new FactionDetails();
             form.LoadFaction(f);
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Settings.Team1Faction = form.Faction;
-                Team1Faction.Text = Settings.Team1Faction.Name;
+                Settings.TeamFactions[0] = form.Faction;
+                Team1Faction.Text = Settings.TeamFactions[0].Name;
             }
         }
 
         private void Team2Faction_Click(object sender, EventArgs e)
         {
-            var f = Settings.Team2Faction.Clone();
+            var f = Settings.TeamFactions[1].Clone();
 
             var form = new FactionDetails();
             form.LoadFaction(f);
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Settings.Team2Faction = form.Faction;
-                Team2Faction.Text = Settings.Team2Faction.Name;
+                Settings.TeamFactions[1] = form.Faction;
+                Team2Faction.Text = Settings.TeamFactions[1].Name;
             }
         }
     }

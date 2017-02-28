@@ -8,12 +8,11 @@ namespace AllegianceForms.Engine
 {
     public class GameSettings
     {
+        public int NumTeams { get; set; }
         public int NumPilots { get; set; }
         public string MapName { get; set; }
-        public int Team1ColourARBG { get; set; }
-        public int Team2ColourARBG { get; set; }
-        public Faction Team1Faction { get; set; }
-        public Faction Team2Faction { get; set; }
+        public int[] TeamColours { get; set; }
+        public Faction[] TeamFactions { get; set; }
         public bool WormholesVisible { get; set; }
         public float WormholesSignatureMultiplier { get; set; }
         public int MinersInitial { get; set; }
@@ -62,14 +61,12 @@ namespace AllegianceForms.Engine
                 WormholesVisible = false,
                 RocksVisible = false,
 
-                Team1Faction = Faction.Default(),
-                Team2Faction = Faction.Default(),
+                NumTeams = 2,
+                TeamFactions = new[] { Faction.Default(), Faction.Default() },
+                TeamColours = new[] { Color.Lime.ToArgb(), Color.LightPink.ToArgb() },
 
                 NumPilots = 16,
                 AiDifficulty = 1,
-
-                Team1ColourARBG = Color.Lime.ToArgb(),
-                Team2ColourARBG = Color.LightPink.ToArgb(),
 
                 WormholesSignatureMultiplier = 1,
 

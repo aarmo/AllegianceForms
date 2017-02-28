@@ -2,6 +2,13 @@ AllegianceForms
 ======
 [Home](/README.md)
 
+Next Release Roadmap
+------
+- Support more teams (Add maps for 3-4 teams, support multiple AIs)
+- Alliances? (Vision, resource & tech sharing?)
+- AI improvements (Support troop transports, use cap ships for miner offense & defense)
+- Balance pass
+
 Current Release Changes
 ------
 - ~~Display critical messages (press a key to go to a recent critical alert)~~
@@ -10,13 +17,6 @@ Current Release Changes
 - ~~Add capital ships (shipyard tech. Light: Corvette. Medium: Frigate, Destroyer. Heavy: Cruiser, Devastator. Super Heavy: Battlecruiser, Battleship)~~
 - ~~Faction differences (Random faction stats, integrate faction editor, save/load presets)~~
 - ~~AI improvements (Use scouts to repair bombers, support cap ships)~~
-
-Next Release Roadmap
-------
-- Support more teams (Add maps for 3-4 teams, support multiple AIs)
-- Alliances? (Vision, resource & tech sharing?)
-- AI improvements (Support troop transports, use cap ships for miner offense & defense)
-- Balance pass
 
 Future Roadmap
 ------

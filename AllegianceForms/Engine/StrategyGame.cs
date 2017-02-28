@@ -13,15 +13,14 @@ using System.Linq;
 
 namespace AllegianceForms.Engine
 {
-    
     public static class StrategyGame
     {
         public delegate void GameEventHandler(object sender, EGameEventType e);
         public static event GameEventHandler GameEvent;
 
-        public const int NumTeams = 2;
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
+        public const float BaseConversionRate = 5f;
 
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
@@ -31,11 +30,12 @@ namespace AllegianceForms.Engine
         
         public static double SqrtTwo = Math.Sqrt(2);
 
+        public static int NumTeams = 2;
+        
         public static int[] DockedPilots = new int[NumTeams];
         public static int[] Credits = new int[NumTeams];
         public static CommanderAI[] AICommanders = new CommanderAI[NumTeams];
 
-        public static float[] ConversionRate = new float[] { 5f, 5f };
         public static TechTree[] TechTree = new TechTree[NumTeams];
         public static Faction[] Faction = new Faction[NumTeams];
         public static ShipSpecs Ships;
@@ -411,7 +411,7 @@ namespace AllegianceForms.Engine
             if (team == 1 && sound) SoundEffect.Play(ESounds.payday, true);
 
             var t = team - 1;
-            var amount = (int)(resources * ConversionRate[t] * GameSettings.ResourceConversionRateMultiplier * TechTree[t].ResearchedUpgrades[EGlobalUpgrade.MinerEfficiency] * Faction[t].Bonuses.MiningEfficiency);
+            var amount = (int)(resources * BaseConversionRate * GameSettings.ResourceConversionRateMultiplier * TechTree[t].ResearchedUpgrades[EGlobalUpgrade.MinerEfficiency] * Faction[t].Bonuses.MiningEfficiency);
             Credits[t] += amount;
             GameStats.TotalResourcesMined[t] += resources;
         }
@@ -427,14 +427,19 @@ namespace AllegianceForms.Engine
 
         public static void ResetGame(GameSettings settings)
         {
+            NumTeams = settings.NumTeams;
+
             DockedPilots = new int[NumTeams];
             Credits = new int[NumTeams];
-            ConversionRate = new[] { 5f, 5f };
+            Faction = new Factions.Faction[NumTeams];
+
+            for (var i = 0; i < NumTeams; i++)
+            {
+                Faction[i] = settings.TeamFactions[i].Clone();
+            }
+
             GameStats = new GameStats();
             GameSettings = settings;
-
-            Faction[0] = settings.Team1Faction.Clone();
-            Faction[1] = settings.Team2Faction.Clone();
 
             AllUnits.Clear();
             AllBases.Clear();

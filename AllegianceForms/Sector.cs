@@ -76,8 +76,8 @@ namespace AllegianceForms
             _bg = Image.FromFile(".\\Art\\Backgrounds\\stars.png");
             _bgBrush = new TextureBrush(_bg);
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
-            _colourTeam1 = Color.FromArgb(settings.Team1ColourARBG);
-            _colourTeam2 = Color.FromArgb(settings.Team2ColourARBG);
+            _colourTeam1 = Color.FromArgb(settings.TeamColours[0]);
+            _colourTeam2 = Color.FromArgb(settings.TeamColours[1]);
             _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
             _sensorBrush = new SolidBrush(StrategyGame.NewAlphaColour(5, _colourTeam1));
             _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();

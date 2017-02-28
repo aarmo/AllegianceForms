@@ -143,8 +143,8 @@ namespace AllegianceForms.Test.Engine
             _settings.ResourcesStartingMultiplier = value;
             LoadSettings();
 
-            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[0] * value));
-            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[1] * value));
+            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
+            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
         }
 
         [TestMethod]
@@ -167,8 +167,8 @@ namespace AllegianceForms.Test.Engine
             _settings.ResourceConversionRateMultiplier = value;
             LoadSettings();
 
-            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[0] * value));
-            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.ConversionRate[1] * value));
+            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
+            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
         }
 
         [TestMethod]

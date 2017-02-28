@@ -23,7 +23,7 @@ namespace AllegianceForms.Test.Engine
             StrategyGame.AddResources(2, 100);
 
             StrategyGame.Credits[0].ShouldBe(0);
-            StrategyGame.Credits[1].ShouldBe((int)(100 * StrategyGame.ConversionRate[1] * StrategyGame.Faction[1].Bonuses.MiningEfficiency));
+            StrategyGame.Credits[1].ShouldBe((int)(100 * StrategyGame.BaseConversionRate * StrategyGame.Faction[1].Bonuses.MiningEfficiency));
         }
         
         [TestMethod]
