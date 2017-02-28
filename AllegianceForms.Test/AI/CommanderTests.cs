@@ -1,4 +1,4 @@
-﻿using AllegianceForms.AI;
+﻿using AllegianceForms.Engine.AI;
 using AllegianceForms.Engine;
 using AllegianceForms.Engine.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,8 +16,8 @@ namespace AllegianceForms.Test.AI
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.LoadData();
-            StrategyGame.ResetGame(GameSettings.Default());
+            StrategyGame.SetupGame(GameSettings.Default());
+            StrategyGame.LoadData();            
             StrategyGame.Map = GameMaps.PinWheel();
 
             _target = new CommanderAI(2, Color.Red, null);

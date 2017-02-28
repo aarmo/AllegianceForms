@@ -99,31 +99,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Missions\BaseDefenseMission.cs" />
-    <Compile Include="AI\Missions\BombingMission.cs" />
-    <Compile Include="AI\CommanderAI.cs" />
-    <Compile Include="AI\Missions\MinerMission.cs" />
-    <Compile Include="AI\Missions\BuilderMission.cs" />
-    <Compile Include="AI\Missions\CommanderMission.cs" />
-    <Compile Include="AI\Missions\MinerDefenseMission.cs" />
-    <Compile Include="AI\Missions\MinerOffenseMission.cs" />
-    <Compile Include="AI\Missions\ScoutingMission.cs" />
-    <Compile Include="ChanceGame.cs">
+    <Compile Include="Engine\AI\Missions\BaseDefenseMission.cs" />
+    <Compile Include="Engine\AI\Missions\BombingMission.cs" />
+    <Compile Include="Engine\AI\CommanderAI.cs" />
+    <Compile Include="Engine\AI\Missions\MinerMission.cs" />
+    <Compile Include="Engine\AI\Missions\BuilderMission.cs" />
+    <Compile Include="Engine\AI\Missions\CommanderMission.cs" />
+    <Compile Include="Engine\AI\Missions\MinerDefenseMission.cs" />
+    <Compile Include="Engine\AI\Missions\MinerOffenseMission.cs" />
+    <Compile Include="Engine\AI\Missions\ScoutingMission.cs" />
+    <Compile Include="Controls\TeamListItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TeamListItem.Designer.cs">
+      <DependentUpon>TeamListItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChanceGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChanceGame.Designer.cs">
+    <Compile Include="Forms\ChanceGame.Designer.cs">
       <DependentUpon>ChanceGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomiseSetttings.cs">
+    <Compile Include="Forms\CustomiseSetttings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomiseSetttings.Designer.cs">
+    <Compile Include="Forms\CustomiseSetttings.Designer.cs">
       <DependentUpon>CustomiseSetttings.cs</DependentUpon>
     </Compile>
-    <Compile Include="DebugAI.cs">
+    <Compile Include="Forms\DebugAI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DebugAI.Designer.cs">
+    <Compile Include="Forms\DebugAI.Designer.cs">
       <DependentUpon>DebugAI.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\Animation.cs" />
@@ -162,98 +168,101 @@
     <Compile Include="Engine\Weapons\Weapon.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Engine\Ships\Ship.cs" />
-    <Compile Include="FactionDetails.cs">
+    <Compile Include="Forms\FactionDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FactionDetails.Designer.cs">
+    <Compile Include="Forms\FactionDetails.Designer.cs">
       <DependentUpon>FactionDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Menu.cs">
+    <Compile Include="Forms\Menu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Menu.Designer.cs">
+    <Compile Include="Forms\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\BuildOrder.cs" />
-    <Compile Include="Orders\CaptureOrder.cs" />
-    <Compile Include="Orders\PodDockOrder.cs" />
-    <Compile Include="Orders\InterceptOrder.cs" />
-    <Compile Include="Orders\NavigateOrder.cs" />
-    <Compile Include="Orders\RefineOrder.cs" />
-    <Compile Include="Orders\DockOrder.cs" />
-    <Compile Include="Orders\MineOrder.cs" />
-    <Compile Include="Orders\MoveOrder.cs" />
-    <Compile Include="Orders\PatrolOrder.cs" />
-    <Compile Include="Orders\ShipOrder.cs" />
-    <Compile Include="Orders\StopOrder.cs" />
-    <Compile Include="Map.cs">
+    <Compile Include="Engine\Orders\BuildOrder.cs" />
+    <Compile Include="Engine\Orders\CaptureOrder.cs" />
+    <Compile Include="Engine\Orders\PodDockOrder.cs" />
+    <Compile Include="Engine\Orders\InterceptOrder.cs" />
+    <Compile Include="Engine\Orders\NavigateOrder.cs" />
+    <Compile Include="Engine\Orders\RefineOrder.cs" />
+    <Compile Include="Engine\Orders\DockOrder.cs" />
+    <Compile Include="Engine\Orders\MineOrder.cs" />
+    <Compile Include="Engine\Orders\MoveOrder.cs" />
+    <Compile Include="Engine\Orders\PatrolOrder.cs" />
+    <Compile Include="Engine\Orders\ShipOrder.cs" />
+    <Compile Include="Engine\Orders\StopOrder.cs" />
+    <Compile Include="Forms\Map.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Map.Designer.cs">
+    <Compile Include="Forms\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\WarpOrder.cs" />
-    <Compile Include="PilotList.cs">
+    <Compile Include="Engine\Orders\WarpOrder.cs" />
+    <Compile Include="Forms\PilotList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PilotList.Designer.cs">
+    <Compile Include="Forms\PilotList.Designer.cs">
       <DependentUpon>PilotList.cs</DependentUpon>
     </Compile>
-    <Compile Include="PilotListItem.cs">
+    <Compile Include="Controls\PilotListItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PilotListItem.Designer.cs">
+    <Compile Include="Controls\PilotListItem.Designer.cs">
       <DependentUpon>PilotListItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Research.cs">
+    <Compile Include="Forms\Research.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Research.Designer.cs">
+    <Compile Include="Forms\Research.Designer.cs">
       <DependentUpon>Research.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sector.cs">
+    <Compile Include="Forms\Sector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sector.Designer.cs">
+    <Compile Include="Forms\Sector.Designer.cs">
       <DependentUpon>Sector.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TechTreeItem.cs">
+    <Compile Include="Controls\TechTreeItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TechTreeItem.Designer.cs">
+    <Compile Include="Controls\TechTreeItem.Designer.cs">
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <EmbeddedResource Include="ChanceGame.resx">
+    <EmbeddedResource Include="Controls\TeamListItem.resx">
+      <DependentUpon>TeamListItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChanceGame.resx">
       <DependentUpon>ChanceGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomiseSetttings.resx">
+    <EmbeddedResource Include="Forms\CustomiseSetttings.resx">
       <DependentUpon>CustomiseSetttings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DebugAI.resx">
+    <EmbeddedResource Include="Forms\DebugAI.resx">
       <DependentUpon>DebugAI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FactionDetails.resx">
+    <EmbeddedResource Include="Forms\FactionDetails.resx">
       <DependentUpon>FactionDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map.resx">
+    <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menu.resx">
+    <EmbeddedResource Include="Forms\Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PilotList.resx">
+    <EmbeddedResource Include="Forms\PilotList.resx">
       <DependentUpon>PilotList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PilotListItem.resx">
+    <EmbeddedResource Include="Controls\PilotListItem.resx">
       <DependentUpon>PilotListItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Research.resx">
+    <EmbeddedResource Include="Forms\Research.resx">
       <DependentUpon>Research.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sector.resx">
+    <EmbeddedResource Include="Forms\Sector.resx">
       <DependentUpon>Sector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -265,7 +274,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TechTreeItem.resx">
+    <EmbeddedResource Include="Controls\TechTreeItem.resx">
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Art\allegb.ico">

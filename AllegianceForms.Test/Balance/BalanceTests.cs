@@ -15,8 +15,8 @@ namespace AllegianceForms.Test.Balance
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.LoadData();
-            StrategyGame.ResetGame(GameSettings.Default());
+            StrategyGame.SetupGame(GameSettings.Default());
+            StrategyGame.LoadData();            
         }
 
         [TestMethod]

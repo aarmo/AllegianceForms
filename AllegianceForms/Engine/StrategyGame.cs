@@ -1,4 +1,4 @@
-﻿using AllegianceForms.AI;
+﻿using AllegianceForms.Engine.AI;
 using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Map;
@@ -18,34 +18,40 @@ namespace AllegianceForms.Engine
         public delegate void GameEventHandler(object sender, EGameEventType e);
         public static event GameEventHandler GameEvent;
 
+        public const int ScreenWidth = 1200;
+        public const int ScreenHeight = 800;
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
         public const float BaseConversionRate = 5f;
-
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
         public const string IconPicDir = ".\\Art\\Trans\\";
+
+        public static Random Random = new Random();
+        public static GameMap Map;
+        public static GameStats GameStats;
         public static GameSettings GameSettings;
         
         public static double SqrtTwo = Math.Sqrt(2);
-
         public static int NumTeams = 2;
-        
-        public static int[] DockedPilots = new int[NumTeams];
-        public static int[] Credits = new int[NumTeams];
-        public static CommanderAI[] AICommanders = new CommanderAI[NumTeams];
 
-        public static TechTree[] TechTree = new TechTree[NumTeams];
-        public static Faction[] Faction = new Faction[NumTeams];
         public static ShipSpecs Ships;
         public static BaseSpecs Bases;
+        public static int[] DockedPilots;
+        public static int[] Credits;
+        public static CommanderAI[] AICommanders;
+        public static TechTree[] TechTree;
+        public static Faction[] Faction;
         
         public static List<Ship> AllUnits = new List<Ship>();
         public static List<Base> AllBases = new List<Base>();
 
         public static List<Asteroid> AllAsteroids = new List<Asteroid>();
-        public static List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();
+        public static List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();        
+        public static List<Asteroid> BuildableAsteroids = new List<Asteroid>();
+
+        private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
         public static double AngleBetweenPoints(PointF from, PointF to)
         {
@@ -61,17 +67,6 @@ namespace AllegianceForms.Engine
             return new PointF((float)(p.X + d * Math.Cos(rad)), (float)(p.Y + d * Math.Sin(rad)));
         }
 
-        public static List<Asteroid> BuildableAsteroids = new List<Asteroid>();
-
-        public static GameStats GameStats;
-
-        public static Random Random = new Random();
-        public static GameMap Map;
-
-        public const int ScreenWidth = 1200;
-        public const int ScreenHeight = 800;
-        private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-        
         public static GameEntity NextWormholeEnd(int team, int fromSectorId, int toSectorId, out GameEntity _otherEnd)
         {
             var path = Map.ShortestPath(team, fromSectorId, toSectorId);
@@ -425,21 +420,22 @@ namespace AllegianceForms.Engine
             return spentAmount;
         }
 
-        public static void ResetGame(GameSettings settings)
+        public static void SetupGame(GameSettings settings)
         {
+            GameSettings = settings;
             NumTeams = settings.NumTeams;
+            GameStats = new GameStats();
 
             DockedPilots = new int[NumTeams];
             Credits = new int[NumTeams];
-            Faction = new Factions.Faction[NumTeams];
+            AICommanders = new CommanderAI[NumTeams];
+            Faction = new Faction[NumTeams];
+            TechTree = new TechTree[NumTeams];
 
             for (var i = 0; i < NumTeams; i++)
             {
                 Faction[i] = settings.TeamFactions[i].Clone();
             }
-
-            GameStats = new GameStats();
-            GameSettings = settings;
 
             AllUnits.Clear();
             AllBases.Clear();
@@ -452,6 +448,7 @@ namespace AllegianceForms.Engine
         {
             for (var t = 0; t < StrategyGame.NumTeams; t++)
             {
+                Credits[t] = 0;
                 StrategyGame.DockedPilots[t] = GameSettings.NumPilots;
                 StrategyGame.AddResources(t+1, (int)(StrategyGame.ResourcesInitial * GameSettings.ResourcesStartingMultiplier), sound);
                 StrategyGame.Map.SetVisibilityToTeam(t+1, GameSettings.WormholesVisible);

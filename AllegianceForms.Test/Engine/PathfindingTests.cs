@@ -15,7 +15,7 @@ namespace AllegianceForms.Test.Engine
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.ResetGame(GameSettings.Default());
+            StrategyGame.SetupGame(GameSettings.Default());
             _target = GameMaps.PinWheel();
             _target.SetVisibilityToTeam(1, true);
         }

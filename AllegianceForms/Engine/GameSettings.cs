@@ -8,6 +8,14 @@ namespace AllegianceForms.Engine
 {
     public class GameSettings
     {
+        public static int[] DefaultTeamColours = new int[] 
+        {
+            Color.FromArgb(0, 159, 225).ToArgb(),
+            Color.FromArgb(202, 178, 0).ToArgb(),
+            Color.FromArgb(175, 30, 126).ToArgb(),
+            Color.FromArgb(73, 161, 36).ToArgb()
+        };
+
         public int NumTeams { get; set; }
         public int NumPilots { get; set; }
         public string MapName { get; set; }
@@ -63,7 +71,7 @@ namespace AllegianceForms.Engine
 
                 NumTeams = 2,
                 TeamFactions = new[] { Faction.Default(), Faction.Default() },
-                TeamColours = new[] { Color.Lime.ToArgb(), Color.LightPink.ToArgb() },
+                TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1] },
 
                 NumPilots = 16,
                 AiDifficulty = 1,

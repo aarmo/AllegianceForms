@@ -17,8 +17,8 @@ namespace AllegianceForms.Test.Engine
         public void Setup()
         {
             _settings = GameSettings.Default();
+            StrategyGame.SetupGame(_settings);
             StrategyGame.LoadData();
-            StrategyGame.ResetGame(_settings);
             StrategyGame.Map = GameMaps.LoadMap(_settings.MapName);
         }
 
