@@ -9,6 +9,9 @@ namespace AllegianceForms.Controls
 {
     public partial class TeamListItem : UserControl
     {
+        public delegate void TeamChangedHandler(TeamListItem sender);
+        public event TeamChangedHandler TeamChangedEvent;
+
         public int Index { get; set; }
         public int ColourArgb { get; set; }
         public Faction Faction { get; set; }
@@ -40,6 +43,7 @@ namespace AllegianceForms.Controls
             {
                 s.BackColor = colorDialog.Color;
                 ColourArgb = s.BackColor.ToArgb();
+                OnTeamChanged();
             }
         }
 
@@ -54,6 +58,7 @@ namespace AllegianceForms.Controls
             {
                 Faction = form.Faction;
                 TeamFaction.Text = Faction.Name;
+                OnTeamChanged();
             }
         }
 
@@ -70,5 +75,9 @@ namespace AllegianceForms.Controls
             if (b != null && b.Text != "Change") b.BackColor = Color.Black;
         }
 
+        private void OnTeamChanged()
+        {
+            if (TeamChangedEvent != null) TeamChangedEvent(this);
+        }
     }
 }

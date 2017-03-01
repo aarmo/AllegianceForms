@@ -806,6 +806,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(384, 484);
             this.Controls.Add(this.BalancedLabel);
             this.Controls.Add(this.label10);

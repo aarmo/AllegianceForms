@@ -102,6 +102,7 @@ namespace AllegianceForms.Forms
             for (var i = 0; i < Settings.NumTeams; i++)
             {
                 var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i]);
+                ctl.TeamChangedEvent += Ctl_TeamChangedEvent;
                 TeamItems.Controls.Add(ctl);
             }
         }
@@ -603,9 +604,10 @@ namespace AllegianceForms.Forms
             if (teams == Settings.NumTeams) return;
 
             var maps = GameMaps.AvailableMaps(teams);
+            var currentMap = MapList.Text;
             MapList.Items.Clear();
             MapList.Items.AddRange(maps);
-            if (!maps.Contains(MapList.Text)) MapList.Text = maps[0];
+            MapList.Text = maps.Contains(currentMap) ? currentMap : maps[0];
 
             var oldFactions = Settings.TeamFactions;
             var oldColours = Settings.TeamColours;
@@ -637,11 +639,18 @@ namespace AllegianceForms.Forms
                     Settings.TeamColours[i] = GameSettings.DefaultTeamColours[i];
 
                     var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i]);
+                    ctl.TeamChangedEvent += Ctl_TeamChangedEvent;
                     TeamItems.Controls.Add(ctl);
                 } 
             }
 
             Settings.NumTeams = teams;
+        }
+
+        private void Ctl_TeamChangedEvent(TeamListItem sender)
+        {
+            Settings.TeamFactions[sender.Index - 1] = sender.Faction;
+            Settings.TeamColours[sender.Index - 1] = sender.ColourArgb;
         }
     }
 }
