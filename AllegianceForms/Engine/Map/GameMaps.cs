@@ -13,6 +13,14 @@ namespace AllegianceForms.Engine.Map
         public const int SectorDiameter = 20;
         public const int SectorSpacing = 30;
 
+        public static string[] AvailableMaps(int teams)
+        {
+            if (teams == 2) return new[] { "Grid", "HiHigher", "HiLo", "PinWheel", "DoubleRing", "SingleRing", "Star", "Brawl" };
+            if (teams == 3 || teams == 4) return new[] { "PinWheel", "DoubleRing", "SingleRing"};
+
+            return new[] { "" };
+        }
+
         public static string RandomName()
         {
             switch (StrategyGame.Random.Next(7))
@@ -43,8 +51,8 @@ namespace AllegianceForms.Engine.Map
                 case "Grid": return Grid();
                 case "HiHigher": return HiHigher();
                 case "HiLo": return HiLo();
-                case "PinWheel": return PinWheel();
-                case "DoubleRing": return DoubleRing();
+                case "PinWheel": return PinWheel(teams);
+                case "DoubleRing": return DoubleRing(teams);
                 case "SingleRing": return SingleRing(teams);
                 case "Star": return Star();
             }
@@ -64,8 +72,11 @@ namespace AllegianceForms.Engine.Map
             return map;
         }
 
-        public static GameMap DoubleRing()
+        public static GameMap DoubleRing(int teams)
         {
+            if (teams == 3) return DoubleRing3();
+            if (teams == 4) return DoubleRing4();
+
             var map = new GameMap
             {
                 Name = "DoubleRing",
@@ -86,6 +97,94 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[1], map.Sectors[3]),
 
                 new Wormhole (map.Sectors[2], map.Sectors[3]),
+            };
+
+            map.InitialiseMap();
+
+            return map;
+        }
+
+        public static GameMap DoubleRing3()
+        {
+
+            var map = new GameMap
+            {
+                Name = "DoubleRing",
+                Sectors = new List<MapSector> {
+                    new MapSector (0, SectorNames.NextString, new Point(0, 0)) { StartingSector = true },
+                    new MapSector (1, SectorNames.NextString, new Point(2, 1)),
+                    new MapSector (2, SectorNames.NextString, new Point(4, 1)) { StartingSector = true },
+                    new MapSector (3, SectorNames.NextString, new Point(2, 2)),
+                    new MapSector (4, SectorNames.NextString, new Point(1, 4)) { StartingSector = true },
+                    new MapSector (5, SectorNames.NextString, new Point(1, 2)),
+                }
+            };
+
+            map.Wormholes = new List<Wormhole> {
+                new Wormhole (map.Sectors[0], map.Sectors[1]),
+                new Wormhole (map.Sectors[0], map.Sectors[2]),
+                new Wormhole (map.Sectors[0], map.Sectors[4]),
+                new Wormhole (map.Sectors[0], map.Sectors[5]),
+
+                new Wormhole (map.Sectors[1], map.Sectors[2]),
+                new Wormhole (map.Sectors[1], map.Sectors[3]),
+                new Wormhole (map.Sectors[1], map.Sectors[5]),
+
+                new Wormhole (map.Sectors[2], map.Sectors[3]),
+                new Wormhole (map.Sectors[2], map.Sectors[4]),
+
+                new Wormhole (map.Sectors[3], map.Sectors[4]),
+                new Wormhole (map.Sectors[3], map.Sectors[5]),
+
+                new Wormhole (map.Sectors[4], map.Sectors[5]),
+            };
+
+            map.InitialiseMap();
+
+            return map;
+        }
+
+        public static GameMap DoubleRing4()
+        {
+
+            var map = new GameMap
+            {
+                Name = "DoubleRing",
+                Sectors = new List<MapSector> {
+                    new MapSector (0, SectorNames.NextString, new Point(3, 0)) { StartingSector = true },
+                    new MapSector (1, SectorNames.NextString, new Point(4, 2)),
+                    new MapSector (2, SectorNames.NextString, new Point(6, 3)) { StartingSector = true },
+                    new MapSector (3, SectorNames.NextString, new Point(4, 4)),
+                    new MapSector (4, SectorNames.NextString, new Point(3, 6)) { StartingSector = true },
+                    new MapSector (5, SectorNames.NextString, new Point(2, 4)),
+                    new MapSector (6, SectorNames.NextString, new Point(0, 3)) { StartingSector = true },
+                    new MapSector (7, SectorNames.NextString, new Point(2, 2)),
+                }
+            };
+
+            map.Wormholes = new List<Wormhole> {
+                new Wormhole (map.Sectors[0], map.Sectors[1]),
+                new Wormhole (map.Sectors[0], map.Sectors[2]),
+                new Wormhole (map.Sectors[0], map.Sectors[6]),
+                new Wormhole (map.Sectors[0], map.Sectors[7]),
+
+                new Wormhole (map.Sectors[1], map.Sectors[2]),
+                new Wormhole (map.Sectors[1], map.Sectors[3]),
+                new Wormhole (map.Sectors[1], map.Sectors[7]),
+
+                new Wormhole (map.Sectors[2], map.Sectors[3]),
+                new Wormhole (map.Sectors[2], map.Sectors[4]),
+
+                new Wormhole (map.Sectors[3], map.Sectors[4]),
+                new Wormhole (map.Sectors[3], map.Sectors[5]),
+
+                new Wormhole (map.Sectors[4], map.Sectors[5]),
+                new Wormhole (map.Sectors[4], map.Sectors[6]),
+
+                new Wormhole (map.Sectors[5], map.Sectors[6]),
+                new Wormhole (map.Sectors[5], map.Sectors[7]),
+
+                new Wormhole (map.Sectors[6], map.Sectors[7]),
             };
 
             map.InitialiseMap();
@@ -378,8 +477,11 @@ namespace AllegianceForms.Engine.Map
             return map;
         }
 
-        public static GameMap PinWheel()
+        public static GameMap PinWheel(int teams)
         {
+            if (teams == 3) return PinWheel3();
+            if (teams == 4) return PinWheel4();
+
             var map = new GameMap
             {
                 Name = "PinWheel",
@@ -398,6 +500,81 @@ namespace AllegianceForms.Engine.Map
                 new Wormhole (map.Sectors[2], map.Sectors[3]),
                 new Wormhole (map.Sectors[3], map.Sectors[4]),
                 new Wormhole (map.Sectors[1], map.Sectors[3])
+            };
+
+            map.InitialiseMap();
+
+            return map;
+        }
+        
+        public static GameMap PinWheel3()
+        {
+            var map = new GameMap
+            {
+                Name = "PinWheel",
+                Sectors = new List<MapSector> {
+                    new MapSector (0, SectorNames.NextString, new Point(0, 0)) { StartingSector = true },
+                    new MapSector (1, SectorNames.NextString, new Point(1, 1)),
+                    new MapSector (2, SectorNames.NextString, new Point(2, 2)),
+                    new MapSector (3, SectorNames.NextString, new Point(3, 1)),
+                    new MapSector (4, SectorNames.NextString, new Point(4, 0)) { StartingSector = true },
+                    new MapSector (5, SectorNames.NextString, new Point(3, 3)),
+                    new MapSector (6, SectorNames.NextString, new Point(4, 4)) { StartingSector = true },
+                }
+            };
+
+            map.Wormholes = new List<Wormhole> {
+                new Wormhole (map.Sectors[0], map.Sectors[1]),
+                new Wormhole (map.Sectors[1], map.Sectors[2]),
+                new Wormhole (map.Sectors[1], map.Sectors[3]),
+                new Wormhole (map.Sectors[2], map.Sectors[3]),
+                new Wormhole (map.Sectors[2], map.Sectors[5]),
+                new Wormhole (map.Sectors[3], map.Sectors[4]),
+                new Wormhole (map.Sectors[3], map.Sectors[5]),
+                new Wormhole (map.Sectors[5], map.Sectors[6])
+            };
+
+            map.InitialiseMap();
+
+            return map;
+        }
+
+        public static GameMap PinWheel4()
+        {
+            var map = new GameMap
+            {
+                Name = "PinWheel",
+                Sectors = new List<MapSector> {
+                    new MapSector (0, SectorNames.NextString, new Point(0, 0)) { StartingSector = true },
+                    new MapSector (1, SectorNames.NextString, new Point(1, 1)),
+                    new MapSector (2, SectorNames.NextString, new Point(2, 2)),
+                    new MapSector (3, SectorNames.NextString, new Point(3, 1)),
+                    new MapSector (4, SectorNames.NextString, new Point(4, 0)) { StartingSector = true },
+                    new MapSector (5, SectorNames.NextString, new Point(3, 3)),
+                    new MapSector (6, SectorNames.NextString, new Point(4, 4)) { StartingSector = true },
+                    new MapSector (7, SectorNames.NextString, new Point(1, 3)),
+                    new MapSector (8, SectorNames.NextString, new Point(0, 4)) { StartingSector = true },
+                }
+            };
+
+            map.Wormholes = new List<Wormhole> {
+                new Wormhole (map.Sectors[0], map.Sectors[1]),
+                new Wormhole (map.Sectors[1], map.Sectors[2]),
+                new Wormhole (map.Sectors[1], map.Sectors[3]),
+                new Wormhole (map.Sectors[1], map.Sectors[7]),
+
+                new Wormhole (map.Sectors[2], map.Sectors[3]),
+                new Wormhole (map.Sectors[2], map.Sectors[5]),
+                new Wormhole (map.Sectors[2], map.Sectors[7]),
+
+                new Wormhole (map.Sectors[3], map.Sectors[4]),
+                new Wormhole (map.Sectors[3], map.Sectors[5]),
+
+                new Wormhole (map.Sectors[5], map.Sectors[6]),
+                new Wormhole (map.Sectors[5], map.Sectors[7]),
+
+                new Wormhole (map.Sectors[7], map.Sectors[8]),
+
             };
 
             map.InitialiseMap();

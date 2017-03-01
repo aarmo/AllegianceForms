@@ -1,6 +1,7 @@
 ﻿using AllegianceForms.Controls;
 using AllegianceForms.Engine;
 using AllegianceForms.Engine.Factions;
+using AllegianceForms.Engine.Map;
 using System;
 using System.Drawing;
 using System.IO;
@@ -600,6 +601,11 @@ namespace AllegianceForms.Forms
         {
             var teams = (int)Teams.Value;
             if (teams == Settings.NumTeams) return;
+
+            var maps = GameMaps.AvailableMaps(teams);
+            MapList.Items.Clear();
+            MapList.Items.AddRange(maps);
+            if (!maps.Contains(MapList.Text)) MapList.Text = maps[0];
 
             var oldFactions = Settings.TeamFactions;
             var oldColours = Settings.TeamColours;

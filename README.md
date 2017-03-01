@@ -133,9 +133,10 @@ Credits
 Item | Source
 --- | ---
 **Icons** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
-**Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar
-**Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
-**Game Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
+**Original Rocks** | HansjÃ¶rg Malthaner: http://opengameart.org/users/varkalandar
+**Bubble Explosion** | TiÃ£o Ferreira: http://opengameart.org/users/tiao-ferreira
+**Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
+**Maps** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/Maps
 
 [Overview](#overview)
 

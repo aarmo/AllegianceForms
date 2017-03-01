@@ -32,7 +32,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_DoubleRing()
         {
-            var target = GameMaps.DoubleRing();
+            var target = GameMaps.DoubleRing(2);
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -42,6 +42,49 @@ namespace AllegianceForms.Test.Engine
 
             path.ShouldNotBeNull();
             path.Count.ShouldBe(1);
+        }
+
+        [TestMethod]
+        public void TestPathBetweenStartingSectors_DoubleRing3()
+        {
+            var target = GameMaps.DoubleRing(3);
+            target.SetVisibilityToTeam(1, true);
+
+            var start = target.Sectors.First(_ => _.StartingSector);
+            var mid = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
+            var end = target.Sectors.Last(_ => _.StartingSector);
+
+            var path1 = target.ShortestPath(1, start.Id, end.Id);
+            path1.ShouldNotBeNull();
+            path1.Count.ShouldBe(1);
+
+            var path2 = target.ShortestPath(1, start.Id, mid.Id);
+            path2.ShouldNotBeNull();
+            path2.Count.ShouldBe(1);
+        }
+
+        [TestMethod]
+        public void TestPathBetweenStartingSectors_DoubleRing4()
+        {
+            var target = GameMaps.DoubleRing(4);
+            target.SetVisibilityToTeam(1, true);
+
+            var start = target.Sectors.First(_ => _.StartingSector);
+            var mid2 = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
+            var mid3 = target.Sectors.Where(_ => _.StartingSector).Skip(2).First();
+            var end = target.Sectors.Last(_ => _.StartingSector);
+
+            var path1 = target.ShortestPath(1, start.Id, end.Id);
+            path1.ShouldNotBeNull();
+            path1.Count.ShouldBe(1);
+
+            var path2 = target.ShortestPath(1, start.Id, mid2.Id);
+            path2.ShouldNotBeNull();
+            path2.Count.ShouldBe(1);
+
+            var path3 = target.ShortestPath(1, start.Id, mid3.Id);
+            path3.ShouldNotBeNull();
+            path3.Count.ShouldBe(2);
         }
 
         [TestMethod]
@@ -150,7 +193,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_PinWheel()
         {
-            var target = GameMaps.PinWheel();
+            var target = GameMaps.PinWheel(2);
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -160,6 +203,49 @@ namespace AllegianceForms.Test.Engine
 
             path.ShouldNotBeNull();
             path.Count.ShouldBe(3);
+        }
+
+        [TestMethod]
+        public void TestPathBetweenStartingSectors_PinWheel3()
+        {
+            var target = GameMaps.PinWheel(3);
+            target.SetVisibilityToTeam(1, true);
+
+            var start = target.Sectors.First(_ => _.StartingSector);
+            var mid = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
+            var end = target.Sectors.Last(_ => _.StartingSector);
+
+            var path1 = target.ShortestPath(1, start.Id, end.Id);
+            path1.ShouldNotBeNull();
+            path1.Count.ShouldBe(4);
+
+            var path2 = target.ShortestPath(1, start.Id, mid.Id);
+            path2.ShouldNotBeNull();
+            path2.Count.ShouldBe(3);
+        }
+
+        [TestMethod]
+        public void TestPathBetweenStartingSectors_PinWheel4()
+        {
+            var target = GameMaps.PinWheel(4);
+            target.SetVisibilityToTeam(1, true);
+
+            var start = target.Sectors.First(_ => _.StartingSector);
+            var mid2 = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
+            var mid3 = target.Sectors.Where(_ => _.StartingSector).Skip(2).First();
+            var end = target.Sectors.Last(_ => _.StartingSector);
+
+            var path1 = target.ShortestPath(1, start.Id, end.Id);
+            path1.ShouldNotBeNull();
+            path1.Count.ShouldBe(3);
+
+            var path2 = target.ShortestPath(1, start.Id, mid2.Id);
+            path2.ShouldNotBeNull();
+            path2.Count.ShouldBe(3);
+
+            var path3 = target.ShortestPath(1, start.Id, mid3.Id);
+            path3.ShouldNotBeNull();
+            path3.Count.ShouldBe(4);
         }
 
         [TestMethod]
