@@ -217,7 +217,12 @@ namespace AllegianceForms
         small_explosion,
         big_explosion,
         sniperlaser1pwrup,
-        missilelock
+        missilelock,
+        sidewinder,
+        final_explosion_small,
+        final_explosion_medium,
+        final_explosion_large,
+        explosion_tiny
     }
     
     public enum EAiCreditPriorities

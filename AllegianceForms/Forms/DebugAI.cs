@@ -144,7 +144,10 @@ namespace AllegianceForms.Forms
 
         private void ForceVisible_CheckedChanged(object sender, System.EventArgs e)
         {
-            _ai.ForceVisible = ForceVisible.Checked;
+            foreach (var ai in StrategyGame.AICommanders)
+            {
+                if (ai != null) ai.ForceVisible = ForceVisible.Checked;
+            }
         }
 
         private void Scouting_CheckedChanged(object sender, System.EventArgs e)

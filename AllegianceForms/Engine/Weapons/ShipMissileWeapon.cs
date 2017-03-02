@@ -18,7 +18,7 @@ namespace AllegianceForms.Engine.Weapons
         public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, PointF offset, SolidBrush teamColour) 
             : base(fireTimeMS, refireDelayMS, range, damage, shooter, offset)
         {
-            _weaponSound = ESounds.missilelock;
+            _weaponSound = ESounds.sidewinder;
             Speed = missileSpeed;
             Tracking = missileTracking;
             _damageOnShotEnd = false;

@@ -274,6 +274,7 @@ namespace AllegianceForms.Forms
                 if (s == null) return;
 
                 CreateExplosion(s.Bounds, s.SectorId);
+                if (s.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.explosion_tiny);
             }
             else if (e == EGameEventType.ImportantMessage)
             {
@@ -293,6 +294,7 @@ namespace AllegianceForms.Forms
             {
                 // Bases have small explosions when damaged!
                 CreateExplosion(new RectangleF(sender.CenterX - 8, sender.CenterY - 8, 16, 16), sender.SectorId);
+                if (sender.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.explosion_tiny);
             }
             else if (e == EBaseEventType.BaseDestroyed)
             {                
@@ -314,6 +316,7 @@ namespace AllegianceForms.Forms
                         p.X += b.Width / 2;
                     }
                 }
+                if (sender.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.final_explosion_large);
 
                 if (sender.Team == 1 && !StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
                 {
@@ -450,6 +453,18 @@ namespace AllegianceForms.Forms
             {
                 CreateExplosion(sender.Bounds, sender.SectorId);
 
+                if (sender.SectorId == _currentSector.Id)
+                {
+                    if (Ship.IsCapitalShip(sender.Type))
+                    {
+                        SoundEffect.Play(ESounds.final_explosion_medium);
+                    }
+                    else
+                    {
+                        SoundEffect.Play(ESounds.final_explosion_small);
+                    }
+                }
+
                 if (sender.Team == 1 && sender.Type == EShipType.Miner) SoundEffect.Play(ESounds.vo_destroy_miner, true);
                 if (sender.Type == EShipType.Miner) StrategyGame.GameStats.TotalMinersDestroyed[sender.Team - 1]++;
                 if (sender.Type == EShipType.Constructor) StrategyGame.GameStats.TotalConstructorsDestroyed[sender.Team - 1]++;
@@ -555,7 +570,6 @@ namespace AllegianceForms.Forms
                 exp.Start();
                 _animations.Add(exp);
             }
-            if (sectorId == _currentSector.Id) SoundEffect.Play(ESounds.small_explosion);
         }
 
         private void UpdateFrame()
