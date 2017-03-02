@@ -29,7 +29,7 @@ namespace AllegianceForms.Engine.AI.Missions
         
         public override void AddMorePilots()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Team == AI.Team && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = StrategyGame.AllUnits.Where(_ => _.Team == AI.Team && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];

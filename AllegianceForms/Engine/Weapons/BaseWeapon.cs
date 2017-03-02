@@ -15,9 +15,9 @@ namespace AllegianceForms.Engine.Weapons
         public override void DamageTarget()
         {
             var b = Target as Base;
-            if (b != null && Shooter.SectorId == Target.SectorId)
+            if (b != null && b.Active && Shooter.SectorId == Target.SectorId)
             {
-                b.Damage(WeaponDamage);
+                b.Damage(WeaponDamage, Shooter.Team);
                 if (!b.Active) Target = null;
             }
         }

@@ -85,9 +85,9 @@ namespace AllegianceForms.Engine
             Left = 0;
         }
 
-        public virtual void Draw(Graphics g)
+        public virtual void Draw(Graphics g, int currentSectorId)
         {
-            if (!Active || !VisibleToTeam[0]) return;
+            if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
             g.DrawImage(Image, _topLeft);
 
             if (TextBrush != null)

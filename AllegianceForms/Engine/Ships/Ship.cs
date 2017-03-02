@@ -64,7 +64,7 @@ namespace AllegianceForms.Engine.Ships
             Orders = new List<ShipOrder>();
         }
 
-        public virtual void Update()
+        public virtual void Update(int currentSectorId)
         {
             if (!Active) return;
 
@@ -87,9 +87,9 @@ namespace AllegianceForms.Engine.Ships
             Move();
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
-            base.Draw(g);
+            base.Draw(g, currentSectorId);
             if (Selected) g.DrawRectangle(SelectedPen, _left - 1, _top - 1, Image.Width + 2, Image.Height + 2);
         }
 

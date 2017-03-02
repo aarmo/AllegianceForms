@@ -64,10 +64,10 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Update()
+        public override void Update(int currentSectorId)
         {
             if (!Active) return;
-            base.Update();
+            base.Update(currentSectorId);
 
             if (!(CurrentOrder is MineOrder)) Mining = false;
 
@@ -138,10 +138,10 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
-            if (!Active) return;
-            base.Draw(g);
+            if (!Active || SectorId != currentSectorId) return;
+            base.Draw(g, currentSectorId);
 
             if (Shooting && Target != null && VisibleToTeam[0]) g.DrawLine(MinePen, _centerX, _centerY, Target.CenterX, Target.CenterY);
         }

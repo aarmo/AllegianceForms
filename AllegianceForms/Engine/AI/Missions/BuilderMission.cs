@@ -53,7 +53,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     var path = StrategyGame.Map.ShortestPath(AI.Team, r.SectorId, b.SectorId);
                     var newHops = path == null ? int.MaxValue : path.Count();
 
-                    var score = newHops + (hasEnemyBase ? 1 : 0) + (hasFriendlyBase ? 1 : 0);
+                    var score = newHops + (hasEnemyBase ? 2 : 0) + (hasFriendlyBase ? 3 : 0);
                     if (score < bestScore)
                     {
                         bestScore = score;

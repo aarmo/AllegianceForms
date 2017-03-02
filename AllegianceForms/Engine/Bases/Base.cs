@@ -7,7 +7,7 @@ namespace AllegianceForms.Engine.Bases
 {
     public class Base : GameEntity
     {
-        public delegate void BaseEventHandler(Base sender, EBaseEventType e);
+        public delegate void BaseEventHandler(Base sender, EBaseEventType e, int senderTeam);
         public event BaseEventHandler BaseEvent;
 
         public EBaseType Type { get; set; }
@@ -83,10 +83,10 @@ namespace AllegianceForms.Engine.Bases
             Team = capturedBy.Team;
             TeamColor = (Brush) capturedBy.TeamColor.Clone();
             SelectedPen = (Pen) capturedBy.SelectedPen.Clone();
-            OnBaseEvent(EBaseEventType.BaseCaptured);
+            OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);
         } 
 
-        public virtual void Update()
+        public virtual void Update(int currentSectorId)
         {
             if (!CanLaunchShips()) return;
 
@@ -112,9 +112,9 @@ namespace AllegianceForms.Engine.Bases
             c.B * c.B * .114);
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
-            if (!Active || !VisibleToTeam[0]) return;
+            if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
 
             var b = BoundsI;
             g.FillRectangle(TeamColor, b);
@@ -131,24 +131,24 @@ namespace AllegianceForms.Engine.Bases
             }
         }
 
-        public virtual void Damage(float amount)
+        public virtual void Damage(float amount, int senderTeam)
         {
             if (Health - amount <= 0)
             {
                 // Dead!
                 Active = false;
-                OnBaseEvent(EBaseEventType.BaseDestroyed);
+                OnBaseEvent(EBaseEventType.BaseDestroyed, senderTeam);
             }
             else
             {
                 Health -= amount;
-                OnBaseEvent(EBaseEventType.BaseDamaged);
+                OnBaseEvent(EBaseEventType.BaseDamaged, senderTeam);
             }
         }
 
-        protected void OnBaseEvent(EBaseEventType e)
+        protected void OnBaseEvent(EBaseEventType e, int senderTeam)
         {
-            if (BaseEvent != null) BaseEvent(this, e);
+            if (BaseEvent != null) BaseEvent(this, e, senderTeam);
         }
     }
 }

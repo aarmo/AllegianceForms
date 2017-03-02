@@ -102,6 +102,5 @@ namespace AllegianceForms.Engine.AI.Missions
                 }
             }
         }
-
     }
 }

@@ -13,9 +13,9 @@ namespace AllegianceForms.Engine.Weapons
             LaserPen = new Pen(laserColor, laserWidth);
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
-            if (Shooting && Shooter != null && Target != null && Shooter.SectorId == Target.SectorId)
+            if (Shooting && Shooter != null && Target != null && Shooter.SectorId == currentSectorId)
                 g.DrawLine(LaserPen, Shooter.CenterX + FireOffset.X, Shooter.CenterY + FireOffset.Y, Target.CenterX, Target.CenterY);
         }
     }

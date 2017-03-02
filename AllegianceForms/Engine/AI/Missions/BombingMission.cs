@@ -123,7 +123,7 @@ namespace AllegianceForms.Engine.AI.Missions
             }
 
             // If we have no more visible bases to attack or launch from (we loose), abort!
-            if (_targetBase == null || !_targetBase.Active || _launchBase == null || !_launchBase.Active)
+            if (_targetBase == null || !_targetBase.Active || _targetBase.Team == AI.Team || _launchBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
             {
                 _targetBase = StrategyGame.ClosestEnemyBase(AI.Team, out _launchBase);
 

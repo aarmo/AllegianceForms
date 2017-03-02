@@ -141,8 +141,7 @@ namespace AllegianceForms.Engine.AI
             // Add more pilots to missions
             foreach (var v in PilotPriorities.OrderByDescending(_ => _.Value))
             {
-                if (StrategyGame.DockedPilots[_t] == 0 || v.Value < MinActionAmount)
-                    break;
+                if (StrategyGame.DockedPilots[_t] == 0 || v.Value < MinActionAmount) break;
 
                 switch (v.Key)
                 {
@@ -325,8 +324,10 @@ namespace AllegianceForms.Engine.AI
             if (MinerDefence && (Miners.Count > 0 || Builders.Count > 0) && PilotPriorities[EAiPilotPriorities.MinerDefense] < MaxPriorityValue)
                 PilotPriorities[EAiPilotPriorities.MinerDefense] += _minerDefenseFocus;
 
-            var enemyBases = StrategyGame.AllBases.Where(_ => _.Active && _.Team != Team && _.VisibleToTeam[_t]).ToList();
+            //TODO: Ineffiencient to do each second!
             Bases = StrategyGame.AllBases.Where(_ => _.Active && _.Team == Team).ToList();
+            var enemyBases = StrategyGame.AllBases.Where(_ => _.Active && _.Team != Team && _.VisibleToTeam[_t]).ToList();
+            
             if (!StrategyGame.TechTree[_t].HasResearchedShipType(EShipType.Bomber))
             {
                 if (CreditsForOffence && CreditPriorities[EAiCreditPriorities.Offense] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Offense] += (enemyBases.Count * _baseDefenseFocus);

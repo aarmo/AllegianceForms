@@ -15,25 +15,25 @@ namespace AllegianceForms.Engine.Ships
             Weapons = new List<Weapon>();
         }
 
-        public override void Update()
+        public override void Update(int currentSectorId)
         {
             if (!Active) return;
-            base.Update();
+            base.Update(currentSectorId);
 
             foreach (var wep in Weapons)
             {
-                wep.Update();
+                wep.Update(currentSectorId);
             }            
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
             if (!Active) return;
-            base.Draw(g);
+            base.Draw(g, currentSectorId);
 
             foreach (var wep in Weapons)
             {
-                wep.Draw(g);
+                wep.Draw(g, currentSectorId);
             }
         }
         

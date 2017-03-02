@@ -88,10 +88,10 @@ namespace AllegianceForms.Engine.Ships
             return bse;
         }
 
-        public override void Update()
+        public override void Update(int currentSectorId)
         {
             if (!Active) return;
-            base.Update();
+            base.Update(currentSectorId);
 
             if (_buildingStop < DateTime.Now)
             {
@@ -120,13 +120,13 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
-            if (!Active || !VisibleToTeam[0]) return;
+            if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
 
             if (!Building || BaseType == EBaseType.Tower)
             {
-                base.Draw(g);
+                base.Draw(g, currentSectorId);
                 return;
             }
 

@@ -22,7 +22,6 @@ namespace AllegianceForms.Engine.Weapons
             Speed = missileSpeed;
             Tracking = missileTracking;
             _damageOnShotEnd = false;
-            _playSoundAlways = false;
             Missiles = new List<MissileProjectile>();
             TeamColour = teamColour;
             Smoke1 = new Pen(Color.Orange, width/2);
@@ -30,17 +29,17 @@ namespace AllegianceForms.Engine.Weapons
             Width = width;
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, int currentSectorId)
         {
             foreach (var m in Missiles)
             {
-                if (m.SectorId != Shooter.SectorId) continue;
+                if (m.SectorId != currentSectorId) continue;
 
                 m.Draw(g);
             }
         }
 
-        public override void Update()
+        public override void Update(int currentSectorId)
         {
             Missiles.RemoveAll(_ => !_.Active);
 
@@ -50,7 +49,7 @@ namespace AllegianceForms.Engine.Weapons
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
                 Missiles.Add(new MissileProjectile(Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 3000, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
             }
-            base.Update();
+            base.Update(currentSectorId);
 
             foreach (var m in Missiles)
             {

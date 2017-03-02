@@ -18,7 +18,6 @@ namespace AllegianceForms.Engine.Weapons
         public PointF FireOffset { get; set; }
 
         protected bool _damageOnShotEnd = true;
-        protected bool _playSoundAlways = true;
         protected ESounds _weaponSound = ESounds.plasmaac1;
         protected DateTime _shootingStop = DateTime.MaxValue;
         protected DateTime _shootingNextTime = DateTime.MinValue;
@@ -34,13 +33,13 @@ namespace AllegianceForms.Engine.Weapons
             FireOffset = offset;
         }
 
-        public virtual void Update()
+        public virtual void Update(int currentSectorId)
         {
             if (!Shooting && Firing && _shootingNextTime <= DateTime.Now && Target != null && Target.Active)
             {
                 Shooting = true;
                 _shootingStop = DateTime.Now + ShootingDuration;
-                if (_playSoundAlways || Shooter.Team == 1) SoundEffect.Play(_weaponSound);
+                if (currentSectorId == Shooter.SectorId) SoundEffect.Play(_weaponSound);
             }
 
             if (Shooting && _shootingStop <= DateTime.Now)
@@ -53,7 +52,7 @@ namespace AllegianceForms.Engine.Weapons
             CheckForANewTarget();
         }
 
-        public abstract void Draw(Graphics g);
+        public abstract void Draw(Graphics g, int currentSectorId);
 
         public abstract void DamageTarget();
 

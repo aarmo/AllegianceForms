@@ -28,11 +28,11 @@ namespace AllegianceForms.Engine.Map
         {
             if (sectorId == Sector1.Id)
             {
-                End1.Draw(g);
+                End1.Draw(g, sectorId);
             }
             if (sectorId == Sector2.Id)
             {
-                End2.Draw(g);
+                End2.Draw(g, sectorId);
             }
         }
 

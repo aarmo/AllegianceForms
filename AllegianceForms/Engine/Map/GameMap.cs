@@ -68,21 +68,19 @@ namespace AllegianceForms.Engine.Map
 
             foreach (var u in StrategyGame.AllAsteroids)
             {
-                if (u.SectorId != sectorId) continue;
-
-                u.Draw(g);
+                u.Draw(g, sectorId);
             }
 
             foreach (var w in Wormholes)
             {
                 if (w.Sector1.Id == sectorId)
                 {
-                    w.End1.Draw(g);
+                    w.End1.Draw(g, sectorId);
                     continue;
                 }
                 if (w.Sector2.Id == sectorId)
                 {
-                    w.End2.Draw(g);
+                    w.End2.Draw(g, sectorId);
                     continue;
                 }
             }
