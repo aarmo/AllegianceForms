@@ -2,8 +2,7 @@
 <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/header_logo.png" />
 </p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 [![Build status](https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true)](https://ci.appveyor.com/project/aarmo/allegianceforms)
 [![Current Version](https://img.shields.io/badge/release-v0.2%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
 [![Next Version](https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
@@ -17,7 +16,7 @@ A 2D strategy game inspired by Microsoft's space combat game: Allegiance.
 
 Made for the Free Allegiance community: http://www.freeallegiance.org/
 
-[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)
+[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)&nbsp;&nbsp;&nbsp;[Dependancies](#dependancies)
 
 Features
 ------
@@ -74,7 +73,7 @@ Key	| Description
 
 ### General Commands
 Key	| Description
---- | --- 
+--- | ---
 **1-9** | View sector 1-9.
 **Space** | Switch between the sector of the last alert.
 **F3** | Show/Hide the Minimap window.
@@ -84,7 +83,7 @@ Key	| Description
 
 ### Base Commands
 Key	| Description
---- | --- 
+--- | ---
 **Right Click** | Sets a new *Default Location* for a base.
 **S** | Launch a *Scout*.
 **F** | Launch a *Fighter*.
@@ -98,8 +97,8 @@ Key	| Description
 
 ### Ship Commands
 Key	| Description
---- | --- 
-**Right Click** | Orders the selected unit(s) to *Attack Move*/*Dock*/*Capture*. 
+--- | ---
+**Right Click** | Orders the selected unit(s) to *Attack Move*/*Dock*/*Capture*.
 **Shift** | Hold to queue up additional orders.
 **Control** | Hold to see the scan range of the selected ships.
 **A** | Orders the selected unit(s) to *Attack Move*.
@@ -115,7 +114,7 @@ Key	| Description
 Maps
 ------
 Name | Image | Name | Image
---- | --- | ---  | --- 
+--- | --- | ---  | ---
 Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
 Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
 Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
@@ -133,11 +132,19 @@ Credits
 ------
 Item | Source
 --- | ---
-**Icons** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons 
+**Icons** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons
 **Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar
 **Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 **Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
 **Maps** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/Maps
+
+[Overview](#overview)
+
+Dependancies
+------
+Library | Source
+--- | ---
+**IrrKlang** | [![Irrklang](http://www.ambiera.com/irrklang/images/irrklang_link_small.png)](http://www.ambiera.com/irrklang/index.html)
 
 [Overview](#overview)
 
