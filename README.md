@@ -1,14 +1,13 @@
 <p align="center">
 <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/header_logo.png" />
+<br/>
+<a href="https://ci.appveyor.com/project/aarmo/allegianceforms"><img src="https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/releases"><img src="https://img.shields.io/badge/release-v0.2%20alpha-green.svg"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/blob/master/Doc/Roadmap.md"><img src="https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/issues"><img src="https://img.shields.io/github/issues/aarmo/AllegianceForms.svg"/></a>
+<img src="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/Doc/Images/contributions-welcome-brightgreen.png"/>
+<a href="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE"><img src="https://img.shields.io/badge/license-AGPL-brightgreen.svg"/></a>
 </p>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-[![Build status](https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true)](https://ci.appveyor.com/project/aarmo/allegianceforms)
-[![Current Version](https://img.shields.io/badge/release-v0.2%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
-[![Next Version](https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
-[![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
-![alt text][contribute]
-[![GitHub license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 
 Overview
 ------
@@ -21,7 +20,7 @@ Made for the Free Allegiance community: http://www.freeallegiance.org/
 Features
 ------
 - Multiple [Maps](#maps) & [Tech Paths](#tech-tree)
-- Customisable [Game Settings & Factions] (#customise-the-game)
+- Customisable [Game Settings & Factions](#customise-the-game)
 - Pilot & Commander AI
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers and Capital Ships!
 
@@ -31,19 +30,19 @@ Features
 
 Screenshots
 ------
-###Main Menu
+### Main Menu
 ![alt text][menu]
 
-###Explore the map
+### Explore the map
 ![alt text][explore]
 - Discover wormholes to other sectors
 - Find your enemy's bases and miners
 
-###Defend your miners & constructors
+### Defend your miners & constructors
 ![alt text][defend]
 - Miners collect resources from *Helium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
 
-###Build bases & expand
+### Build bases & expand
 ![alt text][build2]
 - Outpost, Refinery, Starbase and Shipyard constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
 - Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="30"/>
@@ -51,12 +50,12 @@ Screenshots
 - Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_3.png" width="30"/>
 - Tower constructors require *No* asteroids.
 
-###Upgrade your tech & battle the enemy
+### Upgrade your tech & battle the enemy
 ![alt text][battle1]
 ![alt text][battle2]
 ![alt text][gameover]
 
-###Customise the Game
+### Customise the Game
 ![alt text][custom]
 ![alt text][faction]
 
@@ -148,7 +147,6 @@ Library | Source
 
 [Overview](#overview)
 
-<br/>
 Bonus Game
 ------
 ### Lucky Dogfight
@@ -177,5 +175,3 @@ Bonus Game
 [maphigh]: /Doc/Images/Map_HiHigher.png "HiHigher"
 [mapgrid]: /Doc/Images/Map_Grid.png "Grid"
 [mapstar]: /Doc/Images/Map_Star.png "Star"
-
-[contribute]: /Doc/Images/contributions-welcome-brightgreen.png "Contributions welcome"
