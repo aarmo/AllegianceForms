@@ -25,7 +25,9 @@ namespace AllegianceForms
         ShipLaunched,
         ShipClicked,
         MissileHit,
-        ImportantMessage
+        ImportantMessage,
+        GameLost,
+        GameWon
     }
 
     public enum EVertDir

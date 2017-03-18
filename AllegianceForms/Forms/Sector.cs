@@ -137,7 +137,7 @@ namespace AllegianceForms.Forms
 
             for (var i = 0; i < 30; i++)
             {
-                var a = new Animation(explosionFrames, 0, 0, 16, 16, new TimeSpan(0, 0, 0, 0, 100), false);
+                var a = new Animation(explosionFrames, 0, 0, 16, 16, 1, false);
                 _explosions.Add(a);
             }
 
@@ -153,86 +153,7 @@ namespace AllegianceForms.Forms
 
         private void StrategyGame_GameEvent(object sender, EGameEventType e)
         {
-            if (e == EGameEventType.DroneBuilt)
-            {
-                var tech = sender as TechItem;
-                if (tech == null) return;
-
-                var b1 = StrategyGame.AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Starbase).LastOrDefault();
-                if (b1 == null) return;
-                Ship drone;
-
-                var colour = Color.FromArgb(StrategyGame.GameSettings.TeamColours[tech.Team-1]);
-                if (tech.Name == "Miner")
-                {
-                    drone = StrategyGame.Ships.CreateMinerShip(tech.Team, colour, b1.SectorId);
-                    if (drone == null) return;
-
-                    if (tech.Team == 1) SoundEffect.Play(ESounds.vo_miner_report4duty);
-                }
-                else if (tech.Type == ETechType.ShipyardConstruction)
-                {
-                    b1 = StrategyGame.AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Shipyard).LastOrDefault();
-                    if (b1 == null) return;
-
-                    drone = StrategyGame.Ships.CreateShip(tech.Name, tech.Team, colour, b1.SectorId);
-                    if (drone == null) return;
-                }
-                else
-                {
-                    var bType = TechItem.GetBaseType(tech.Name);
-
-                    drone = StrategyGame.Ships.CreateBuilderShip(bType, tech.Team, colour, b1.SectorId);
-                    if (drone == null) return;
-                    var builder = drone as BuilderShip;
-                    if (builder == null) return;
-
-                    if (tech.Team == 1)
-                    {
-                        if (BaseSpecs.IsTower(builder.BaseType))
-                        {
-                            SoundEffect.Play(ESounds.vo_request_tower);
-                        }
-                        else
-                        {
-                            switch (builder.TargetRockType)
-                            {
-                                case EAsteroidType.Resource:
-                                    SoundEffect.Play(ESounds.vo_request_builderhelium);
-                                    break;
-                                case EAsteroidType.Rock:
-                                    SoundEffect.Play(ESounds.vo_request_buildergeneric);
-                                    break;
-                                case EAsteroidType.TechCarbon:
-                                    SoundEffect.Play(ESounds.vo_request_buildercarbon);
-                                    break;
-                                case EAsteroidType.TechSilicon:
-                                    SoundEffect.Play(ESounds.vo_request_buildersilicon);
-                                    break;
-                                case EAsteroidType.TechUranium:
-                                    SoundEffect.Play(ESounds.vo_request_builderuranium);
-                                    break;
-                            }
-                        }
-                    }
-                }
-                
-                drone.CenterX = b1.CenterX;
-                drone.CenterY = b1.CenterY;
-                drone.ShipEvent += F_ShipEvent;
-                drone.OrderShip(new MoveOrder(b1.SectorId, b1.GetNextBuildPosition(), Point.Empty));
-                
-                StrategyGame.AddUnit(drone);
-            }
-            else if (e == EGameEventType.ResearchComplete)
-            {
-                var tech = sender as TechItem;
-                if (tech == null) return;
-                if (TechItem.IsGlobalUpgrade(tech.Name)) tech.ApplyGlobalUpgrade(StrategyGame.TechTree[tech.Team - 1]);
-
-                if (tech.Team == 1) SoundEffect.Play(ESounds.vo_sal_researchcomplete);
-            }
-            else if (e == EGameEventType.SectorLeftClicked)
+            if (e == EGameEventType.SectorLeftClicked)
             {
                 var s = sender as MapSector;
                 if (s == null) return;
@@ -248,6 +169,8 @@ namespace AllegianceForms.Forms
 
                 // Order selected units to navigate to the clicked sector
                 _selectedUnits.ForEach(_ => _.OrderShip(new NavigateOrder(_, s.Id), _shiftDown));
+                _selectedUnits.ForEach(_ => _.Selected = false);
+                _selectedUnits.Clear();
                 Focus();
             }
             else if (e == EGameEventType.ShipClicked)
@@ -286,10 +209,24 @@ namespace AllegianceForms.Forms
                 AlertMessage.Text = s.Message;
                 AlertMessage.Visible = true;
             }
+            else if (e == EGameEventType.GameLost)
+            {
+                GameOver(false);
+            }
+            else if (e == EGameEventType.GameWon)
+            {
+                GameOver(true);
+            }
+            else
+            {
+                StrategyGame.ProcessGameEvent(sender, e, F_ShipEvent);
+            }
         }
 
         private void B_BaseEvent(Base sender, EBaseEventType e, int senderTeam)
         {
+            StrategyGame.ProcessBaseEvent(sender, e, senderTeam);
+
             if (e == EBaseEventType.BaseDamaged)
             {
                 // Bases have small explosions when damaged!
@@ -297,7 +234,9 @@ namespace AllegianceForms.Forms
                 if (sender.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.explosion_tiny);
             }
             else if (e == EBaseEventType.BaseDestroyed)
-            {                
+            {
+                if (sender.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.final_explosion_large, true);
+
                 var b = sender.Bounds;
                 var p = new PointF(sender.Left, sender.Top);
 
@@ -305,8 +244,8 @@ namespace AllegianceForms.Forms
                 for (var i = 0; i < 4; i++)
                 {
                     CreateExplosion(new RectangleF(p.X, p.Y, b.Width / 2, b.Height / 2), sender.SectorId);
-                    
-                    if ((i+1) % 2 == 0)
+
+                    if ((i + 1) % 2 == 0)
                     {
                         p.X = (int)sender.Left;
                         p.Y += b.Width / 2;
@@ -316,139 +255,47 @@ namespace AllegianceForms.Forms
                         p.X += b.Width / 2;
                     }
                 }
-                if (sender.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.final_explosion_large);
-
-                if (sender.Team == 1 && !StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
-                {
-                    SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
-                }
-                if (sender.SectorId == _currentSector.Id) SoundEffect.Play(ESounds.big_explosion, true);
-
-                StrategyGame.GameStats.TotalBasesDestroyed[sender.Team - 1]++;
-
-                if (senderTeam == 1)
-                {
-                    switch (sender.Type)
-                    {
-                        case (EBaseType.Expansion):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyexpansion : ESounds.vo_destroy_expansion, true);
-                            break;
-
-                        case (EBaseType.Supremacy):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemysupremecy : ESounds.vo_destroy_supremecy, true);
-                            break;
-
-                        case (EBaseType.Outpost):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyoutpost : ESounds.vo_destroy_outpost, true);
-                            break;
-
-                        case (EBaseType.Starbase):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemygarrison : ESounds.vo_destroy_garrison, true);
-                            break;
-
-                        case (EBaseType.Tactical):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemytactical : ESounds.vo_destroy_tactical, true);
-                            break;
-
-                        case (EBaseType.Refinery):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyrefinery : ESounds.vo_destroy_refinery, true);
-                            break;
-
-                        case (EBaseType.Shipyard):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyshipyard : ESounds.vo_destroy_shipyard, true);
-                            break;
-                    }
-                }
-                
-                CheckForGameOver();
-            }
-            else if (e == EBaseEventType.BaseCaptured)
-            {
-                if (senderTeam == 1)
-                {
-                    switch (sender.Type)
-                    {
-                        case (EBaseType.Expansion):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_expansion : ESounds.vo_capture_enemyexpansion, true);
-                            break;
-
-                        case (EBaseType.Supremacy):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_supremecy : ESounds.vo_capture_enemysupremecy, true);
-                            break;
-
-                        case (EBaseType.Outpost):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_outpost : ESounds.vo_capture_enemyoutpost, true);
-                            break;
-
-                        case (EBaseType.Starbase):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_garrison : ESounds.vo_capture_enemygarrison, true);
-                            break;
-
-                        case (EBaseType.Tactical):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_tactical : ESounds.vo_capture_enemytactical, true);
-                            break;
-
-                        case (EBaseType.Shipyard):
-                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_shipyard : ESounds.vo_capture_enemyshipyard, true);
-                            break;
-                    }
-
-                    if (sender.Team != 1)
-                    {
-                        if (!StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
-                        {
-                            SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
-                        }
-                    }
-                }
-                
-                CheckForGameOver();
             }
         }
 
-        private void CheckForGameOver()
+        private void GameOver(bool won)
         {
-            var gameOver = false;
-
-            if (!StrategyGame.AllBases.Any(_ => _.Team == 1 && _.Active && _.CanLaunchShips()))
-            {
-                WinLose.Text = "You Lose!";
-                gameOver = true;
-            }
-            else if (!StrategyGame.AllBases.Any(_ => _.Team != 1 && _.Active && _.CanLaunchShips()))
+            if (won)
             {
                 WinLose.Text = "You Win!";
-                gameOver = true;
             }
-
-            if (gameOver)
+            else
             {
-                GameOverPanel.Left = Width / 2 - GameOverPanel.Width / 2;
-                GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
-                GameOverPanel.Visible = true;
-
-                TotalBases1.Text = StrategyGame.GameStats.TotalBasesBuilt[0].ToString();
-                TotalBases2.Text = StrategyGame.GameStats.TotalBasesBuilt[1].ToString();
-                TotalBasesDestroyed1.Text = StrategyGame.GameStats.TotalBasesDestroyed[0].ToString();
-                TotalBasesDestroyed2.Text = StrategyGame.GameStats.TotalBasesDestroyed[1].ToString();
-                TotalConstructors1.Text = StrategyGame.GameStats.TotalConstructorsBuilt[0].ToString();
-                TotalConstructors2.Text = StrategyGame.GameStats.TotalConstructorsBuilt[1].ToString();
-                TotalConstructorsDestroyed1.Text = StrategyGame.GameStats.TotalConstructorsDestroyed[0].ToString();
-                TotalConstructorsDestroyed2.Text = StrategyGame.GameStats.TotalConstructorsDestroyed[1].ToString();
-                TotalMined1.Text = StrategyGame.GameStats.TotalResourcesMined[0].ToString();
-                TotalMined2.Text = StrategyGame.GameStats.TotalResourcesMined[1].ToString();
-                TotalMiners1.Text = StrategyGame.GameStats.TotalMinersBuilt[0].ToString();
-                TotalMiners2.Text = StrategyGame.GameStats.TotalMinersBuilt[1].ToString();
-                TotalMinersDestroyed1.Text = StrategyGame.GameStats.TotalMinersDestroyed[0].ToString();
-                TotalMinersDestroyed2.Text = StrategyGame.GameStats.TotalMinersDestroyed[1].ToString();
-
-                tick.Enabled = false;
-                timer.Enabled = false;
+                WinLose.Text = "You Lose!";
             }
+            
+            GameOverPanel.Left = Width / 2 - GameOverPanel.Width / 2;
+            GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
+            GameOverPanel.Visible = true;
+
+            TotalBases1.Text = StrategyGame.GameStats.TotalBasesBuilt[0].ToString();
+            TotalBases2.Text = StrategyGame.GameStats.TotalBasesBuilt[1].ToString();
+            TotalBasesDestroyed1.Text = StrategyGame.GameStats.TotalBasesDestroyed[0].ToString();
+            TotalBasesDestroyed2.Text = StrategyGame.GameStats.TotalBasesDestroyed[1].ToString();
+            TotalConstructors1.Text = StrategyGame.GameStats.TotalConstructorsBuilt[0].ToString();
+            TotalConstructors2.Text = StrategyGame.GameStats.TotalConstructorsBuilt[1].ToString();
+            TotalConstructorsDestroyed1.Text = StrategyGame.GameStats.TotalConstructorsDestroyed[0].ToString();
+            TotalConstructorsDestroyed2.Text = StrategyGame.GameStats.TotalConstructorsDestroyed[1].ToString();
+            TotalMined1.Text = StrategyGame.GameStats.TotalResourcesMined[0].ToString();
+            TotalMined2.Text = StrategyGame.GameStats.TotalResourcesMined[1].ToString();
+            TotalMiners1.Text = StrategyGame.GameStats.TotalMinersBuilt[0].ToString();
+            TotalMiners2.Text = StrategyGame.GameStats.TotalMinersBuilt[1].ToString();
+            TotalMinersDestroyed1.Text = StrategyGame.GameStats.TotalMinersDestroyed[0].ToString();
+            TotalMinersDestroyed2.Text = StrategyGame.GameStats.TotalMinersDestroyed[1].ToString();
+
+            tick.Enabled = false;
+            timer.Enabled = false;
         }
 
         internal void F_ShipEvent(Ship sender, EShipEventType e)
         {
+            StrategyGame.ProcessShipEvent(sender, e, F_ShipEvent, B_BaseEvent);
+
             if (e == EShipEventType.ShipDestroyed)
             {
                 CreateExplosion(sender.Bounds, sender.SectorId);
@@ -466,94 +313,10 @@ namespace AllegianceForms.Forms
                 }
 
                 if (sender.Team == 1 && sender.Type == EShipType.Miner) SoundEffect.Play(ESounds.vo_destroy_miner, true);
-                if (sender.Type == EShipType.Miner) StrategyGame.GameStats.TotalMinersDestroyed[sender.Team - 1]++;
-                if (sender.Type == EShipType.Constructor) StrategyGame.GameStats.TotalConstructorsDestroyed[sender.Team - 1]++;
-
-                // Launch a Lifepod for each pilot
-                var lifepods = new List<Ship>();
-                for (var i = 0; i < sender.NumPilots; i++)
-                {
-                    var lifepod = StrategyGame.Ships.CreateLifepod(sender.Team, sender.Colour, sender.SectorId);
-                    lifepod.CenterX = sender.CenterX;
-                    lifepod.CenterY = sender.CenterY;
-                    lifepod.ShipEvent += F_ShipEvent;
-                    lifepods.Add(lifepod);
-                }
-                sender.NumPilots = 0;
-
-                if (lifepods.Count > 1)
-                {
-                    StrategyGame.SpreadOrderEvenly<MoveOrder>(lifepods, sender.SectorId, sender.CenterPoint);
-                }
-                lifepods.ForEach(_ => _.OrderShip(new PodDockOrder(_, true), true));
-                
-                StrategyGame.AddUnits(lifepods);
             }
-            if (e == EShipEventType.BuildingStarted)
+            else if (e == EShipEventType.BuildingFinished)
             {
-                var b = sender as BuilderShip;
-                if (b != null && BaseSpecs.IsTower(b.BaseType))
-                {
-                    var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
-                    var tower = StrategyGame.Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
-                    if (tower == null) return;
-
-                    tower.CenterX = b.CenterX;
-                    tower.CenterY = b.CenterY;
-                    tower.ShipEvent += F_ShipEvent;
-
-                    StrategyGame.AddUnit(tower);
-                    b.Active = false;
-                }
-            }
-            if (e == EShipEventType.BuildingFinished)
-            {
-                var b = sender as BuilderShip;
-                if (b != null)
-                {
-                    b.Target.BuildingComplete();
-                    StrategyGame.BuildableAsteroids.Remove(b.Target);
-                    StrategyGame.AllAsteroids.Remove(b.Target);
-                    
-                    var newBase = b.GetFinishedBase();
-                    newBase.BaseEvent += B_BaseEvent;
-                    var secured = (sender.Team == 1 && newBase.CanLaunchShips() && !StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == sender.SectorId && _.CanLaunchShips()));
-
-                    StrategyGame.AddBase(newBase);
-                    StrategyGame.GameStats.TotalBasesBuilt[sender.Team - 1]++;
-                    StrategyGame.UnlockTech(newBase.Type, newBase.Team);
-                    _researchForm.RefreshItems();
-
-                    if (newBase.Team == 1)
-                    {
-                        switch (newBase.Type)
-                        {
-                            case EBaseType.Outpost:
-                                SoundEffect.Play(ESounds.vo_builder_outpost, true);
-                                break;
-                            case EBaseType.Refinery:
-                                SoundEffect.Play(ESounds.vo_builder_refinery, true);
-                                break;
-                            case EBaseType.Starbase:
-                                SoundEffect.Play(ESounds.vo_builder_garrison, true);
-                                break;
-                            case EBaseType.Supremacy:
-                                SoundEffect.Play(ESounds.vo_builder_supremecy, true);
-                                break;
-                            case EBaseType.Tactical:
-                                SoundEffect.Play(ESounds.vo_builder_tactical, true);
-                                break;
-                            case EBaseType.Expansion:
-                                SoundEffect.Play(ESounds.vo_builder_expansion, true);
-                                break;
-                            case EBaseType.Shipyard:
-                                SoundEffect.Play(ESounds.vo_builder_shipyard, true);
-                                break;
-                        }
-
-                        if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured, true);
-                    }
-                }
+                if (sender.Team == 1 && _researchForm.Visible) _researchForm.RefreshItems();
             }
         }
 
@@ -917,10 +680,13 @@ namespace AllegianceForms.Forms
         private void SwitchSector(int i)
         {
             if (i <= 0 || i > StrategyGame.Map.Sectors.Count) return;
-            
-            var s = StrategyGame.Map.Sectors[i-1];
 
+            _selectedBases.Clear();
+            _selectedUnits.Clear();
+
+            var s = StrategyGame.Map.Sectors[i-1];
             _currentSector = s;
+
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
         }

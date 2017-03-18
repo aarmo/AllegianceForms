@@ -90,7 +90,7 @@ namespace AllegianceForms.Engine.Ships
         public override void Draw(Graphics g, int currentSectorId)
         {
             base.Draw(g, currentSectorId);
-            if (Selected) g.DrawRectangle(SelectedPen, _left - 1, _top - 1, Image.Width + 2, Image.Height + 2);
+            if (Selected && SectorId == currentSectorId) g.DrawRectangle(SelectedPen, _left - 1, _top - 1, Image.Width + 2, Image.Height + 2);
         }
 
         public void StopMoving()

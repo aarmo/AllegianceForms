@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AllegianceForms.Engine
 {
@@ -12,15 +11,15 @@ namespace AllegianceForms.Engine
         public Image[] Frames { get; set; }
         private int _currentFrame = 0;
         private bool _loop;
-        private TimeSpan _delaybetweenFrames;
-        private DateTime _timeToNextFrame;
+        private int _ticksBetweenFrames;
+        private int _ticksToNextFrame;
 
-        public Animation(string[] frames, float x, float y, int width, int height, TimeSpan delaybetweenFrames, bool loop)
+        public Animation(string[] frames, float x, float y, int width, int height, int ticksBetweenFrames, bool loop)
         {
             TopLeft.X = x;
             TopLeft.Y = x;
             _loop = loop;
-            _delaybetweenFrames = delaybetweenFrames;
+            _ticksBetweenFrames = ticksBetweenFrames;
             Enabled = false;
 
             Frames = new Image[frames.Length];
@@ -45,7 +44,7 @@ namespace AllegianceForms.Engine
         public void Start()
         {
             Enabled = true;
-            _timeToNextFrame = DateTime.Now + _delaybetweenFrames;
+            _ticksToNextFrame = _ticksBetweenFrames;
         }
 
         public void Stop()
@@ -66,9 +65,9 @@ namespace AllegianceForms.Engine
             // Dont draw but still update frames/time if not viewing sector!
             if (sameSector) g.DrawImage(Frames[_currentFrame], TopLeft);
 
-            if (DateTime.Now > _timeToNextFrame)
+            if (_ticksToNextFrame <= 0)
             {
-                _timeToNextFrame = DateTime.Now + _delaybetweenFrames;
+                _ticksToNextFrame = _ticksBetweenFrames;
                 if (_currentFrame < Frames.Length - 1)
                 {
                     _currentFrame++;
@@ -79,6 +78,8 @@ namespace AllegianceForms.Engine
                     if (!_loop) Enabled = false;
                 }
             }
+
+            _ticksToNextFrame--;
         }
     }
 }

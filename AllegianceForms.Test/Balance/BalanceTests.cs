@@ -81,7 +81,7 @@ namespace AllegianceForms.Test.Balance
             var diff = results.Max(_ => _.Factor) - results.Min(_ => _.Factor);
 
             results.Count.ShouldBeGreaterThan(0);
-            diff.ShouldBeLessThan(0.5f);
+            diff.ShouldBeLessThan(0.4f);
         }
 
         private void AddAllReqTech(ShipSpec ship, List<TechItem> tech)

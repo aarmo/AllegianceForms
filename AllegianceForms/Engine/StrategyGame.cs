@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using static AllegianceForms.Engine.Bases.Base;
+using static AllegianceForms.Engine.Ships.Ship;
 
 namespace AllegianceForms.Engine
 {
@@ -346,6 +348,284 @@ namespace AllegianceForms.Engine
             foreach (var s in Map.Sectors)
             {
                 s.UpdateColours();
+            }
+        }
+        
+        public static void ProcessGameEvent(object sender, EGameEventType e, ShipEventHandler f_ShipEvent)
+        {
+
+            if (e == EGameEventType.DroneBuilt)
+            {
+                var tech = sender as TechItem;
+                if (tech == null) return;
+
+                var b1 = AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Starbase).LastOrDefault();
+                if (b1 == null) return;
+                Ship drone;
+
+                var colour = Color.FromArgb(GameSettings.TeamColours[tech.Team - 1]);
+                if (tech.Name == "Miner")
+                {
+                    drone = Ships.CreateMinerShip(tech.Team, colour, b1.SectorId);
+                    if (drone == null) return;
+
+                    if (tech.Team == 1) SoundEffect.Play(ESounds.vo_miner_report4duty);
+                }
+                else if (tech.Type == ETechType.ShipyardConstruction)
+                {
+                    b1 = AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Shipyard).LastOrDefault();
+                    if (b1 == null) return;
+
+                    drone = Ships.CreateShip(tech.Name, tech.Team, colour, b1.SectorId);
+                    if (drone == null) return;
+                }
+                else
+                {
+                    var bType = TechItem.GetBaseType(tech.Name);
+
+                    drone = Ships.CreateBuilderShip(bType, tech.Team, colour, b1.SectorId);
+                    if (drone == null) return;
+                    var builder = drone as BuilderShip;
+                    if (builder == null) return;
+
+                    if (tech.Team == 1)
+                    {
+                        if (BaseSpecs.IsTower(builder.BaseType))
+                        {
+                            SoundEffect.Play(ESounds.vo_request_tower);
+                        }
+                        else
+                        {
+                            switch (builder.TargetRockType)
+                            {
+                                case EAsteroidType.Resource:
+                                    SoundEffect.Play(ESounds.vo_request_builderhelium);
+                                    break;
+                                case EAsteroidType.Rock:
+                                    SoundEffect.Play(ESounds.vo_request_buildergeneric);
+                                    break;
+                                case EAsteroidType.TechCarbon:
+                                    SoundEffect.Play(ESounds.vo_request_buildercarbon);
+                                    break;
+                                case EAsteroidType.TechSilicon:
+                                    SoundEffect.Play(ESounds.vo_request_buildersilicon);
+                                    break;
+                                case EAsteroidType.TechUranium:
+                                    SoundEffect.Play(ESounds.vo_request_builderuranium);
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                drone.CenterX = b1.CenterX;
+                drone.CenterY = b1.CenterY;
+                drone.ShipEvent += f_ShipEvent;
+                drone.OrderShip(new MoveOrder(b1.SectorId, b1.GetNextBuildPosition(), Point.Empty));
+
+                StrategyGame.AddUnit(drone);
+            }
+            else if (e == EGameEventType.ResearchComplete)
+            {
+                var tech = sender as TechItem;
+                if (tech == null) return;
+                if (TechItem.IsGlobalUpgrade(tech.Name)) tech.ApplyGlobalUpgrade(StrategyGame.TechTree[tech.Team - 1]);
+
+                if (tech.Team == 1) SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+            }
+        }
+
+        public static void ProcessShipEvent(Ship sender, EShipEventType e, ShipEventHandler f_shipEvent, BaseEventHandler b_baseEvent)
+        {
+            if (e == EShipEventType.ShipDestroyed)
+            {
+                if (sender.Type == EShipType.Miner) GameStats.TotalMinersDestroyed[sender.Team - 1]++;
+                if (sender.Type == EShipType.Constructor) GameStats.TotalConstructorsDestroyed[sender.Team - 1]++;
+
+                // Launch a Lifepod for each pilot
+                var lifepods = new List<Ship>();
+                for (var i = 0; i < sender.NumPilots; i++)
+                {
+                    var lifepod = Ships.CreateLifepod(sender.Team, sender.Colour, sender.SectorId);
+                    lifepod.CenterX = sender.CenterX;
+                    lifepod.CenterY = sender.CenterY;
+                    lifepod.ShipEvent += f_shipEvent;
+                    lifepods.Add(lifepod);
+                }
+                sender.NumPilots = 0;
+
+                if (lifepods.Count > 1)
+                {
+                    SpreadOrderEvenly<MoveOrder>(lifepods, sender.SectorId, sender.CenterPoint);
+                }
+                lifepods.ForEach(_ => _.OrderShip(new PodDockOrder(_, true), true));
+
+                AddUnits(lifepods);
+            }
+            else if (e == EShipEventType.BuildingStarted)
+            {
+                var b = sender as BuilderShip;
+                if (b != null && BaseSpecs.IsTower(b.BaseType))
+                {
+                    var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
+                    var tower = Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
+                    if (tower == null) return;
+
+                    tower.CenterX = b.CenterX;
+                    tower.CenterY = b.CenterY;
+                    tower.ShipEvent += f_shipEvent;
+
+                    AddUnit(tower);
+                    b.Active = false;
+                }
+            }
+            else if (e == EShipEventType.BuildingFinished)
+            {
+                var b = sender as BuilderShip;
+                if (b != null)
+                {
+                    b.Target.BuildingComplete();
+                    BuildableAsteroids.Remove(b.Target);
+                    AllAsteroids.Remove(b.Target);
+
+                    var newBase = b.GetFinishedBase();
+                    newBase.BaseEvent += b_baseEvent;
+                    AddBase(newBase);
+                    GameStats.TotalBasesBuilt[sender.Team - 1]++;
+                    UnlockTech(newBase.Type, newBase.Team);
+
+                    if (newBase.Team == 1)
+                    {
+                        var secured = (newBase.CanLaunchShips() && !StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == sender.SectorId && _.CanLaunchShips()));
+                        switch (newBase.Type)
+                        {
+                            case EBaseType.Outpost:
+                                SoundEffect.Play(ESounds.vo_builder_outpost, true);
+                                break;
+                            case EBaseType.Refinery:
+                                SoundEffect.Play(ESounds.vo_builder_refinery, true);
+                                break;
+                            case EBaseType.Starbase:
+                                SoundEffect.Play(ESounds.vo_builder_garrison, true);
+                                break;
+                            case EBaseType.Supremacy:
+                                SoundEffect.Play(ESounds.vo_builder_supremecy, true);
+                                break;
+                            case EBaseType.Tactical:
+                                SoundEffect.Play(ESounds.vo_builder_tactical, true);
+                                break;
+                            case EBaseType.Expansion:
+                                SoundEffect.Play(ESounds.vo_builder_expansion, true);
+                                break;
+                            case EBaseType.Shipyard:
+                                SoundEffect.Play(ESounds.vo_builder_shipyard, true);
+                                break;
+                        }
+
+                        if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured, true);
+                    }
+                }
+            }
+        }
+
+        public static void ProcessBaseEvent(Base sender, EBaseEventType e, int senderTeam)
+        {
+            if (e == EBaseEventType.BaseDestroyed)
+            {
+                if (sender.Team == 1 && !AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
+                {
+                    SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
+                }
+
+                GameStats.TotalBasesDestroyed[sender.Team - 1]++;
+
+                if (senderTeam == 1)
+                {
+                    switch (sender.Type)
+                    {
+                        case (EBaseType.Expansion):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyexpansion : ESounds.vo_destroy_expansion, true);
+                            break;
+
+                        case (EBaseType.Supremacy):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemysupremecy : ESounds.vo_destroy_supremecy, true);
+                            break;
+
+                        case (EBaseType.Outpost):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyoutpost : ESounds.vo_destroy_outpost, true);
+                            break;
+
+                        case (EBaseType.Starbase):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemygarrison : ESounds.vo_destroy_garrison, true);
+                            break;
+
+                        case (EBaseType.Tactical):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemytactical : ESounds.vo_destroy_tactical, true);
+                            break;
+
+                        case (EBaseType.Refinery):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyrefinery : ESounds.vo_destroy_refinery, true);
+                            break;
+
+                        case (EBaseType.Shipyard):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyshipyard : ESounds.vo_destroy_shipyard, true);
+                            break;
+                    }
+                }
+
+                CheckForGameEnd();
+            }
+            else if (e == EBaseEventType.BaseCaptured)
+            {
+                if (senderTeam == 1)
+                {
+                    switch (sender.Type)
+                    {
+                        case (EBaseType.Expansion):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_expansion : ESounds.vo_capture_enemyexpansion, true);
+                            break;
+
+                        case (EBaseType.Supremacy):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_supremecy : ESounds.vo_capture_enemysupremecy, true);
+                            break;
+
+                        case (EBaseType.Outpost):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_outpost : ESounds.vo_capture_enemyoutpost, true);
+                            break;
+
+                        case (EBaseType.Starbase):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_garrison : ESounds.vo_capture_enemygarrison, true);
+                            break;
+
+                        case (EBaseType.Tactical):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_tactical : ESounds.vo_capture_enemytactical, true);
+                            break;
+
+                        case (EBaseType.Shipyard):
+                            SoundEffect.Play(sender.Team != 1 ? ESounds.vo_capture_shipyard : ESounds.vo_capture_enemyshipyard, true);
+                            break;
+                    }
+
+                    if (sender.Team != 1)
+                    {
+                        if (!AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
+                        {
+                            SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void CheckForGameEnd()
+        {
+            if (!StrategyGame.AllBases.Any(_ => _.Team == 1 && _.Active && _.CanLaunchShips()))
+            {
+                OnGameEvent(null, EGameEventType.GameLost);
+            }
+            else if (!StrategyGame.AllBases.Any(_ => _.Team != 1 && _.Active && _.CanLaunchShips()))
+            {
+                OnGameEvent(null, EGameEventType.GameWon);
             }
         }
 
