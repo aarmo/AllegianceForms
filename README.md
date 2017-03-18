@@ -1,14 +1,13 @@
 <p align="center">
 <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/header_logo.png" />
+<br/>
+<a href="https://ci.appveyor.com/project/aarmo/allegianceforms"><img src="https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/releases"><img src="https://img.shields.io/badge/release-v0.2%20alpha-green.svg"/></a>
+<a href="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/Doc/ROADMAP"><img src="https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/issues"><img src="https://img.shields.io/github/issues/aarmo/AllegianceForms.svg"/></a>
+<img src="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/Doc/Images/contributions-welcome-brightgreen.png"/>
+<a href="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE"><img src="https://img.shields.io/badge/license-AGPL-brightgreen.svg"/></a>
 </p>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-[![Build status](https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true)](https://ci.appveyor.com/project/aarmo/allegianceforms)
-[![Current Version](https://img.shields.io/badge/release-v0.2%20alpha-green.svg)](https://github.com/aarmo/AllegianceForms/releases)
-[![Next Version](https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg)](/Doc/Roadmap.md)
-[![GitHub issues](https://img.shields.io/github/issues/aarmo/AllegianceForms.svg)](https://github.com/aarmo/AllegianceForms/issues)
-![alt text][contribute]
-[![GitHub license](https://img.shields.io/badge/license-AGPL-brightgreen.svg)](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE)
 
 Overview
 ------
@@ -177,5 +176,3 @@ Bonus Game
 [maphigh]: /Doc/Images/Map_HiHigher.png "HiHigher"
 [mapgrid]: /Doc/Images/Map_Grid.png "Grid"
 [mapstar]: /Doc/Images/Map_Star.png "Star"
-
-[contribute]: /Doc/Images/contributions-welcome-brightgreen.png "Contributions welcome"
