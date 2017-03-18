@@ -118,7 +118,7 @@ namespace AllegianceForms.Forms
 
             if (_ai.NextTech != null)
             {
-                NextTech.Text = string.Format("{0}... ({1:P} - {2:F}s)", _ai.NextTech.Name, _ai.NextTech.AmountInvested * 1.0f / _ai.NextTech.Cost, _ai.NextTech.DurationSec - _ai.NextTech.TimeResearched);
+                NextTech.Text = string.Format("{0}... ({1:P} - {2:F}s)", _ai.NextTech.Name, _ai.NextTech.AmountInvested * 1.0f / _ai.NextTech.Cost, _ai.NextTech.DurationTicks - _ai.NextTech.ResearchedTicks);
                 _techTimeout = DateTime.Now.AddSeconds(5);
             }
             else if (DateTime.Now > _techTimeout)

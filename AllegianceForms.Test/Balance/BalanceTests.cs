@@ -32,30 +32,13 @@ namespace AllegianceForms.Test.Balance
                 var con = tech.FirstOrDefault(_ => _.Type == ETechType.Construction && _.Name == name);
                 if (con == null) continue; 
 
-                var factor = (1f * b.Health + b.ScanRange + b.Signature) / (con.Cost + con.DurationSec);
+                var factor = (1f * b.Health + b.ScanRange + b.Signature) / (con.Cost + con.DurationTicks);
                 results.Add(factor);
             }
 
             var diff = results.Max() - results.Min();
 
             diff.ShouldBeLessThan(0.1f);
-        }
-
-
-        private class BalanceStat
-        {
-            public double TotalWeaponDamage;
-            public double TotalWeaponRange;
-            public double TotalShootingDelayMS;
-            public double TotalShootingDurationMS;
-            public double TotalTechCost;
-            public double TotalTechDurationS;
-
-            public ShipSpec Spec;
-            public EShipType Type;
-            public List<TechItem> RequiredTech;
-
-            public double Factor;
         }
 
         [TestMethod]
@@ -80,7 +63,7 @@ namespace AllegianceForms.Test.Balance
                     TotalShootingDelayMS = s.Weapons.Sum(_ => _.ShootingDelay.TotalMilliseconds),
                     TotalShootingDurationMS = s.Weapons.Sum(_ => _.ShootingDuration.TotalMilliseconds),
                     TotalTechCost = reqTech.Sum(_ => _.Cost),
-                    TotalTechDurationS = reqTech.Sum(_ => _.DurationSec),
+                    TotalTechDuration = reqTech.Sum(_ => _.DurationTicks),
                     TotalWeaponDamage = s.Weapons.Sum(_ => _.WeaponDamage),
                     TotalWeaponRange = s.Weapons.Sum(_ => _.WeaponRange)
                 };
@@ -90,7 +73,7 @@ namespace AllegianceForms.Test.Balance
 
                 var numbersAvailable = (Ship.IsCapitalShip(s.Type) ? settings.CapitalMaxDrones : (s.NumPilots > 0 ? settings.NumPilots / s.NumPilots : settings.ConstructorsMaxTowerDrones));
 
-                b.Factor = weaponFactor + ((s.Health + s.ScanRange + s.Signature + s.Speed) * numbersAvailable / (b.TotalTechCost + b.TotalTechDurationS));
+                b.Factor = weaponFactor + ((s.Health + s.ScanRange + s.Signature + s.Speed) * numbersAvailable / (b.TotalTechCost + b.TotalTechDuration));
 
                 results.Add(b);
             }
@@ -148,6 +131,22 @@ namespace AllegianceForms.Test.Balance
             {
                 AddAllReqTech(t, tech);
             }
+        }
+        
+        private class BalanceStat
+        {
+            public double TotalWeaponDamage;
+            public double TotalWeaponRange;
+            public double TotalShootingDelayMS;
+            public double TotalShootingDurationMS;
+            public double TotalTechCost;
+            public double TotalTechDuration;
+
+            public ShipSpec Spec;
+            public EShipType Type;
+            public List<TechItem> RequiredTech;
+
+            public double Factor;
         }
     }
 }

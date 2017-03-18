@@ -1,0 +1,142 @@
+Create some more interesting variant AIs to play against:
+Style/Tech focus chosen randomly at the start.
+3 styles * 4 focus * 2 invade choice * 3 cap invade choice
+Styles:
+Aggressive - scout, then build in your sectors, invade with 100% pilots
+Expanding - scout, then build next to your sectors, invade with 50% pilots
+Deffensive - rarely scout, then build next to their sectors, invade with 25% pilots
+
+Tech:
+Caps only - only tech required for caps, all pilots support caps
+Single/Double/Triple tech, then caps - evenly research 1/2/3 techs, starting with home tech. Then 100%/50%/33% pilots support final tech in 1/2 different sectors (stealth/figbombers/transport rush). Then get caps until we have 3/5/7, then invade with all pilot support.
+
+
+
+Reinforcement learning thoughts:
+Compared to Grid World: More abstract inputs, more actions, more complex game...
+- Same process as currently, but getting the score performs 20 updates...
+
+Will be much slower - how long will a game take? INF?
+Time limit based on ideal goal time? (30mins @ 10ticks/sec = 18K ticks. 900 moves)
+
+Random chance to explore other options? yes same as GridWorld
+
+- Playing against the same network is interesting:
+Each player takes turns, then the game makes 20 updates to get a score for each.
+Add each to the pool and train a batch. Doubling the experiences...
+No game limit. Keep restarting. Auto-save the network every minute.
+Single map: Pinwheel
+2 players only
+
+Remove ALL reliance on the Sector Form
+Remove ALL mention of delays in Sec. Translate to ticks (20/sec, 4/sec)
+ALL datetime checks become: (ticksRemaining-- <= 0)
+
+Store the current state and score per player
+Apply the action
+
+Distributed? Create a webservice with the in memory network, save/load from the Azure SQL database as required (Startup, Train)
+Upload inputs to get output (Random Chance), upload inputs + score (batches) to train.
+Each client will be different, divergent, with their own batch storage.
+An advantage: the player can use and train the same AI that is being constantly trained with 10+ other clients!
+FUNKY - We could feed the PLAYER's & the AI's input state, THEIR action and THEIR score after 20 ticks in EVERY game.
+The more information, the better the network will understand how to play this game.
+
+The player's actions will guide the AI, then the games will come down to how well you can hide your strategy from the AI....
+Just like Allegiance against a human... HOLY SHIT!
+
+Each player accumulates a score as the game runs:
++ Miner(200,40,40)/Constructor(100,20,20)/Capship/Bomber/Transport(50,15,15) Destroyed,Damaged,Healed
++ Resources Refined(r*10)
++ Base Built(100)/Destroyed(200)/Captured(300)
++ Ship Destroyed(20)/Damaged(10)/Healed(10)
++ Pod picked up(10)
++ Tech researched(50)/Drone built(50)
++ Discovered Wormhole(100)/Base(50)/Rock(10)/Ship(5)
+- Tick (1)
+- Idle Pilot (5*x)
+
+"Difficulty" controls the APM of the AI.
+"Offline" support: Use a local network of the included AI in that release
+
+
+
+public class InputState
+{
+	public ulong GameTicks;
+	public uint AvailableCredits;
+	public byte DockedPilots;
+
+	// SECTOR:
+	public byte AlertSectorDistance;
+	public byte AlertType;
+	public ulong LastAlertTicks;
+	
+	public byte NumberEnemyBasesTotal;
+	public byte NumberFriendlyBasesTotal;
+		
+	public byte NumberEnemyScoutsTotal;
+	public byte NumberEnemyFightersTotal;
+	public byte NumberEnemyBombersTotal;
+	public byte NumberEnemyCapitalTotal;
+	public byte NumberEnemyMinersTotal;
+	public byte NumberEnemyConstructorsTotal;
+	
+	public byte NumberEnemyScoutsLocal;	
+	public byte NumberEnemyFightersLocal;
+	public byte NumberEnemyBombersLocal;
+	public byte NumberEnemyCapitalLocal;
+	
+	public byte ClosestEnemyBaseDistance;
+	public byte ClosestEnemyBombersDistance;	
+	public byte ClosestEnemyCapitalDistance;
+	public byte ClosestEnemyMinerDistance;	
+	public byte ClosestEnemyConstructorDistance;
+	
+	public byte NumberFriendlyTowers;
+	public byte NumberFriendlyScouts;
+	public byte NumberFriendlyFighters;
+	public byte NumberFriendlyBombers;
+	public byte NumberFriendlyCapital;
+	public byte NumberFriendlyMiners;
+	public byte NumberFriendlyConstructors;
+	
+	public float PercentageWormholesDiscovered;
+	public float PercentageSectorsWithEnemies;
+	public float PercentageSectorsWithEnemyBombers;
+	public float PercentageSectorsWithEnemyBases;
+	public float PercentageSectorsWithFriendlyBases;
+	public float PercentageSectorsWithNoBases;
+	public float PercentageSectorsWithBothBases;
+	
+	public float PercentageStarbaseTechResearched;
+	public float PercentageExpansionTechResearched;
+	public float PercentageSupremacyTechResearched;
+	public float PercentageTacticalTechResearched;
+	public float PercentageShipyardTechResearched;
+	
+	public uint NumberTowerDronesBuilt;
+	public uint NumberMinersBuilt;
+	public uint NumberConstructorsBuilt;
+	public uint NumberCapitalsBuilt;
+}
+
+public enum ELearningActions
+{
+	LaunchSupportShip (Scouting, Miner Offense, Miner Defense, Base Offense)
+	LaunchCombatShip (Scouting, Miner Offense, Miner Defense, Base Offense)
+	
+	RedirectSupport First/Last (Scouting, Miner Offense, Miner Defense, Base Offense)
+	RedirectCombatShip First/Last (Scouting, Miner Offense, Miner Defense, Base Offense)
+	
+	LaunchBaseAttackShip (Base Offense)	
+	
+	ResearchShipTech (Starbase/Expansion/Supremacy/Tactical)
+	ResearchUpgradeTech (Starbase/Expansion/Supremacy/Tactical/Shipyard)
+	ResearchEndGameTech (Starbase/Expansion/Supremacy/Tactical)	
+	
+	BuildBaseConstructor	
+	BuildTowerConstructor
+	BuildCapitalShip
+	BuildMiner
+}

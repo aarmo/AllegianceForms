@@ -64,67 +64,40 @@ namespace AllegianceForms.Forms
             }
         }
 
-        public void UpdateItems(List<TechItem> activeItems)
+        public void UpdateItems()
         {
-            if (activeItems.Count == 0) return;
+            var activeItems = StrategyGame.TechTree[0].ResearchableItems(_type);
+            var removeControls = new List<Control>();
 
+            // Update
             foreach (var c in ResearchItems.Controls)
             {
                 var item = c as TechTreeItem;
                 if (item == null) continue;
 
                 if (item.Item.Type == _type) item.RefreshBackColour();
-                if (activeItems.Contains(item.Item)) item.UpdateTime();
-            }
-        }
 
-        public List<TechItem> ShownResearchableItems(int t)
-        {
-            if (!Visible || t != 0) return new List<TechItem>();
-
-            return StrategyGame.TechTree[t].ResearchableItems(_type);
-        }
-
-        public void CheckForCompletedItems(List<TechItem> previouslyResearchableTech, int t)
-        {
-            var completedTech = StrategyGame.TechTree[t].TechItems.Where(_ => _.Completed && _.Active).ToList();
-
-            foreach (var c in completedTech)
-            {
-                if (c.IsConstructionType())
+                if (activeItems.Contains(item.Item))
                 {
-                    c.Reset();
-                    previouslyResearchableTech.Add(c);
-                    StrategyGame.OnGameEvent(c, EGameEventType.DroneBuilt);
+                    item.UpdateTime();
+                    activeItems.Remove(item.Item);
                 }
                 else
                 {
-                    if (Visible && t == 0)
-                    {
-                        foreach (var ctl in ResearchItems.Controls)
-                        {
-                            var ui = ctl as TechTreeItem;
-                            if (ui == null || ui.Item != c) continue;
-                            ResearchItems.Controls.Remove(ui);
-                        }
-                    }
-
-                    StrategyGame.OnGameEvent(c, EGameEventType.ResearchComplete);
-                    c.Active = false;
+                    removeControls.Add((Control)c);
                 }
             }
 
-            if (Visible && t == 0)
+            // Remove
+            removeControls.ForEach(ResearchItems.Controls.Remove);
+
+            // Insert
+            foreach (var i in activeItems)
             {
-                var newItems = StrategyGame.TechTree[t].ResearchableItems(_type).Except(previouslyResearchableTech);
+                var ui = new TechTreeItem();
+                ui.SetInfo(i);
 
-                foreach (var i in newItems)
-                {
-                    var ui = new TechTreeItem();
-                    ui.SetInfo(i);
-
-                    ResearchItems.Controls.Add(ui);
-                }
+                ResearchItems.Controls.Add(ui);
             }
         }
 

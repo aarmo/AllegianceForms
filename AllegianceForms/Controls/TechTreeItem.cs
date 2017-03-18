@@ -43,14 +43,14 @@ namespace AllegianceForms.Controls
             TechName.Text = item.Name;
 
             InvestmentProgress.Maximum = item.Cost;
-            TimeProgress.Maximum = item.DurationSec;
+            TimeProgress.Maximum = item.DurationTicks;
 
             UpdateTime();
         }
 
         public void UpdateTime()
         {
-            TimeProgress.Value = (int)Item.TimeResearched;
+            TimeProgress.Value = Item.ResearchedTicks;
             InvestmentProgress.Value = Item.AmountInvested;
         }
 

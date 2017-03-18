@@ -410,7 +410,7 @@ namespace AllegianceForms.Test.Engine
                     var item = StrategyGame.TechTree[t].TechItems[i];
                     var original = techData.TechItems[i];
 
-                    item.DurationSec.ShouldBe((int)(original.DurationSec * value));
+                    item.DurationTicks.ShouldBe((int)(original.DurationTicks * value));
                 }
             }
         }

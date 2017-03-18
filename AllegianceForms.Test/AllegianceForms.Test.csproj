@@ -87,6 +87,7 @@
     <Compile Include="Engine\SettingsAppliedTests.cs" />
     <Compile Include="Engine\FactionAppliedTests.cs" />
     <Compile Include="Engine\ShipDamageTests.cs" />
+    <Compile Include="Engine\TechItemTests.cs" />
     <Compile Include="Faction\RandomFactionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

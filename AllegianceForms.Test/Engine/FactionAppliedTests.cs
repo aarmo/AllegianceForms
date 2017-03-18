@@ -34,7 +34,7 @@ namespace AllegianceForms.Test.Engine
                 var item1 = StrategyGame.TechTree[0].TechItems[i];
                 var item2 = StrategyGame.TechTree[1].TechItems[i];
 
-                item2.DurationSec.ShouldBe((int)(multiplier * item1.DurationSec));
+                item2.DurationTicks.ShouldBe((int)(multiplier * item1.DurationTicks));
             }
         }
 

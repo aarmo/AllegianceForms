@@ -9,14 +9,15 @@ namespace AllegianceForms.Engine.Tech
         public ETechType Type { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
-        public int DurationSec { get; set; }
         public int AmountInvested { get; set; }
-        public float TimeResearched { get; set; }
         public bool Completed { get; set; }
         public bool Active { get; set; }
         public string PreReqsIds { get; set; }
         public int[] DependsOnIds { get; set; }
         public int Team { get; set; }
+
+        public int ResearchedTicks { get; set; }
+        public int DurationTicks { get; set; }
 
         public void Initialise(int team)
         {
@@ -28,21 +29,21 @@ namespace AllegianceForms.Engine.Tech
                 DependsOnIds = PreReqsIds.Split('|').Select(int.Parse).ToArray();
             }
         }
-
-        public void UpdateEachSecond(float ms)
+        
+        public void Update()
         {
             if (Completed || AmountInvested == 0) return;
 
             // Each second increment if researching!
             var investedPerc = 1.0 * AmountInvested / Cost;
-            var researchPerc = 1.0 * TimeResearched / DurationSec;
+            var researchPerc = 1.0 * ResearchedTicks / DurationTicks;
 
             if (researchPerc < investedPerc)
             {
-                TimeResearched += ms / 1000;
+                ResearchedTicks++;
             }
 
-            if (TimeResearched >= DurationSec && AmountInvested >= Cost)
+            if (ResearchedTicks >= DurationTicks && AmountInvested >= Cost)
             {
                 Completed = true;
             }
@@ -51,7 +52,7 @@ namespace AllegianceForms.Engine.Tech
         public void Reset()
         {
             AmountInvested = 0;
-            TimeResearched = 0;
+            ResearchedTicks = 0;
             Completed = false;
             Active = true;
         }
@@ -110,5 +111,6 @@ namespace AllegianceForms.Engine.Tech
         {
             return (Type == ETechType.Construction || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard")));
         }
+
     }
 }

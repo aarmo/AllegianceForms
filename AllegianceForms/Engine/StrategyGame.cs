@@ -457,7 +457,7 @@ namespace AllegianceForms.Engine
                 foreach (var tech in StrategyGame.TechTree[t].TechItems)
                 {
                     tech.Cost = (int)(tech.Cost * GameSettings.ResearchCostMultiplier * faction.Bonuses.ResearchCost);
-                    tech.DurationSec = (int)(tech.DurationSec * GameSettings.ResearchTimeMultiplier * faction.Bonuses.ResearchTime);
+                    tech.DurationTicks = (int)(tech.DurationTicks * GameSettings.ResearchTimeMultiplier * faction.Bonuses.ResearchTime);
                 }
             }
         }
@@ -593,6 +593,60 @@ namespace AllegianceForms.Engine
             if (item == null) return;
 
             item.Completed = true;
+        }
+
+        public static void Tick(int currentSectorId)
+        {
+            for (var i = 0; i < StrategyGame.AllUnits.Count; i++)
+            {
+                var u = StrategyGame.AllUnits[i];
+                u.Update(currentSectorId);
+            }
+
+            for (var i = 0; i < StrategyGame.AllBases.Count; i++)
+            {
+                var u = StrategyGame.AllBases[i];
+                u.Update(currentSectorId);
+            }
+
+            StrategyGame.AllUnits.RemoveAll(_ => !_.Active);
+            StrategyGame.AllBases.RemoveAll(_ => !_.Active);
+        }
+
+        public static void SlowTick(int currentSectorId)
+        {
+            StrategyGame.UpdateVisibility(false, currentSectorId);
+
+            for (var t = 0; t < StrategyGame.NumTeams; t++)
+            {
+                var items = (from i in StrategyGame.TechTree[t].TechItems
+                             where !i.Completed
+                             && i.AmountInvested > 0
+                             select i).ToList();
+                
+                items.ForEach(_ => _.Update());
+
+                var completedTech = StrategyGame.TechTree[t].TechItems.Where(_ => _.Completed && _.Active).ToList();
+
+                foreach (var c in completedTech)
+                {
+                    if (c.IsConstructionType())
+                    {
+                        c.Reset();
+                        StrategyGame.OnGameEvent(c, EGameEventType.DroneBuilt);
+                    }
+                    else
+                    {
+                        StrategyGame.OnGameEvent(c, EGameEventType.ResearchComplete);
+                        c.Active = false;
+                    }
+                }
+
+                StrategyGame.AddResources(t + 1, (int)(StrategyGame.ResourceRegularAmount * StrategyGame.GameSettings.ResourcesEachTickMultiplier), false);
+                var ai = StrategyGame.AICommanders[t];
+                if (ai != null) ai.Update();
+            }
+
         }
     }
 }

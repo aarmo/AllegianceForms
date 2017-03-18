@@ -674,22 +674,8 @@ namespace AllegianceForms.Forms
         
         private void tick_Tick(object sender, EventArgs e)
         {
-            var currentSectorId = _currentSector.Id;
+            StrategyGame.Tick(_currentSector.Id);
 
-            for (var i = 0; i < StrategyGame.AllUnits.Count; i++)
-            {
-                var u = StrategyGame.AllUnits[i];
-                u.Update(currentSectorId);
-            }
-
-            for (var i = 0; i < StrategyGame.AllBases.Count; i++)
-            {
-                var u = StrategyGame.AllBases[i];
-                u.Update(currentSectorId);
-            }
-
-            StrategyGame.AllUnits.RemoveAll(_ => !_.Active);
-            StrategyGame.AllBases.RemoveAll(_ => !_.Active);
             _selectedUnits.RemoveAll(_ => !_.Active);
             _selectedBases.RemoveAll(_ => !_.Active);
             _animations.RemoveAll(_ => !_.Enabled);
@@ -1260,54 +1246,19 @@ namespace AllegianceForms.Forms
         private void timer_Tick(object sender, EventArgs e)
         {
             // The Game's slow update!
-            StrategyGame.UpdateVisibility(false, _currentSector.Id);
+            StrategyGame.SlowTick(_currentSector.Id);
 
-            if (_mapForm.Visible)
-                _mapForm.UpdateMap(_currentSector.Id);
-
-            for (var t = 0; t < StrategyGame.NumTeams; t++)
-            {
-                var items = (from i in StrategyGame.TechTree[t].TechItems
-                             where !i.Completed
-                             && i.AmountInvested > 0
-                             select i).ToList();
-
-                if (items.Count > 0)
-                {
-                    var researchableBefore = _researchForm.ShownResearchableItems(t);
-
-                    items.ForEach(_ => _.UpdateEachSecond(timer.Interval));
-                    _researchForm.CheckForCompletedItems(researchableBefore, t);
-
-                    if (t == 0)
-                    {
-                        RefreshCommandText();
-
-                        if (_researchForm.Visible)
-                        {
-                            _researchForm.UpdateItems(items);
-                        }
-                    }
-                }
-                StrategyGame.AddResources(t+1, (int)(StrategyGame.ResourceRegularAmount * StrategyGame.GameSettings.ResourcesEachTickMultiplier), false);
-                var ai = StrategyGame.AICommanders[t];
-                if (ai != null) ai.Update();
-            }
-
-            if (_debugForm.Visible)
-            {
-                _debugForm.UpdateDebugInfo();
-            }
+            if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
             
-            if (_pilotList.Visible)
-            {
-                _pilotList.RefreshPilotList();
-            }
+            if (_debugForm.Visible) _debugForm.UpdateDebugInfo();
+                        
+            if (_pilotList.Visible) _pilotList.RefreshPilotList();
 
-            if (AlertMessage.Visible && DateTime.Now >= _alertExpire)
-            {
-                AlertMessage.Visible = false;
-            }
+            if (AlertMessage.Visible && DateTime.Now >= _alertExpire) AlertMessage.Visible = false;
+
+            if (_researchForm.Visible) _researchForm.UpdateItems();
+
+            RefreshCommandText();
         }
 
         private void pilotListToolStripMenuItem_Click(object sender, EventArgs e)
