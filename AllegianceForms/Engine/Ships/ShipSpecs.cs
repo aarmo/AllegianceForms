@@ -127,8 +127,8 @@ namespace AllegianceForms.Engine.Ships
                     if (nl != null)
                     {
                         var clone = new NanLaserWeapon(nl.LaserPen.Width
-                            , (int)nl.ShootingDuration.TotalMilliseconds
-                            , (int)(nl.ShootingDelay.TotalMilliseconds / (settings.NanWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , nl.ShootingTicks
+                            , (int)(nl.ShootingDelayTicks / (settings.NanWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , nl.WeaponRange * settings.NanWeaponRangeMultiplier
                             , nl.WeaponDamage * settings.NanWeaponHealingMultiplier * research[EGlobalUpgrade.RepairHealing]
                             , ship, nl.FireOffset);
@@ -142,8 +142,8 @@ namespace AllegianceForms.Engine.Ships
                         var c = sl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
                         var clone = new ShipLaserWeapon(c, sl.LaserPen.Width
-                            , (int)sl.ShootingDuration.TotalMilliseconds
-                            , (int)(sl.ShootingDelay.TotalMilliseconds / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , sl.ShootingTicks
+                            , (int)(sl.ShootingDelayTicks / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , sl.WeaponRange * settings.AntiShipWeaponRangeMultiplier
                             , sl.WeaponDamage * settings.AntiShipWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, sl.FireOffset);
@@ -157,8 +157,8 @@ namespace AllegianceForms.Engine.Ships
                         var clone = new ShipMissileWeapon(ml.Width
                             , ml.Speed * settings.MissileWeaponSpeedMultiplier * research[EGlobalUpgrade.MissileSpeed] * faction.Bonuses.MissileSpeed
                             , ml.Tracking * settings.MissileWeaponTrackingMultiplier * research[EGlobalUpgrade.MissileTracking] * faction.Bonuses.MissileTracking
-                            , (int)ml.ShootingDuration.TotalMilliseconds
-                            , (int)(ml.ShootingDelay.TotalMilliseconds / (settings.MissileWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , ml.ShootingTicks
+                            , (int)(ml.ShootingDelayTicks / (settings.MissileWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , ml.WeaponRange * settings.MissileWeaponRangeMultiplier
                             , ml.WeaponDamage * settings.MissileWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, Point.Empty, new SolidBrush(teamColour));
@@ -172,8 +172,8 @@ namespace AllegianceForms.Engine.Ships
                         var c = bl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
                         var clone = new BaseLaserWeapon(c, bl.LaserPen.Width
-                            , (int)bl.ShootingDuration.TotalMilliseconds
-                            , (int)(bl.ShootingDelay.TotalMilliseconds / (settings.AntiBaseWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , bl.ShootingTicks
+                            , (int)(bl.ShootingDelayTicks / (settings.AntiBaseWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , bl.WeaponRange * settings.AntiBaseWeaponRangeMultiplier
                             , bl.WeaponDamage * settings.AntiBaseWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, bl.FireOffset);
@@ -290,7 +290,7 @@ namespace AllegianceForms.Engine.Ships
                 if (string.IsNullOrWhiteSpace(w)) continue;
                 var data = w.Split('|');
 
-                // Type|Width|FireTime|RefireDelay|Range|Damage|OffsetX|OffsetY>(repeating...)
+                // Type|Width|FireTicks|RefireTicks|Range|Damage|OffsetX|OffsetY>(repeating...)
                 switch (data[0])
                 {
                     case "0":

@@ -1,5 +1,4 @@
 ﻿using AllegianceForms.Engine.Ships;
-using System;
 using System.Drawing;
 
 namespace AllegianceForms.Engine.Weapons
@@ -26,9 +25,9 @@ namespace AllegianceForms.Engine.Weapons
 
         public RectangleF Bounds => new RectangleF(Center.X-Width/2, Center.Y-Width/2, Width, Width);
 
-        private DateTime _expireTime;
+        private int _expireTicks;
 
-        public MissileProjectile(int sectorId, int width, float speed, float tracking, float heading, float damage, int expireMS, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
+        public MissileProjectile(int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
         {
             SectorId = sectorId;
             Heading = heading;
@@ -36,7 +35,7 @@ namespace AllegianceForms.Engine.Weapons
             Tracking = tracking;
             Damage = damage;
             Width = width;
-            _expireTime = DateTime.Now.AddMilliseconds(expireMS);
+            _expireTicks = expireTicks;
             Center = PreviousPoint = LastPoint = start;
             TeamColour = fill;
             SmokePen1 = smoke1;
@@ -58,12 +57,13 @@ namespace AllegianceForms.Engine.Weapons
         public virtual void Update()
         {
             if (!Active) return;
-            if (DateTime.Now > _expireTime)
+            if (_expireTicks <= 0)
             {
                 Active = false;
                 return;
             }
-            
+            _expireTicks--;
+
             if (Tracking > 0 && Target != null && Target.Active)
             {
                 var newHeading = (float)StrategyGame.AngleBetweenPoints(Center, Target.CenterPoint);

@@ -1,7 +1,5 @@
 ﻿using AllegianceForms.Engine.Ships;
-using System;
 using System.Drawing;
-using System.Linq;
 
 namespace AllegianceForms.Engine.Weapons
 {
@@ -9,8 +7,8 @@ namespace AllegianceForms.Engine.Weapons
     {
         public bool Firing { get; set; }
         public bool Shooting { get; protected set; }
-        public TimeSpan ShootingDuration { get; protected set; }
-        public TimeSpan ShootingDelay { get; protected set; }
+        public int ShootingTicks { get; protected set; }
+        public int ShootingDelayTicks { get; protected set; }
         public float WeaponRange { get; set; }
         public float WeaponDamage { get; set; }
         public GameEntity Target { get; set; }
@@ -19,13 +17,13 @@ namespace AllegianceForms.Engine.Weapons
 
         protected bool _damageOnShotEnd = true;
         protected ESounds _weaponSound = ESounds.plasmaac1;
-        protected DateTime _shootingStop = DateTime.MaxValue;
-        protected DateTime _shootingNextTime = DateTime.MinValue;
+        protected int _shootingStop = int.MaxValue;
+        protected int _shootingNext = 0;
         
-        protected Weapon(int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, PointF offset)
+        protected Weapon(int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
         {
-            ShootingDuration = new TimeSpan(0, 0, 0, 0, fireTimeMS);
-            ShootingDelay = new TimeSpan(0, 0, 0, 0, refireDelayMS);
+            ShootingTicks = _shootingStop = fireTicks;
+            ShootingDelayTicks = refireTicks;
             Shooting = false;
             Shooter = shooter;
             WeaponRange = range;
@@ -35,18 +33,21 @@ namespace AllegianceForms.Engine.Weapons
 
         public virtual void Update(int currentSectorId)
         {
-            if (!Shooting && Firing && _shootingNextTime <= DateTime.Now && Target != null && Target.Active)
+            _shootingStop--;
+            _shootingNext--;
+
+            if (!Shooting && Firing && _shootingNext <= 0 && Target != null && Target.Active)
             {
                 Shooting = true;
-                _shootingStop = DateTime.Now + ShootingDuration;
+                _shootingStop = ShootingTicks;
                 if (currentSectorId == Shooter.SectorId) SoundEffect.Play(_weaponSound);
             }
 
-            if (Shooting && _shootingStop <= DateTime.Now)
+            if (Shooting && _shootingStop <= 0)
             {
                 if (_damageOnShotEnd) DamageTarget();
                 Shooting = false;
-                _shootingNextTime = DateTime.Now + ShootingDelay;
+                _shootingNext = ShootingDelayTicks;
             }
 
             CheckForANewTarget();

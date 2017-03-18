@@ -1,7 +1,6 @@
 ﻿using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Orders;
-using System;
 using System.Drawing;
 using System.Linq;
 
@@ -13,8 +12,8 @@ namespace AllegianceForms.Engine.Ships
         public bool Mining { get; set; }
         public bool Shooting { get; private set; }
         public Pen MinePen { get; set; }
-        public TimeSpan ShootingDuration { get; }
-        public TimeSpan ShootingDelay { get; }
+        public int ShootingDurationTicks { get; }
+        public int ShootingDelayTicks { get; }
         public ResourceAsteroid Target { get; set; }
 
         public const int MineDistance = 100;
@@ -22,12 +21,12 @@ namespace AllegianceForms.Engine.Ships
 
         public int MaxResourceCapacity { get; set; }
 
-        private DateTime _shootingStop = DateTime.MaxValue;
-        private DateTime _shootingNextTime = DateTime.MinValue;
+        private int _shootingStop = int.MaxValue;
+        private int _shootingNext = 0;
         private float _lastHealth = float.MinValue;
-        private DateTime _nextHealthCheckTime = DateTime.MinValue;
-        private TimeSpan _healthCheckDelay = new TimeSpan(0, 0, 1);
-        private DateTime _callNext = DateTime.MinValue;
+        private int _nextHealthCheck = 0;
+        private int _healthCheckDelay = 20;
+        private int _callNext = 0;
 
         public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, float health, int sectorId)
             : base(imageFilename, width, height, teamColor, team, health, 0, sectorId)
@@ -36,8 +35,8 @@ namespace AllegianceForms.Engine.Ships
             Resources = 0;
 
             MinePen = new Pen(Brushes.CornflowerBlue, 2);
-            ShootingDuration = new TimeSpan(0, 0, 0, 0, 1000);
-            ShootingDelay = new TimeSpan(0, 0, 0, 0, 250);
+            ShootingDurationTicks = 20;
+            ShootingDelayTicks = 5;
             Shooting = false;
 
             MaxResourceCapacity = 100;
@@ -46,17 +45,18 @@ namespace AllegianceForms.Engine.Ships
         public override void Damage(float amount)
         {
             base.Damage(amount);
+            _callNext--;
 
-            if (Team == 1 && !Docked && Type == EShipType.Miner && Health < 0.5f * MaxHealth && DateTime.Now > _callNext)
+            if (Team == 1 && !Docked && Type == EShipType.Miner && Health < 0.65f * MaxHealth && _callNext <= 0)
             {
                 SoundEffect.Play(ESounds.vo_sal_minercritical, true);
                 OrderShip(new DockOrder(this));
-                _callNext = DateTime.Now.AddSeconds(4);
+                _callNext = 80;
             }
 
-            if (Team == 1 && !Docked && DateTime.Now > _callNext)
+            if (Team == 1 && !Docked && _callNext <= 0)
             {
-                _callNext = DateTime.Now.AddSeconds(4);
+                _callNext = 80;
 
                 StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
 
@@ -69,6 +69,11 @@ namespace AllegianceForms.Engine.Ships
             if (!Active) return;
             base.Update(currentSectorId);
 
+            _shootingNext--;
+            _shootingStop--;
+            _nextHealthCheck--;
+            _callNext--;
+
             if (!(CurrentOrder is MineOrder)) Mining = false;
 
             if (Target != null && !StrategyGame.WithinDistance(CenterX, CenterY, Target.CenterX, Target.CenterY, MineDistance))
@@ -76,20 +81,20 @@ namespace AllegianceForms.Engine.Ships
                 Mining = false;
             }
 
-            if (!Shooting && Mining && _shootingNextTime <= DateTime.Now && Target != null && Target.AvailableResources > 0)
+            if (!Shooting && Mining && _shootingNext <= 0 && Target != null && Target.AvailableResources > 0)
             {
                 Shooting = true;
-                _shootingStop = DateTime.Now + ShootingDuration;
+                _shootingStop = ShootingDurationTicks;
             }
 
-            if (Shooting && _shootingStop <= DateTime.Now)
+            if (Shooting && _shootingStop <= 0)
             {
                 if (Target != null)
                 {
                     Resources += Target.Mine(MineAmount);
                 }
                 Shooting = false;
-                _shootingNextTime = DateTime.Now + ShootingDelay;
+                _shootingNext = ShootingDelayTicks;
             }
 
             // If we are full, Dock then come back!
@@ -116,25 +121,25 @@ namespace AllegianceForms.Engine.Ships
             if (_lastHealth == int.MinValue)
             {
                 _lastHealth = Health;
-                _nextHealthCheckTime = DateTime.Now + _healthCheckDelay;
+                _nextHealthCheck = _healthCheckDelay;
             }
-            else if (_nextHealthCheckTime < DateTime.Now)
+            else if (_nextHealthCheck <= 0)
             {
                 if (Health < _lastHealth)
                 {
                     _lastHealth = Health;
 
                     // Under attack - Dock now!
-                    if (Team == 1 && DateTime.Now > _callNext)
+                    if (Team == 1 && _callNext <= 0)
                     {
-                        _callNext = DateTime.Now.AddSeconds(4);
+                        _callNext = 80;
                         SoundEffect.Play(ESounds.vo_miner_dontgetpaid, true);
                     }
 
                     OrderShip(new DockOrder(this));
                     return;
                 }
-                _nextHealthCheckTime = DateTime.Now + _healthCheckDelay;
+                _nextHealthCheck = _healthCheckDelay;
             }
         }
 

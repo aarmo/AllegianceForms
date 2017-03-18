@@ -239,7 +239,7 @@ namespace AllegianceForms.Test.Engine
             var w = fig.Weapons[0];
             var tw = tech.Weapons[0];
 
-            w.ShootingDelay.TotalMilliseconds.ShouldBe(tw.ShootingDelay.TotalMilliseconds / value);
+            w.ShootingDelayTicks.ShouldBe((int)(tw.ShootingDelayTicks / value));
         }
 
         [TestMethod]
@@ -290,7 +290,7 @@ namespace AllegianceForms.Test.Engine
             var w = ship.Weapons[0];
             var tw = tech.Weapons[0];
 
-            w.ShootingDelay.TotalMilliseconds.ShouldBe(tw.ShootingDelay.TotalMilliseconds / value);
+            w.ShootingDelayTicks.ShouldBe((int)(tw.ShootingDelayTicks / value));
         }
 
         [TestMethod]
@@ -341,7 +341,7 @@ namespace AllegianceForms.Test.Engine
             var w = fig.Weapons[1];
             var tw = tech.Weapons[1];
 
-            w.ShootingDelay.TotalMilliseconds.ShouldBe(tw.ShootingDelay.TotalMilliseconds / value);
+            w.ShootingDelayTicks.ShouldBe((int)(tw.ShootingDelayTicks / value));
         }
 
         [TestMethod]

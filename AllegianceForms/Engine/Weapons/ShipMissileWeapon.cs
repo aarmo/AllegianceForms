@@ -1,5 +1,4 @@
 ﻿using AllegianceForms.Engine.Ships;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -15,8 +14,8 @@ namespace AllegianceForms.Engine.Weapons
         public Pen Smoke2 { get; set; }
         public List<MissileProjectile> Missiles { get; set; }
 
-        public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTimeMS, int refireDelayMS, float range, float damage, Ship shooter, PointF offset, SolidBrush teamColour) 
-            : base(fireTimeMS, refireDelayMS, range, damage, shooter, offset)
+        public ShipMissileWeapon(int width, float missileSpeed, float missileTracking, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset, SolidBrush teamColour) 
+            : base(fireTicks, refireTicks, range, damage, shooter, offset)
         {
             _weaponSound = ESounds.sidewinder;
             Speed = missileSpeed;
@@ -43,11 +42,11 @@ namespace AllegianceForms.Engine.Weapons
         {
             Missiles.RemoveAll(_ => !_.Active);
 
-            if (!Shooting && Firing && _shootingNextTime <= DateTime.Now && Target != null)
+            if (!Shooting && Firing && _shootingNext <= 1 && Target != null)
             {
                 var heading = (float) StrategyGame.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
-                Missiles.Add(new MissileProjectile(Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 3000, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
+                Missiles.Add(new MissileProjectile(Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
             }
             base.Update(currentSectorId);
 

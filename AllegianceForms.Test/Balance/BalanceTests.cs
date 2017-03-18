@@ -60,8 +60,8 @@ namespace AllegianceForms.Test.Balance
                     RequiredTech = reqTech,
                     Spec = s,
                     Type = s.Type,
-                    TotalShootingDelayMS = s.Weapons.Sum(_ => _.ShootingDelay.TotalMilliseconds),
-                    TotalShootingDurationMS = s.Weapons.Sum(_ => _.ShootingDuration.TotalMilliseconds),
+                    TotalShootingDelay = s.Weapons.Sum(_ => _.ShootingDelayTicks) * 50f,
+                    TotalShootingDuration = s.Weapons.Sum(_ => _.ShootingTicks) * 50f,
                     TotalTechCost = reqTech.Sum(_ => _.Cost),
                     TotalTechDuration = reqTech.Sum(_ => _.DurationTicks),
                     TotalWeaponDamage = s.Weapons.Sum(_ => _.WeaponDamage),
@@ -69,7 +69,7 @@ namespace AllegianceForms.Test.Balance
                 };
 
                 var weaponFactor = Math.Abs((b.TotalWeaponDamage + b.TotalWeaponRange)
-                    / (b.TotalShootingDelayMS + b.TotalShootingDurationMS));
+                    / (b.TotalShootingDelay + b.TotalShootingDuration));
 
                 var numbersAvailable = (Ship.IsCapitalShip(s.Type) ? settings.CapitalMaxDrones : (s.NumPilots > 0 ? settings.NumPilots / s.NumPilots : settings.ConstructorsMaxTowerDrones));
 
@@ -81,7 +81,7 @@ namespace AllegianceForms.Test.Balance
             var diff = results.Max(_ => _.Factor) - results.Min(_ => _.Factor);
 
             results.Count.ShouldBeGreaterThan(0);
-            diff.ShouldBeLessThan(0.51f);
+            diff.ShouldBeLessThan(0.5f);
         }
 
         private void AddAllReqTech(ShipSpec ship, List<TechItem> tech)
@@ -137,8 +137,8 @@ namespace AllegianceForms.Test.Balance
         {
             public double TotalWeaponDamage;
             public double TotalWeaponRange;
-            public double TotalShootingDelayMS;
-            public double TotalShootingDurationMS;
+            public double TotalShootingDelay;
+            public double TotalShootingDuration;
             public double TotalTechCost;
             public double TotalTechDuration;
 

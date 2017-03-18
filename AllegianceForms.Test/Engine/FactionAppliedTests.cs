@@ -161,22 +161,22 @@ namespace AllegianceForms.Test.Engine
             var tower2 = StrategyGame.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
             var tm1 = tower1.Weapons[0];
             var tm2 = tower2.Weapons[0];
-            tm1.ShootingDelay.TotalMilliseconds.ShouldBe(multiplier * tm2.ShootingDelay.TotalMilliseconds);
-            tm1.ShootingDuration.TotalMilliseconds.ShouldBe(tm2.ShootingDuration.TotalMilliseconds);
+            tm1.ShootingDelayTicks.ShouldBe((int)(multiplier * tm2.ShootingDelayTicks));
+            tm1.ShootingTicks.ShouldBe(tm2.ShootingTicks);
 
             var fig1 = StrategyGame.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
             var fig2 = StrategyGame.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
             var fm1 = fig1.Weapons[0];
             var fm2 = fig2.Weapons[0];
-            fm1.ShootingDelay.TotalMilliseconds.ShouldBe(multiplier * fm2.ShootingDelay.TotalMilliseconds);
-            fm1.ShootingDuration.TotalMilliseconds.ShouldBe(fm2.ShootingDuration.TotalMilliseconds);
+            fm1.ShootingDelayTicks.ShouldBe((int)(multiplier * fm2.ShootingDelayTicks));
+            fm1.ShootingTicks.ShouldBe(fm2.ShootingTicks);
 
             var nan1 = StrategyGame.Ships.CreateCombatShip(Keys.S, 1, Color.White, 1);
             var nan2 = StrategyGame.Ships.CreateCombatShip(Keys.S, 2, Color.White, 1);
             var nm1 = fig1.Weapons[0];
             var nm2 = fig2.Weapons[0];
-            nm1.ShootingDelay.TotalMilliseconds.ShouldBe(multiplier * nm2.ShootingDelay.TotalMilliseconds);
-            nm1.ShootingDuration.TotalMilliseconds.ShouldBe(nm2.ShootingDuration.TotalMilliseconds);
+            nm1.ShootingDelayTicks.ShouldBe((int)(multiplier * nm2.ShootingDelayTicks));
+            nm1.ShootingTicks.ShouldBe(nm2.ShootingTicks);
         }
 
         [TestMethod]
