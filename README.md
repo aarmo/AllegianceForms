@@ -30,19 +30,19 @@ Features
 
 Screenshots
 ------
-###Main Menu
+### Main Menu
 ![alt text][menu]
 
-###Explore the map
+### Explore the map
 ![alt text][explore]
 - Discover wormholes to other sectors
 - Find your enemy's bases and miners
 
-###Defend your miners & constructors
+### Defend your miners & constructors
 ![alt text][defend]
 - Miners collect resources from *Helium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
 
-###Build bases & expand
+### Build bases & expand
 ![alt text][build2]
 - Outpost, Refinery, Starbase and Shipyard constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
 - Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="30"/>
@@ -50,12 +50,12 @@ Screenshots
 - Expansion constructors require *Uranium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/uranium_3.png" width="30"/>
 - Tower constructors require *No* asteroids.
 
-###Upgrade your tech & battle the enemy
+### Upgrade your tech & battle the enemy
 ![alt text][battle1]
 ![alt text][battle2]
 ![alt text][gameover]
 
-###Customise the Game
+### Customise the Game
 ![alt text][custom]
 ![alt text][faction]
 
@@ -147,7 +147,6 @@ Library | Source
 
 [Overview](#overview)
 
-<br/>
 Bonus Game
 ------
 ### Lucky Dogfight
