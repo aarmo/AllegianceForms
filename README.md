@@ -20,7 +20,7 @@ Made for the Free Allegiance community: http://www.freeallegiance.org/
 Features
 ------
 - Multiple [Maps](#maps) & [Tech Paths](#tech-tree)
-- Customisable [Game Settings & Factions] (#customise-the-game)
+- Customisable [Game Settings & Factions](#customise-the-game)
 - Pilot & Commander AI
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers and Capital Ships!
 
