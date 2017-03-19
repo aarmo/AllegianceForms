@@ -1,8 +1,6 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Bases;
+﻿using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -15,7 +13,7 @@ namespace AllegianceForms.Engine.AI.Missions
         Base _targetBase;
         Base _launchBase;
 
-        public BombingMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public BombingMission(BaseAI ai, Ship.ShipEventHandler shipHandler) : base(ai, shipHandler)
         { }
 
         public override void UpdateMission()
@@ -107,7 +105,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.CenterY = _launchBase.CenterY;
 
             var pos = _launchBase.GetNextBuildPosition();
-            ship.ShipEvent += UI.F_ShipEvent;
+            ship.ShipEvent += _shipHandler;
             ship.OrderShip(new MoveOrder(_launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
@@ -116,12 +114,6 @@ namespace AllegianceForms.Engine.AI.Missions
 
         public override bool MissionComplete()
         {
-            // If we have no more bombers in this mission, abort!
-            if (!IncludedShips.Exists(_ => _.Active && _.CanAttackBases()))
-            {
-                return true;
-            }
-
             // If we have no more visible bases to attack or launch from (we loose), abort!
             if (_targetBase == null || !_targetBase.Active || _targetBase.Team == AI.Team || _launchBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
             {

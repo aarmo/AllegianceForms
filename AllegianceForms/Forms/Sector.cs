@@ -116,7 +116,7 @@ namespace AllegianceForms.Forms
                 if (aiPlayer)
                 {
                     // AI setup:
-                    var ai = new CommanderAI(team, teamColour, this, true);
+                    var ai = new CommanderAI(team, teamColour, F_ShipEvent, true);
                     StrategyGame.AICommanders[t] = ai;
                     ai.SetDifficulty(settings.AiDifficulty);
                     StrategyGame.DockedPilots[t] = (int)(settings.NumPilots * ai.CheatAdditionalPilots);

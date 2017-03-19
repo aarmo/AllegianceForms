@@ -28,5 +28,19 @@ namespace AllegianceForms.Engine.Rocks
             AvailableResources -= amount;
             return amount;
         }
+
+        public void Regenerate(int amount)
+        {
+            if (AvailableResources == MaxResources) return;
+
+            if (AvailableResources + amount < MaxResources)
+            {
+                AvailableResources += amount;
+            }
+            else
+            {
+                AvailableResources = MaxResources;
+            }
+        }
     }
 }

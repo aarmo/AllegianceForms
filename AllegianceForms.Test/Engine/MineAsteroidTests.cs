@@ -19,15 +19,15 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void InitialResources()
         {
-            _target.AvailableResources.ShouldBe(500);
+            _target.AvailableResources.ShouldBe(ResourceAsteroid.MaxResources);
         }
 
         [TestMethod]
         public void MineTooManyResources()
         {
-            var mined = _target.Mine(600);
+            var mined = _target.Mine(ResourceAsteroid.MaxResources + 100);
 
-            mined.ShouldBe(500);
+            mined.ShouldBe(ResourceAsteroid.MaxResources);
             _target.AvailableResources.ShouldBe(0);
         }
         
@@ -37,7 +37,7 @@ namespace AllegianceForms.Test.Engine
             var mined = _target.Mine(100);
 
             mined.ShouldBe(100);
-            _target.AvailableResources.ShouldBe(400);
+            _target.AvailableResources.ShouldBe(ResourceAsteroid.MaxResources - 100);
         }
 
         [TestMethod]
@@ -46,7 +46,31 @@ namespace AllegianceForms.Test.Engine
             var mined = _target.Mine(0);
 
             mined.ShouldBe(0);
-            _target.AvailableResources.ShouldBe(500);
+            _target.AvailableResources.ShouldBe(ResourceAsteroid.MaxResources);
+        }
+
+        [TestMethod]
+        public void RegenerateNoResources()
+        {
+            _target.Mine(100);
+            _target.Regenerate(0);
+            _target.AvailableResources.ShouldBe(ResourceAsteroid.MaxResources - 100);
+        }
+
+        [TestMethod]
+        public void RegenerateSomeResources()
+        {
+            _target.Mine(100);
+            _target.Regenerate(10);
+            _target.AvailableResources.ShouldBe(ResourceAsteroid.MaxResources - 90);
+        }
+
+        [TestMethod]
+        public void RegenerateTooManyResources()
+        {
+            _target.Mine(100);
+            _target.Regenerate(200);
+            _target.AvailableResources.ShouldBe(ResourceAsteroid.MaxResources);
         }
     }
 }

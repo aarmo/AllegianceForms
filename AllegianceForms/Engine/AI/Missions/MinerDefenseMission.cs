@@ -1,7 +1,5 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,7 +14,7 @@ namespace AllegianceForms.Engine.AI.Missions
         private int _lastTargetSectorId;
         private PointF _lastPos;
 
-        public MinerDefenseMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public MinerDefenseMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         {
             _numPilots = StrategyGame.GameSettings.NumPilots * 0.8f + 1f;
         }
@@ -52,7 +50,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.CenterY = launchBase.CenterY;
 
             var pos = launchBase.GetNextBuildPosition();
-            ship.ShipEvent += UI.F_ShipEvent;
+            ship.ShipEvent += _shipHandler;
             ship.OrderShip(new MoveOrder(launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);

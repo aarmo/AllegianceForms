@@ -243,6 +243,21 @@ namespace AllegianceForms
         MinerDefense,
     }
     
+    public enum EVariantAiStyle
+    {
+        Aggressive, Expanding, Defensive, Random
+    }
+
+    public enum EVariantAiTechFocus
+    {
+        CapitalsOnly, Singletech, DoubleTech, TripleTech, Random
+    }
+
+    public enum EVariantAiResearchFocus
+    {
+        EvenShip, EvenUpgrade, EvenEnd, SingleShip, SingleUpgrade, SingleEnd, Any, Random
+    }
+
     public enum EMapSize
     {
         Tiny,

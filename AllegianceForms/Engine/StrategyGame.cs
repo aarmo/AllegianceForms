@@ -877,53 +877,55 @@ namespace AllegianceForms.Engine
 
         public static void Tick(int currentSectorId)
         {
-            for (var i = 0; i < StrategyGame.AllUnits.Count; i++)
+            for (var i = 0; i < AllUnits.Count; i++)
             {
-                var u = StrategyGame.AllUnits[i];
+                var u = AllUnits[i];
                 u.Update(currentSectorId);
             }
 
-            for (var i = 0; i < StrategyGame.AllBases.Count; i++)
+            for (var i = 0; i < AllBases.Count; i++)
             {
-                var u = StrategyGame.AllBases[i];
+                var u = AllBases[i];
                 u.Update(currentSectorId);
             }
-
-            StrategyGame.AllUnits.RemoveAll(_ => !_.Active);
-            StrategyGame.AllBases.RemoveAll(_ => !_.Active);
+            
+            AllUnits.RemoveAll(_ => !_.Active);
+            AllBases.RemoveAll(_ => !_.Active);
         }
 
         public static void SlowTick(int currentSectorId)
         {
-            StrategyGame.UpdateVisibility(false, currentSectorId);
+            UpdateVisibility(false, currentSectorId);
 
-            for (var t = 0; t < StrategyGame.NumTeams; t++)
+            ResourceAsteroids.ForEach(_ => _.Regenerate(1));
+
+            for (var t = 0; t < NumTeams; t++)
             {
-                var items = (from i in StrategyGame.TechTree[t].TechItems
+                var items = (from i in TechTree[t].TechItems
                              where !i.Completed
                              && i.AmountInvested > 0
                              select i).ToList();
                 
                 items.ForEach(_ => _.Update());
 
-                var completedTech = StrategyGame.TechTree[t].TechItems.Where(_ => _.Completed && _.Active).ToList();
+                var completedTech = TechTree[t].TechItems.Where(_ => _.Completed && _.Active).ToList();
 
                 foreach (var c in completedTech)
                 {
                     if (c.IsConstructionType())
                     {
                         c.Reset();
-                        StrategyGame.OnGameEvent(c, EGameEventType.DroneBuilt);
+                        OnGameEvent(c, EGameEventType.DroneBuilt);
                     }
                     else
                     {
-                        StrategyGame.OnGameEvent(c, EGameEventType.ResearchComplete);
+                        OnGameEvent(c, EGameEventType.ResearchComplete);
                         c.Active = false;
                     }
                 }
 
-                StrategyGame.AddResources(t + 1, (int)(StrategyGame.ResourceRegularAmount * StrategyGame.GameSettings.ResourcesEachTickMultiplier), false);
-                var ai = StrategyGame.AICommanders[t];
+                AddResources(t + 1, (int)(ResourceRegularAmount * GameSettings.ResourcesEachTickMultiplier), false);
+                var ai = AICommanders[t];
                 if (ai != null) ai.Update();
             }
 

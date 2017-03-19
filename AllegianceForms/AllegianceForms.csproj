@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\AI\BaseAI.cs" />
     <Compile Include="Engine\AI\Missions\BaseDefenseMission.cs" />
     <Compile Include="Engine\AI\Missions\BombingMission.cs" />
     <Compile Include="Engine\AI\CommanderAI.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Controls\TeamListItem.Designer.cs">
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engine\AI\VariantAI.cs" />
     <Compile Include="Forms\ChanceGame.cs">
       <SubType>Form</SubType>
     </Compile>

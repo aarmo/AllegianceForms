@@ -1,7 +1,5 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System.Drawing;
 using System.Linq;
 
@@ -15,7 +13,7 @@ namespace AllegianceForms.Engine.AI.Missions
         private int _lastTargetSectorId = -1;
         private PointF _lastPos;
 
-        public BaseDefenseMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public BaseDefenseMission(BaseAI ai, Ship.ShipEventHandler shipHandler) : base(ai, shipHandler)
         {
             _numPilots = StrategyGame.GameSettings.NumPilots * 0.8f + 1f;
         }
@@ -40,7 +38,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.CenterY = launchBase.CenterY;
 
             var pos = launchBase.GetNextBuildPosition();
-            ship.ShipEvent += UI.F_ShipEvent;
+            ship.ShipEvent += _shipHandler;
             ship.OrderShip(new MoveOrder(launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);

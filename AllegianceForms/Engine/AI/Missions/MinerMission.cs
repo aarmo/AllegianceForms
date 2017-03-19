@@ -1,8 +1,5 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -10,7 +7,7 @@ namespace AllegianceForms.Engine.AI.Missions
 {
     public class MinerMission : CommanderMission
     {
-        public MinerMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public MinerMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         {
         }
 

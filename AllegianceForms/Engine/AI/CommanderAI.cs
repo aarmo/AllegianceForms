@@ -11,14 +11,11 @@ using System.Linq;
 namespace AllegianceForms.Engine.AI
 {
 
-    public class CommanderAI
+    public class CommanderAI : BaseAI
     {
-        public int Team { get; set; }
-        public Color TeamColour { get; set; }
         public Dictionary<EAiCreditPriorities, float> CreditPriorities { get; private set; }
         public Dictionary<EAiPilotPriorities, float> PilotPriorities { get; private set; }
         public bool ForceVisible { get; set; }
-        public bool Enabled { get; set; }
         public bool CheatVisibility { get; set; }
         public bool CheatCredits { get; set; }
         public bool Scouting { get; set; }
@@ -48,36 +45,28 @@ namespace AllegianceForms.Engine.AI
         internal BaseDefenseMission _defense;
         internal MinerOffenseMission _minerO;
         internal MinerDefenseMission _minerD;
-
-        private int _t;
-
+        
         public const float DegradeAmount = 0.98f;
         public const float MaxPriorityValue = 100;
         public const float MinActionAmount = 0.3f;
         public const int CheatCreditAmout = 3;
 
-        public float CheatAdditionalPilots = 1.5f;
         private float _cheatCreditsChance = 0.05f;        
-        private int _cheatCreditsLastsSeconds = 10;
+        private int _cheatCreditsLastsTicks = 200;
         private float _cheatVisibilityChance = 0.025f;
-        private int _cheatVisibilityLastsSeconds = 5;
-        private int _limitActionsPerMinute = 300;
-        private TimeSpan _limitActionsDelay;
-        private DateTime _cheatVisibilityExpires = DateTime.MinValue;
-        private DateTime _cheatCreditExpires = DateTime.MinValue;
-        private DateTime _nextActionAllowed = DateTime.MinValue;
+        private int _cheatVisibilityLastsTicks = 100;
+        private int _cheatVisibilityExpires = 0;
+        private int _cheatCreditExpires = 0;
 
         private float _scoutFocus = 1;
         private float _baseDefenseFocus = 8;
         private float _minerOffenseFocus = 8;
         private float _minerDefenseFocus = 8;
+        private Ship.ShipEventHandler _shipHandler;
 
-        public CommanderAI(int team, Color teamColour, Sector ui, bool randomise = false)
+        public CommanderAI(int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(team, teamColour)
         {
-            Team = team;
-            _t = team - 1;
-            TeamColour = teamColour;
-
+            _shipHandler = shipHandler;
             CreditPriorities = new Dictionary<EAiCreditPriorities, float>();
             foreach (var e in (EAiCreditPriorities[])Enum.GetValues(typeof(EAiCreditPriorities)))
             {
@@ -90,7 +79,6 @@ namespace AllegianceForms.Engine.AI
                 PilotPriorities.Add(e, 0);
             }
 
-            Enabled = true;
             Scouting = ScoutingMission = true;
             MinerOffence = MinerOffenceMission = true;
             MinerDefence = MinerDefenceMission = true;
@@ -100,48 +88,47 @@ namespace AllegianceForms.Engine.AI
             BuildingMission = true;
             CreditsForDefence = CreditsForOffence = CreditsForExpansion = true;
 
-            _scouting = new ScoutingMission(this, ui);
-            _building = new BuilderMission(this, ui);
-            _mining = new MinerMission(this, ui);
-            _bombing = new BombingMission(this, ui);
-            _defense = new BaseDefenseMission(this, ui);
-            _minerO = new MinerOffenseMission(this, ui);
-            _minerD = new MinerDefenseMission(this, ui);
+            _scouting = new ScoutingMission(this, _shipHandler);
+            _building = new BuilderMission(this, _shipHandler);
+            _mining = new MinerMission(this, _shipHandler);
+            _bombing = new BombingMission(this, _shipHandler);
+            _defense = new BaseDefenseMission(this, _shipHandler);
+            _minerO = new MinerOffenseMission(this, _shipHandler);
+            _minerD = new MinerDefenseMission(this, _shipHandler);
 
             if (randomise)
             {
                 var rnd = StrategyGame.Random;
                 _scoutFocus = rnd.Next(40, 100) / 10f;
                 _minerOffenseFocus = rnd.Next(40, 100) / 10f;
+                _baseDefenseFocus = rnd.Next(40, 100) / 10f;
                 _minerDefenseFocus = rnd.Next(40, 100) / 10f;
             }
         }
-
-        // 0-3 (Easy - Very Hard)
-        public void SetDifficulty(int i)
+        
+        public override void SetDifficulty(int i)
         {
-            _cheatCreditsChance = 0.025f*i;
-            _cheatCreditsLastsSeconds = 5*i;
-            _cheatVisibilityChance = 0.005f*i;
-            _cheatVisibilityLastsSeconds = 2*i;
-            CheatAdditionalPilots = 1 + (0.25f * i);
+            base.SetDifficulty(i);
 
-            _limitActionsPerMinute = 480 + (i * 120);
-            _limitActionsDelay = TimeSpan.FromMilliseconds(60000 / _limitActionsPerMinute);
+            _cheatCreditsChance = 0.025f*i;
+            _cheatCreditsLastsTicks = 5*20*i;
+            _cheatVisibilityChance = 0.005f*i;
+            _cheatVisibilityLastsTicks = 2*20*i;
         }
         
-        public void Update()
+        public override void Update()
         {
-            if (!Enabled || _nextActionAllowed > DateTime.Now) return;
-            
+            if (!Enabled) return;
+            _nextActionAllowed--;
+            if (_nextActionAllowed > 0) return; 
+
             UpdatePriorities();
             UpdateCheats();
-            if (CheatCredits) StrategyGame.AddResources(Team, CheatCreditAmout);
             
             // Add more pilots to missions
             foreach (var v in PilotPriorities.OrderByDescending(_ => _.Value))
             {
-                if (StrategyGame.DockedPilots[_t] == 0 || v.Value < MinActionAmount) break;
+                if (v.Value < MinActionAmount) break;
 
                 switch (v.Key)
                 {
@@ -234,17 +221,20 @@ namespace AllegianceForms.Engine.AI
                 }
             }
 
-            _nextActionAllowed = DateTime.Now + _limitActionsDelay;
+            _nextActionAllowed = _limitActionsTickDelay;
         }
 
         private void UpdateCheats()
         {
+            _cheatVisibilityExpires--;
+            _cheatCreditsLastsTicks--;
+
             if (StrategyGame.Random.NextDouble() <= _cheatVisibilityChance)
             {
                 CheatVisibility = true;
-                _cheatVisibilityExpires = DateTime.Now.AddSeconds(_cheatVisibilityLastsSeconds);
+                _cheatVisibilityExpires = _cheatVisibilityLastsTicks;
             }
-            if (CheatVisibility && DateTime.Now > _cheatVisibilityExpires)
+            if (CheatVisibility && _cheatVisibilityExpires <= 0)
             {
                 CheatVisibility = false;
             }
@@ -252,12 +242,14 @@ namespace AllegianceForms.Engine.AI
             if (StrategyGame.Random.NextDouble() <= _cheatCreditsChance)
             {
                 CheatCredits = true;
-                _cheatCreditExpires = DateTime.Now.AddSeconds(_cheatCreditsLastsSeconds);
+                _cheatCreditExpires = _cheatCreditsLastsTicks;
             }
-            if (CheatCredits && DateTime.Now > _cheatCreditExpires)
+            if (CheatCredits && _cheatCreditsLastsTicks <= 0)
             {
                 CheatCredits = false;
             }
+            
+            if (CheatCredits) StrategyGame.AddResources(Team, CheatCreditAmout);
         }
 
         private void UpdateMissions()
@@ -326,18 +318,16 @@ namespace AllegianceForms.Engine.AI
 
             //TODO: Ineffiencient to do each second!
             Bases = StrategyGame.AllBases.Where(_ => _.Active && _.Team == Team).ToList();
-            var enemyBases = StrategyGame.AllBases.Where(_ => _.Active && _.Team != Team && _.VisibleToTeam[_t]).ToList();
-            
-            if (!StrategyGame.TechTree[_t].HasResearchedShipType(EShipType.Bomber))
+            var enemyBases = StrategyGame.AllBases.Count(_ => _.Active && _.Team != Team && _.VisibleToTeam[_t]);
+            var numOwnedSectors = StrategyGame.Map.Sectors.Count(s => Bases.Any(b => b.SectorId == s.Id));
+
+            if (StrategyGame.TechTree[_t].HasResearchedShipType(EShipType.Bomber))
             {
-                if (CreditsForOffence && CreditPriorities[EAiCreditPriorities.Offense] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Offense] += (enemyBases.Count * _baseDefenseFocus);
-            }
-            else
-            {
-                if (BaseOffence && PilotPriorities[EAiPilotPriorities.BaseOffense] < MaxPriorityValue) PilotPriorities[EAiPilotPriorities.BaseOffense] += (enemyBases.Count * _baseDefenseFocus);
+                if (BaseOffence && PilotPriorities[EAiPilotPriorities.BaseOffense] < MaxPriorityValue) PilotPriorities[EAiPilotPriorities.BaseOffense] += (enemyBases * _baseDefenseFocus);                
             }
 
-            var numOwnedSectors = StrategyGame.Map.Sectors.Count(s => Bases.Any(b => b.SectorId == s.Id));
+            if (CreditsForOffence && CreditPriorities[EAiCreditPriorities.Offense] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Offense] += (enemyBases * _baseDefenseFocus);
+
             if (CreditsForExpansion && CreditPriorities[EAiCreditPriorities.Expansion] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Expansion] += StrategyGame.Map.Sectors.Count - numOwnedSectors;
         }
     }

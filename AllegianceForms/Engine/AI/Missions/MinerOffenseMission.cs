@@ -1,7 +1,5 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System.Linq;
 using System.Windows.Forms;
 using System;
@@ -17,7 +15,7 @@ namespace AllegianceForms.Engine.AI.Missions
         private PointF _lastPos;
         private DateTime _lastTargetExpire;
 
-        public MinerOffenseMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public MinerOffenseMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         {
             CheckForNextTargetSector();
         }
@@ -65,7 +63,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.CenterY = launchBase.CenterY;
 
             var pos = launchBase.GetNextBuildPosition();
-            ship.ShipEvent += UI.F_ShipEvent;
+            ship.ShipEvent += _shipHandler;
             ship.OrderShip(new MoveOrder(launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);

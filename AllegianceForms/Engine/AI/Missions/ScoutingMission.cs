@@ -1,7 +1,5 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,7 +11,7 @@ namespace AllegianceForms.Engine.AI.Missions
     {
         private Dictionary<Ship, float> _lastHealth = new Dictionary<Ship, float>();
 
-        public ScoutingMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public ScoutingMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         { }
         
         public override bool RequireMorePilots()
@@ -37,7 +35,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.CenterY = b.CenterY;
 
             var pos = b.GetNextBuildPosition();
-            ship.ShipEvent += UI.F_ShipEvent;
+            ship.ShipEvent += _shipHandler;
             ship.OrderShip(new MoveOrder(b.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);

@@ -9,18 +9,17 @@ namespace AllegianceForms.Engine.AI.Missions
     public class CommanderMission
     {
         public List<Ship> IncludedShips { get; set; }
-        public CommanderAI AI { get; set; }
-        public Sector UI { get; set; }
+        public BaseAI AI { get; set; }
 
         public List<DateTime> RecentOrders { get; set; }
 
+        protected Ship.ShipEventHandler _shipHandler;
         protected bool _completed = false;
-        protected int _recentOrderDelaySecs = 30;
+        protected int _recentOrderDelaySecs = 10;
 
-        public CommanderMission(CommanderAI ai, Sector ui)
+        public CommanderMission(BaseAI ai, Ship.ShipEventHandler shipHandler)
         {
             AI = ai;
-            UI = ui;
             IncludedShips = new List<Ship>();
             RecentOrders = new List<DateTime>();
         }
@@ -43,7 +42,6 @@ namespace AllegianceForms.Engine.AI.Missions
             {
                 _completed = false;
             }
-
         }
 
         protected void LogOrder()

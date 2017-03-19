@@ -1,8 +1,6 @@
-﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Rocks;
+﻿using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,7 +9,7 @@ namespace AllegianceForms.Engine.AI.Missions
 {
     public class BuilderMission : CommanderMission
     {
-        public BuilderMission(CommanderAI ai, Sector ui) : base(ai, ui)
+        public BuilderMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         {
         }
 
