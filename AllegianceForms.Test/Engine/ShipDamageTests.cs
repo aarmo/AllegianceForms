@@ -14,7 +14,7 @@ namespace AllegianceForms.Test.Engine
         [TestInitialize]
         public void Setup()
         {
-            _target = new Ship(string.Empty, 10, 10, Color.White, 1, TestHealth, 1, 0);
+            _target = new Ship(string.Empty, 10, 10, Color.White, 1, 1, TestHealth, 1, 0);
         }
 
         [TestMethod]

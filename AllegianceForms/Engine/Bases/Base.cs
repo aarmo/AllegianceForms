@@ -12,6 +12,7 @@ namespace AllegianceForms.Engine.Bases
 
         public EBaseType Type { get; set; }
         public int Team { get; set; }
+        public int Alliance { get; set; }
         public Brush TeamColor { get; set; }
         public bool Selected { get; set; }
         public Pen SelectedPen { get; set; }
@@ -28,17 +29,18 @@ namespace AllegianceForms.Engine.Bases
         private TimeSpan _offsetDelay = new TimeSpan(0, 0, 2);
         private Brush _textColor;
 
-        public Base(EBaseType type, int width, int height, Color teamColor, int team, float health, int sectorId)
-            : this(string.Empty, type, width, height, teamColor, team, health, sectorId)
+        public Base(EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
+            : this(string.Empty, type, width, height, teamColor, team, alliance, health, sectorId)
         {
         }
 
-        protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, float health, int sectorId)
+        protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
             : base(string.Empty, width, height, sectorId)
         {
             Type = type;
             _maxHealth = Health = health;
             Team = team;
+            Alliance = alliance;
             VisibleToTeam[team - 1] = true;
             TeamColor = new SolidBrush(teamColor);
             _textColor = new SolidBrush(PerceivedBrightness(teamColor) > 130 ? Color.Black : Color.White);
@@ -81,6 +83,7 @@ namespace AllegianceForms.Engine.Bases
         public void Capture(Ship capturedBy)
         {
             Team = capturedBy.Team;
+            Alliance = capturedBy.Alliance;
             TeamColor = (Brush) capturedBy.TeamColor.Clone();
             SelectedPen = (Pen) capturedBy.SelectedPen.Clone();
             OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);

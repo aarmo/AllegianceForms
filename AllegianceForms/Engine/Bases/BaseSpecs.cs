@@ -45,11 +45,13 @@ namespace AllegianceForms.Engine.Bases
             var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
             if (spec == null) return null;
 
-            var faction = StrategyGame.Faction[team - 1];
-            var research = StrategyGame.TechTree[team - 1].ResearchedUpgrades;
+            var t = team - 1;
+            var faction = StrategyGame.Faction[t];
+            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
             var settings = StrategyGame.GameSettings;
+            var alliance = settings.TeamAlliance[t];
 
-            var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
+            var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
             bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;

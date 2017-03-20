@@ -136,6 +136,7 @@
             this.Teams = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TeamItems = new System.Windows.Forms.FlowLayoutPanel();
+            this.label51 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Teams)).BeginInit();
             this.panel1.SuspendLayout();
@@ -1374,7 +1375,7 @@
             this.label50.AutoSize = true;
             this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label50.ForeColor = System.Drawing.Color.Lime;
-            this.label50.Location = new System.Drawing.Point(414, 0);
+            this.label50.Location = new System.Drawing.Point(418, 0);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(40, 13);
             this.label50.TabIndex = 0;
@@ -1495,7 +1496,7 @@
             this.label55.AutoSize = true;
             this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label55.ForeColor = System.Drawing.Color.Lime;
-            this.label55.Location = new System.Drawing.Point(600, 0);
+            this.label55.Location = new System.Drawing.Point(601, 0);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(45, 13);
             this.label55.TabIndex = 0;
@@ -1543,7 +1544,7 @@
             this.panel1.Controls.Add(this.TeamItems);
             this.panel1.Location = new System.Drawing.Point(338, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(464, 85);
+            this.panel1.Size = new System.Drawing.Size(502, 85);
             this.panel1.TabIndex = 52;
             // 
             // TeamItems
@@ -1552,9 +1553,20 @@
             this.TeamItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.TeamItems.Location = new System.Drawing.Point(5, 0);
             this.TeamItems.Name = "TeamItems";
-            this.TeamItems.Size = new System.Drawing.Size(426, 45);
+            this.TeamItems.Size = new System.Drawing.Size(472, 45);
             this.TeamItems.TabIndex = 3;
             this.TeamItems.WrapContents = false;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.ForeColor = System.Drawing.Color.Lime;
+            this.label51.Location = new System.Drawing.Point(771, 0);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(47, 13);
+            this.label51.TabIndex = 0;
+            this.label51.Text = "Alliance:";
             // 
             // CustomiseSetttings
             // 
@@ -1660,6 +1672,7 @@
             this.Controls.Add(this.label37);
             this.Controls.Add(this.label43);
             this.Controls.Add(this.label28);
+            this.Controls.Add(this.label51);
             this.Controls.Add(this.label55);
             this.Controls.Add(this.label50);
             this.Controls.Add(this.label41);
@@ -1797,5 +1810,6 @@
         private System.Windows.Forms.NumericUpDown Teams;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel TeamItems;
+        private System.Windows.Forms.Label label51;
     }
 }

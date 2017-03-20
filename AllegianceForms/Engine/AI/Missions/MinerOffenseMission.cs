@@ -9,7 +9,7 @@ namespace AllegianceForms.Engine.AI.Missions
 {
     public class MinerOffenseMission : CommanderMission
     {
-        private const int LastTargetExpireSeconds = 30;
+        private const int LastTargetExpireSeconds = 20;
 
         private int _lastTargetSectorId;
         private PointF _lastPos;
@@ -22,7 +22,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         private void CheckForNextTargetSector()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Team != AI.Team && _.Active && _.VisibleToTeam[AI.Team - 1] && !_.Docked && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.VisibleToTeam[AI.Team - 1] && !_.Docked && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -103,7 +103,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 else
                 {
                     // Then find the closest random miner here to attack!
-                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, StrategyGame.AllUnits.Where(_ => _.Team != AI.Team && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
+                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
                     if (m != null)
                     {
                         i.OrderShip(new MoveOrder(m.SectorId, m.CenterPoint));
@@ -112,7 +112,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     else
                     {
                         // attack anything!
-                        var ens = StrategyGame.AllUnits.Where(_ => _.Team != AI.Team && _.Active && !_.Docked && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
+                        var ens = StrategyGame.AllUnits.Where(_ => _.Active && !_.Docked && _.Alliance != AI.Alliance && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
                         if (ens.Count > 0)
                         {
                             var tar = ens[StrategyGame.Random.Next(ens.Count)];

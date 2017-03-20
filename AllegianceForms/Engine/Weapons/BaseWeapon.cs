@@ -28,9 +28,9 @@ namespace AllegianceForms.Engine.Weapons
             var t = Target as Base;
 
             // Always be checking for targets in range and FIRE!
-            if (t == null || !t.Active || t.SectorId != t.SectorId || t.Team == Shooter.Team || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
+            if (t == null || !t.Active || t.SectorId != t.SectorId || t.Alliance == Shooter.Alliance || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var enemyInRange = StrategyGame.AllBases.FirstOrDefault(_ => _.Active && _.Team != Shooter.Team && _.SectorId == Shooter.SectorId && _.VisibleToTeam[Shooter.Team - 1] && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
+                var enemyInRange = StrategyGame.AllBases.FirstOrDefault(_ => _.Active && _.Alliance != Shooter.Alliance && _.SectorId == Shooter.SectorId && _.VisibleToTeam[Shooter.Team - 1] && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
                 if (enemyInRange != null)
                 {
                     Target = enemyInRange;

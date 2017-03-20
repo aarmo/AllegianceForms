@@ -45,8 +45,8 @@ namespace AllegianceForms.Engine.AI.Missions
                     if (sectorChecked.Contains(r.SectorId) || chosenRocks.Contains(r)) continue;
                     sectorChecked.Add(r.SectorId);
 
-                    var hasEnemyBase = StrategyGame.AllBases.Any(_ => _.Active && _.VisibleToTeam[t] && _.SectorId == r.SectorId && _.Team != AI.Team);
-                    var hasFriendlyBase = StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == r.SectorId && _.Team == AI.Team);
+                    var hasEnemyBase = StrategyGame.AllBases.Any(_ => _.Active && _.VisibleToTeam[t] && _.SectorId == r.SectorId && _.Alliance != AI.Alliance);
+                    var hasFriendlyBase = StrategyGame.AllBases.Any(_ => _.Active && _.SectorId == r.SectorId && _.Alliance == AI.Alliance);
 
                     var path = StrategyGame.Map.ShortestPath(AI.Team, r.SectorId, b.SectorId);
                     var newHops = path == null ? int.MaxValue : path.Count();

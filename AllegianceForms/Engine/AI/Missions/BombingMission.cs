@@ -115,7 +115,7 @@ namespace AllegianceForms.Engine.AI.Missions
         public override bool MissionComplete()
         {
             // If we have no more visible bases to attack or launch from (we loose), abort!
-            if (_targetBase == null || !_targetBase.Active || _targetBase.Team == AI.Team || _launchBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
+            if (_targetBase == null || !_targetBase.Active || _targetBase.Alliance == AI.Alliance || _launchBase == null || !_launchBase.Active || _launchBase.Alliance != AI.Alliance)
             {
                 _targetBase = StrategyGame.ClosestEnemyBase(AI.Team, out _launchBase);
 

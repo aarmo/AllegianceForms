@@ -280,9 +280,9 @@ namespace AllegianceForms.Engine.AI
             if (Scouting && PilotPriorities[EAiPilotPriorities.Scout] < MaxPriorityValue)
                 PilotPriorities[EAiPilotPriorities.Scout] += _scoutFocus;
 
-            var enemyShips = StrategyGame.AllUnits.Where(_ => _.Active && _.Team != Team && _.VisibleToTeam[_t]).ToList();
-            Miners = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == Team && _.Type == EShipType.Miner).ToList();
-            Builders = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == Team && _.Type == EShipType.Constructor).ToList();
+            var enemyShips = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]).ToList();
+            Miners = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Miner).ToList();
+            Builders = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Constructor).ToList();
 
             foreach (var s in enemyShips)
             {
@@ -318,7 +318,7 @@ namespace AllegianceForms.Engine.AI
 
             //TODO: Ineffiencient to do each second!
             Bases = StrategyGame.AllBases.Where(_ => _.Active && _.Team == Team).ToList();
-            var enemyBases = StrategyGame.AllBases.Count(_ => _.Active && _.Team != Team && _.VisibleToTeam[_t]);
+            var enemyBases = StrategyGame.AllBases.Count(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]);
             var numOwnedSectors = StrategyGame.Map.Sectors.Count(s => Bases.Any(b => b.SectorId == s.Id));
 
             if (StrategyGame.TechTree[_t].HasResearchedShipType(EShipType.Bomber))

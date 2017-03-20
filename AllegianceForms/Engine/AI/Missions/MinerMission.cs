@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Rocks;
+using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
 using System.Drawing;
 using System.Linq;
@@ -33,8 +34,8 @@ namespace AllegianceForms.Engine.AI.Missions
             for (var i = 0; i < totalResourcesInSector.Length; i++)
             {
                 if (totalResourcesInSector[i] == 0) continue;
-                enemiesInSector[i] = StrategyGame.AllUnits.Count(_ => _.Active && _.VisibleToTeam[t] && _.Team != AI.Team && _.CanAttackShips());
-                friendliesInSector[i] = StrategyGame.AllUnits.Count(_ => _.Active && _.Team == AI.Team && _.CanAttackShips());
+                enemiesInSector[i] = StrategyGame.AllUnits.Count(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != AI.Alliance && _.CanAttackShips());
+                friendliesInSector[i] = StrategyGame.AllUnits.Count(_ => _.Active && _.Alliance == AI.Alliance && _.CanAttackShips());
             }
 
             var bestScore = float.MaxValue;
@@ -49,7 +50,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 var path = StrategyGame.Map.ShortestPath(AI.Team, startSectorId, i);
                 var newHops = path == null ? int.MaxValue : path.Count();
 
-                var score = newHops + enemiesInSector[i] - friendliesInSector[i] - (totalResourcesInSector[i] / 1000f);
+                var score = newHops + enemiesInSector[i] - friendliesInSector[i] - (1f * totalResourcesInSector[i] / ResourceAsteroid.MaxResources);
                 if (score < bestScore)
                 {
                     bestScore = score;

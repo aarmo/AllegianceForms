@@ -21,6 +21,7 @@ namespace AllegianceForms.Engine
         public string MapName { get; set; }
         public int[] TeamColours { get; set; }
         public Faction[] TeamFactions { get; set; }
+        public int[] TeamAlliance { get; set; }
         public bool WormholesVisible { get; set; }
         public float WormholesSignatureMultiplier { get; set; }
         public int MinersInitial { get; set; }
@@ -72,6 +73,7 @@ namespace AllegianceForms.Engine
                 NumTeams = 2,
                 TeamFactions = new[] { Faction.Default(), Faction.Default() },
                 TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1] },
+                TeamAlliance = new[] { 1, 2 },
 
                 NumPilots = 16,
                 AiDifficulty = 1,

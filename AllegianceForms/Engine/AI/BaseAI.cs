@@ -5,6 +5,7 @@ namespace AllegianceForms.Engine.AI
     public class BaseAI
     {
         public int Team { get; set; }
+        public int Alliance { get; set; }
         public Color TeamColour { get; set; }
         public bool Enabled { get; set; }
         public float CheatAdditionalPilots = 1.5f;
@@ -18,6 +19,7 @@ namespace AllegianceForms.Engine.AI
         {
             Team = team;
             _t = team - 1;
+            Alliance = StrategyGame.GameSettings.TeamAlliance[_t];
             TeamColour = teamColour;
             Enabled = true;
         }

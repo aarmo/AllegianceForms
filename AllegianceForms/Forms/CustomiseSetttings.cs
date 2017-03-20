@@ -101,7 +101,7 @@ namespace AllegianceForms.Forms
             TeamItems.Controls.Clear();
             for (var i = 0; i < Settings.NumTeams; i++)
             {
-                var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i]);
+                var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i], Settings.TeamAlliance[i]);
                 ctl.TeamChangedEvent += Ctl_TeamChangedEvent;
                 TeamItems.Controls.Add(ctl);
             }
@@ -611,12 +611,14 @@ namespace AllegianceForms.Forms
 
             var oldFactions = Settings.TeamFactions;
             var oldColours = Settings.TeamColours;
+            var oldAlliances = Settings.TeamAlliance;
 
             if (teams < Settings.NumTeams)
             {
                 Settings.TeamFactions = oldFactions.Take(teams).ToArray();
                 Settings.TeamColours = oldColours.Take(teams).ToArray();
-                
+                Settings.TeamAlliance = oldAlliances.Take(teams).ToArray();
+
                 for (var i = teams; i < Settings.NumTeams; i++)
                 {
                     TeamItems.Controls.RemoveAt(i);
@@ -626,31 +628,48 @@ namespace AllegianceForms.Forms
             {
                 Settings.TeamFactions = new Faction[teams];
                 Settings.TeamColours = new int[teams];
+                Settings.TeamAlliance = new int[teams];
 
                 for (var i = 0; i < Settings.NumTeams; i++)
                 {
                     Settings.TeamFactions[i] = oldFactions[i];
                     Settings.TeamColours[i] = oldColours[i];
+                    Settings.TeamAlliance[i] = oldAlliances[i];
                 }
 
                 for (var i = Settings.NumTeams; i < teams; i++)
                 {
                     Settings.TeamFactions[i] = Faction.Default();
                     Settings.TeamColours[i] = GameSettings.DefaultTeamColours[i];
+                    Settings.TeamAlliance[i] = i+1;
 
-                    var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i]);
+                    var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i], Settings.TeamAlliance[i]);
                     ctl.TeamChangedEvent += Ctl_TeamChangedEvent;
                     TeamItems.Controls.Add(ctl);
                 } 
             }
 
             Settings.NumTeams = teams;
+
+            RefreshStartGame();
         }
 
         private void Ctl_TeamChangedEvent(TeamListItem sender)
         {
             Settings.TeamFactions[sender.Index - 1] = sender.Faction;
             Settings.TeamColours[sender.Index - 1] = sender.ColourArgb;
+            Settings.TeamAlliance[sender.Index - 1] = sender.AllianceIndex;
+
+            RefreshStartGame();
+        }
+
+        private void RefreshStartGame()
+        {
+#if !DEBUG
+            var allSame = Settings.TeamAlliance.Take(Settings.NumTeams).All(_ => _ == Settings.TeamAlliance[0]);
+
+            StartGame.Enabled = !allSame;
+#endif
         }
     }
 }

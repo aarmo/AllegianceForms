@@ -16,7 +16,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         public MinerDefenseMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         {
-            _numPilots = StrategyGame.GameSettings.NumPilots * 0.8f + 1f;
+            _numPilots = StrategyGame.GameSettings.NumPilots * 0.5f + 1f;
         }
         
         public override bool RequireMorePilots()
@@ -27,7 +27,7 @@ namespace AllegianceForms.Engine.AI.Missions
         
         public override void AddMorePilots()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Team == AI.Team && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = StrategyGame.AllUnits.Where(_ => _.Alliance == AI.Alliance && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -60,13 +60,13 @@ namespace AllegianceForms.Engine.AI.Missions
         public override bool MissionComplete()
         {
             // If we haven't anything to defend, abort!
-            var bs = StrategyGame.AllUnits.Where(_ => _.Team == AI.Team && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = StrategyGame.AllUnits.Where(_ => _.Alliance == AI.Alliance && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             return (bs.Count == 0);
         }
 
         private void CheckForNextTargetSector()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Team == AI.Team && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = StrategyGame.AllUnits.Where(_ => _.Alliance == AI.Alliance && !_.Docked && _.Active && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -96,7 +96,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 else
                 {
                     // Then find a random enemy here to attack!
-                    var ens = StrategyGame.AllUnits.Where(_ => _.Team != AI.Team && _.Active && !_.Docked && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1]).ToList();
+                    var ens = StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && !_.Docked && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1]).ToList();
                     if (ens.Count > 0)
                     {
                         var tar = ens[StrategyGame.Random.Next(ens.Count)];

@@ -85,7 +85,7 @@ namespace AllegianceForms.Test.Engine
         public void LaunchWithoutAllPilots()
         {
             StrategyGame.DockedPilots[1] = 1;
-            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 10, 2, 0);
+            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 2, 0);
             StrategyGame.LaunchShip(ship);
             StrategyGame.DockedPilots[1].ShouldBe(1);
         }
@@ -94,7 +94,7 @@ namespace AllegianceForms.Test.Engine
         public void LaunchWithEnoughPilots()
         {
             StrategyGame.DockedPilots[1] = 1;
-            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 10, 1, 0);
+            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 1, 0);
             StrategyGame.LaunchShip(ship);
             StrategyGame.DockedPilots[1].ShouldBe(0);
         }
@@ -103,7 +103,7 @@ namespace AllegianceForms.Test.Engine
         public void LaunchWithMorePilots()
         {
             StrategyGame.DockedPilots[1] = 4;
-            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 10, 3, 0);
+            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 3, 0);
             StrategyGame.LaunchShip(ship);
             StrategyGame.DockedPilots[1].ShouldBe(1);
         }

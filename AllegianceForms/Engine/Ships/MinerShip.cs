@@ -28,8 +28,8 @@ namespace AllegianceForms.Engine.Ships
         private int _healthCheckDelay = 20;
         private int _callNext = 0;
 
-        public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, float health, int sectorId)
-            : base(imageFilename, width, height, teamColor, team, health, 0, sectorId)
+        public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
+            : base(imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
         {
             Type = EShipType.Miner;
             Resources = 0;

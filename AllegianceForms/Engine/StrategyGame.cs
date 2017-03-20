@@ -127,6 +127,7 @@ namespace AllegianceForms.Engine
         public static Base ClosestEnemyBase(int team, out Base launchingBase)
         {
             var t = team - 1;
+            var alliance = GameSettings.TeamAlliance[t];
             var maxHops = Map.Wormholes.Count + 4;
             var minHops = int.MaxValue;
             Base targetBase = null;
@@ -139,7 +140,7 @@ namespace AllegianceForms.Engine
                 if (launchingBase == null)
                 if (launchingBase != null && l.SectorId == launchingBase.SectorId) continue;
 
-                var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Team != team && _.SectorId != l.SectorId).ToList();
+                var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId != l.SectorId).ToList();
                 foreach (var b in otherSectorBases)
                 {
                     var path = Map.ShortestPath(team, l.SectorId, b.SectorId);
@@ -200,8 +201,14 @@ namespace AllegianceForms.Engine
                 {
                     for (var t = 0; t < NumTeams; t++)
                     {
-                        var team = t + 1;
-                        if (team == s.Team) continue;
+                        if (s.Team == t + 1) continue;
+                        var alliance = GameSettings.TeamAlliance[t];
+
+                        if (alliance == s.Alliance)
+                        {
+                            s.VisibleToTeam[t] = true;
+                            continue;
+                        }
 
                         var thisAi = AICommanders[t];
                         if (thisAi != null && thisAi.CheatVisibility)
@@ -219,7 +226,7 @@ namespace AllegianceForms.Engine
 
                         preVis = s.VisibleToTeam[t];
                         s.VisibleToTeam[t] = false;
-                        if (IsVisibleToTeam(s, team))
+                        if (IsVisibleToAlliance(s, alliance))
                         {
                             if (!preVis && !soundPlayed && t == 0 && s.SectorId == currentSectorId)
                             {
@@ -258,9 +265,15 @@ namespace AllegianceForms.Engine
                 {
                     for (var t = 0; t < NumTeams; t++)
                     {
-                        var team = t + 1;
                         // Once visible, bases are always visible!
-                        if (team == s.Team || s.VisibleToTeam[t]) continue;
+                        if (s.Team == t + 1 || s.VisibleToTeam[t]) continue;
+                        var alliance = GameSettings.TeamAlliance[t];
+
+                        if (alliance == s.Alliance)
+                        {
+                            s.VisibleToTeam[t] = true;
+                            continue;
+                        }
 
                         var thisAi = AICommanders[t];
                         if (thisAi != null && thisAi.CheatVisibility)
@@ -276,7 +289,7 @@ namespace AllegianceForms.Engine
                             continue;
                         }
 
-                        if (IsVisibleToTeam(s, team))
+                        if (IsVisibleToAlliance(s, alliance))
                         {
                             if (!soundPlayed && t == 0 && s.SectorId == currentSectorId)
                             {
@@ -293,9 +306,10 @@ namespace AllegianceForms.Engine
             {
                 for (var t = 0; t < NumTeams; t++)
                 {
-                    var team = t + 1;
                     // Once visible, asteroids are always visible!
                     if (s.VisibleToTeam[t]) continue;
+
+                    var alliance = GameSettings.TeamAlliance[t];
                     
                     var thisAi = AICommanders[t];
                     if (thisAi != null && thisAi.CheatVisibility)
@@ -304,7 +318,7 @@ namespace AllegianceForms.Engine
                         continue;
                     }
 
-                    if (IsVisibleToTeam(s, team))
+                    if (IsVisibleToAlliance(s, alliance))
                     {
                         if (!soundPlayed && t == 0 && s.SectorId == currentSectorId)
                         {
@@ -623,7 +637,7 @@ namespace AllegianceForms.Engine
             {
                 OnGameEvent(null, EGameEventType.GameLost);
             }
-            else if (!StrategyGame.AllBases.Any(_ => _.Team != 1 && _.Active && _.CanLaunchShips()))
+            else if (!StrategyGame.AllBases.Any(_ => _.Alliance != GameSettings.TeamAlliance[0] && _.Active && _.CanLaunchShips()))
             {
                 OnGameEvent(null, EGameEventType.GameWon);
             }
@@ -667,6 +681,33 @@ namespace AllegianceForms.Engine
             }
 
             var teamShips = AllUnits.Where(_ => _.Active && _.Team == team && s.SectorId == _.SectorId).ToList();
+            var closestShip = ClosestDistance(s.CenterX, s.CenterY, teamShips);
+            if (closestShip != null)
+            {
+                var requiredD = (int)(closestShip.ScanRange * s.Signature);
+                if (WithinDistance(s.CenterX, s.CenterY, closestShip.CenterX, closestShip.CenterY, requiredD))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsVisibleToAlliance(GameEntity s, int alliance)
+        {
+            var teamBases = AllBases.Where(_ => _.Active && _.Alliance == alliance && s.SectorId == _.SectorId).ToList();
+            var closestBase = ClosestDistance(s.CenterX, s.CenterY, teamBases);
+            if (closestBase != null)
+            {
+                var requiredD = (int)(closestBase.ScanRange * s.Signature);
+                if (WithinDistance(s.CenterX, s.CenterY, closestBase.CenterX, closestBase.CenterY, requiredD))
+                {
+                    return true;
+                }
+            }
+
+            var teamShips = AllUnits.Where(_ => _.Active && _.Alliance == alliance && s.SectorId == _.SectorId).ToList();
             var closestShip = ClosestDistance(s.CenterX, s.CenterY, teamShips);
             if (closestShip != null)
             {

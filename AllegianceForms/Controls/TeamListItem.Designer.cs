@@ -32,6 +32,7 @@
             this.TeamFaction = new System.Windows.Forms.Button();
             this.TeamNumber = new System.Windows.Forms.Label();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.AllianceGroup = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // TeamColour
@@ -73,17 +74,36 @@
             this.TeamNumber.TabIndex = 48;
             this.TeamNumber.Text = "Team 1:";
             // 
+            // AllianceGroup
+            // 
+            this.AllianceGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AllianceGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AllianceGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AllianceGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AllianceGroup.FormattingEnabled = true;
+            this.AllianceGroup.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C",
+            "D"});
+            this.AllianceGroup.Location = new System.Drawing.Point(428, 3);
+            this.AllianceGroup.Name = "AllianceGroup";
+            this.AllianceGroup.Size = new System.Drawing.Size(38, 28);
+            this.AllianceGroup.TabIndex = 51;
+            this.AllianceGroup.SelectedIndexChanged += new System.EventHandler(this.AllianceGroup_SelectedIndexChanged);
+            // 
             // TeamListItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.AllianceGroup);
             this.Controls.Add(this.TeamColour);
             this.Controls.Add(this.TeamFaction);
             this.Controls.Add(this.TeamNumber);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "TeamListItem";
-            this.Size = new System.Drawing.Size(427, 36);
+            this.Size = new System.Drawing.Size(469, 36);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,5 +115,6 @@
         private System.Windows.Forms.Button TeamFaction;
         private System.Windows.Forms.Label TeamNumber;
         private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.ComboBox AllianceGroup;
     }
 }

@@ -55,7 +55,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         private void CheckForNextTargetSector()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Active && _.Team != AI.Team && _.VisibleToTeam[AI.Team-1] && (_.CanAttackBases() || _.Type == EShipType.Miner || _.Type == EShipType.Constructor)).ToList();
+            var bs = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance != AI.Alliance && _.VisibleToTeam[AI.Team-1] && (_.CanAttackBases() || _.Type == EShipType.Miner || _.Type == EShipType.Constructor)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -83,7 +83,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 else
                 {
                     // Then find a random enemy here to attack!
-                    var ens = StrategyGame.AllUnits.Where(_ => _.Team != AI.Team && _.Active && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
+                    var ens = StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
                     if (ens.Count > 0)
                     {
                         var tar = ens[StrategyGame.Random.Next(ens.Count)];

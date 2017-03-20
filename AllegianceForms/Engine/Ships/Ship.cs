@@ -13,6 +13,7 @@ namespace AllegianceForms.Engine.Ships
 
         public EShipType Type { get; set; }
         public int Team { get; protected set; }
+        public int Alliance { get; protected set; }
         public Brush TeamColor { get; protected set; }
         public Color Colour { get; protected set; }
         public bool Selected { get; set; }
@@ -29,7 +30,7 @@ namespace AllegianceForms.Engine.Ships
         public float MaxHealth { get; set; }
         
 
-        public Ship(string imageFilename, int width, int height, Color teamColor, int team, float health, int numPilots, int sectorId)
+        public Ship(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
             : base(imageFilename, width, height, sectorId)
         {
             if (Image != null)
@@ -49,6 +50,7 @@ namespace AllegianceForms.Engine.Ships
 
             Active = true;
             Team = team;
+            Alliance = alliance;
             Colour = teamColor;
             TeamColor = new SolidBrush(teamColor);
             SelectedPen = new Pen(teamColor, 1) { DashStyle = DashStyle.Dot };

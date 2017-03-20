@@ -111,8 +111,9 @@ namespace AllegianceForms.Engine.Ships
             var faction = StrategyGame.Faction[t];
             var research = StrategyGame.TechTree[t].ResearchedUpgrades;
             var settings = StrategyGame.GameSettings;
+            var alliance = settings.TeamAlliance[t];
 
-            var ship = new CombatShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
+            var ship = new CombatShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                     , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, spec.NumPilots, spec.Type, sectorId);
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -195,8 +196,9 @@ namespace AllegianceForms.Engine.Ships
             var faction = StrategyGame.Faction[t];
             var research = StrategyGame.TechTree[t].ResearchedUpgrades;
             var settings = StrategyGame.GameSettings;
-            
-            var ship = new BuilderShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
+            var alliance = settings.TeamAlliance[t];
+
+            var ship = new BuilderShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, baseType, sectorId);
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -221,8 +223,9 @@ namespace AllegianceForms.Engine.Ships
             var faction = StrategyGame.Faction[t];
             var research = StrategyGame.TechTree[t].ResearchedUpgrades;
             var settings = StrategyGame.GameSettings;
+            var alliance = settings.TeamAlliance[t];
 
-            var ship = new MinerShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
+            var ship = new MinerShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -245,8 +248,9 @@ namespace AllegianceForms.Engine.Ships
             var faction = StrategyGame.Faction[t];
             var research = StrategyGame.TechTree[t].ResearchedUpgrades;
             var settings = StrategyGame.GameSettings;
+            var alliance = settings.TeamAlliance[t];
 
-            var ship = new Ship(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team
+            var ship = new Ship(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, 1, sectorId);
             ship.Type = EShipType.Lifepod;
 

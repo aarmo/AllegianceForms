@@ -71,8 +71,8 @@ namespace AllegianceForms.Engine.Map
             if (!Colour1Set) Colour1 = _originalColour;
             if (!Colour2Set) Colour2 = _originalColour;
 
-            CriticalAlert = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1 && _.CanAttackBases());
-            Conflict = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Team != 1 && _.Type != EShipType.Lifepod);
+            CriticalAlert = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Alliance != StrategyGame.GameSettings.TeamAlliance[0] && _.CanAttackBases());
+            Conflict = StrategyGame.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Alliance != StrategyGame.GameSettings.TeamAlliance[0] && _.Type != EShipType.Lifepod);
         }
     }
 }

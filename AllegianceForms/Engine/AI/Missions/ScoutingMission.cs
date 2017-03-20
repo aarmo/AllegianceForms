@@ -16,7 +16,7 @@ namespace AllegianceForms.Engine.AI.Missions
         
         public override bool RequireMorePilots()
         {
-            var numScouts = StrategyGame.Map.Sectors.Count / 2 + 1;
+            var numScouts = StrategyGame.Map.Sectors.Count / 3 + 1;
 
             return IncludedShips.Count < numScouts;
         }

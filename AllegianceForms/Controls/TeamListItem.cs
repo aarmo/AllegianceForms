@@ -13,15 +13,17 @@ namespace AllegianceForms.Controls
         public event TeamChangedHandler TeamChangedEvent;
 
         public int Index { get; set; }
+        public int AllianceIndex { get; set; }
         public int ColourArgb { get; set; }
         public Faction Faction { get; set; }
 
-        public TeamListItem(int index, int colour, Faction faction)
+        public TeamListItem(int index, int colour, Faction faction, int alliance)
         {
             InitializeComponent();
             Index = index;
             ColourArgb = colour;
             Faction = faction;
+            AllianceIndex = alliance;
 
             RefreshTeam();
         }
@@ -31,6 +33,7 @@ namespace AllegianceForms.Controls
             TeamNumber.Text = $"Team {Index}:";
             TeamColour.BackColor = Color.FromArgb(ColourArgb);
             TeamFaction.Text = Faction.Name;
+            AllianceGroup.SelectedIndex = AllianceIndex - 1;
         }
 
         private void TeamColour_Click(object sender, System.EventArgs e)
@@ -78,6 +81,12 @@ namespace AllegianceForms.Controls
         private void OnTeamChanged()
         {
             if (TeamChangedEvent != null) TeamChangedEvent(this);
+        }
+
+        private void AllianceGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AllianceIndex = AllianceGroup.SelectedIndex + 1;
+            OnTeamChanged();
         }
     }
 }
