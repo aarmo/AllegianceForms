@@ -65,5 +65,12 @@ namespace AllegianceForms.Forms
                 if (!f2.IsDisposed) f2.Show(this);
             }
         }
+
+        private void MapDesigner_Click(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mousedown);
+            var f = new MapDesigner();
+            f.ShowDialog(this);
+        }
     }
 }

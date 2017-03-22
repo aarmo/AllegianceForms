@@ -35,6 +35,7 @@
             this.AppVersion = new System.Windows.Forms.Label();
             this.CustomGame = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.MapDesigner = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Skirmish
@@ -56,7 +57,7 @@
             this.Dogfight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Dogfight.Location = new System.Drawing.Point(54, 210);
             this.Dogfight.Name = "Dogfight";
-            this.Dogfight.Size = new System.Drawing.Size(260, 45);
+            this.Dogfight.Size = new System.Drawing.Size(91, 45);
             this.Dogfight.TabIndex = 1;
             this.Dogfight.Text = "Lucky Dogfight";
             this.Dogfight.UseVisualStyleBackColor = true;
@@ -113,6 +114,19 @@
             this.label1.Size = new System.Drawing.Size(369, 156);
             this.label1.TabIndex = 4;
             // 
+            // MapDesigner
+            // 
+            this.MapDesigner.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MapDesigner.Location = new System.Drawing.Point(151, 210);
+            this.MapDesigner.Name = "MapDesigner";
+            this.MapDesigner.Size = new System.Drawing.Size(163, 45);
+            this.MapDesigner.TabIndex = 1;
+            this.MapDesigner.Text = "Map Designer";
+            this.MapDesigner.UseVisualStyleBackColor = true;
+            this.MapDesigner.Click += new System.EventHandler(this.MapDesigner_Click);
+            this.MapDesigner.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.MapDesigner.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,6 +137,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AppVersion);
             this.Controls.Add(this.Exit);
+            this.Controls.Add(this.MapDesigner);
             this.Controls.Add(this.Dogfight);
             this.Controls.Add(this.CustomGame);
             this.Controls.Add(this.Skirmish);
@@ -145,5 +160,6 @@
         private System.Windows.Forms.Label AppVersion;
         private System.Windows.Forms.Button CustomGame;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button MapDesigner;
     }
 }

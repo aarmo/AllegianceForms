@@ -66,11 +66,11 @@ namespace AllegianceForms.Engine
         {
             var s = new GameSettings
             {
-                MapName = GameMaps.RandomName(), // "Brawl",
+                NumTeams = 2,
+                MapName = GameMaps.RandomName(2), // "Brawl",
                 WormholesVisible = false,
                 RocksVisible = false,
 
-                NumTeams = 2,
                 TeamFactions = new[] { Faction.Default(), Faction.Default() },
                 TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1] },
                 TeamAlliance = new[] { 1, 2 },

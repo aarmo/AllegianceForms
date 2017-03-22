@@ -20,28 +20,11 @@ namespace AllegianceForms.Engine.Map
 
             return new[] { "" };
         }
-
-        public static string RandomName()
+        
+        public static string RandomName(int team)
         {
-            switch (StrategyGame.Random.Next(7))
-            {
-                case 0:
-                    return "Grid";
-                case 1:
-                    return "HiHigher";
-                case 2:
-                    return "HiLo";
-                case 3:
-                    return "PinWheel";
-                case 4:
-                    return "DoubleRing";
-                case 5:
-                    return "SingleRing";
-                case 6:
-                    return "Star";
-            }
-
-            return "Brawl";
+            var maps = AvailableMaps(team);
+            return maps[StrategyGame.Random.Next(maps.Length)];
         }
 
         public static GameMap LoadMap(string name, int teams = 2)

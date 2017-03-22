@@ -1,17 +1,19 @@
 ﻿using AllegianceForms.Engine.Rocks;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 namespace AllegianceForms.Engine.Map
-{
+{    
+
     public class GameMap
     {
         public const int WormholeRadius = 325;
         
         public string Name { get; set; }
-        public List<MapSector> Sectors { get; set; }
+        public List<MapSector> Sectors { get; set; }        
         public List<Wormhole> Wormholes { get; set; }
         public Image GridImage { get; set; }
         public EMapSize Size { get; set; }
@@ -99,6 +101,28 @@ namespace AllegianceForms.Engine.Map
             ArrangeWormholes();
             SetupRocks();
             GenerateGraph();
+        }
+
+        public SimpleGameMap ToSimpleMap()
+        {
+            var m = new SimpleGameMap(Name);
+
+            foreach (var s in Sectors)
+            {
+                m.Sectors.Add(new SimpleMapSector(s.Id, s.MapPosition) { StartingSector = s.StartingSector });
+            }
+
+            foreach (var w in Wormholes)
+            {
+                var s1 = w.Sector1.Id;
+                var s2 = w.Sector2.Id;
+
+                if (!m.WormholeIds.Any(_ => (_.FromSectorId == s1 || _.ToSectorId == s1) && (_.FromSectorId == s2 || _.ToSectorId == s2)))
+                {
+                    m.WormholeIds.Add(new WormholeId(s1, s2));
+                }
+            }
+            return m;
         }
 
         private void ArrangeWormholes()
