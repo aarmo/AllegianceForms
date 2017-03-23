@@ -32,7 +32,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_DoubleRing()
         {
-            var target = GameMaps.DoubleRing(2);
+            var target = GameMaps.LoadMap("DoubleRing2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -47,7 +47,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_DoubleRing3()
         {
-            var target = GameMaps.DoubleRing(3);
+            var target = GameMaps.LoadMap("DoubleRing3");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -66,7 +66,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_DoubleRing4()
         {
-            var target = GameMaps.DoubleRing(4);
+            var target = GameMaps.LoadMap("DoubleRing4");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -90,7 +90,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_Grid()
         {
-            var target = GameMaps.Grid();
+            var target = GameMaps.LoadMap("Grid2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -105,7 +105,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_HiHigher()
         {
-            var target = GameMaps.HiHigher();
+            var target = GameMaps.LoadMap("HiHigher2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -120,7 +120,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_HiLo()
         {
-            var target = GameMaps.HiLo();
+            var target = GameMaps.LoadMap("HiLo2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -135,7 +135,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_SingleRing()
         {
-            var target = GameMaps.SingleRing(2);
+            var target = GameMaps.LoadMap("SingleRing2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -150,7 +150,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_SingleRing3()
         {
-            var target = GameMaps.SingleRing(3);
+            var target = GameMaps.LoadMap("SingleRing3");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -169,7 +169,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_SingleRing4()
         {
-            var target = GameMaps.SingleRing(4);
+            var target = GameMaps.LoadMap("SingleRing4");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -193,7 +193,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_PinWheel()
         {
-            var target = GameMaps.PinWheel(2);
+            var target = GameMaps.LoadMap("PinWheel2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -208,7 +208,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_PinWheel3()
         {
-            var target = GameMaps.PinWheel(3);
+            var target = GameMaps.LoadMap("PinWheel3");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -227,7 +227,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_PinWheel4()
         {
-            var target = GameMaps.PinWheel(4);
+            var target = GameMaps.LoadMap("PinWheel4");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -251,7 +251,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors_Star()
         {
-            var target = GameMaps.Star();
+            var target = GameMaps.LoadMap("Star2");
             target.SetVisibilityToTeam(1, true);
 
             var start = target.Sectors.First(_ => _.StartingSector);
@@ -266,7 +266,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestNextWormholeBetweenStartingSectors_Star_Step1()
         {
-            StrategyGame.Map = GameMaps.Star();
+            StrategyGame.Map = GameMaps.LoadMap("Star2");
             StrategyGame.Map.SetVisibilityToTeam(1, true);
 
             GameEntity otherEnd;
@@ -282,7 +282,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestNextWormholeBetweenStartingSectors_Star_Step2()
         {
-            StrategyGame.Map = GameMaps.Star();
+            StrategyGame.Map = GameMaps.LoadMap("Star2");
             StrategyGame.Map.SetVisibilityToTeam(1, true);
 
             GameEntity otherEnd;
@@ -298,7 +298,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestNextWormholesWhenNotVisible()
         {
-            StrategyGame.Map = GameMaps.Star();
+            StrategyGame.Map = GameMaps.LoadMap("Star2");
 
             GameEntity otherEnd;
             var next = StrategyGame.NextWormholeEnd(1, 1, 4, out otherEnd);
@@ -310,7 +310,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestNextWormholesWhenSomeVisible()
         {
-            StrategyGame.Map = GameMaps.Star();
+            StrategyGame.Map = GameMaps.LoadMap("Star2");
             StrategyGame.Map.Sectors[0].VisibleToTeam[0] = true;
             StrategyGame.Map.Sectors[1].VisibleToTeam[0] = true;
             StrategyGame.Map.Sectors[2].VisibleToTeam[0] = true;

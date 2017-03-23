@@ -14,7 +14,7 @@ namespace AllegianceForms.Test.Engine
         {
             StrategyGame.SetupGame(GameSettings.Default());
             StrategyGame.LoadData();
-            StrategyGame.Map = GameMaps.PinWheel(2);
+            StrategyGame.Map = GameMaps.LoadMap("PinWheel2");
         }
 
         [TestMethod]

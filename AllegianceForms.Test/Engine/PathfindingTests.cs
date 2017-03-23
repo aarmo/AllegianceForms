@@ -16,7 +16,7 @@ namespace AllegianceForms.Test.Engine
         public void Setup()
         {
             StrategyGame.SetupGame(GameSettings.Default());
-            _target = GameMaps.PinWheel(2);
+            _target = GameMaps.LoadMap("PinWheel2");
             _target.SetVisibilityToTeam(1, true);
         }
 

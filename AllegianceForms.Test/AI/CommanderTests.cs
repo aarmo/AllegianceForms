@@ -17,8 +17,8 @@ namespace AllegianceForms.Test.AI
         public void Setup()
         {
             StrategyGame.SetupGame(GameSettings.Default());
-            StrategyGame.LoadData();            
-            StrategyGame.Map = GameMaps.PinWheel(2);
+            StrategyGame.LoadData();
+            StrategyGame.Map = GameMaps.LoadMap("PinWheel2");
 
             _target = new CommanderAI(2, Color.Red, null);
         }
