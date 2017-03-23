@@ -159,15 +159,6 @@
             this.MapList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MapList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MapList.FormattingEnabled = true;
-            this.MapList.Items.AddRange(new object[] {
-            "Brawl",
-            "HiLo",
-            "HiHigher",
-            "Star",
-            "Grid",
-            "PinWheel",
-            "DoubleRing",
-            "SingleRing"});
             this.MapList.Location = new System.Drawing.Point(90, 6);
             this.MapList.Name = "MapList";
             this.MapList.Size = new System.Drawing.Size(101, 21);

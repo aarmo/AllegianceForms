@@ -285,7 +285,7 @@ namespace AllegianceForms.Forms
             Clear_Click(sender, e);
 
             var teams = StrategyGame.Random.Next(2, 5);
-            var map = GameMaps.LoadMap(GameMaps.RandomName(teams), teams).ToSimpleMap();
+            var map = GameMaps.LoadMap(GameMaps.RandomName(teams)).ToSimpleMap();
             LoadMap(map);
         }
     }

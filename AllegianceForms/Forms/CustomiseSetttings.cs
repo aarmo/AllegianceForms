@@ -13,15 +13,14 @@ namespace AllegianceForms.Forms
     public partial class CustomiseSetttings : Form
     {
         public GameSettings Settings { get; set; }
-        public const string PresetFolder = ".\\Data\\CustomPresets";
 
         public CustomiseSetttings()
         {
             InitializeComponent();
 
-            if (!Directory.Exists(PresetFolder)) return;
+            if (!Directory.Exists(StrategyGame.GamePresetFolder)) return;
 
-            var presetFiles = Directory.GetFiles(PresetFolder);
+            var presetFiles = Directory.GetFiles(StrategyGame.GamePresetFolder);
             var filenames = (from f in presetFiles
                              select f.Substring(f.LastIndexOf("\\") + 1)).ToArray();
 
@@ -42,6 +41,8 @@ namespace AllegianceForms.Forms
         public void LoadSettings(GameSettings s)
         {
             Settings = s;
+
+            LoadMaps();
 
             MapList.Text = s.MapName;
             Pilots.Value = s.NumPilots;
@@ -473,9 +474,9 @@ namespace AllegianceForms.Forms
 
         private void Save_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(PresetFolder)) Directory.CreateDirectory(PresetFolder);
+            if (!Directory.Exists(StrategyGame.GamePresetFolder)) Directory.CreateDirectory(StrategyGame.GamePresetFolder);
 
-            var filename = PresetFolder + "\\" + CustomPresets.Text;
+            var filename = StrategyGame.GamePresetFolder + "\\" + CustomPresets.Text;
             if (CustomPresets.Text == string.Empty || File.Exists(filename))
             {
                 SoundEffect.Play(ESounds.outofammo);
@@ -489,7 +490,7 @@ namespace AllegianceForms.Forms
 
         private void Load_Click(object sender, EventArgs e)
         {
-            var filename = PresetFolder + "\\" + CustomPresets.Text;
+            var filename = StrategyGame.GamePresetFolder + "\\" + CustomPresets.Text;
             if (CustomPresets.Text == string.Empty || !File.Exists(filename))
             {
                 SoundEffect.Play(ESounds.outofammo);
@@ -602,13 +603,7 @@ namespace AllegianceForms.Forms
         {
             var teams = (int)Teams.Value;
             if (teams == Settings.NumTeams) return;
-
-            var maps = GameMaps.AvailableMaps(teams);
-            var currentMap = MapList.Text;
-            MapList.Items.Clear();
-            MapList.Items.AddRange(maps);
-            MapList.Text = maps.Contains(currentMap) ? currentMap : maps[0];
-
+            
             var oldFactions = Settings.TeamFactions;
             var oldColours = Settings.TeamColours;
             var oldAlliances = Settings.TeamAlliance;
@@ -651,7 +646,18 @@ namespace AllegianceForms.Forms
 
             Settings.NumTeams = teams;
 
+            LoadMaps();
             RefreshStartGame();
+        }
+
+        private void LoadMaps()
+        {
+            var maps = GameMaps.AvailableMaps(Settings.NumTeams);
+            var currentMap = MapList.Text;
+            MapList.Items.Clear();
+            MapList.Items.AddRange(maps);
+            MapList.Text = maps.Contains(currentMap) ? currentMap : maps[0];
+
         }
 
         private void Ctl_TeamChangedEvent(TeamListItem sender)

@@ -103,6 +103,20 @@ namespace AllegianceForms.Engine.Map
             GenerateGraph();
         }
 
+        public static GameMap FromSimpleMap(SimpleGameMap map)
+        {
+            var m = new GameMap
+            {
+                Name = map.Name,
+                Sectors = map.Sectors.Select(_ => new MapSector(_.Id, GameMaps.SectorNames.NextString, _.MapPosition) { StartingSector = _.StartingSector }).ToList()
+            };
+
+            m.Wormholes = map.WormholeIds.Select(_ => new Wormhole(m.Sectors[_.FromSectorId], m.Sectors[_.ToSectorId])).ToList();
+
+            m.InitialiseMap();
+            return m;
+        }
+
         public SimpleGameMap ToSimpleMap()
         {
             var m = new SimpleGameMap(Name);

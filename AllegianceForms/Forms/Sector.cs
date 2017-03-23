@@ -55,7 +55,7 @@ namespace AllegianceForms.Forms
 
             StrategyGame.SetupGame(settings);
             StrategyGame.LoadData();
-            StrategyGame.Map = GameMaps.LoadMap(settings.MapName, settings.NumTeams);
+            StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
 
             var startSectors = StrategyGame.Map.Sectors.Where(_ => _.StartingSector).ToList();
             if (StrategyGame.Map.Name == "Brawl") startSectors.Add(startSectors[0]);
@@ -94,6 +94,7 @@ namespace AllegianceForms.Forms
             {
                 var team = t + 1;
                 var startingSector = startSectors[t];
+                if (StrategyGame.NumTeams == 2 && startSectors.Count == 4 && t == 1) startingSector = startSectors[2];
                 var teamColour = Color.FromArgb(StrategyGame.GameSettings.TeamColours[t]);
                 var aiPlayer = t != 0;
 
