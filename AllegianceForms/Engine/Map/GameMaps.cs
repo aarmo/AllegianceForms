@@ -15,6 +15,7 @@ namespace AllegianceForms.Engine.Map
         public const int SectorRadius = 10;
         public const int SectorDiameter = 20;
         public const int SectorSpacing = 30;
+        public const int MapPadding = 10;
 
         private static string[][] GetMapFiles()
         {
@@ -61,7 +62,7 @@ namespace AllegianceForms.Engine.Map
             var map = new GameMap
             {
                 Name = "Brawl",
-                Sectors = new List<MapSector> { new MapSector(0, SectorNames.NextString, new Point(0, 0)) { StartingSector = true } },
+                Sectors = new List<MapSector> { new MapSector(0, SectorNames.NextString, new Point(0, 0)) { StartingSector = 1 } },
                 Wormholes = new List<Wormhole>()
             };
             map.InitialiseMap();

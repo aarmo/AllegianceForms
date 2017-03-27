@@ -39,10 +39,10 @@ namespace AllegianceForms.Engine.Map
             {
                 if (!w.End1.VisibleToTeam[0] || !w.End2.VisibleToTeam[0]) continue;
 
-                var x1 = w.Sector1.MapPosition.X * GameMaps.SectorSpacing + GameMaps.SectorRadius;
-                var y1 = w.Sector1.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.SectorRadius;
-                var x2 = w.Sector2.MapPosition.X * GameMaps.SectorSpacing + GameMaps.SectorRadius;
-                var y2 = w.Sector2.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.SectorRadius;
+                var x1 = w.Sector1.MapPosition.X * GameMaps.SectorSpacing + GameMaps.SectorRadius + GameMaps.MapPadding;
+                var y1 = w.Sector1.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.SectorRadius + GameMaps.MapPadding;
+                var x2 = w.Sector2.MapPosition.X * GameMaps.SectorSpacing + GameMaps.SectorRadius + GameMaps.MapPadding;
+                var y2 = w.Sector2.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.SectorRadius + GameMaps.MapPadding;
 
                 g.DrawLine(_wormholePen, x1, y1, x2, y2);
             }
@@ -50,8 +50,8 @@ namespace AllegianceForms.Engine.Map
             foreach(var s in Sectors)
             {
                 if (!s.VisibleToTeam[0]) continue;
-                var xs = s.MapPosition.X * GameMaps.SectorSpacing;
-                var ys = s.MapPosition.Y * GameMaps.SectorSpacing;
+                var xs = s.MapPosition.X * GameMaps.SectorSpacing + GameMaps.MapPadding;
+                var ys = s.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.MapPadding;
                 var pen = sectorId == s.Id ? _currentSectorPen : _sectorPen;
 
                 g.FillEllipse(s.Colour1, xs, ys, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
@@ -103,15 +103,32 @@ namespace AllegianceForms.Engine.Map
             GenerateGraph();
         }
 
-        public static GameMap FromSimpleMap(SimpleGameMap map)
+        public static GameMap FromSimpleMap(SimpleGameMap map, bool preview = false)
         {
             var m = new GameMap
             {
                 Name = map.Name,
-                Sectors = map.Sectors.Select(_ => new MapSector(_.Id, GameMaps.SectorNames.NextString, _.MapPosition) { StartingSector = _.StartingSector }).ToList()
+                Sectors = map.Sectors.Select(_ => new MapSector(_.Id, GameMaps.SectorNames.NextString, _.MapPosition) { StartingSector = _.StartingSectorTeam}).ToList()
             };
 
             m.Wormholes = map.WormholeIds.Select(_ => new Wormhole(m.Sectors[_.FromSectorId], m.Sectors[_.ToSectorId])).ToList();
+
+            if (preview)
+            {
+                foreach(var s in m.Sectors)
+                {
+                    s.VisibleToTeam[0] = true;
+                    if (s.StartingSector > 0)
+                    {
+                        s.Colour1 = new SolidBrush(Color.FromArgb(GameSettings.DefaultTeamColours[s.StartingSector - 1]));
+                    }
+                }
+
+                foreach ( var w in m.Wormholes)
+                {
+                    w.SetVisibleToTeam(1, true);
+                }
+            }
 
             m.InitialiseMap();
             return m;
@@ -123,7 +140,7 @@ namespace AllegianceForms.Engine.Map
 
             foreach (var s in Sectors)
             {
-                m.Sectors.Add(new SimpleMapSector(s.Id, s.MapPosition) { StartingSector = s.StartingSector });
+                m.Sectors.Add(new SimpleMapSector(s.Id, s.MapPosition) { StartingSectorTeam = s.StartingSector });
             }
 
             foreach (var w in Wormholes)

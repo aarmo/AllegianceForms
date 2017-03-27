@@ -10,7 +10,7 @@ namespace AllegianceForms.Engine.Map
         public string Name { get; set; }
         public Point MapPosition { get; set; }
         public bool[] VisibleToTeam { get; set; }
-        public bool StartingSector { get; set; }
+        public int StartingSector { get; set; }
         public Rectangle Bounds => new Rectangle(MapPosition.X * GameMaps.SectorSpacing, MapPosition.Y * GameMaps.SectorSpacing, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
 
         public bool Conflict { get; set; }

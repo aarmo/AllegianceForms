@@ -39,13 +39,16 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.Preset = new System.Windows.Forms.Button();
+            this.Preview = new System.Windows.Forms.Button();
+            this.MapPicture = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.MapPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // MapPanel
             // 
             this.MapPanel.BackColor = System.Drawing.Color.Transparent;
             this.MapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MapPanel.Location = new System.Drawing.Point(51, 28);
+            this.MapPanel.Location = new System.Drawing.Point(80, 28);
             this.MapPanel.Name = "MapPanel";
             this.MapPanel.Size = new System.Drawing.Size(200, 200);
             this.MapPanel.TabIndex = 0;
@@ -59,7 +62,7 @@
             this.SectorLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SectorLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SectorLabel.ForeColor = System.Drawing.Color.Black;
-            this.SectorLabel.Location = new System.Drawing.Point(27, 154);
+            this.SectorLabel.Location = new System.Drawing.Point(2, 164);
             this.SectorLabel.Name = "SectorLabel";
             this.SectorLabel.Size = new System.Drawing.Size(22, 24);
             this.SectorLabel.TabIndex = 0;
@@ -73,7 +76,7 @@
             this.Open.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Open.Location = new System.Drawing.Point(2, 2);
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(47, 39);
+            this.Open.Size = new System.Drawing.Size(72, 39);
             this.Open.TabIndex = 1;
             this.Open.Text = "Open";
             this.Open.UseVisualStyleBackColor = true;
@@ -87,7 +90,7 @@
             this.Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Save.Location = new System.Drawing.Point(2, 47);
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(47, 39);
+            this.Save.Size = new System.Drawing.Size(72, 39);
             this.Save.TabIndex = 2;
             this.Save.Text = "Save";
             this.Save.UseVisualStyleBackColor = true;
@@ -99,9 +102,9 @@
             // MapName
             // 
             this.MapName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MapName.Location = new System.Drawing.Point(130, 2);
+            this.MapName.Location = new System.Drawing.Point(145, 2);
             this.MapName.Name = "MapName";
-            this.MapName.Size = new System.Drawing.Size(121, 20);
+            this.MapName.Size = new System.Drawing.Size(135, 20);
             this.MapName.TabIndex = 3;
             // 
             // label1
@@ -109,7 +112,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(62, 5);
+            this.label1.Location = new System.Drawing.Point(77, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 3;
@@ -120,7 +123,7 @@
             this.Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Clear.Location = new System.Drawing.Point(2, 92);
             this.Clear.Name = "Clear";
-            this.Clear.Size = new System.Drawing.Size(47, 27);
+            this.Clear.Size = new System.Drawing.Size(72, 27);
             this.Clear.TabIndex = 2;
             this.Clear.Text = "Clear";
             this.Clear.UseVisualStyleBackColor = true;
@@ -140,9 +143,9 @@
             // Preset
             // 
             this.Preset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Preset.Location = new System.Drawing.Point(2, 181);
+            this.Preset.Location = new System.Drawing.Point(2, 191);
             this.Preset.Name = "Preset";
-            this.Preset.Size = new System.Drawing.Size(47, 47);
+            this.Preset.Size = new System.Drawing.Size(72, 37);
             this.Preset.TabIndex = 2;
             this.Preset.Text = "Rnd Preset";
             this.Preset.UseVisualStyleBackColor = true;
@@ -152,13 +155,39 @@
             this.Preset.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.Preset.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // Preview
+            // 
+            this.Preview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Preview.Location = new System.Drawing.Point(286, 2);
+            this.Preview.Name = "Preview";
+            this.Preview.Size = new System.Drawing.Size(72, 39);
+            this.Preview.TabIndex = 2;
+            this.Preview.Text = "Preview";
+            this.Preview.UseVisualStyleBackColor = true;
+            this.Preview.Click += new System.EventHandler(this.Preview_Click);
+            this.Preview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MapDesigner_KeyDown);
+            this.Preview.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Preview.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
+            // MapPicture
+            // 
+            this.MapPicture.Location = new System.Drawing.Point(286, 4);
+            this.MapPicture.Name = "MapPicture";
+            this.MapPicture.Size = new System.Drawing.Size(230, 225);
+            this.MapPicture.TabIndex = 4;
+            this.MapPicture.TabStop = false;
+            this.MapPicture.Visible = false;
+            this.MapPicture.Click += new System.EventHandler(this.MapPicture_Click);
+            // 
             // MapDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(254, 230);
+            this.ClientSize = new System.Drawing.Size(520, 233);
+            this.Controls.Add(this.Preview);
+            this.Controls.Add(this.MapPicture);
             this.Controls.Add(this.SectorLabel);
             this.Controls.Add(this.MapPanel);
             this.Controls.Add(this.label1);
@@ -178,6 +207,7 @@
             this.Text = "Map Designer";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MapDesigner_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MapDesigner_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.MapPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,5 +225,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button Preset;
+        private System.Windows.Forms.Button Preview;
+        private System.Windows.Forms.PictureBox MapPicture;
     }
 }

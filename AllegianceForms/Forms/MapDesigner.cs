@@ -100,8 +100,17 @@ namespace AllegianceForms.Forms
 
             switch (keyData)
             {
-                case Keys.Q:
-                    _selectedSector.Text = (_selectedSector.Text == string.Empty ? "O" : string.Empty);
+                case Keys.S:
+                case Keys.Down:
+                    _selectedSector.Top += SectorLabel.Height;
+                    DrawPaths();
+                    return true;
+                    
+                case Keys.D1:
+                case Keys.D2:
+                case Keys.D3:
+                case Keys.D4:
+                    _selectedSector.Text = (_selectedSector.Text == string.Empty ? keyData.ToString().Replace("D", string.Empty) : string.Empty);
                     return true;
 
                 case Keys.Left:
@@ -119,12 +128,6 @@ namespace AllegianceForms.Forms
                 case Keys.Up:
                 case Keys.W:
                     _selectedSector.Top -= SectorLabel.Height;
-                    DrawPaths();
-                    return true;
-
-                case Keys.Down:
-                case Keys.S:
-                    _selectedSector.Top += SectorLabel.Height;
                     DrawPaths();
                     return true;
 
@@ -189,10 +192,10 @@ namespace AllegianceForms.Forms
             DrawPaths();
         }
 
-        private void Save_Click(object sender, EventArgs e)
+        private SimpleGameMap CreateMap()
         {
             var map = new SimpleGameMap(MapName.Text);
-            
+
             for (var i = 0; i < MapPanel.Controls.Count; i++)
             {
                 var lbl = MapPanel.Controls[i] as Label;
@@ -201,7 +204,7 @@ namespace AllegianceForms.Forms
                 var x = lbl.Left / SectorLabel.Width;
                 var y = lbl.Top / SectorLabel.Height;
                 var s = new SimpleMapSector(i, new Point(x, y));
-                s.StartingSector = lbl.Text != string.Empty;
+                s.StartingSectorTeam = lbl.Text != string.Empty ? Convert.ToInt16(lbl.Text) : 0;
                 map.Sectors.Add(s);
 
                 lbl.Tag = i;
@@ -214,6 +217,13 @@ namespace AllegianceForms.Forms
                 var w = new WormholeId(from, to);
                 map.WormholeIds.Add(w);
             }
+
+            return map;
+        }
+
+        private void Save_Click(object sender, EventArgs e)
+        {
+            var map = CreateMap();            
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -241,7 +251,7 @@ namespace AllegianceForms.Forms
             foreach (var s in map.Sectors)
             {
                 var l = AddSector(s.MapPosition.X, s.MapPosition.Y);
-                l.Text = s.StartingSector ? "O" : string.Empty;
+                l.Text = s.StartingSectorTeam != 0  ? s.StartingSectorTeam.ToString() : string.Empty;
             }
 
             foreach (var w in map.WormholeIds)
@@ -287,6 +297,33 @@ namespace AllegianceForms.Forms
             var teams = StrategyGame.Random.Next(2, 5);
             var map = GameMaps.LoadMap(GameMaps.RandomName(teams)).ToSimpleMap();
             LoadMap(map);
+        }
+
+        private void Preview_Click(object sender, EventArgs e)
+        {
+            var map = CreateMap();
+            StrategyGame.NumTeams = map.Sectors.Count(_ => _.StartingSectorTeam > 0);
+            var gameMap = GameMap.FromSimpleMap(map, true);
+
+            var i = new Bitmap(MapPicture.Width, MapPicture.Height);
+            var g = Graphics.FromImage(i);
+            gameMap.Draw(g, -1);
+
+            MapPicture.Image = i;
+            MapPicture.Visible = true;
+            Preview.Visible = false;
+            /*
+            StrategyGame.Map = gameMap;
+            var f = new Map();
+            f.ShowDialog(this);
+            */
+        }
+
+        private void MapPicture_Click(object sender, EventArgs e)
+        {
+            MapPicture.Visible = false;
+            Preview.Visible = true;
+            MapPicture.Image = null;
         }
     }
 

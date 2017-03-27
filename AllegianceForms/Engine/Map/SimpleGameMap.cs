@@ -33,7 +33,7 @@ namespace AllegianceForms.Engine.Map
     {
         public int Id { get; set; }
         public Point MapPosition { get; set; }
-        public bool StartingSector { get; set; }
+        public int StartingSectorTeam { get; set; }
 
         public SimpleMapSector(int id, Point pos)
         {

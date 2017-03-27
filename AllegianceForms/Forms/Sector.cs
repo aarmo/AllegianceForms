@@ -57,7 +57,10 @@ namespace AllegianceForms.Forms
             StrategyGame.LoadData();
             StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
 
-            var startSectors = StrategyGame.Map.Sectors.Where(_ => _.StartingSector).ToList();
+            var startSectors = (from s in StrategyGame.Map.Sectors
+                                where s.StartingSector != 0
+                                orderby s.StartingSector
+                                select s).ToList();
             if (StrategyGame.Map.Name == "Brawl") startSectors.Add(startSectors[0]);
 
             if (startSectors.Count < StrategyGame.NumTeams && (StrategyGame.Map.Name != "Brawl" || StrategyGame.NumTeams > 2))
@@ -85,16 +88,14 @@ namespace AllegianceForms.Forms
             _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
             _sensorBrush = new SolidBrush(StrategyGame.NewAlphaColour(5, _colourTeam1));
             _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
-            _currentSector = StrategyGame.Map.Sectors.First(_ => _.StartingSector);
+            _currentSector = startSectors[0];
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
-
-
+            
             // Friendy & enemy team setup:
             for (var t = 0; t < StrategyGame.NumTeams; t++)
             {
                 var team = t + 1;
                 var startingSector = startSectors[t];
-                if (StrategyGame.NumTeams == 2 && startSectors.Count == 4 && t == 1) startingSector = startSectors[2];
                 var teamColour = Color.FromArgb(StrategyGame.GameSettings.TeamColours[t]);
                 var aiPlayer = t != 0;
 

@@ -1,1 +1,1 @@
-{"Name":"Brawl","Sectors":[{"Id":0,"MapPosition":"0, 0","StartingSector":true}],"WormholeIds":[]}
+{"Name":"Brawl","Sectors":[{"Id":0,"MapPosition":"0, 0","StartingSectorTeam":1}],"WormholeIds":[]}
