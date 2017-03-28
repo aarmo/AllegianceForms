@@ -303,6 +303,8 @@ namespace AllegianceForms.Forms
         {
             var map = CreateMap();
             StrategyGame.NumTeams = map.Sectors.Count(_ => _.StartingSectorTeam > 0);
+            if (StrategyGame.NumTeams == 0) return;
+
             var gameMap = GameMap.FromSimpleMap(map, true);
 
             var i = new Bitmap(MapPicture.Width, MapPicture.Height);
