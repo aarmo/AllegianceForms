@@ -21,8 +21,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.Brawl();
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -35,8 +35,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("DoubleRing2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -50,9 +50,9 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("DoubleRing3");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var mid = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var mid = target.Sectors.Where(_ => _.StartingSector != 0).Skip(1).First();
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path1 = target.ShortestPath(1, start.Id, end.Id);
             path1.ShouldNotBeNull();
@@ -69,10 +69,10 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("DoubleRing4");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var mid2 = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
-            var mid3 = target.Sectors.Where(_ => _.StartingSector).Skip(2).First();
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var mid2 = target.Sectors.Where(_ => _.StartingSector != 0).Skip(1).First();
+            var mid3 = target.Sectors.Where(_ => _.StartingSector != 0).Skip(2).First();
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path1 = target.ShortestPath(1, start.Id, end.Id);
             path1.ShouldNotBeNull();
@@ -93,8 +93,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("Grid2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -108,8 +108,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("HiHigher2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -123,8 +123,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("HiLo2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -138,8 +138,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("SingleRing2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -153,9 +153,9 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("SingleRing3");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var mid = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var mid = target.Sectors.Where(_ => _.StartingSector != 0).Skip(1).First();
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path1 = target.ShortestPath(1, start.Id, end.Id);
             path1.ShouldNotBeNull();
@@ -172,10 +172,10 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("SingleRing4");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var mid2 = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
-            var mid3 = target.Sectors.Where(_ => _.StartingSector).Skip(2).First();
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var mid2 = target.Sectors.Where(_ => _.StartingSector != 0).Skip(1).First();
+            var mid3 = target.Sectors.Where(_ => _.StartingSector != 0).Skip(2).First();
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path1 = target.ShortestPath(1, start.Id, end.Id);
             path1.ShouldNotBeNull();
@@ -196,8 +196,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("PinWheel2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 
@@ -211,9 +211,9 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("PinWheel3");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var mid = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var mid = target.Sectors.Where(_ => _.StartingSector != 0).Skip(1).First();
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path1 = target.ShortestPath(1, start.Id, end.Id);
             path1.ShouldNotBeNull();
@@ -230,10 +230,10 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("PinWheel4");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var mid2 = target.Sectors.Where(_ => _.StartingSector).Skip(1).First();
-            var mid3 = target.Sectors.Where(_ => _.StartingSector).Skip(2).First();
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var mid2 = target.Sectors.Where(_ => _.StartingSector != 0).Skip(1).First();
+            var mid3 = target.Sectors.Where(_ => _.StartingSector != 0).Skip(2).First();
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path1 = target.ShortestPath(1, start.Id, end.Id);
             path1.ShouldNotBeNull();
@@ -254,8 +254,8 @@ namespace AllegianceForms.Test.Engine
             var target = GameMaps.LoadMap("Star2");
             target.SetVisibilityToTeam(1, true);
 
-            var start = target.Sectors.First(_ => _.StartingSector);
-            var end = target.Sectors.Last(_ => _.StartingSector);
+            var start = target.Sectors.First(_ => _.StartingSector != 0);
+            var end = target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = target.ShortestPath(1, start.Id, end.Id);
 

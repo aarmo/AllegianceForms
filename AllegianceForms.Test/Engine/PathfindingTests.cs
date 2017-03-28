@@ -23,8 +23,8 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void TestPathBetweenStartingSectors()
         {
-            var start = _target.Sectors.First(_ => _.StartingSector);
-            var end = _target.Sectors.Last(_ => _.StartingSector);
+            var start = _target.Sectors.First(_ => _.StartingSector != 0);
+            var end = _target.Sectors.Last(_ => _.StartingSector != 0);
 
             var path = _target.ShortestPath(1, start.Id, end.Id);
             path.ShouldNotBeNull();
