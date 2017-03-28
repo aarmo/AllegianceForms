@@ -1,0 +1,1 @@
+{"Name":"Spine","Sectors":[{"Id":0,"MapPosition":"0, 0","StartingSectorTeam":1},{"Id":1,"MapPosition":"2, 0","StartingSectorTeam":0},{"Id":2,"MapPosition":"3, 0","StartingSectorTeam":0},{"Id":3,"MapPosition":"5, 0","StartingSectorTeam":2}],"WormholeIds":[{"FromSectorId":3,"ToSectorId":2},{"FromSectorId":2,"ToSectorId":1},{"FromSectorId":0,"ToSectorId":1}]}

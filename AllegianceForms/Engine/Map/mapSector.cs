@@ -11,7 +11,7 @@ namespace AllegianceForms.Engine.Map
         public Point MapPosition { get; set; }
         public bool[] VisibleToTeam { get; set; }
         public int StartingSector { get; set; }
-        public Rectangle Bounds => new Rectangle(MapPosition.X * GameMaps.SectorSpacing, MapPosition.Y * GameMaps.SectorSpacing, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
+        public Rectangle Bounds => new Rectangle(MapPosition.X * GameMaps.SectorSpacing + GameMaps.MapPadding, MapPosition.Y * GameMaps.SectorSpacing + GameMaps.MapPadding, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
 
         public bool Conflict { get; set; }
         public bool CriticalAlert { get; set; }
