@@ -3,7 +3,7 @@
 <br/>
 <a href="https://ci.appveyor.com/project/aarmo/allegianceforms"><img src="https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true"/></a>
 <a href="https://github.com/aarmo/AllegianceForms/releases"><img src="https://img.shields.io/badge/release-v0.2%20alpha-green.svg"/></a>
-<a href="https://github.com/aarmo/AllegianceForms/blob/master/Doc/Roadmap.md"><img src="https://img.shields.io/badge/release-v0.3%20alpha-lightgrey.svg"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/projects/1"><img src="https://img.shields.io/badge/release-v1.0%20alpha-yellow.svg"/></a>
 <a href="https://github.com/aarmo/AllegianceForms/issues"><img src="https://img.shields.io/github/issues/aarmo/AllegianceForms.svg"/></a>
 <img src="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/Doc/Images/contributions-welcome-brightgreen.png"/>
 <a href="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/LICENSE"><img src="https://img.shields.io/badge/license-AGPL-brightgreen.svg"/></a>
