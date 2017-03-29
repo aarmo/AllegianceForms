@@ -20,6 +20,7 @@ namespace AllegianceForms.Engine.Weapons
         public Pen SmokePen1 { get; set; }
         public Pen SmokePen2 { get; set; }
         public Ship Target { get; set; }
+        public int Team { get; set; }
 
         public float Damage { get; set; }
 
@@ -27,7 +28,7 @@ namespace AllegianceForms.Engine.Weapons
 
         private int _expireTicks;
 
-        public MissileProjectile(int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target)
+        public MissileProjectile(int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target, int team)
         {
             SectorId = sectorId;
             Heading = heading;
@@ -42,6 +43,7 @@ namespace AllegianceForms.Engine.Weapons
             SmokePen2 = smoke2;
             Active = true;
             Target = target;
+            Team = team;
         }
 
         public virtual void Draw(Graphics g)
@@ -98,7 +100,7 @@ namespace AllegianceForms.Engine.Weapons
             // check for collisions
             if (Target != null && Target.Active && Target.Bounds.Contains(Center))
             {
-                Target.Damage(Damage);
+                Target.Damage(Damage, Team);
                 StrategyGame.OnGameEvent(Target, EGameEventType.MissileHit);
                 Active = false;
             }

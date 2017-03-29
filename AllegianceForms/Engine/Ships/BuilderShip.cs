@@ -21,7 +21,7 @@ namespace AllegianceForms.Engine.Ships
 
         private DateTime _buildingStart = DateTime.MinValue;
         private DateTime _buildingStop = DateTime.MaxValue;
-        private DateTime _callNext = DateTime.MinValue;
+        private int _callNext = 80;
 
         private int _currentBuildingGlowHalfSize = StartBuildingGlowSize / 2;
 
@@ -92,6 +92,7 @@ namespace AllegianceForms.Engine.Ships
         {
             if (!Active) return;
             base.Update(currentSectorId);
+            _callNext--;
 
             if (_buildingStop < DateTime.Now)
             {
@@ -106,15 +107,14 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Damage(float amount)
+        public override void Damage(float amount, int senderTeam)
         {
             if (Building) return;
+            base.Damage(amount, senderTeam);
 
-            base.Damage(amount);
-
-            if (Team == 1 && !Docked && DateTime.Now > _callNext)
+            if (Team == 1 && !Docked && _callNext <= 0)
             {
-                _callNext = DateTime.Now.AddSeconds(4);
+                _callNext = 80;
                 StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
                 SoundEffect.Play(ESounds.vo_miner_underattack, true);
             }

@@ -99,4 +99,74 @@ namespace AllegianceForms.Engine
             }
         }
     }
+
+    public class GameUnit : GameEntity
+    {
+        public float Health { get; set; }
+        public float MaxHealth { get; set; }
+        public float Shield { get; set; }
+        public float MaxShield { get; set; }
+
+        public GameUnit(string imageFilename, int width, int height, float health, int sectorId) : base(imageFilename, width, height, sectorId)
+        {
+            MaxHealth = Health = MaxShield = Shield = health;
+        }
+
+        public virtual void Update(int currentSectorId)
+        {
+            if (!Active) return;
+            if (Shield < MaxShield)
+            {
+                Shield += 0.1f;
+            }
+        }
+
+        protected void DrawHealthBar(Graphics g, int t, Rectangle b)
+        {
+            g.FillRectangle(StrategyGame.ShieldBrush, b.Left, b.Bottom + 3, (Shield / MaxShield) * b.Width, 3);
+            g.FillRectangle(StrategyGame.TeamBrushes[t], b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);
+            g.DrawRectangle(StrategyGame.HealthBorderPen, b.Left, b.Bottom + 3, b.Width, 6);
+        }
+
+        public virtual void Damage(float amount, int senderTeam)
+        {
+            if (!Active) return;
+
+            if (amount > 0)
+            {
+                if (Shield - amount < 0)
+                {
+                    amount -= Shield;
+                    Shield = 0;
+                }
+                else
+                {
+                    Shield -= amount;
+                    return;
+                }
+
+                if (Health - amount <= 0)
+                {
+                    // Dead!
+                    Health = 0;
+                    Active = false;
+                }
+                else
+                {
+                    Health -= amount;
+                }
+            }
+            else
+            {
+                if (Health - amount >= MaxHealth)
+                {
+                    Health = MaxHealth;
+                }
+                else
+                {
+                    Health -= amount;
+                }
+            }
+        }
+    }
 }

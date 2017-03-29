@@ -16,7 +16,7 @@ namespace AllegianceForms.Engine.Weapons
             var ship = Target as Ship;
             if (ship != null && Shooter.SectorId == Target.SectorId)
             {
-                ship.Damage(WeaponDamage);
+                ship.Damage(WeaponDamage, Shooter.Team);
                 if (!ship.Active) Target = null;
             }
         }

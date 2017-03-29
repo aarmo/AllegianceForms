@@ -22,6 +22,7 @@ namespace AllegianceForms.Engine.AI.Missions
             AI = ai;
             IncludedShips = new List<Ship>();
             RecentOrders = new List<DateTime>();
+            _shipHandler = shipHandler;
         }
         
         public virtual void UpdateMission()

@@ -1,11 +1,10 @@
 ﻿using AllegianceForms.Engine.Ships;
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace AllegianceForms.Engine.Bases
 {
-    public class Base : GameEntity
+    public class Base : GameUnit
     {
         public delegate void BaseEventHandler(Base sender, EBaseEventType e, int senderTeam);
         public event BaseEventHandler BaseEvent;
@@ -13,21 +12,15 @@ namespace AllegianceForms.Engine.Bases
         public EBaseType Type { get; set; }
         public int Team { get; set; }
         public int Alliance { get; set; }
-        public Brush TeamColor { get; set; }
         public bool Selected { get; set; }
-        public Pen SelectedPen { get; set; }
-        public Pen BorderPen { get; set; }
-        public float Health { get; set; }
         public PointF BuildPosition { get; set; }
         public float ScanRange { get; set; }
-
-        private float _maxHealth;
+                
         private int _offsetCount = 0;
         private PointF _lastBuildPos = Point.Empty;
         private PointF _nextBuildOffset = Point.Empty;
         private DateTime _offsetClear = DateTime.MinValue;
         private TimeSpan _offsetDelay = new TimeSpan(0, 0, 2);
-        private Brush _textColor;
 
         public Base(EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
             : this(string.Empty, type, width, height, teamColor, team, alliance, health, sectorId)
@@ -35,17 +28,12 @@ namespace AllegianceForms.Engine.Bases
         }
 
         protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
-            : base(string.Empty, width, height, sectorId)
+            : base(string.Empty, width, height, health, sectorId)
         {
             Type = type;
-            _maxHealth = Health = health;
             Team = team;
             Alliance = alliance;
             VisibleToTeam[team - 1] = true;
-            TeamColor = new SolidBrush(teamColor);
-            _textColor = new SolidBrush(PerceivedBrightness(teamColor) > 130 ? Color.Black : Color.White);
-            SelectedPen = new Pen(teamColor, 1) { DashStyle = DashStyle.Dot };
-            BorderPen = new Pen(Color.Gray, 2);
             ScanRange = 500;
         }
 
@@ -84,21 +72,20 @@ namespace AllegianceForms.Engine.Bases
         {
             Team = capturedBy.Team;
             Alliance = capturedBy.Alliance;
-            TeamColor = (Brush) capturedBy.TeamColor.Clone();
-            SelectedPen = (Pen) capturedBy.SelectedPen.Clone();
             OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);
         } 
 
-        public virtual void Update(int currentSectorId)
+        public override void Update(int currentSectorId)
         {
-            if (!CanLaunchShips()) return;
+            if (!Active) return;
+            base.Update(currentSectorId);
 
+            if (!CanLaunchShips()) return;
             if (BuildPosition == Point.Empty)
             {
                 var p = CenterPoint;
                 _lastBuildPos = BuildPosition = new PointF(p.X + 100, p.Y);
             }
-
             if (DateTime.Now > _offsetClear)
             {
                 _nextBuildOffset = Point.Empty;
@@ -107,44 +94,36 @@ namespace AllegianceForms.Engine.Bases
             }
         }
 
-        private int PerceivedBrightness(Color c)
-        {
-            return (int)Math.Sqrt(
-            c.R * c.R * .299 +
-            c.G * c.G * .587 +
-            c.B * c.B * .114);
-        }
-
         public override void Draw(Graphics g, int currentSectorId)
         {
             if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
 
             var b = BoundsI;
-            g.FillRectangle(TeamColor, b);
-            g.DrawRectangle(BorderPen, b);
-
-            var rect = BoundsI;
-            StrategyGame.DrawCenteredText(g, _textColor, Type.ToString(), rect);
+            var t = Team - 1;
+            g.FillRectangle(StrategyGame.TeamBrushes[t], b);
+            g.DrawRectangle(StrategyGame.BaseBorderPen, b);
+            StrategyGame.DrawCenteredText(g, StrategyGame.TextBrushes[t], Type.ToString(), b);
+            
+            DrawHealthBar(g, t, b);
 
             if (Selected)
             {
-                g.DrawRectangle(SelectedPen, b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
-
-                if (CanLaunchShips()) g.DrawLine(SelectedPen, CenterX, CenterY, BuildPosition.X, BuildPosition.Y);
+                g.DrawRectangle(StrategyGame.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
+                if (CanLaunchShips()) g.DrawLine(StrategyGame.SelectedPens[t], CenterX, CenterY, BuildPosition.X, BuildPosition.Y);
             }
         }
 
-        public virtual void Damage(float amount, int senderTeam)
+        public override void Damage(float amount, int senderTeam)
         {
-            if (Health - amount <= 0)
+            base.Damage(amount, senderTeam);
+
+            if (!Active)
             {
                 // Dead!
-                Active = false;
                 OnBaseEvent(EBaseEventType.BaseDestroyed, senderTeam);
             }
-            else
+            else if (senderTeam != Team)
             {
-                Health -= amount;
                 OnBaseEvent(EBaseEventType.BaseDamaged, senderTeam);
             }
         }

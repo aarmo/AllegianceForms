@@ -86,6 +86,7 @@
     <Compile Include="Engine\MineAsteroidTests.cs" />
     <Compile Include="Engine\SettingsAppliedTests.cs" />
     <Compile Include="Engine\FactionAppliedTests.cs" />
+    <Compile Include="Engine\ShieldDamageTests.cs" />
     <Compile Include="Engine\ShipDamageTests.cs" />
     <Compile Include="Engine\TechItemTests.cs" />
     <Compile Include="Faction\RandomFactionTests.cs" />

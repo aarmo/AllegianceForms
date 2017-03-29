@@ -26,7 +26,7 @@ namespace AllegianceForms.Engine.Ships
         private float _lastHealth = float.MinValue;
         private int _nextHealthCheck = 0;
         private int _healthCheckDelay = 20;
-        private int _callNext = 0;
+        private int _callNext = 80;
 
         public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
             : base(imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
@@ -42,25 +42,25 @@ namespace AllegianceForms.Engine.Ships
             MaxResourceCapacity = 100;
         }
 
-        public override void Damage(float amount)
+        public override void Damage(float amount, int senderTeam)
         {
-            base.Damage(amount);
-            _callNext--;
+            base.Damage(amount, senderTeam);
 
-            if (Team == 1 && !Docked && Type == EShipType.Miner && Health < 0.65f * MaxHealth && _callNext <= 0)
+            if (!Docked && Type == EShipType.Miner && Health < 0.65f * MaxHealth && _callNext <= 0)
             {
-                SoundEffect.Play(ESounds.vo_sal_minercritical, true);
+                if (Team == 1) SoundEffect.Play(ESounds.vo_sal_minercritical, true);
                 OrderShip(new DockOrder(this));
                 _callNext = 80;
             }
 
-            if (Team == 1 && !Docked && _callNext <= 0)
+            if (!Docked && _callNext <= 0)
             {
                 _callNext = 80;
-
-                StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
-
-                SoundEffect.Play(ESounds.vo_miner_underattack, true);
+                if (Team == 1)
+                {
+                    StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
+                    SoundEffect.Play(ESounds.vo_miner_underattack, true);
+                }
             }
         }
 

@@ -52,14 +52,15 @@ namespace AllegianceForms.Engine.Map
 
             foreach (var b in visibleBases)
             {
+                var t = b.Team - 1;
                 if (!Colour1Set)
                 {
-                    Colour1 = b.TeamColor;
+                    Colour1 = StrategyGame.TeamBrushes[t];
                     Colour1Set = true;
                 }
                 else if (!Colour2Set)
                 {
-                    Colour2 = b.TeamColor;
+                    Colour2 = StrategyGame.TeamBrushes[t];
                     Colour2Set = true;
                 }
                 else

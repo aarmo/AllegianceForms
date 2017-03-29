@@ -1,12 +1,11 @@
 using AllegianceForms.Orders;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 
 namespace AllegianceForms.Engine.Ships
 {
-    public class Ship : GameEntity
+    public class Ship : GameUnit
     {
         public delegate void ShipEventHandler(Ship sender, EShipEventType e);
         public event ShipEventHandler ShipEvent;
@@ -16,22 +15,19 @@ namespace AllegianceForms.Engine.Ships
         public int Alliance { get; protected set; }
         public Brush TeamColor { get; protected set; }
         public Color Colour { get; protected set; }
-        public bool Selected { get; set; }
-        public Pen SelectedPen { get; set; }        
+        public bool Selected { get; set; }     
         public EVertDir VerticalDir { get; set; }
         public EHorDir HorizontalDir { get; set; }
         public float Speed { get; set; }
-        public float Health { get; set; }
         public List<ShipOrder> Orders { get; private set; }
         public ShipOrder CurrentOrder { get; private set; }
         public int NumPilots { get; set; }
         public float ScanRange { get; set; }
         public bool Docked { get; set; }
-        public float MaxHealth { get; set; }
         
 
         public Ship(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
-            : base(imageFilename, width, height, sectorId)
+            : base(imageFilename, width, height, health, sectorId)
         {
             if (Image != null)
             {
@@ -52,8 +48,6 @@ namespace AllegianceForms.Engine.Ships
             Team = team;
             Alliance = alliance;
             Colour = teamColor;
-            TeamColor = new SolidBrush(teamColor);
-            SelectedPen = new Pen(teamColor, 1) { DashStyle = DashStyle.Dot };
             NumPilots = numPilots;
             VisibleToTeam[team - 1] = true;
             ScanRange = 100;
@@ -66,9 +60,10 @@ namespace AllegianceForms.Engine.Ships
             Orders = new List<ShipOrder>();
         }
 
-        public virtual void Update(int currentSectorId)
+        public override void Update(int currentSectorId)
         {
             if (!Active) return;
+            base.Update(currentSectorId);
 
             if (CurrentOrder != null && CurrentOrder.OrderComplete)
             {
@@ -91,8 +86,14 @@ namespace AllegianceForms.Engine.Ships
 
         public override void Draw(Graphics g, int currentSectorId)
         {
+            if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
             base.Draw(g, currentSectorId);
-            if (Selected && SectorId == currentSectorId) g.DrawRectangle(SelectedPen, _left - 1, _top - 1, Image.Width + 2, Image.Height + 2);
+
+            var t = Team - 1;
+            var b = BoundsI;
+            DrawHealthBar(g, t, b);
+
+            if (Selected) g.DrawRectangle(StrategyGame.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
         }
 
         public void StopMoving()
@@ -158,24 +159,15 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public virtual void Damage(float amount)
+        public override void Damage(float amount, int senderTeam)
         {
             if (!Active || Docked) return;
+            base.Damage(amount, senderTeam);
 
-            if (Health - amount <= 0)
+            if (!Active && Health == 0)
             {
                 // Dead!
-                Health = 0;
-                Active = false;
                 OnShipEvent(EShipEventType.ShipDestroyed);
-            }
-            else if (Health - amount >= MaxHealth)
-            {
-                Health = MaxHealth;
-            }
-            else
-            {
-                Health -= amount;
             }
         }
 

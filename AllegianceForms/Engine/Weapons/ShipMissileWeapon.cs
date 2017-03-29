@@ -46,7 +46,7 @@ namespace AllegianceForms.Engine.Weapons
             {
                 var heading = (float) StrategyGame.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
-                Missiles.Add(new MissileProjectile(Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target));
+                Missiles.Add(new MissileProjectile(Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, Shooter.Team));
             }
             base.Update(currentSectorId);
 

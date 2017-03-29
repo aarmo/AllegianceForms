@@ -9,6 +9,7 @@ using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using static AllegianceForms.Engine.Bases.Base;
 using static AllegianceForms.Engine.Ships.Ship;
@@ -57,6 +58,12 @@ namespace AllegianceForms.Engine
         public static List<Asteroid> BuildableAsteroids = new List<Asteroid>();
 
         private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        public static Pen HealthBorderPen = new Pen(Color.DimGray, 1);
+        public static Pen BaseBorderPen = new Pen(Color.Gray, 2);
+        public static Brush ShieldBrush = new SolidBrush(Color.CornflowerBlue);
+        public static Brush[] TeamBrushes;
+        public static Brush[] TextBrushes;
+        public static Pen[] SelectedPens;
 
         public static double AngleBetweenPoints(PointF from, PointF to)
         {
@@ -755,10 +762,17 @@ namespace AllegianceForms.Engine
             AICommanders = new CommanderAI[NumTeams];
             Faction = new Faction[NumTeams];
             TechTree = new TechTree[NumTeams];
+            TeamBrushes = new Brush[NumTeams];
+            SelectedPens = new Pen[NumTeams];
+            TextBrushes = new Brush[NumTeams];
 
             for (var i = 0; i < NumTeams; i++)
             {
                 Faction[i] = settings.TeamFactions[i].Clone();
+                var c = Color.FromArgb(settings.TeamColours[i]);
+                TeamBrushes[i] = new SolidBrush(c);
+                SelectedPens[i] = new Pen(c, 1) { DashStyle = DashStyle.Dot };
+                TextBrushes[i] = new SolidBrush(PerceivedBrightness(c) > 130 ? Color.Black : Color.White);
             }
 
             AllUnits.Clear();
@@ -766,6 +780,14 @@ namespace AllegianceForms.Engine
             AllAsteroids.Clear();
             ResourceAsteroids.Clear();
             BuildableAsteroids.Clear();
+        }
+
+        public static int PerceivedBrightness(Color c)
+        {
+            return (int)Math.Sqrt(
+            c.R * c.R * .299 +
+            c.G * c.G * .587 +
+            c.B * c.B * .114);
         }
 
         public static void InitialiseGame(bool sound = true)

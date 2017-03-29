@@ -14,7 +14,7 @@ namespace AllegianceForms.Engine.Weapons
 
         public override void CheckForANewTarget()
         {
-            // Always be checking for friendly targets in range and FIRE!
+            // Always check for friendly targets in range and FIRE!
             if (Shooter == null || !Shooter.Active || Shooting) return;
 
             var t = Target as Ship;
@@ -33,8 +33,8 @@ namespace AllegianceForms.Engine.Weapons
                 }
                 else
                 {
-                    Target = null;
-                    Firing = false;
+                    Target = StrategyGame.AllBases.FirstOrDefault(_ => _.Active && _.Alliance == Shooter.Alliance && _.SectorId == Shooter.SectorId && _.Health < _.MaxHealth && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
+                    Firing = Target != null;
                 }
             }
         }
