@@ -11,6 +11,9 @@ namespace AllegianceForms.Test.Engine
         [TestInitialize]
         public void Setup()
         {
+            StrategyGame.SetupGame(GameSettings.Default());
+            StrategyGame.LoadData();
+
             StrategyGame.DockedPilots[0] = 0;
             StrategyGame.DockedPilots[1] = 0;
         }

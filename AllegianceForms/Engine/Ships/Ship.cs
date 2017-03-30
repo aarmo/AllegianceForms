@@ -11,7 +11,6 @@ namespace AllegianceForms.Engine.Ships
         public event ShipEventHandler ShipEvent;
 
         public EShipType Type { get; set; }
-        public int Team { get; protected set; }
         public int Alliance { get; protected set; }
         public Brush TeamColor { get; protected set; }
         public Color Colour { get; protected set; }
@@ -27,7 +26,7 @@ namespace AllegianceForms.Engine.Ships
         
 
         public Ship(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
-            : base(imageFilename, width, height, health, sectorId)
+            : base(imageFilename, width, height, health, sectorId, team)
         {
             if (Image != null)
             {
@@ -45,7 +44,6 @@ namespace AllegianceForms.Engine.Ships
             }
 
             Active = true;
-            Team = team;
             Alliance = alliance;
             Colour = teamColor;
             NumPilots = numPilots;

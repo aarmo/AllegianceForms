@@ -94,6 +94,7 @@ namespace AllegianceForms
         Tower,
         MissileTower,
         RepairTower,
+        Resource
     }
 
     public enum EOrderType
@@ -129,6 +130,9 @@ namespace AllegianceForms
 
         MinerCapacity,
         MinerEfficiency,
+
+        ShieldRecharge,
+        MaxShield
     }
 
     public enum ESounds

@@ -511,6 +511,8 @@ namespace AllegianceForms.Engine
                     b.Target.BuildingComplete();
                     BuildableAsteroids.Remove(b.Target);
                     AllAsteroids.Remove(b.Target);
+                    var r = b.Target as ResourceAsteroid;
+                    if (r != null) ResourceAsteroids.Remove(r);
 
                     var newBase = b.GetFinishedBase();
                     newBase.BaseEvent += b_baseEvent;

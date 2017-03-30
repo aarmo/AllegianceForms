@@ -40,7 +40,7 @@ namespace AllegianceForms.Engine.Bases
             return type == EBaseType.MissileTower || type == EBaseType.Tower || type == EBaseType.RepairTower;
         }
 
-        public Base CreateBase(EBaseType baseType, int team, Color teamColour, int sectorId)
+        public Base CreateBase(EBaseType baseType, int team, Color teamColour, int sectorId, bool addPilots = true)
         {
             var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
             if (spec == null) return null;
@@ -50,12 +50,13 @@ namespace AllegianceForms.Engine.Bases
             var research = StrategyGame.TechTree[t].ResearchedUpgrades;
             var settings = StrategyGame.GameSettings;
             var alliance = settings.TeamAlliance[t];
+            if (addPilots) StrategyGame.DockedPilots[t] += spec.Pilots;
 
             var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
             bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-            
+
             return bse;
         }
     }
@@ -69,5 +70,6 @@ namespace AllegianceForms.Engine.Bases
         public int Health { get; set; }
         public int ScanRange { get; set; }
         public float Signature { get; set; }
+        public int Pilots { get; set; }
     }
 }

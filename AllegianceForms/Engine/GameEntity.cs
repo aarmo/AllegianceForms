@@ -102,14 +102,22 @@ namespace AllegianceForms.Engine
 
     public class GameUnit : GameEntity
     {
+        public int Team { get; protected set; }
         public float Health { get; set; }
         public float MaxHealth { get; set; }
         public float Shield { get; set; }
         public float MaxShield { get; set; }
+        public float ShieldRecharge { get; set; }
 
-        public GameUnit(string imageFilename, int width, int height, float health, int sectorId) : base(imageFilename, width, height, sectorId)
+        public GameUnit(string imageFilename, int width, int height, float health, int sectorId, int team) : base(imageFilename, width, height, sectorId)
         {
             MaxHealth = Health = MaxShield = Shield = health;
+            Team = team;
+
+            var t = team - 1;
+            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
+            MaxShield *= research[EGlobalUpgrade.MaxShield];
+            ShieldRecharge = 0.1f * research[EGlobalUpgrade.ShieldRecharge];
         }
 
         public virtual void Update(int currentSectorId)
@@ -117,7 +125,7 @@ namespace AllegianceForms.Engine
             if (!Active) return;
             if (Shield < MaxShield)
             {
-                Shield += 0.1f;
+                Shield += ShieldRecharge;
             }
         }
 

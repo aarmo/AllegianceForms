@@ -99,10 +99,15 @@ namespace AllegianceForms.Engine.Tech
             return (EGlobalUpgrade)Enum.Parse(typeof(EGlobalUpgrade), n);
         }
 
+        public static float GetGlobalUpgradeAmount(string name)
+        {
+            return Convert.ToSingle(name.Substring(name.Length - 4).Replace("%", string.Empty).Trim()) / 100;
+        }
+
         public void ApplyGlobalUpgrade(TechTree tech)
         {
             var type = GetGlobalUpgradeType(Name);
-            var amount = Convert.ToSingle(Name.Substring(Name.Length - 4).Replace("%", string.Empty).Trim()) / 100;
+            var amount = GetGlobalUpgradeAmount(Name);
 
             tech.ResearchedUpgrades[type] = 1 + amount;
         }

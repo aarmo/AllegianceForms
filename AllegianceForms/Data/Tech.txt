@@ -22,6 +22,7 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed
 27,-1,Supremacy Constructor,,10000,120,False
 28,-1,Expansion Constructor,,10000,120,False
 29,-1,Shipyard Constructor,,10000,120,False
+18,-1,Resource Constructor,,5000,30,False
 
 30,4,Expansion,,0,0,True
 31,3,Upgrade Expansion,30,10000,240,False
@@ -55,11 +56,15 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed
 71,3,Weapon Damage +10%,30,5000,240,False
 72,3,Ship Hull +20%,31|70,5000,240,False
 73,3,Weapon Damage +20%,31|71,5000,240,False
+74,3,Shield Recharge +25%,30,5000,240,False
+75,3,Shield Recharge +50%,31|74,5000,240,False
 
 80,1,Ship Speed +10%,40,5000,240,False
 81,1,Weapon Fire Rate +10%,40,5000,240,False
 82,1,Ship Speed +20%,41|80,5000,240,False
 83,1,Weapon Fire Rate +20%,41|81,5000,240,False
+84,1,Max Shield +10%,40,5000,240,False
+85,1,Max Shield +20%,41|84,5000,240,False
 
 90,2,Ship Signature -10%,50,5000,240,False
 91,2,Missile Tracking +10%,50,2500,240,False

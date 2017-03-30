@@ -3,7 +3,6 @@ using AllegianceForms.Engine;
 using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Ships;
-using AllegianceForms.Engine.Tech;
 using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
@@ -99,7 +98,7 @@ namespace AllegianceForms.Forms
                 var teamColour = Color.FromArgb(StrategyGame.GameSettings.TeamColours[t]);
                 var aiPlayer = t != 0;
 
-                var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, team, teamColour, startingSector.Id);
+                var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, team, teamColour, startingSector.Id, false);
                 b1.CenterX = (aiPlayer ? Width - 300 : 100);
                 b1.CenterY = (aiPlayer ? Height - 300 : 100);
                 b1.BaseEvent += B_BaseEvent;

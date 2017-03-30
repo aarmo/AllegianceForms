@@ -46,6 +46,10 @@ namespace AllegianceForms.Engine.Ships
                     TargetRockType = EAsteroidType.TechUranium;
                     break;
 
+                case EBaseType.Resource:
+                    TargetRockType = EAsteroidType.Resource;
+                    break;
+
                 default:
                     TargetRockType = EAsteroidType.Rock;
                     break;

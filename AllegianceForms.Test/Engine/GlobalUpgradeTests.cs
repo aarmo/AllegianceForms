@@ -47,17 +47,15 @@ namespace AllegianceForms.Test.Engine
         public void CheckPositiveGlobalUpgradesAreAllApplied()
         {
             var upgrades = _target.TechItems.Where(_ => _.Name.Contains("+") && _.Name.Contains("%")).ToList();
-            var check = new List<EGlobalUpgrade>();
 
             foreach (var e in upgrades)
             {
                 e.ApplyGlobalUpgrade(_target);
-                check.Add(TechItem.GetGlobalUpgradeType(e.Name));
-            }
-            
-            foreach (var e in check)
-            {
-                _target.ResearchedUpgrades[e].ShouldBe(1.2f);
+
+                var type = TechItem.GetGlobalUpgradeType(e.Name);
+                var amount = TechItem.GetGlobalUpgradeAmount(e.Name);
+                
+                _target.ResearchedUpgrades[type].ShouldBe(1 + amount);
             }
         }
 
@@ -65,17 +63,15 @@ namespace AllegianceForms.Test.Engine
         public void CheckNegativeGlobalUpgradesAreAllApplied()
         {
             var upgrades = _target.TechItems.Where(_ => _.Name.Contains("-") && _.Name.Contains("%")).ToList();
-            var check = new List<EGlobalUpgrade>();
-
+            
             foreach (var e in upgrades)
             {
                 e.ApplyGlobalUpgrade(_target);
-                check.Add(TechItem.GetGlobalUpgradeType(e.Name));
-            }
 
-            foreach (var e in check)
-            {
-                _target.ResearchedUpgrades[e].ShouldBe(0.8f);
+                var type = TechItem.GetGlobalUpgradeType(e.Name);
+                var amount = TechItem.GetGlobalUpgradeAmount(e.Name);
+
+                _target.ResearchedUpgrades[type].ShouldBe(1 + amount);
             }
         }
     }

@@ -10,7 +10,6 @@ namespace AllegianceForms.Engine.Bases
         public event BaseEventHandler BaseEvent;
 
         public EBaseType Type { get; set; }
-        public int Team { get; set; }
         public int Alliance { get; set; }
         public bool Selected { get; set; }
         public PointF BuildPosition { get; set; }
@@ -28,10 +27,9 @@ namespace AllegianceForms.Engine.Bases
         }
 
         protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
-            : base(string.Empty, width, height, health, sectorId)
+            : base(string.Empty, width, height, health, sectorId, team)
         {
             Type = type;
-            Team = team;
             Alliance = alliance;
             VisibleToTeam[team - 1] = true;
             ScanRange = 500;
@@ -65,7 +63,12 @@ namespace AllegianceForms.Engine.Bases
 
         public bool CanLaunchShips()
         {
-            return Type != EBaseType.Refinery;
+            return Type != EBaseType.Refinery && Type != EBaseType.Resource;
+        }
+
+        public bool CanGenerateIncome()
+        {
+            return Type == EBaseType.Resource;
         }
 
         public void Capture(Ship capturedBy)
@@ -79,6 +82,11 @@ namespace AllegianceForms.Engine.Bases
         {
             if (!Active) return;
             base.Update(currentSectorId);
+
+            if (CanGenerateIncome())
+            {
+                StrategyGame.AddResources(Team, (int)(StrategyGame.ResourceRegularAmount * StrategyGame.GameSettings.ResourcesEachTickMultiplier), false);
+            }
 
             if (!CanLaunchShips()) return;
             if (BuildPosition == Point.Empty)
