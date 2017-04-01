@@ -200,10 +200,12 @@ namespace AllegianceForms.Engine
             return cons.Count(_ => _.BaseType == bType);
         }
 
+        private static DateTime _nextBbrSoundAllowed = DateTime.MinValue;
+        private static TimeSpan _nextBbrSoundDelay = new TimeSpan(0, 0, 3);
+
         public static void UpdateVisibility(bool init = false, int currentSectorId = -1)
         {
             var soundPlayed = false;
-            var bbrSoundPlayed = false;
             var preVis = false;
             lock (AllUnits)
             {
@@ -238,32 +240,38 @@ namespace AllegianceForms.Engine
                         s.VisibleToTeam[t] = false;
                         if (IsVisibleToAlliance(s, alliance))
                         {
+                            s.VisibleToTeam[t] = true;
+
                             if (!preVis && !soundPlayed && t == 0 && s.SectorId == currentSectorId)
                             {
                                 SoundEffect.Play(ESounds.newtargetenemy);
                                 soundPlayed = true;
                             }
 
-                            if (!preVis && t == 0 && s.CanAttackBases() && AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == s.SectorId && _.CanLaunchShips()))
+                            if (!preVis && t == 0 && s.CanAttackBases())
                             {
-                                SoundEffect.Play(ESounds.vo_sal_stationrisk, true);
-                                OnGameEvent(new GameAlert(s.SectorId, $"Station at risk by {s.Type} in {Map.Sectors[s.SectorId]}!"), EGameEventType.ImportantMessage);
-                                bbrSoundPlayed = true;
-                            }
+                                ESounds sound;
 
-                            if (!preVis && t == 0 && !bbrSoundPlayed && (s.Type == EShipType.Bomber || s.Type == EShipType.FighterBomber || s.Type == EShipType.StealthBomber))
-                            {
-                                SoundEffect.Play(ESounds.vo_sal_bombersighted, true);
-                                bbrSoundPlayed = true;
-                            }
+                                if (AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == s.SectorId && _.CanLaunchShips()))
+                                {
+                                    OnGameEvent(new GameAlert(s.SectorId, $"Station at risk by {s.Type} in {Map.Sectors[s.SectorId]}!"), EGameEventType.ImportantMessage);
+                                    sound = ESounds.vo_sal_stationrisk;
+                                }
+                                else if (Ship.IsCapitalShip(s.Type))
+                                {
+                                    sound = ESounds.vo_sal_capitalsighted;
+                                }
+                                else
+                                {
+                                    sound = ESounds.vo_sal_bombersighted;
+                                }
 
-                            if (!preVis && t == 0 && !bbrSoundPlayed && (Ship.IsCapitalShip(s.Type)))
-                            {
-                                SoundEffect.Play(ESounds.vo_sal_capitalsighted);
-                                bbrSoundPlayed = true;
+                                if (_nextBbrSoundAllowed < DateTime.Now)
+                                {
+                                    SoundEffect.Play(sound, true);
+                                    _nextBbrSoundAllowed = DateTime.Now + _nextBbrSoundDelay;
+                                }
                             }
-
-                            s.VisibleToTeam[t] = true;
                         }
                     }
                 }
@@ -528,7 +536,7 @@ namespace AllegianceForms.Engine
                             case EBaseType.Outpost:
                                 SoundEffect.Play(ESounds.vo_builder_outpost, true);
                                 break;
-                            case EBaseType.Refinery:
+                            case EBaseType.Resource:
                                 SoundEffect.Play(ESounds.vo_builder_refinery, true);
                                 break;
                             case EBaseType.Starbase:
@@ -589,7 +597,7 @@ namespace AllegianceForms.Engine
                             SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemytactical : ESounds.vo_destroy_tactical, true);
                             break;
 
-                        case (EBaseType.Refinery):
+                        case EBaseType.Resource:
                             SoundEffect.Play(sender.Team != 1 ? ESounds.vo_destroy_enemyrefinery : ESounds.vo_destroy_refinery, true);
                             break;
 

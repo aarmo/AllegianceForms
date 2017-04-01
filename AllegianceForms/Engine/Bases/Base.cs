@@ -63,7 +63,7 @@ namespace AllegianceForms.Engine.Bases
 
         public bool CanLaunchShips()
         {
-            return Type != EBaseType.Refinery && Type != EBaseType.Resource;
+            return Type != EBaseType.Resource;
         }
 
         public bool CanGenerateIncome()

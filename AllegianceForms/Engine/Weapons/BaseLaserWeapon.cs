@@ -16,7 +16,7 @@ namespace AllegianceForms.Engine.Weapons
         
         public override void Draw(Graphics g, int currentSectorId)
         {
-            if (Shooting && Shooter != null && Target != null && Shooter.SectorId == currentSectorId)
+            if (Shooting && Shooter != null && Target != null && Shooter.SectorId == currentSectorId && Target.SectorId == Shooter.SectorId)
                 g.DrawLine(LaserPen, Shooter.CenterX + FireOffset.X, Shooter.CenterY + FireOffset.Y, Target.CenterX, Target.CenterY);
         }
     }

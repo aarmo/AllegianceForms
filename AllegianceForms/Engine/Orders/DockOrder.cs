@@ -53,7 +53,7 @@ namespace AllegianceForms.Orders
         protected void FindClosestBase(Ship ship, bool append)
         {
             // Find the closest Friendly station we can dock at
-            _dockTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, StrategyGame.AllBases.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.Type != EBaseType.Refinery));
+            _dockTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, StrategyGame.AllBases.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips()));
 
             if (_dockTarget != null)
             {

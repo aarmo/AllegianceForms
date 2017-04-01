@@ -86,7 +86,6 @@ namespace AllegianceForms
         None,
         Outpost,
         Starbase,
-        Refinery,
         Tactical,
         Supremacy,
         Expansion,

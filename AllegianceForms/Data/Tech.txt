@@ -12,17 +12,16 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed
 11,0,Advanced Missile Towers,1,5000,120,False
 
 19,-1,Miner,,5000,30,False
-20,-1,Starbase Constructor,,10000,120,False
-21,-1,Refinery Constructor,,5000,120,False
-22,-1,Tower Constructor,,1000,60,False
-23,-1,Repair Tower Constructor,,1000,60,False
-24,-1,Missile Tower Constructor,,1000,60,False
+20,-1,Resource Constructor,,5000,30,False
+21,-1,Tower Constructor,,1000,60,False
+22,-1,Repair Tower Constructor,,1000,60,False
+23,-1,Missile Tower Constructor,,1000,60,False
+24,-1,Starbase Constructor,,10000,120,False
 25,-1,Outpost Constructor,,5000,120,False
 26,-1,Tactical Constructor,,10000,120,False
 27,-1,Supremacy Constructor,,10000,120,False
 28,-1,Expansion Constructor,,10000,120,False
 29,-1,Shipyard Constructor,,10000,120,False
-18,-1,Resource Constructor,,5000,30,False
 
 30,4,Expansion,,0,0,True
 31,3,Upgrade Expansion,30,10000,240,False
