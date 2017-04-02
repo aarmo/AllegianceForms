@@ -207,6 +207,8 @@ namespace AllegianceForms.Engine
         {
             var soundPlayed = false;
             var preVis = false;
+            var playerAlliance = GameSettings.TeamAlliance[0];
+
             lock (AllUnits)
             {
                 foreach (var s in AllUnits)
@@ -248,7 +250,7 @@ namespace AllegianceForms.Engine
                                 soundPlayed = true;
                             }
 
-                            if (!preVis && t == 0 && s.CanAttackBases())
+                            if (!preVis && alliance == playerAlliance && s.CanAttackBases())
                             {
                                 ESounds sound;
 
