@@ -215,7 +215,7 @@ namespace AllegianceForms.Engine.Ships
             return (type == EShipType.Battlecruiser || type == EShipType.Battleship
                 || type == EShipType.Corvette || type == EShipType.Cruiser
                 || type == EShipType.Destroyer || type == EShipType.Devastator
-                || type == EShipType.Frigate);
+                || type == EShipType.Frigate || type == EShipType.Support);
         }
 
         protected void OnShipEvent(EShipEventType e)

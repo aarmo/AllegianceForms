@@ -71,10 +71,10 @@ namespace AllegianceForms.Forms
 
 #if DEBUG
             // Testing setup: crazy money, fast tech, map visible
-            StrategyGame.AddResources(1, 100000, false);
+            //StrategyGame.AddResources(1, 100000, false);
+            //settings.ResearchCostMultiplier = 0.25f;
             settings.WormholesVisible = true;
             settings.ResearchTimeMultiplier = 0.25f;
-            settings.ResearchCostMultiplier = 0.25f;
 #endif
             StrategyGame.InitialiseGame();
 
@@ -535,7 +535,26 @@ namespace AllegianceForms.Forms
 
         private void RefreshCommandText()
         {
-            if (_selectedBases.Any(_ => _.CanLaunchShips()))
+            if (_selectedUnits.Count > 0)
+            {
+                _orderType = EOrderType.Ship;
+                CommandsLabel.Text = "Attack:[A]  Stop:[S]  Dock:[D]  Patrol:[R]";
+                if (_selectedUnits.Any(_ => _.Type == EShipType.Miner))
+                {
+                    CommandsLabel.Text += "  Mine:[E]";
+                }
+
+                if (_selectedUnits.Any(_ => _.Type == EShipType.Constructor))
+                {
+                    CommandsLabel.Text += "  Build:[B]";
+                }
+
+                if (_selectedUnits.Any(_ => _.Type == EShipType.TroopTransport))
+                {
+                    CommandsLabel.Text += "  Capture:[C]";
+                }
+            }
+            else if (_selectedBases.Any(_ => _.CanLaunchShips()))
             {
                 _orderType = EOrderType.Base;
                 CommandsLabel.Text = "Scout:[S]  Fighter:[F]";
@@ -560,25 +579,6 @@ namespace AllegianceForms.Forms
 
                 if (StrategyGame.TechTree[0].HasResearchedShipType(EShipType.TroopTransport))
                     CommandsLabel.Text += "  Troop Transport:[P]";
-            }
-            else if (_selectedUnits.Count > 0)
-            {
-                _orderType = EOrderType.Ship;
-                CommandsLabel.Text = "Attack:[A]  Stop:[S]  Dock:[D]  Patrol:[R]";
-                if (_selectedUnits.Any(_ => _.Type == EShipType.Miner))
-                {
-                    CommandsLabel.Text += "  Mine:[E]";
-                }
-
-                if (_selectedUnits.Any(_ => _.Type == EShipType.Constructor))
-                {
-                    CommandsLabel.Text += "  Build:[B]";
-                }
-
-                if (_selectedUnits.Any(_ => _.Type == EShipType.TroopTransport))
-                {
-                    CommandsLabel.Text += "  Capture:[C]";
-                }
             }
             else if (_selectedUnits.Count == 0 && _selectedBases.Count == 0)
             {
@@ -848,8 +848,9 @@ namespace AllegianceForms.Forms
 
         private void GiveCaptureOrder()
         {
-            var transportUnit = _selectedUnits.Where(_ => _.Type == EShipType.TroopTransport).FirstOrDefault();
-
+            var transportUnit = _selectedUnits.Where(_ => _.Type == EShipType.TroopTransport 
+                                                    && (_.CurrentOrder == null || _.CurrentOrder as CaptureOrder == null)
+                                                    ).FirstOrDefault();
             if (transportUnit != null)
             {
                 transportUnit.OrderShip(new CaptureOrder(transportUnit), _shiftDown);
@@ -858,8 +859,9 @@ namespace AllegianceForms.Forms
 
         private void GiveBuildOrder(Point orderPosition)
         {
-            var builderUnit = _selectedUnits.Where(_ => _.Type == EShipType.Constructor).FirstOrDefault();
-
+            var builderUnit = _selectedUnits.Where(_ => _.Type == EShipType.Constructor
+                                                    && (_.CurrentOrder == null || _.CurrentOrder as BuildOrder == null)
+                                                    ).FirstOrDefault();
             if (builderUnit != null)
             {
                 builderUnit.OrderShip(new BuildOrder(_currentSector.Id, orderPosition, Point.Empty), _shiftDown);
