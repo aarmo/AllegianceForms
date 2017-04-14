@@ -8,7 +8,7 @@ namespace AllegianceForms.Engine.AI.Missions
 {
     public class MinerMission : CommanderMission
     {
-        public MinerMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
+        public MinerMission(BaseAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         {
         }
 

@@ -9,14 +9,11 @@ using System.Linq;
 
 namespace AllegianceForms.Engine.AI
 {
-
     public class CommanderAI : BaseAI
     {
         public Dictionary<EAiCreditPriorities, float> CreditPriorities { get; private set; }
         public Dictionary<EAiPilotPriorities, float> PilotPriorities { get; private set; }
         public bool ForceVisible { get; set; }
-        public bool CheatVisibility { get; set; }
-        public bool CheatCredits { get; set; }
         public bool Scouting { get; set; }
         public bool MinerOffence { get; set; }
         public bool MinerDefence{ get; set; }
@@ -48,24 +45,14 @@ namespace AllegianceForms.Engine.AI
         public const float DegradeAmount = 0.98f;
         public const float MaxPriorityValue = 100;
         public const float MinActionAmount = 0.3f;
-        public const int CheatCreditAmout = 3;
-
-        private float _cheatCreditsChance = 0.05f;        
-        private int _cheatCreditsLastsTicks = 200;
-        private float _cheatVisibilityChance = 0.025f;
-        private int _cheatVisibilityLastsTicks = 100;
-        private int _cheatVisibilityExpires = 0;
-        private int _cheatCreditExpires = 0;
 
         private float _scoutFocus = 1;
         private float _baseDefenseFocus = 8;
         private float _minerOffenseFocus = 8;
         private float _minerDefenseFocus = 8;
-        private Ship.ShipEventHandler _shipHandler;
 
-        public CommanderAI(int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(team, teamColour)
+        public CommanderAI(int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(team, teamColour, shipHandler)
         {
-            _shipHandler = shipHandler;
             CreditPriorities = new Dictionary<EAiCreditPriorities, float>();
             foreach (var e in (EAiCreditPriorities[])Enum.GetValues(typeof(EAiCreditPriorities)))
             {
@@ -103,16 +90,6 @@ namespace AllegianceForms.Engine.AI
                 _baseDefenseFocus = rnd.Next(40, 100) / 10f;
                 _minerDefenseFocus = rnd.Next(40, 100) / 10f;
             }
-        }
-        
-        public override void SetDifficulty(int i)
-        {
-            base.SetDifficulty(i);
-
-            _cheatCreditsChance = 0.025f*i;
-            _cheatCreditsLastsTicks = 5*20*i;
-            _cheatVisibilityChance = 0.005f*i;
-            _cheatVisibilityLastsTicks = 2*20*i;
         }
         
         public override void Update()
@@ -222,35 +199,7 @@ namespace AllegianceForms.Engine.AI
 
             _nextActionAllowed = _limitActionsTickDelay;
         }
-
-        private void UpdateCheats()
-        {
-            _cheatVisibilityExpires--;
-            _cheatCreditsLastsTicks--;
-
-            if (StrategyGame.Random.NextDouble() <= _cheatVisibilityChance)
-            {
-                CheatVisibility = true;
-                _cheatVisibilityExpires = _cheatVisibilityLastsTicks;
-            }
-            if (CheatVisibility && _cheatVisibilityExpires <= 0)
-            {
-                CheatVisibility = false;
-            }
-
-            if (StrategyGame.Random.NextDouble() <= _cheatCreditsChance)
-            {
-                CheatCredits = true;
-                _cheatCreditExpires = _cheatCreditsLastsTicks;
-            }
-            if (CheatCredits && _cheatCreditsLastsTicks <= 0)
-            {
-                CheatCredits = false;
-            }
-            
-            if (CheatCredits) StrategyGame.AddResources(Team, CheatCreditAmout);
-        }
-
+        
         private void UpdateMissions()
         {
             if (MiningMission) _mining.UpdateMission();

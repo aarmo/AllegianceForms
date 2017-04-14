@@ -140,5 +140,13 @@ namespace AllegianceForms.Engine.Bases
         {
             if (BaseEvent != null) BaseEvent(this, e, senderTeam);
         }
+
+        public bool IsTechBase()
+        {
+            return Type == EBaseType.Shipyard 
+                || Type == EBaseType.Supremacy 
+                || Type == EBaseType.Expansion 
+                || Type == EBaseType.Tactical;
+        }
     }
 }

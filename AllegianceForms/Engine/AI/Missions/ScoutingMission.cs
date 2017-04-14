@@ -11,7 +11,7 @@ namespace AllegianceForms.Engine.AI.Missions
     {
         private Dictionary<Ship, float> _lastHealth = new Dictionary<Ship, float>();
 
-        public ScoutingMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
+        public ScoutingMission(BaseAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
         { }
         
         public override bool RequireMorePilots()
@@ -39,48 +39,44 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.OrderShip(new MoveOrder(b.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
+
             StrategyGame.LaunchShip(ship);
+            _lastHealth.Add(ship, ship.Health);
         }
 
         public override void UpdateMission()
         {
+            var removeHealth = _lastHealth.Keys.Where(_ => !_.Active).ToList();
+            removeHealth.ForEach(_ => _lastHealth.Remove(_));
+
             base.UpdateMission();
             if (_completed) return;
-
-            var centerPos = new PointF(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
-
+            
             foreach (var i in IncludedShips)
             {
-                if (!_lastHealth.ContainsKey(i))
-                {
-                    _lastHealth.Add(i, i.Health);
-                }
-                else
-                {
-                    var visibleSectors = StrategyGame.Map.Sectors.Where(_ => _.VisibleToTeam[AI.Team - 1]).ToList();
-                    if (visibleSectors.Count == 0) continue;
-                    var randomSectorId = visibleSectors[StrategyGame.Random.Next(visibleSectors.Count)].Id;
+                var visibleSectors = StrategyGame.Map.Sectors.Where(_ => _.VisibleToTeam[AI.Team - 1]).ToList();
+                if (visibleSectors.Count == 0) continue;
+                var randomSectorId = visibleSectors[StrategyGame.Random.Next(visibleSectors.Count)].Id;
 
-                    if (i.Health < _lastHealth[i])
+                if (i.Health < _lastHealth[i])
+                {
+                    // Taking fire! Dock and continue
+                    i.OrderShip(new DockOrder(i));
+                    LogOrder();
+                    i.OrderShip(new NavigateOrder(i, randomSectorId), true);
+                    LogOrder();
+                    i.OrderShip(new MoveOrder(randomSectorId, _centerPos, PointF.Empty), true);
+                    LogOrder();
+                }
+                else if (i.CurrentOrder == null)
+                {
+                    // If we have stopped, keep scouting
+                    if (randomSectorId != i.SectorId)
                     {
-                        // Taking fire! Dock and continue
-                        i.OrderShip(new DockOrder(i));
+                        i.OrderShip(new NavigateOrder(i, randomSectorId));
                         LogOrder();
-                        i.OrderShip(new NavigateOrder(i, randomSectorId), true);
+                        i.OrderShip(new MoveOrder(randomSectorId, _centerPos, PointF.Empty), true);
                         LogOrder();
-                        i.OrderShip(new MoveOrder(randomSectorId, centerPos, PointF.Empty), true);
-                        LogOrder();
-                    }
-                    else if (i.CurrentOrder == null)
-                    {
-                        // If we have stopped, keep scouting
-                        if (randomSectorId != i.SectorId)
-                        {
-                            i.OrderShip(new NavigateOrder(i, randomSectorId));
-                            LogOrder();
-                            i.OrderShip(new MoveOrder(randomSectorId, centerPos, PointF.Empty), true);
-                            LogOrder();
-                        }
                     }
                 }
             }

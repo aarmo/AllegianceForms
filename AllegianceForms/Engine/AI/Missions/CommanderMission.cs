@@ -3,6 +3,7 @@ using AllegianceForms.Orders;
 using AllegianceForms.Forms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace AllegianceForms.Engine.AI.Missions
 {
@@ -16,6 +17,7 @@ namespace AllegianceForms.Engine.AI.Missions
         protected Ship.ShipEventHandler _shipHandler;
         protected bool _completed = false;
         protected int _recentOrderDelaySecs = 10;
+        protected PointF _centerPos;
 
         public CommanderMission(BaseAI ai, Ship.ShipEventHandler shipHandler)
         {
@@ -23,8 +25,10 @@ namespace AllegianceForms.Engine.AI.Missions
             IncludedShips = new List<Ship>();
             RecentOrders = new List<DateTime>();
             _shipHandler = shipHandler;
+            _centerPos = new PointF(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
+
         }
-        
+
         public virtual void UpdateMission()
         {
             IncludedShips.RemoveAll(_ => !_.Active);

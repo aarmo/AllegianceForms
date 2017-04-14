@@ -27,10 +27,16 @@ Allow 3rd party dedicated servers to connect to lobby. Also send notifications t
 Balance
 Capital ships not requiring pilots - allows an economy to win easily. Too cheap & quick... Too much starting money?
 
+Simpler/Variant AI
+2 missions at a time, group ships up
+always build refineries if have He3 rocks
+1 tech at a time (50% home tech, 50% next door), fully upgrade in order.
+bombers, next tech.
+50% chance at SY, group 4+ caps
+
 
 Neutral ships/bases/space monsters?
 Destroyed bases leave salvage?
-Simpler/Variant AI
 
 3. Start multiplayer
 4. Write a campaign story
