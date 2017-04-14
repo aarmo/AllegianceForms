@@ -13,8 +13,8 @@ namespace AllegianceForms.Engine.AI.Missions
         private float _numPilots;
         private int _lastTargetSectorId;
         private PointF _lastPos;
-
-        public MinerDefenseMission(StrategyGame game, CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
+        
+        public MinerDefenseMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         {
             _numPilots = _game.GameSettings.NumPilots * 0.5f + 1f;
         }

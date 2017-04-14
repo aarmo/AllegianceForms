@@ -2,6 +2,7 @@
 using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace AllegianceForms.Engine.AI.Missions
 {
@@ -24,7 +25,7 @@ namespace AllegianceForms.Engine.AI.Missions
             _shipHandler = shipHandler;
             _game = game;
         }
-        
+
         public virtual void UpdateMission()
         {
             IncludedShips.RemoveAll(_ => !_.Active);

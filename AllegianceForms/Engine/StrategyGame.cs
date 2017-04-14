@@ -222,6 +222,11 @@ namespace AllegianceForms.Engine
             return targetBase;
         }
 
+        internal static bool RandomChance(float v)
+        {
+            return StrategyGame.Random.NextDouble() <= v;
+        }
+
         public Base ClosestEnemyBase(int team, out Base launchingBase)
         {
             var t = team - 1;

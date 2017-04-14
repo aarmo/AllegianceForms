@@ -1,0 +1,42 @@
+Allegiance Forms: Future?
+
+Gameplay
+Interesting, easier AI with more end game variations
+Story Campaign, with player choice impact, plot twists, scripted in-game events. Novel-like telling. Voice acted with artistic portraits & backgrounds.
+Better graphics, particle effects, sounds.
+Better UI: more notifications, shortcut buttons, mini map.
+
+Community
+Forum, moderators, announcements/notifications, strategy discussions, faction rp, stickies linking to Github/Twitter/Itch.io
+Multiplayer: tournaments, ladder, leader boards, seasonal rewards (Forum titles/ranks. Special faction names), integrated forum account/signup/login in game or online.
+Contribution: Dev release announcments, discussions, manage submissions, suggestions/feedback, links to Github issues
+Spectating, replays (game history/stats recorded)
+Let's Play videos, tutorial videos, tournament commentating
+
+Technology
+Support small screens
+Multiplatform: Change engine (Unity), pilot mobile builds.
+Multiplayer: Instance game logic, server runs simulation, sends clients updates
+Spectating, replays, tournaments, campaign highscores, seasonal leader board
+
+Automatic self-updating: Bootstrap? All updates are required for online play.
+Send server outage/issue/usage notifications to me.
+Allow 3rd party dedicated servers to connect to lobby. Also send notifications to me. 
+(Central log table shown on the forum home page)
+
+Balance
+Capital ships not requiring pilots - allows an economy to win easily. Too cheap & quick... Too much starting money?
+
+Simpler/Variant AI
+2 missions at a time, group ships up
+always build refineries if have He3 rocks
+1 tech at a time (50% home tech, 50% next door), fully upgrade in order.
+bombers, next tech.
+50% chance at SY, group 4+ caps
+
+
+Neutral ships/bases/space monsters?
+Destroyed bases leave salvage?
+
+3. Start multiplayer
+4. Write a campaign story

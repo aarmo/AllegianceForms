@@ -10,8 +10,8 @@ namespace AllegianceForms.Engine.AI.Missions
     public class ScoutingMission : CommanderMission
     {
         private Dictionary<Ship, float> _lastHealth = new Dictionary<Ship, float>();
-
-        public ScoutingMission(StrategyGame game, CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
+        
+        public ScoutingMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         { }
         
         public override bool RequireMorePilots()
@@ -40,15 +40,17 @@ namespace AllegianceForms.Engine.AI.Missions
 
             IncludedShips.Add(ship);
             _game.LaunchShip(ship);
+            _lastHealth.Add(ship, ship.Health);
         }
 
         public override void UpdateMission()
         {
+            var removeHealth = _lastHealth.Keys.Where(_ => !_.Active).ToList();
+            removeHealth.ForEach(_ => _lastHealth.Remove(_));
+
             base.UpdateMission();
             if (_completed) return;
-
-            var centerPos = new PointF(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
-
+            
             foreach (var i in IncludedShips)
             {
                 if (!_lastHealth.ContainsKey(i))
@@ -68,7 +70,7 @@ namespace AllegianceForms.Engine.AI.Missions
                         LogOrder();
                         i.OrderShip(new NavigateOrder(_game, i, randomSectorId), true);
                         LogOrder();
-                        i.OrderShip(new MoveOrder(_game, randomSectorId, centerPos, PointF.Empty), true);
+                        i.OrderShip(new MoveOrder(_game, randomSectorId, _centerPos, PointF.Empty), true);
                         LogOrder();
                     }
                     else if (i.CurrentOrder == null)

@@ -2,20 +2,19 @@
 using AllegianceForms.Orders;
 using System.Linq;
 using System.Windows.Forms;
-using System;
 using System.Drawing;
 
 namespace AllegianceForms.Engine.AI.Missions
 {
     public class MinerOffenseMission : CommanderMission
     {
-        private const int LastTargetExpireSeconds = 20;
+        private const int LastTargetExpireTicks = 80;
 
         private int _lastTargetSectorId;
         private PointF _lastPos;
-        private DateTime _lastTargetExpire;
+        private int _lastTargetExpire;
 
-        public MinerOffenseMission(StrategyGame game, CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
+        public MinerOffenseMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         {
             CheckForNextTargetSector();
         }
@@ -28,14 +27,14 @@ namespace AllegianceForms.Engine.AI.Missions
             var s = bs[StrategyGame.Random.Next(bs.Count)];
             _lastTargetSectorId = s.SectorId;
             _lastPos = s.CenterPoint;
-            _lastTargetExpire = DateTime.Now.AddSeconds(LastTargetExpireSeconds);
+            _lastTargetExpire = LastTargetExpireTicks;
         }
 
         public override bool RequireMorePilots()
         {
             var numPilots = (int)(_game.GameSettings.NumPilots * 0.8f) + 1;
 
-            return IncludedShips.Sum(_ => _.NumPilots) < numPilots;
+            return IncludedShips.Count < numPilots;
         }
 
         public override void AddMorePilots()
@@ -75,7 +74,8 @@ namespace AllegianceForms.Engine.AI.Missions
             CheckForNextTargetSector();
 
             // If we haven't seen a target for some time, abort!
-            if (DateTime.Now > _lastTargetExpire)
+            _lastTargetExpire--;
+            if (_lastTargetExpire <= 0)
             {
                 return true;
             }
@@ -102,8 +102,8 @@ namespace AllegianceForms.Engine.AI.Missions
                 }
                 else
                 {
-                    // Then find the closest random miner here to attack!
-                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
+                    // Then find the closest random miner/con/bomber here to attack!
+                    var m = _game.ClosestDistance(i.CenterX, i.CenterY, StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
                     if (m != null)
                     {
                         i.OrderShip(new MoveOrder(_game, m.SectorId, m.CenterPoint));
@@ -111,7 +111,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     }
                     else
                     {
-                        // attack anything!
+                        // Otherwise, attack anything!
                         var ens = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Alliance != AI.Alliance && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
                         if (ens.Count > 0)
                         {

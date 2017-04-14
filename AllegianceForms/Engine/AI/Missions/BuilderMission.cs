@@ -9,10 +9,12 @@ namespace AllegianceForms.Engine.AI.Missions
 {
     public class BuilderMission : CommanderMission
     {
+        private List<Asteroid> _chosenRocks = new List<Asteroid>();
+        
         public BuilderMission(StrategyGame game, CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         {
         }
-
+        
         public override void UpdateMission()
         {
             base.UpdateMission();
@@ -20,29 +22,25 @@ namespace AllegianceForms.Engine.AI.Missions
             var t = AI.Team - 1;
 
             // Check our constructor ships
-            var ships = _game.AllUnits.Where(_ => _.Active && _.Team == AI.Team && _.Type == EShipType.Constructor).ToList();
-            var maxHops = _game.Map.Wormholes.Count + 4;
-
-            var chosenRocks = new List<Asteroid>();
-
+            var ships = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == AI.Team && _.Type == EShipType.Constructor).ToList();
+            var maxHops = StrategyGame.Map.Wormholes.Count + 4;
+            
             foreach (var s in ships)
             {
                 var b = s as BuilderShip;
                 if (b == null) continue;
-                if (b.Target != null) chosenRocks.Add(b.Target);
                 if (b.CurrentOrder != null || b.Target != null) continue;
 
-                var possibleRocks = _game.AllAsteroids.Where(_ => _.Active && _.VisibleToTeam[t] && _.Type == b.TargetRockType).ToList();
-
                 // Order this builder somewhere smart...
-                // Score one rock per sector: close to our home, without an enemy or friendly base
+                var possibleRocks = _game.AllAsteroids.Where(_ => _.Active && _.VisibleToTeam[t] && _.Type == b.TargetRockType && !_chosenRocks.Contains(_)).ToList();
 
+                // Score one rock per sector: close to our home, without an enemy or friendly base
                 var sectorChecked = new List<int>();
                 var bestScore = int.MaxValue;
                 Asteroid bestRock = null;
                 foreach (var r in possibleRocks)
                 {
-                    if (sectorChecked.Contains(r.SectorId) || chosenRocks.Contains(r)) continue;
+                    if (sectorChecked.Contains(r.SectorId)) continue;
                     sectorChecked.Add(r.SectorId);
 
                     var hasEnemyBase = _game.AllBases.Any(_ => _.Active && _.VisibleToTeam[t] && _.SectorId == r.SectorId && _.Alliance != AI.Alliance);
@@ -61,7 +59,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
                 if (bestRock == null) continue;
 
-                chosenRocks.Add(bestRock);
+                _chosenRocks.Add(bestRock);
                 b.Target = bestRock;
 
                 if (bestRock.SectorId != b.SectorId)

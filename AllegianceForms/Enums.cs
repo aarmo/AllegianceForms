@@ -78,7 +78,8 @@ namespace AllegianceForms
         Devastator,
         Cruiser,
         Battleship,
-        Battlecruiser
+        Battlecruiser,
+        Support
     }
 
     public enum EBaseType
