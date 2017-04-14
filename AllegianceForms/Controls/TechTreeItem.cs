@@ -12,10 +12,12 @@ namespace AllegianceForms.Controls
         private readonly Color _normColour = Color.Black;
         private readonly Color _buildColour = Color.DarkGreen;
         private readonly Color _cantBuildColour = Color.DarkRed;
+        private StrategyGame _game;
 
-        public TechTreeItem()
+        public TechTreeItem(StrategyGame game)
         {
             InitializeComponent();
+            _game = game;
         }
         
         private void Name_MouseLeave(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace AllegianceForms.Controls
             else if (investedPerc >= 0.8)
                 perc = 1 - investedPerc - 0.01;
             
-            var amount = StrategyGame.SpendCredits(1, (int)Math.Round(Item.Cost * perc));
+            var amount = _game.SpendCredits(1, (int)Math.Round(Item.Cost * perc));
             Item.AmountInvested += amount;
 
             InvestmentProgress.Value = Item.AmountInvested;
@@ -86,7 +88,7 @@ namespace AllegianceForms.Controls
             SoundEffect.Play(ESounds.mousedown);
 
             // Double Click pays it out completely, or all you can afford
-            var amount = StrategyGame.SpendCredits(1, Item.Cost - Item.AmountInvested);
+            var amount = _game.SpendCredits(1, Item.Cost - Item.AmountInvested);
             Item.AmountInvested += amount;
 
             InvestmentProgress.Value = Item.AmountInvested;

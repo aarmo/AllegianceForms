@@ -10,12 +10,14 @@ namespace AllegianceForms.Forms
     {
         private CommanderAI _ai;
         private DateTime _techTimeout;
+        private StrategyGame _game;
 
-        public DebugAI(CommanderAI ai)
+        public DebugAI(StrategyGame game, CommanderAI ai)
         {
             InitializeComponent();
 
             _ai = ai;
+            _game = game;
             UpdateDebugInfo();
         }
 
@@ -102,19 +104,19 @@ namespace AllegianceForms.Forms
             MinerCount.Text = (_ai.Miners == null) ? "0" : _ai.Miners.Count.ToString();
             ConCount.Text = (_ai.Builders == null) ? "0" : _ai.Builders.Count.ToString();
 
-            ScoutCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Scout).ToString();
-            FigCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Fighter).ToString();
-            SfCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.StealthFighter).ToString();
-            SbCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.StealthBomber).ToString();
-            IntCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Interceptor).ToString();
-            TtCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.TroopTransport).ToString();
-            BbrCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Bomber).ToString();
-            GsCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Gunship).ToString();
-            FbCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.FighterBomber).ToString();
-            LifepodCount.Text = StrategyGame.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Lifepod).ToString();
+            ScoutCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Scout).ToString();
+            FigCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Fighter).ToString();
+            SfCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.StealthFighter).ToString();
+            SbCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.StealthBomber).ToString();
+            IntCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Interceptor).ToString();
+            TtCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.TroopTransport).ToString();
+            BbrCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Bomber).ToString();
+            GsCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Gunship).ToString();
+            FbCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.FighterBomber).ToString();
+            LifepodCount.Text = _game.AllUnits.Count(_ => _.Team == _ai.Team && _.Type == EShipType.Lifepod).ToString();
 
-            DockedPilots.Text = StrategyGame.DockedPilots[_ai.Team - 1].ToString();
-            Credits.Text = StrategyGame.Credits[_ai.Team - 1].ToString();
+            DockedPilots.Text = _game.DockedPilots[_ai.Team - 1].ToString();
+            Credits.Text = _game.Credits[_ai.Team - 1].ToString();
 
             if (_ai.NextTech != null)
             {
@@ -144,7 +146,7 @@ namespace AllegianceForms.Forms
 
         private void ForceVisible_CheckedChanged(object sender, System.EventArgs e)
         {
-            foreach (var ai in StrategyGame.AICommanders)
+            foreach (var ai in _game.AICommanders)
             {
                 if (ai != null) ai.ForceVisible = ForceVisible.Checked;
             }

@@ -2,18 +2,24 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Shouldly;
+using AllegianceForms.Engine;
 
 namespace AllegianceForms.Test.Engine
 {
     [TestClass]
     public class MineAsteroidTests
     {
+        private StrategyGame _game;
         private ResourceAsteroid _target;
 
         [TestInitialize]
         public void Setup()
         {
-            _target = new ResourceAsteroid(new Random(), 100, 100, 0);
+            _game = new StrategyGame();
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
+
+            _target = new ResourceAsteroid(_game, new Random(), 100, 100, 0);
         }
 
         [TestMethod]

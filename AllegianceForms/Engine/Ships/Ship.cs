@@ -25,8 +25,8 @@ namespace AllegianceForms.Engine.Ships
         public bool Docked { get; set; }
         
 
-        public Ship(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
-            : base(imageFilename, width, height, health, sectorId, team)
+        public Ship(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
+            : base(game, imageFilename, width, height, health, sectorId, team)
         {
             if (Image != null)
             {
@@ -58,10 +58,10 @@ namespace AllegianceForms.Engine.Ships
             Orders = new List<ShipOrder>();
         }
 
-        public override void Update(int currentSectorId)
+        public override void Update()
         {
             if (!Active) return;
-            base.Update(currentSectorId);
+            base.Update();
 
             if (CurrentOrder != null && CurrentOrder.OrderComplete)
             {
@@ -91,7 +91,7 @@ namespace AllegianceForms.Engine.Ships
             var b = BoundsI;
             DrawHealthBar(g, t, b);
 
-            if (Selected) g.DrawRectangle(StrategyGame.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
+            if (Selected) g.DrawRectangle(_game.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
         }
 
         public void StopMoving()
@@ -117,7 +117,7 @@ namespace AllegianceForms.Engine.Ships
             {
                 // we are done for now
                 Active = false;
-                StrategyGame.DockPilots(Team, NumPilots);
+                _game.DockPilots(Team, NumPilots);
             }
             
             if (Orders.Count == 0)

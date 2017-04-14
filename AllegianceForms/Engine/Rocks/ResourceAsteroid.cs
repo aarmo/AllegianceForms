@@ -11,11 +11,11 @@ namespace AllegianceForms.Engine.Rocks
         public int AvailableResources { get; set; }
         public const int MaxResources = 500;
 
-        public ResourceAsteroid(Random r, int width, int height, int sectorId)
-            : base(_images[r.Next(0, _images.Length)], width, height, sectorId)
+        public ResourceAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
+            : base(game, _images[r.Next(0, _images.Length)], width, height, sectorId)
         {
             Type = EAsteroidType.Resource;
-            AvailableResources = (int)(MaxResources * StrategyGame.GameSettings.ResourcesPerRockMultiplier);
+            AvailableResources = (int)(MaxResources * _game.GameSettings.ResourcesPerRockMultiplier);
         }
 
         public int Mine(int amount)

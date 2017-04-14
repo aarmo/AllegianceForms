@@ -64,12 +64,14 @@ namespace AllegianceForms.Engine
         protected float _centerY;
         protected readonly float _halfWidth;
         protected readonly float _halfHeight;
+        protected StrategyGame _game;
 
-        public GameEntity(string imageFilename, int width, int height, int sectorId)
+        public GameEntity(StrategyGame game, string imageFilename, int width, int height, int sectorId)
         {
             Active = true;
             Signature = 1.0f; // 100%
             SectorId = sectorId;
+
             if (imageFilename != string.Empty)
             {
                 var i = Image.FromFile(imageFilename);
@@ -78,8 +80,9 @@ namespace AllegianceForms.Engine
             }
             _halfWidth = width / 2.0f;
             _halfHeight = height / 2.0f;
+            _game = game;
             TextOffsetY = -35;
-            VisibleToTeam = new bool[StrategyGame.NumTeams];
+            VisibleToTeam = new bool[game.NumTeams];
 
             Top = 0;
             Left = 0;
@@ -109,18 +112,18 @@ namespace AllegianceForms.Engine
         public float MaxShield { get; set; }
         public float ShieldRecharge { get; set; }
 
-        public GameUnit(string imageFilename, int width, int height, float health, int sectorId, int team) : base(imageFilename, width, height, sectorId)
+        public GameUnit(StrategyGame game, string imageFilename, int width, int height, float health, int sectorId, int team) : base(game, imageFilename, width, height, sectorId)
         {
             MaxHealth = Health = MaxShield = Shield = health;
             Team = team;
 
             var t = team - 1;
-            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
+            var research = game.TechTree[t].ResearchedUpgrades;
             MaxShield *= research[EGlobalUpgrade.MaxShield];
             ShieldRecharge = 0.1f * research[EGlobalUpgrade.ShieldRecharge];
         }
 
-        public virtual void Update(int currentSectorId)
+        public virtual void Update()
         {
             if (!Active) return;
             if (Shield < MaxShield)
@@ -132,7 +135,7 @@ namespace AllegianceForms.Engine
         protected void DrawHealthBar(Graphics g, int t, Rectangle b)
         {
             g.FillRectangle(StrategyGame.ShieldBrush, b.Left, b.Bottom + 3, (Shield / MaxShield) * b.Width, 3);
-            g.FillRectangle(StrategyGame.TeamBrushes[t], b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);
+            g.FillRectangle(_game.TeamBrushes[t], b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);
             g.DrawRectangle(StrategyGame.HealthBorderPen, b.Left, b.Bottom + 3, b.Width, 6);
         }
 

@@ -8,21 +8,21 @@ namespace AllegianceForms.Engine.Ships
     {
         public List<Weapon> Weapons { get; set; }
         
-        public CombatShip(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, EShipType type, int sectorId)
-            : base(imageFilename, width, height, teamColor, team, alliance, health, numPilots, sectorId)
+        public CombatShip(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, EShipType type, int sectorId)
+            : base(game, imageFilename, width, height, teamColor, team, alliance, health, numPilots, sectorId)
         {
             Type = type;
             Weapons = new List<Weapon>();
         }
 
-        public override void Update(int currentSectorId)
+        public override void Update()
         {
             if (!Active) return;
-            base.Update(currentSectorId);
+            base.Update();
 
             foreach (var wep in Weapons)
             {
-                wep.Update(currentSectorId);
+                wep.Update();
             }            
         }
 

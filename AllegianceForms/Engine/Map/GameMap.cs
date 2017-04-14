@@ -25,12 +25,14 @@ namespace AllegianceForms.Engine.Map
         private Pen _conflictPen = new Pen(Color.Red, 2);
 
         private PathfindingGraph<MapSector> _pathfinding;
+        private StrategyGame _game;
 
-        public GameMap()
+        public GameMap(StrategyGame game)
         {
             GridImage = Image.FromFile(".\\Art\\Backgrounds\\Grid.png");
             Sectors = new List<MapSector>();
             Wormholes = new List<Wormhole>();
+            _game = game;
         }
 
         public void Draw(Graphics g, int sectorId)
@@ -68,7 +70,7 @@ namespace AllegianceForms.Engine.Map
         {
             g.DrawImage(GridImage, 0, 0);
 
-            foreach (var u in StrategyGame.AllAsteroids)
+            foreach (var u in _game.AllAsteroids)
             {
                 u.Draw(g, sectorId);
             }
@@ -103,15 +105,15 @@ namespace AllegianceForms.Engine.Map
             GenerateGraph();
         }
 
-        public static GameMap FromSimpleMap(SimpleGameMap map, bool preview = false)
+        public static GameMap FromSimpleMap(StrategyGame game, SimpleGameMap map, bool preview = false)
         {
-            var m = new GameMap
+            var m = new GameMap(game)
             {
                 Name = map.Name,
-                Sectors = map.Sectors.Select(_ => new MapSector(_.Id, GameMaps.SectorNames.NextString, _.MapPosition) { StartingSector = _.StartingSectorTeam}).ToList()
+                Sectors = map.Sectors.Select(_ => new MapSector(game, _.Id, GameMaps.SectorNames.NextString, _.MapPosition) { StartingSector = _.StartingSectorTeam}).ToList()
             };
 
-            m.Wormholes = map.WormholeIds.Select(_ => new Wormhole(m.Sectors[_.FromSectorId], m.Sectors[_.ToSectorId])).ToList();
+            m.Wormholes = map.WormholeIds.Select(_ => new Wormhole(game, m.Sectors[_.FromSectorId], m.Sectors[_.ToSectorId])).ToList();
 
             if (preview)
             {
@@ -175,8 +177,8 @@ namespace AllegianceForms.Engine.Map
 
                 foreach (var w in allW)
                 {
-                    w.End1.Signature *= StrategyGame.GameSettings.WormholesSignatureMultiplier;
-                    w.End2.Signature *= StrategyGame.GameSettings.WormholesSignatureMultiplier;
+                    w.End1.Signature *= _game.GameSettings.WormholesSignatureMultiplier;
+                    w.End2.Signature *= _game.GameSettings.WormholesSignatureMultiplier;
 
                     var angleAsRadians = (currentAngle * Math.PI) / 180.0;
                     var x = centerX + Math.Cos(angleAsRadians) * WormholeRadius;
@@ -201,7 +203,7 @@ namespace AllegianceForms.Engine.Map
         public void SetupRocks()
         {
             var rnd = StrategyGame.Random;
-            var settings = StrategyGame.GameSettings;
+            var settings = _game.GameSettings;
             var asteroids = new List<Asteroid>();
             var centerPos = new Point(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
 
@@ -213,15 +215,15 @@ namespace AllegianceForms.Engine.Map
                 // Rocks
                 for (var i = 0; i < settings.RocksPerSectorGeneral; i++)
                 {
-                    var a = new Asteroid(rnd, rockSize, rockSize, sector.Id);
+                    var a = new Asteroid(_game, rnd, rockSize, rockSize, sector.Id);
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
-                    for (var t = 0; t < StrategyGame.NumTeams; t++)
+                    for (var t = 0; t < _game.NumTeams; t++)
                     {
                         a.VisibleToTeam[t] = settings.RocksVisible;
                     }
                     asteroids.Add(a);
-                    StrategyGame.BuildableAsteroids.Add(a);
+                    _game.BuildableAsteroids.Add(a);
                 }
 
                 // Tech
@@ -230,9 +232,9 @@ namespace AllegianceForms.Engine.Map
                 radiusY = 100;
                 var rockOptionsFull = new List<Asteroid>
                 {
-                    new TechCarbonAsteroid(rnd, rockSize, rockSize, sector.Id),
-                    new TechSiliconAsteroid(rnd, rockSize, rockSize, sector.Id),
-                    new TechUraniumAsteroid(rnd, rockSize, rockSize, sector.Id)
+                    new TechCarbonAsteroid(_game, rnd, rockSize, rockSize, sector.Id),
+                    new TechSiliconAsteroid(_game, rnd, rockSize, rockSize, sector.Id),
+                    new TechUraniumAsteroid(_game, rnd, rockSize, rockSize, sector.Id)
                 };
                 var rockOptions = new List<Asteroid>(rockOptionsFull);
                 for (var i = 0; i < settings.RocksPerSectorTech; i++)
@@ -241,11 +243,11 @@ namespace AllegianceForms.Engine.Map
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
                     asteroids.Add(a);
-                    for (var t = 0; t < StrategyGame.NumTeams; t++)
+                    for (var t = 0; t < _game.NumTeams; t++)
                     {
                         a.VisibleToTeam[t] = settings.RocksVisible;
                     }
-                    StrategyGame.BuildableAsteroids.Add(a);
+                    _game.BuildableAsteroids.Add(a);
                     rockOptions.Remove(a);
 
                     if (rockOptions.Count == 0) rockOptions.AddRange(rockOptionsFull);
@@ -257,18 +259,18 @@ namespace AllegianceForms.Engine.Map
                 radiusY = 200;
                 for (var i = 0; i < settings.RocksPerSectorResource; i++)
                 {
-                    var a = new ResourceAsteroid(rnd, rockSize, rockSize, sector.Id);
+                    var a = new ResourceAsteroid(_game, rnd, rockSize, rockSize, sector.Id);
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
-                    for (var t = 0; t < StrategyGame.NumTeams; t++)
+                    for (var t = 0; t < _game.NumTeams; t++)
                     {
                         a.VisibleToTeam[t] = settings.RocksVisible;
                     }
-                    StrategyGame.ResourceAsteroids.Add(a);
+                    _game.ResourceAsteroids.Add(a);
                     asteroids.Add(a);
                 }                
             }
-            StrategyGame.AllAsteroids.AddRange(asteroids);
+            _game.AllAsteroids.AddRange(asteroids);
         }
 
         public void GenerateGraph()

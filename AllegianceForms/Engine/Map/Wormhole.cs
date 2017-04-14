@@ -10,12 +10,12 @@ namespace AllegianceForms.Engine.Map
         public GameEntity End1 { get; set; }
         public GameEntity End2 { get; set; }
 
-        public Wormhole(MapSector s1, MapSector s2)
+        public Wormhole(StrategyGame game, MapSector s1, MapSector s2)
         {
             Sector1 = s1;
             Sector2 = s2;
-            End1 = new GameEntity(".\\Art\\wormhole.png", 50, 50, s1.Id) { Name = s2.Name, TextBrush = Brushes.CornflowerBlue };
-            End2 = new GameEntity(".\\Art\\wormhole.png", 50, 50, s2.Id) { Name = s1.Name, TextBrush = Brushes.CornflowerBlue };
+            End1 = new GameEntity(game, ".\\Art\\wormhole.png", 50, 50, s1.Id) { Name = s2.Name, TextBrush = Brushes.CornflowerBlue };
+            End2 = new GameEntity(game, ".\\Art\\wormhole.png", 50, 50, s2.Id) { Name = s1.Name, TextBrush = Brushes.CornflowerBlue };
         }
 
         public void SetVisibleToTeam(int team, bool visible)

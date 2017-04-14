@@ -7,8 +7,8 @@ namespace AllegianceForms.Engine.Weapons
 {
     public abstract class BaseWeapon : Weapon
     {
-        protected BaseWeapon(int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
-            : base(fireTicks, refireTicks, range, damage, shooter, offset)
+        protected BaseWeapon(StrategyGame game, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
+            : base(game, fireTicks, refireTicks, range, damage, shooter, offset)
         {
         }
 
@@ -30,7 +30,7 @@ namespace AllegianceForms.Engine.Weapons
             // Always be checking for targets in range and FIRE!
             if (t == null || !t.Active || t.SectorId != t.SectorId || t.Alliance == Shooter.Alliance || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var enemyInRange = StrategyGame.AllBases.FirstOrDefault(_ => _.Active && _.Alliance != Shooter.Alliance && _.SectorId == Shooter.SectorId && _.VisibleToTeam[Shooter.Team - 1] && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
+                var enemyInRange = _game.AllBases.FirstOrDefault(_ => _.Active && _.Alliance != Shooter.Alliance && _.SectorId == Shooter.SectorId && _.VisibleToTeam[Shooter.Team - 1] && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
                 if (enemyInRange != null)
                 {
                     Target = enemyInRange;

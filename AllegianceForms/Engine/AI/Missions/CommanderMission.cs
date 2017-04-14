@@ -1,6 +1,5 @@
 ﻿using AllegianceForms.Engine.Ships;
 using AllegianceForms.Orders;
-using AllegianceForms.Forms;
 using System;
 using System.Collections.Generic;
 
@@ -10,19 +9,20 @@ namespace AllegianceForms.Engine.AI.Missions
     {
         public List<Ship> IncludedShips { get; set; }
         public BaseAI AI { get; set; }
-
         public List<DateTime> RecentOrders { get; set; }
 
         protected Ship.ShipEventHandler _shipHandler;
         protected bool _completed = false;
         protected int _recentOrderDelaySecs = 10;
+        protected StrategyGame _game;
 
-        public CommanderMission(BaseAI ai, Ship.ShipEventHandler shipHandler)
+        public CommanderMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipHandler)
         {
             AI = ai;
             IncludedShips = new List<Ship>();
             RecentOrders = new List<DateTime>();
             _shipHandler = shipHandler;
+            _game = game;
         }
         
         public virtual void UpdateMission()
@@ -36,7 +36,7 @@ namespace AllegianceForms.Engine.AI.Missions
             if (stillCompleted && !_completed)
             {
                 _completed = true;
-                IncludedShips.ForEach(_ => _.OrderShip(new DockOrder(_)));
+                IncludedShips.ForEach(_ => _.OrderShip(new DockOrder(_game, _)));
                 IncludedShips.Clear();
             }
             else if (_completed && !stillCompleted)

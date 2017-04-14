@@ -13,13 +13,15 @@ namespace AllegianceForms.Engine.Ships
     public class ShipSpecs
     {
         public List<ShipSpec> Ships { get; set; }
+        private StrategyGame _game;
 
-        private ShipSpecs(IEnumerable<ShipSpec> items)
+        private ShipSpecs(StrategyGame game, IEnumerable<ShipSpec> items)
         {
             Ships = items.ToList();
+            _game = game;
         }
 
-        public static ShipSpecs LoadShipSpecs(string shipFile)
+        public static ShipSpecs LoadShipSpecs(StrategyGame game, string shipFile)
         {
             var cfg = new CsvConfiguration()
             {
@@ -36,15 +38,16 @@ namespace AllegianceForms.Engine.Ships
 
                 foreach (var r in records)
                 {
-                    r.Initialise();
+                    r.Initialise(game);
                 }
-                return new ShipSpecs(records);
+
+                return new ShipSpecs(game, records);
             }
         }
 
         public CombatShip CreateShip(string name, int team, Color teamColour, int sectorId)
         {
-            var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
+            var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
             var type = (EShipType)Enum.Parse(typeof(EShipType), name);
 
             var spec = (from s in Ships
@@ -59,14 +62,14 @@ namespace AllegianceForms.Engine.Ships
 
         public CombatShip CreateCombatShip(int team, Color teamColour, int sectorId)
         {
-            var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
+            var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
             var keys = new[] { "F", "I", "G", "T" };
 
             // Get the most advanced ship for any of these keys
             var spec = (from s in Ships
                         where keys.Contains(s.Key)
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
-                       && StrategyGame.CanLaunchShip(team, s.NumPilots, s.Type)
+                       && _game.CanLaunchShip(team, s.NumPilots, s.Type)
                         orderby s.Id descending
                         select s).FirstOrDefault();
             if (spec == null) return null;
@@ -76,7 +79,7 @@ namespace AllegianceForms.Engine.Ships
 
         public CombatShip CreateTowerShip(EShipType type, int team, Color teamColour, int sectorId)
         {
-            var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
+            var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
             
             // Get the most advanced tower ship
             var spec = (from s in Ships
@@ -91,13 +94,13 @@ namespace AllegianceForms.Engine.Ships
 
         public CombatShip CreateCombatShip(Keys k, int team, Color teamColour, int sectorId)
         {
-            var unlockedIds = StrategyGame.TechTree[team - 1].CompletedTechIds();
+            var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
 
             // Get the most advanced ship for this key
             var spec = (from s in Ships
                         where s.Key == k.ToString()
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
-                       && StrategyGame.CanLaunchShip(team, s.NumPilots, s.Type)
+                       && _game.CanLaunchShip(team, s.NumPilots, s.Type)
                         orderby s.Id descending
                         select s).FirstOrDefault();
             if (spec == null) return null;
@@ -108,12 +111,12 @@ namespace AllegianceForms.Engine.Ships
         private CombatShip CreateShip(ShipSpec spec, int team, Color teamColour, int sectorId)
         {
             var t = team - 1;
-            var faction = StrategyGame.Faction[t];
-            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
-            var settings = StrategyGame.GameSettings;
+            var faction = _game.Faction[t];
+            var research = _game.TechTree[t].ResearchedUpgrades;
+            var settings = _game.GameSettings;
             var alliance = settings.TeamAlliance[t];
 
-            var ship = new CombatShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
+            var ship = new CombatShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                     , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, spec.NumPilots, spec.Type, sectorId);
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -127,7 +130,7 @@ namespace AllegianceForms.Engine.Ships
                     var nl = w as NanLaserWeapon;
                     if (nl != null)
                     {
-                        var clone = new NanLaserWeapon(nl.LaserPen.Width
+                        var clone = new NanLaserWeapon(_game, nl.LaserPen.Width
                             , nl.ShootingTicks
                             , (int)(nl.ShootingDelayTicks / (settings.NanWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , nl.WeaponRange * settings.NanWeaponRangeMultiplier
@@ -142,7 +145,7 @@ namespace AllegianceForms.Engine.Ships
                     {
                         var c = sl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
-                        var clone = new ShipLaserWeapon(c, sl.LaserPen.Width
+                        var clone = new ShipLaserWeapon(_game, c, sl.LaserPen.Width
                             , sl.ShootingTicks
                             , (int)(sl.ShootingDelayTicks / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , sl.WeaponRange * settings.AntiShipWeaponRangeMultiplier
@@ -155,7 +158,7 @@ namespace AllegianceForms.Engine.Ships
                     var ml = w as ShipMissileWeapon;
                     if (ml != null)
                     {
-                        var clone = new ShipMissileWeapon(ml.Width
+                        var clone = new ShipMissileWeapon(_game, ml.Width
                             , ml.Speed * settings.MissileWeaponSpeedMultiplier * research[EGlobalUpgrade.MissileSpeed] * faction.Bonuses.MissileSpeed
                             , ml.Tracking * settings.MissileWeaponTrackingMultiplier * research[EGlobalUpgrade.MissileTracking] * faction.Bonuses.MissileTracking
                             , ml.ShootingTicks
@@ -172,7 +175,7 @@ namespace AllegianceForms.Engine.Ships
                     { 
                         var c = bl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
-                        var clone = new BaseLaserWeapon(c, bl.LaserPen.Width
+                        var clone = new BaseLaserWeapon(_game, c, bl.LaserPen.Width
                             , bl.ShootingTicks
                             , (int)(bl.ShootingDelayTicks / (settings.AntiBaseWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
                             , bl.WeaponRange * settings.AntiBaseWeaponRangeMultiplier
@@ -193,12 +196,12 @@ namespace AllegianceForms.Engine.Ships
             if (spec == null) return null;
 
             var t = team - 1;
-            var faction = StrategyGame.Faction[t];
-            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
-            var settings = StrategyGame.GameSettings;
+            var faction = _game.Faction[t];
+            var research = _game.TechTree[t].ResearchedUpgrades;
+            var settings = _game.GameSettings;
             var alliance = settings.TeamAlliance[t];
 
-            var ship = new BuilderShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
+            var ship = new BuilderShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, baseType, sectorId);
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -209,7 +212,7 @@ namespace AllegianceForms.Engine.Ships
             ship.TextOffsetY = -15;
             ship.TextBrush = new SolidBrush(teamColour);
 
-            StrategyGame.GameStats.TotalConstructorsBuilt[t]++;
+            _game.GameStats.TotalConstructorsBuilt[t]++;
 
             return ship;
         }
@@ -220,12 +223,12 @@ namespace AllegianceForms.Engine.Ships
             if (spec == null) return null;
 
             var t = team - 1;
-            var faction = StrategyGame.Faction[t];
-            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
-            var settings = StrategyGame.GameSettings;
+            var faction = _game.Faction[t];
+            var research = _game.TechTree[t].ResearchedUpgrades;
+            var settings = _game.GameSettings;
             var alliance = settings.TeamAlliance[t];
 
-            var ship = new MinerShip(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
+            var ship = new MinerShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -234,7 +237,7 @@ namespace AllegianceForms.Engine.Ships
 
             ship.MaxResourceCapacity = (int)(ship.MaxResourceCapacity * research[EGlobalUpgrade.MinerCapacity] * settings.MinersCapacityMultiplier * faction.Bonuses.MiningCapacity);
 
-            StrategyGame.GameStats.TotalMinersBuilt[t]++;
+            _game.GameStats.TotalMinersBuilt[t]++;
 
             return ship;
         }
@@ -245,12 +248,12 @@ namespace AllegianceForms.Engine.Ships
             if (spec == null) return null;
 
             var t = team - 1;
-            var faction = StrategyGame.Faction[t];
-            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
-            var settings = StrategyGame.GameSettings;
+            var faction = _game.Faction[t];
+            var research = _game.TechTree[t].ResearchedUpgrades;
+            var settings = _game.GameSettings;
             var alliance = settings.TeamAlliance[t];
 
-            var ship = new Ship(StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
+            var ship = new Ship(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, 1, sectorId);
             ship.Type = EShipType.Lifepod;
 
@@ -279,11 +282,9 @@ namespace AllegianceForms.Engine.Ships
         public EBaseType BaseType { get; set; }
         public string PreReqTechIds { get; set; }
         public int[] DependsOnTechIds { get; set; }
-
         public List<Weapon> Weapons { get; set; }
 
-
-        public void Initialise()
+        public void Initialise(StrategyGame game)
         {
             if (string.IsNullOrEmpty(WeaponData)) return;
             var weaps = WeaponData.Split('>');
@@ -299,23 +300,23 @@ namespace AllegianceForms.Engine.Ships
                 {
                     case "0":
                     case "ship":
-                        Weapons.Add(new ShipLaserWeapon(Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
+                        Weapons.Add(new ShipLaserWeapon(game, Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
 
                     case "1":
                     case "base":
-                        Weapons.Add(new BaseLaserWeapon(Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
+                        Weapons.Add(new BaseLaserWeapon(game, Color.Empty, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
 
                     case "2":
                     case "nan":
-                        Weapons.Add(new NanLaserWeapon(float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
+                        Weapons.Add(new NanLaserWeapon(game, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
 
                     case "3":
                     case "missile":
                         //new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)
-                        Weapons.Add(new ShipMissileWeapon(int.Parse(data[1]), float.Parse(data[8]), float.Parse(data[9]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7])), new SolidBrush(Color.Empty)));
+                        Weapons.Add(new ShipMissileWeapon(game, int.Parse(data[1]), float.Parse(data[8]), float.Parse(data[9]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7])), new SolidBrush(Color.Empty)));
                         break;
                 }
             }
@@ -326,6 +327,5 @@ namespace AllegianceForms.Engine.Ships
             }
             WeaponData = string.Empty;
         }
-
     }
 }

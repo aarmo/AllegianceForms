@@ -22,9 +22,9 @@ namespace AllegianceForms.Forms
         private readonly List<Animation> _animations = new List<Animation>();
         private readonly List<string> _shipKeys;
 
-        private Research _researchForm = new Research();
-        private PilotList _pilotList = new PilotList();
-        private Map _mapForm = new Map();
+        private Research _researchForm;
+        private PilotList _pilotList;
+        private Map _mapForm;
         private DebugAI _debugForm;
         private MapSector _currentSector;
 
@@ -48,13 +48,19 @@ namespace AllegianceForms.Forms
         private TimeSpan _alertDuration = new TimeSpan(0, 0, 0, 3);
         private Color _colourTeam1;
 
+        private StrategyGame StrategyGame = new StrategyGame();
+
         public Sector(GameSettings settings)
         {
             InitializeComponent();
 
+            _researchForm = new Research(StrategyGame);
+            _pilotList = new PilotList(StrategyGame);
+            _mapForm = new Map(StrategyGame);
+
             StrategyGame.SetupGame(settings);
             StrategyGame.LoadData();
-            StrategyGame.Map = GameMaps.LoadMap(settings.MapName);
+            StrategyGame.Map = GameMaps.LoadMap(StrategyGame, settings.MapName);
 
             var startSectors = (from s in StrategyGame.Map.Sectors
                                 where s.StartingSector != 0
@@ -88,6 +94,8 @@ namespace AllegianceForms.Forms
             _sensorBrush = new SolidBrush(StrategyGame.NewAlphaColour(5, _colourTeam1));
             _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
             _currentSector = startSectors[0];
+            StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
+
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
             
             // Friendy & enemy team setup:
@@ -117,12 +125,12 @@ namespace AllegianceForms.Forms
                 if (aiPlayer)
                 {
                     // AI setup:
-                    var ai = new CommanderAI(team, teamColour, F_ShipEvent, true);
+                    var ai = new CommanderAI(StrategyGame, team, teamColour, F_ShipEvent, true);
                     StrategyGame.AICommanders[t] = ai;
                     ai.SetDifficulty(settings.AiDifficulty);
                     StrategyGame.DockedPilots[t] = (int)(settings.NumPilots * ai.CheatAdditionalPilots);
 
-                    if (t == 1) _debugForm = new DebugAI(ai);
+                    if (t == 1) _debugForm = new DebugAI(StrategyGame, ai);
 
                     //ai.Enabled = false;
                     //enemyAIDebugToolStripMenuItem_Click(null, null);
@@ -169,7 +177,7 @@ namespace AllegianceForms.Forms
                 if (s == null) return;
 
                 // Order selected units to navigate to the clicked sector
-                _selectedUnits.ForEach(_ => _.OrderShip(new NavigateOrder(_, s.Id), _shiftDown));
+                _selectedUnits.ForEach(_ => _.OrderShip(new NavigateOrder(StrategyGame, _, s.Id), _shiftDown));
                 _selectedUnits.ForEach(_ => _.Selected = false);
                 _selectedUnits.Clear();
                 Focus();
@@ -438,7 +446,7 @@ namespace AllegianceForms.Forms
         
         private void tick_Tick(object sender, EventArgs e)
         {
-            StrategyGame.Tick(_currentSector.Id);
+            StrategyGame.Tick();
 
             _selectedUnits.RemoveAll(_ => !_.Active);
             _selectedBases.RemoveAll(_ => !_.Active);
@@ -680,13 +688,14 @@ namespace AllegianceForms.Forms
 
         private void SwitchSector(int i)
         {
-            if (i <= 0 || i > StrategyGame.Map.Sectors.Count) return;
+            if (i < 1 || i > StrategyGame.Map.Sectors.Count) return;
 
             _selectedBases.Clear();
             _selectedUnits.Clear();
 
             var s = StrategyGame.Map.Sectors[i-1];
             _currentSector = s;
+            StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
 
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
@@ -710,7 +719,7 @@ namespace AllegianceForms.Forms
             ship.CenterX = b.CenterX;
             ship.CenterY = b.CenterY;
             ship.ShipEvent += F_ShipEvent;
-            ship.OrderShip(new MoveOrder(b.SectorId, pos, Point.Empty));
+            ship.OrderShip(new MoveOrder(StrategyGame, b.SectorId, pos, Point.Empty));
 
             StrategyGame.LaunchShip(ship);
             SoundEffect.Play(ESounds.text);
@@ -727,7 +736,7 @@ namespace AllegianceForms.Forms
             {
                 foreach (var pod in lifepods)
                 {
-                    pod.OrderShip(new InterceptOrder(s, pod.SectorId));
+                    pod.OrderShip(new InterceptOrder(StrategyGame, s, pod.SectorId));
                     _selectedUnits.Remove(pod);
                     pod.Selected = false;
                 }
@@ -738,7 +747,7 @@ namespace AllegianceForms.Forms
             switch (e.KeyCode)
             {
                 case Keys.S:
-                    _selectedUnits.ForEach(_ => _.OrderShip(new StopOrder(), _shiftDown));
+                    _selectedUnits.ForEach(_ => _.OrderShip(new StopOrder(StrategyGame), _shiftDown));
                     playKey = true;
                     break;
                 case Keys.R:
@@ -750,7 +759,7 @@ namespace AllegianceForms.Forms
                     playKey = true;
                     break;
                 case Keys.D:
-                    _selectedUnits.ForEach(_ => _.OrderShip(new DockOrder(_, _shiftDown), _shiftDown));
+                    _selectedUnits.ForEach(_ => _.OrderShip(new DockOrder(StrategyGame, _, _shiftDown), _shiftDown));
                     playKey = true;
                     break;
                 case Keys.C:
@@ -778,7 +787,7 @@ namespace AllegianceForms.Forms
                 foreach (var u in _selectedUnits)
                 {
                     if (u.SectorId != _currentSector.Id) continue;
-                    u.OrderShip(new DockOrder(u, b, _shiftDown), _shiftDown);
+                    u.OrderShip(new DockOrder(StrategyGame, u, b, _shiftDown), _shiftDown);
                 }
                 return;
             }
@@ -790,7 +799,7 @@ namespace AllegianceForms.Forms
                 foreach (var u in _selectedUnits)
                 {
                     if (u.SectorId != _currentSector.Id) continue;
-                    u.OrderShip(new WarpOrder(u, w), _shiftDown);
+                    u.OrderShip(new WarpOrder(StrategyGame, u, w), _shiftDown);
                 }
                 return;
             }
@@ -803,7 +812,7 @@ namespace AllegianceForms.Forms
                     foreach (var u in _selectedUnits)
                     {
                         if (u.SectorId != _currentSector.Id || u.Type != EShipType.TroopTransport) continue;
-                        u.OrderShip(new CaptureOrder(u, b), _shiftDown);
+                        u.OrderShip(new CaptureOrder(StrategyGame, u, b), _shiftDown);
                     }
 
                     _selectedUnits.RemoveAll(_ => _.Type == EShipType.TroopTransport);
@@ -816,7 +825,7 @@ namespace AllegianceForms.Forms
             }
             else if (_selectedUnits.Count == 1 && _selectedUnits[0].SectorId == _currentSector.Id)
             {
-                _selectedUnits[0].OrderShip(new MoveOrder(_currentSector.Id, orderPosition, Point.Empty), _shiftDown);
+                _selectedUnits[0].OrderShip(new MoveOrder(StrategyGame, _currentSector.Id, orderPosition, Point.Empty), _shiftDown);
             }
         }
 
@@ -828,7 +837,7 @@ namespace AllegianceForms.Forms
             }
             else if (_selectedUnits.Count == 1 && _selectedUnits[0].SectorId == _currentSector.Id)
             {
-                _selectedUnits[0].OrderShip(new PatrolOrder(_currentSector.Id, orderPosition, Point.Empty), _shiftDown);
+                _selectedUnits[0].OrderShip(new PatrolOrder(StrategyGame, _currentSector.Id, orderPosition, Point.Empty), _shiftDown);
             }
         }
 
@@ -842,7 +851,7 @@ namespace AllegianceForms.Forms
             }
             else if (minerUnits.Count == 1 && minerUnits[0].SectorId == _currentSector.Id)
             {
-                minerUnits[0].OrderShip(new MineOrder(_currentSector.Id, orderPosition, Point.Empty), _shiftDown);
+                minerUnits[0].OrderShip(new MineOrder(StrategyGame, _currentSector.Id, orderPosition, Point.Empty), _shiftDown);
             }
         }
 
@@ -852,7 +861,7 @@ namespace AllegianceForms.Forms
 
             if (transportUnit != null)
             {
-                transportUnit.OrderShip(new CaptureOrder(transportUnit), _shiftDown);
+                transportUnit.OrderShip(new CaptureOrder(StrategyGame, transportUnit), _shiftDown);
             }
         }
 
@@ -862,7 +871,7 @@ namespace AllegianceForms.Forms
 
             if (builderUnit != null)
             {
-                builderUnit.OrderShip(new BuildOrder(_currentSector.Id, orderPosition, Point.Empty), _shiftDown);
+                builderUnit.OrderShip(new BuildOrder(StrategyGame, _currentSector.Id, orderPosition, Point.Empty), _shiftDown);
             }
         }
 
@@ -1013,7 +1022,7 @@ namespace AllegianceForms.Forms
         private void timer_Tick(object sender, EventArgs e)
         {
             // The Game's slow update!
-            StrategyGame.SlowTick(_currentSector.Id);
+            StrategyGame.SlowTick();
 
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
             

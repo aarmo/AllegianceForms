@@ -18,9 +18,12 @@ namespace AllegianceForms.Forms
         private readonly Color _foreColorActive = Color.White;
         private readonly Color _foreColorInActive = Color.Gray;
 
-        public Research()
+        private StrategyGame _game;
+
+        public Research(StrategyGame game)
         {
             InitializeComponent();
+            _game = game;
         }
 
         public void RefreshItems()
@@ -29,26 +32,26 @@ namespace AllegianceForms.Forms
 
             ConstructionButton.BackColor = (_type == ETechType.Construction) ? _backColorType : _backColorNotType;
 
-            StarbaseButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Starbase)) ? _foreColorActive : _foreColorInActive;
+            StarbaseButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Starbase)) ? _foreColorActive : _foreColorInActive;
             StarbaseButton.BackColor = (_type == ETechType.Starbase) ? _backColorType : _backColorNotType;
 
-            SupremacyButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Supremacy)) ? _foreColorActive : _foreColorInActive;
+            SupremacyButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Supremacy)) ? _foreColorActive : _foreColorInActive;
             SupremacyButton.BackColor = (_type == ETechType.Supremacy) ? _backColorType : _backColorNotType;
 
-            TacticalButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Tactical)) ? _foreColorActive : _foreColorInActive;
+            TacticalButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Tactical)) ? _foreColorActive : _foreColorInActive;
             TacticalButton.BackColor = (_type == ETechType.Tactical) ? _backColorType : _backColorNotType;
 
-            ExpansionButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Expansion)) ? _foreColorActive : _foreColorInActive;
+            ExpansionButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Expansion)) ? _foreColorActive : _foreColorInActive;
             ExpansionButton.BackColor = (_type == ETechType.Expansion) ? _backColorType : _backColorNotType;
 
-            ShipyardButton.ForeColor = (StrategyGame.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Shipyard)) ? _foreColorActive : _foreColorInActive;
+            ShipyardButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Shipyard)) ? _foreColorActive : _foreColorInActive;
             ShipyardButton.BackColor = (_type == ETechType.ShipyardConstruction) ? _backColorType : _backColorNotType;
 
 
-            var items = StrategyGame.TechTree[0].ResearchableItems(_type);
+            var items = _game.TechTree[0].ResearchableItems(_type);
             foreach (var i in items)
             {
-                var c = new TechTreeItem();
+                var c = new TechTreeItem(_game);
                 c.SetInfo(i);
 
                 ResearchItems.Controls.Add(c);
@@ -66,7 +69,7 @@ namespace AllegianceForms.Forms
 
         public void UpdateItems()
         {
-            var activeItems = StrategyGame.TechTree[0].ResearchableItems(_type);
+            var activeItems = _game.TechTree[0].ResearchableItems(_type);
             var removeControls = new List<Control>();
 
             // Update
@@ -94,7 +97,7 @@ namespace AllegianceForms.Forms
             // Insert
             foreach (var i in activeItems)
             {
-                var ui = new TechTreeItem();
+                var ui = new TechTreeItem(_game);
                 ui.SetInfo(i);
 
                 ResearchItems.Controls.Add(ui);

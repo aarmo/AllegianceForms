@@ -6,8 +6,8 @@ namespace AllegianceForms.Engine.Weapons
 {
     public abstract class ShipWeapon : Weapon
     {
-        protected ShipWeapon(int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
-            : base(fireTicks, refireTicks, range, damage, shooter, offset)
+        protected ShipWeapon(StrategyGame game, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
+            : base(game, fireTicks, refireTicks, range, damage, shooter, offset)
         {
         }
 
@@ -29,7 +29,7 @@ namespace AllegianceForms.Engine.Weapons
             var t = Target as Ship;
             if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Alliance == Shooter.Alliance || !t.VisibleToTeam[Shooter.Team - 1] || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var enemysInRange = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance != Shooter.Alliance && !_.Docked && Shooter.SectorId == _.SectorId && _.VisibleToTeam[Shooter.Team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange)).ToList();
+                var enemysInRange = _game.AllUnits.Where(_ => _.Active && _.Alliance != Shooter.Alliance && !_.Docked && Shooter.SectorId == _.SectorId && _.VisibleToTeam[Shooter.Team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange)).ToList();
                 
                 if (enemysInRange.Count > 1)
                 {

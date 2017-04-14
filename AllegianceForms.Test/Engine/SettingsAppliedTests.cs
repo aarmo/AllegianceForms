@@ -14,19 +14,21 @@ namespace AllegianceForms.Test.Engine
     public class SettingsAppliedTests
     {
         private GameSettings _settings;
+        private StrategyGame _game;
 
         [TestInitialize]
         public void Setup()
         {
             _settings = GameSettings.Default();
+            _game = new StrategyGame();
         }
         
         private void LoadSettings()
         {
-            StrategyGame.SetupGame(_settings);
-            StrategyGame.LoadData();
-            StrategyGame.Map = GameMaps.LoadMap(_settings.MapName);
-            StrategyGame.InitialiseGame(false);
+            _game.SetupGame(_settings);
+            _game.LoadData();
+            _game.Map = GameMaps.LoadMap(_game, _settings.MapName);
+            _game.InitialiseGame(false);
         }
 
         [TestMethod]
@@ -35,7 +37,7 @@ namespace AllegianceForms.Test.Engine
             _settings.NumPilots = 8;
             LoadSettings();
 
-            StrategyGame.DockedPilots[0].ShouldBe(8);
+            _game.DockedPilots[0].ShouldBe(8);
         }
 
         [TestMethod]
@@ -43,7 +45,7 @@ namespace AllegianceForms.Test.Engine
         {
             _settings.WormholesVisible = true;
             LoadSettings();
-            foreach (var w in StrategyGame.Map.Wormholes)
+            foreach (var w in _game.Map.Wormholes)
             {
                 w.Sector1.VisibleToTeam[0].ShouldBe(true);
                 w.Sector1.VisibleToTeam[1].ShouldBe(true);
@@ -59,7 +61,7 @@ namespace AllegianceForms.Test.Engine
             var value = 0.5f;
             _settings.WormholesSignatureMultiplier = value;
             LoadSettings();
-            foreach (var w in StrategyGame.Map.Wormholes)
+            foreach (var w in _game.Map.Wormholes)
             {
                 w.End1.Signature.ShouldBe(value * value);
                 w.End2.Signature.ShouldBe(value * value);
@@ -73,9 +75,9 @@ namespace AllegianceForms.Test.Engine
             _settings.ShipSpeedMultiplier[EShipType.Scout] = value;
             LoadSettings();
             
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
-            var scout = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+            var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
             scout.Speed.ShouldBe(tech.Speed * value);
         }
@@ -87,9 +89,9 @@ namespace AllegianceForms.Test.Engine
             _settings.ShipHealthMultiplier[EShipType.Scout] = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
-            var scout = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+            var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
             scout.Health.ShouldBe(tech.Health * value);
         }
@@ -101,9 +103,9 @@ namespace AllegianceForms.Test.Engine
             _settings.ShipSignatureMultiplier[EShipType.Scout] = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
-            var scout = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+            var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
             scout.Signature.ShouldBe(tech.Signature * value);
         }
@@ -115,9 +117,9 @@ namespace AllegianceForms.Test.Engine
             _settings.StationHealthMultiplier[EBaseType.Outpost] = value;
             LoadSettings();
 
-            var tech = StrategyGame.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Outpost);
+            var tech = _game.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Outpost);
             if (tech == null) return;
-            var outpost = StrategyGame.Bases.CreateBase(EBaseType.Outpost, 1, Color.White, 1);
+            var outpost = _game.Bases.CreateBase(EBaseType.Outpost, 1, Color.White, 1);
 
             outpost.Health.ShouldBe(tech.Health * value);
         }
@@ -129,9 +131,9 @@ namespace AllegianceForms.Test.Engine
             _settings.StationSignatureMultiplier[EBaseType.Outpost] = value;
             LoadSettings();
 
-            var tech = StrategyGame.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Outpost);
+            var tech = _game.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Outpost);
             if (tech == null) return;
-            var outpost = StrategyGame.Bases.CreateBase(EBaseType.Outpost, 1, Color.White, 1);
+            var outpost = _game.Bases.CreateBase(EBaseType.Outpost, 1, Color.White, 1);
 
             outpost.Signature.ShouldBe(tech.Signature * value);
         }
@@ -143,8 +145,8 @@ namespace AllegianceForms.Test.Engine
             _settings.ResourcesStartingMultiplier = value;
             LoadSettings();
 
-            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
-            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
+            _game.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
+            _game.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
         }
 
         [TestMethod]
@@ -154,7 +156,7 @@ namespace AllegianceForms.Test.Engine
             _settings.ResourcesPerRockMultiplier = value;
             LoadSettings();
 
-            foreach (var r in StrategyGame.ResourceAsteroids)
+            foreach (var r in _game.ResourceAsteroids)
             {
                 r.AvailableResources.ShouldBe((int)(ResourceAsteroid.MaxResources * value));
             }
@@ -167,8 +169,8 @@ namespace AllegianceForms.Test.Engine
             _settings.ResourceConversionRateMultiplier = value;
             LoadSettings();
 
-            StrategyGame.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
-            StrategyGame.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
+            _game.Credits[0].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
+            _game.Credits[1].ShouldBe((int)(StrategyGame.ResourcesInitial * StrategyGame.BaseConversionRate * value));
         }
 
         [TestMethod]
@@ -178,9 +180,9 @@ namespace AllegianceForms.Test.Engine
             _settings.RocksPerSectorTech = value;
             LoadSettings();
 
-            foreach (var s in StrategyGame.Map.Sectors)
+            foreach (var s in _game.Map.Sectors)
             {
-                var rocks = StrategyGame.BuildableAsteroids.Count(_ => _.SectorId == s.Id && _.Type != EAsteroidType.Rock);
+                var rocks = _game.BuildableAsteroids.Count(_ => _.SectorId == s.Id && _.Type != EAsteroidType.Rock);
                 rocks.ShouldBe(value);
             }
         }
@@ -192,9 +194,9 @@ namespace AllegianceForms.Test.Engine
             _settings.RocksPerSectorResource = value;
             LoadSettings();
 
-            foreach (var s in StrategyGame.Map.Sectors)
+            foreach (var s in _game.Map.Sectors)
             {
-                var rocks = StrategyGame.ResourceAsteroids.Count(_ => _.SectorId == s.Id);
+                var rocks = _game.ResourceAsteroids.Count(_ => _.SectorId == s.Id);
                 rocks.ShouldBe(value);
             }
         }
@@ -205,7 +207,7 @@ namespace AllegianceForms.Test.Engine
             _settings.RocksVisible = true;
             LoadSettings();
 
-            StrategyGame.AllAsteroids.ShouldAllBe(_ => _.VisibleToTeam[0] && _.VisibleToTeam[1]);
+            _game.AllAsteroids.ShouldAllBe(_ => _.VisibleToTeam[0] && _.VisibleToTeam[1]);
         }
 
         [TestMethod]
@@ -215,9 +217,9 @@ namespace AllegianceForms.Test.Engine
             _settings.AntiShipWeaponRangeMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[0];
             var tw = tech.Weapons[0];
@@ -232,9 +234,9 @@ namespace AllegianceForms.Test.Engine
             _settings.AntiShipWeaponFireRateMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[0];
             var tw = tech.Weapons[0];
@@ -249,9 +251,9 @@ namespace AllegianceForms.Test.Engine
             _settings.AntiShipWeaponDamageMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[0];
             var tw = tech.Weapons[0];
@@ -266,9 +268,9 @@ namespace AllegianceForms.Test.Engine
             _settings.NanWeaponRangeMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
-            var ship = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+            var ship = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
             var w = ship.Weapons[0];
             var tw = tech.Weapons[0];
@@ -283,9 +285,9 @@ namespace AllegianceForms.Test.Engine
             _settings.NanWeaponFireRateMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
-            var ship = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+            var ship = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
             var w = ship.Weapons[0];
             var tw = tech.Weapons[0];
@@ -300,9 +302,9 @@ namespace AllegianceForms.Test.Engine
             _settings.NanWeaponHealingMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
-            var ship = StrategyGame.Ships.CreateShip("Scout", 1, Color.White, 1);
+            var ship = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
             var w = ship.Weapons[0];
             var tw = tech.Weapons[0];
@@ -317,9 +319,9 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponRangeMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[1];
             var tw = tech.Weapons[1];
@@ -334,9 +336,9 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponFireRateMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[1];
             var tw = tech.Weapons[1];
@@ -351,9 +353,9 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponDamageMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[1];
             var tw = tech.Weapons[1];
@@ -368,9 +370,9 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponSpeedMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[1] as ShipMissileWeapon;
             var tw = tech.Weapons[1] as ShipMissileWeapon;
@@ -385,9 +387,9 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponTrackingMultiplier = value;
             LoadSettings();
 
-            var tech = StrategyGame.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
-            var fig = StrategyGame.Ships.CreateShip("Fighter", 1, Color.White, 1);
+            var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
             var w = fig.Weapons[1] as ShipMissileWeapon;
             var tw = tech.Weapons[1] as ShipMissileWeapon;
@@ -401,13 +403,13 @@ namespace AllegianceForms.Test.Engine
             var value = 0.5f;
             _settings.ResearchTimeMultiplier = value;
             LoadSettings();
-            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(StrategyGame.TechDataFile, 0);
+            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, StrategyGame.TechDataFile, 0);
 
-            for (var t = 0; t < StrategyGame.TechTree.Length; t++)
+            for (var t = 0; t < _game.TechTree.Length; t++)
             {
-                for (var i = 0; i < StrategyGame.TechTree[t].TechItems.Count; i++)
+                for (var i = 0; i < _game.TechTree[t].TechItems.Count; i++)
                 {
-                    var item = StrategyGame.TechTree[t].TechItems[i];
+                    var item = _game.TechTree[t].TechItems[i];
                     var original = techData.TechItems[i];
 
                     item.DurationTicks.ShouldBe((int)(original.DurationTicks * value));
@@ -421,13 +423,13 @@ namespace AllegianceForms.Test.Engine
             var value = 0.5f;
             _settings.ResearchCostMultiplier = value;
             LoadSettings();
-            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(StrategyGame.TechDataFile, 0);
+            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, StrategyGame.TechDataFile, 0);
 
-            for (var t = 0; t < StrategyGame.TechTree.Length; t++)
+            for (var t = 0; t < _game.TechTree.Length; t++)
             {
-                for (var i = 0; i < StrategyGame.TechTree[t].TechItems.Count; i++)
+                for (var i = 0; i < _game.TechTree[t].TechItems.Count; i++)
                 {
-                    var item = StrategyGame.TechTree[t].TechItems[i];
+                    var item = _game.TechTree[t].TechItems[i];
                     var original = techData.TechItems[i];
 
                     item.Cost.ShouldBe((int)(original.Cost * value));

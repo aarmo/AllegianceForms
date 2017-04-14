@@ -7,8 +7,8 @@ namespace AllegianceForms.Engine.Weapons
     {
         public Pen LaserPen { get; set; }
         
-        public ShipLaserWeapon(Color laserColor, float laserWidth, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
-            : base(fireTicks, refireTicks, range, damage, shooter, offset)
+        public ShipLaserWeapon(StrategyGame game, Color laserColor, float laserWidth, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
+            : base(game, fireTicks, refireTicks, range, damage, shooter, offset)
         {
             LaserPen = new Pen(laserColor, laserWidth);
         }

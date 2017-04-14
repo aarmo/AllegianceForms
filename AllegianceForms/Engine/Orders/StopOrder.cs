@@ -1,10 +1,11 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 
 namespace AllegianceForms.Orders
 {
     public class StopOrder : ShipOrder
     {
-        public StopOrder() : base(-1)
+        public StopOrder(StrategyGame game) : base(game, -1)
         {
         }
 

@@ -7,62 +7,65 @@ namespace AllegianceForms.Test.Engine
     [TestClass]
     public class ResourceTests
     {
+        StrategyGame _game;
+
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.Credits[0] = 0;
-            StrategyGame.Credits[1] = 0;
-            StrategyGame.GameStats = new GameStats();
-            StrategyGame.GameSettings = GameSettings.Default();
-            StrategyGame.LoadData();
+            _game = new StrategyGame();
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
+
+            _game.Credits[0] = 0;
+            _game.Credits[1] = 0;
         }
 
         [TestMethod]
         public void AddResources()
         {
-            StrategyGame.AddResources(2, 100);
+            _game.AddResources(2, 100);
 
-            StrategyGame.Credits[0].ShouldBe(0);
-            StrategyGame.Credits[1].ShouldBe((int)(100 * StrategyGame.BaseConversionRate * StrategyGame.Faction[1].Bonuses.MiningEfficiency));
+            _game.Credits[0].ShouldBe(0);
+            _game.Credits[1].ShouldBe((int)(100 * StrategyGame.BaseConversionRate * _game.Faction[1].Bonuses.MiningEfficiency));
         }
         
         [TestMethod]
         public void SpendNoCredits()
         {
-            var spent = StrategyGame.SpendCredits(1, 100);
+            var spent = _game.SpendCredits(1, 100);
             spent.ShouldBe(0);
 
-            StrategyGame.Credits[0].ShouldBe(0);
+            _game.Credits[0].ShouldBe(0);
         }
 
         [TestMethod]
         public void SpendSomeCredits()
         {
-            StrategyGame.Credits[1] = 100;
-            var spent = StrategyGame.SpendCredits(2, 200);
+            _game.Credits[1] = 100;
+            var spent = _game.SpendCredits(2, 200);
             spent.ShouldBe(100);
 
-            StrategyGame.Credits[1].ShouldBe(0);
+            _game.Credits[1].ShouldBe(0);
         }
 
         [TestMethod]
         public void SpendEnoughCredits()
         {
-            StrategyGame.Credits[1] = 100;
-            var spent = StrategyGame.SpendCredits(2, 75);
+            _game.Credits[1] = 100;
+            var spent = _game.SpendCredits(2, 75);
             spent.ShouldBe(75);
 
-            StrategyGame.Credits[1].ShouldBe(25);
+            _game.Credits[1].ShouldBe(25);
         }
 
         [TestMethod]
         public void SpendAllCredits()
         {
-            StrategyGame.Credits[1] = 100;
-            var spent = StrategyGame.SpendCredits(2, 100);
+            _game.Credits[1] = 100;
+            var spent = _game.SpendCredits(2, 100);
             spent.ShouldBe(100);
 
-            StrategyGame.Credits[1].ShouldBe(0);
+            _game.Credits[1].ShouldBe(0);
         }
     }
 }

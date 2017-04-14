@@ -10,10 +10,9 @@ namespace AllegianceForms.Engine.Tech
     public class TechTree
     {
         public List<TechItem> TechItems { get; set; }
-
         public Dictionary<EGlobalUpgrade, float> ResearchedUpgrades { get; set; }
 
-        public static TechTree LoadTechTree(string techFile, int team)
+        public static TechTree LoadTechTree(StrategyGame game, string techFile, int team)
         {
             var cfg = new CsvConfiguration()
             {
@@ -29,7 +28,7 @@ namespace AllegianceForms.Engine.Tech
 
                 foreach (var r in records)
                 {
-                    r.Initialise(team);
+                    r.Initialise(game, team);
                 }
                 return new TechTree(records);
             }

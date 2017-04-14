@@ -21,13 +21,13 @@ namespace AllegianceForms.Engine.Bases
         private DateTime _offsetClear = DateTime.MinValue;
         private TimeSpan _offsetDelay = new TimeSpan(0, 0, 2);
 
-        public Base(EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
-            : this(string.Empty, type, width, height, teamColor, team, alliance, health, sectorId)
+        public Base(StrategyGame game, EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
+            : this(game, string.Empty, type, width, height, teamColor, team, alliance, health, sectorId)
         {
         }
 
-        protected Base(string image, EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
-            : base(string.Empty, width, height, health, sectorId, team)
+        protected Base(StrategyGame game, string image, EBaseType type, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
+            : base(game, string.Empty, width, height, health, sectorId, team)
         {
             Type = type;
             Alliance = alliance;
@@ -78,14 +78,14 @@ namespace AllegianceForms.Engine.Bases
             OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);
         } 
 
-        public override void Update(int currentSectorId)
+        public override void Update()
         {
             if (!Active) return;
-            base.Update(currentSectorId);
+            base.Update();
 
             if (CanGenerateIncome())
             {
-                StrategyGame.AddResources(Team, (int)(StrategyGame.ResourceRegularAmount * StrategyGame.GameSettings.ResourcesEachTickMultiplier), false);
+                _game.AddResources(Team, (int)(StrategyGame.ResourceRegularAmount * _game.GameSettings.ResourcesEachTickMultiplier), false);
             }
 
             if (!CanLaunchShips()) return;
@@ -108,16 +108,16 @@ namespace AllegianceForms.Engine.Bases
 
             var b = BoundsI;
             var t = Team - 1;
-            g.FillRectangle(StrategyGame.TeamBrushes[t], b);
+            g.FillRectangle(_game.TeamBrushes[t], b);
             g.DrawRectangle(StrategyGame.BaseBorderPen, b);
-            StrategyGame.DrawCenteredText(g, StrategyGame.TextBrushes[t], Type.ToString(), b);
+            StrategyGame.DrawCenteredText(g, _game.TextBrushes[t], Type.ToString(), b);
             
             DrawHealthBar(g, t, b);
 
             if (Selected)
             {
-                g.DrawRectangle(StrategyGame.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
-                if (CanLaunchShips()) g.DrawLine(StrategyGame.SelectedPens[t], CenterX, CenterY, BuildPosition.X, BuildPosition.Y);
+                g.DrawRectangle(_game.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
+                if (CanLaunchShips()) g.DrawLine(_game.SelectedPens[t], CenterX, CenterY, BuildPosition.X, BuildPosition.Y);
             }
         }
 

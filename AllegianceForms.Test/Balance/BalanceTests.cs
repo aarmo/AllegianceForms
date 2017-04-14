@@ -12,18 +12,21 @@ namespace AllegianceForms.Test.Balance
     [TestClass]
     public class BalanceTests
     {
+        private StrategyGame _game;
+
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.SetupGame(GameSettings.Default());
-            StrategyGame.LoadData();            
+            _game = new StrategyGame();
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();            
         }
 
         [TestMethod]
         public void BaseStatsAreBalanced()
         {
-            var bases = StrategyGame.Bases.Bases;
-            var tech = StrategyGame.TechTree[0].TechItems;
+            var bases = _game.Bases.Bases;
+            var tech = _game.TechTree[0].TechItems;
             var results = new List<float>();
 
             foreach (var b in bases)
@@ -44,8 +47,8 @@ namespace AllegianceForms.Test.Balance
         [TestMethod]
         public void ShipStatsAreBalanced()
         {
-            var settings = StrategyGame.GameSettings;
-            var ships = StrategyGame.Ships.Ships;
+            var settings = _game.GameSettings;
+            var ships = _game.Ships.Ships;
             var results = new List<BalanceStat>();
 
             foreach (var s in ships)
@@ -88,7 +91,7 @@ namespace AllegianceForms.Test.Balance
         {
             if (ship.DependsOnTechIds == null || ship.DependsOnTechIds.Length == 0)
                 return;
-            var allTech = StrategyGame.TechTree[0].TechItems;
+            var allTech = _game.TechTree[0].TechItems;
             if (Ship.IsCapitalShip(ship.Type))
             {
                 var capTech = allTech.FirstOrDefault(_ => _.Type == ETechType.ShipyardConstruction && _.Name == ship.Type.ToString());
@@ -109,7 +112,7 @@ namespace AllegianceForms.Test.Balance
 
         private void AddAllReqTech(TechItem item, List<TechItem> tech)
         {
-            var allTech = StrategyGame.TechTree[0].TechItems;
+            var allTech = _game.TechTree[0].TechItems;
             if (item.Type == ETechType.Base)
             {
                 var name = item.Name + " Constructor";

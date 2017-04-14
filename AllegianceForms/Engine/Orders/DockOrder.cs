@@ -10,11 +10,11 @@ namespace AllegianceForms.Orders
     {
         protected Base _dockTarget;
 
-        public DockOrder(Ship ship, bool append = false) : this(ship, null, append)
+        public DockOrder(StrategyGame game, Ship ship, bool append = false) : this(game, ship, null, append)
         {
         }
 
-        public DockOrder(Ship ship, Base bs, bool append) : base(ship.SectorId)
+        public DockOrder(StrategyGame game, Ship ship, Base bs, bool append) : base(game, ship.SectorId)
         {
             OrderPen.Color = Color.WhiteSmoke;
             _dockTarget = bs;
@@ -53,7 +53,7 @@ namespace AllegianceForms.Orders
         protected void FindClosestBase(Ship ship, bool append)
         {
             // Find the closest Friendly station we can dock at
-            _dockTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, StrategyGame.AllBases.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips()));
+            _dockTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, _game.AllBases.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips()));
 
             if (_dockTarget != null)
             {
@@ -63,14 +63,14 @@ namespace AllegianceForms.Orders
             else
             {
                 // Look for a base in another sector...
-                var otherBase = StrategyGame.ClosestSectorWithBase(ship.Team, ship.SectorId);
+                var otherBase = _game.ClosestSectorWithBase(ship.Team, ship.SectorId);
 
                 OrderComplete = true;
 
                 if (otherBase != null)
                 {
-                    ship.OrderShip(new NavigateOrder(ship, otherBase.SectorId), append);
-                    ship.OrderShip(new DockOrder(ship, otherBase, false), true);
+                    ship.OrderShip(new NavigateOrder(_game, ship, otherBase.SectorId), append);
+                    ship.OrderShip(new DockOrder(_game, ship, otherBase, false), true);
                 }
             }
         }

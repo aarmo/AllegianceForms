@@ -28,8 +28,8 @@ namespace AllegianceForms.Engine.Ships
         private int _healthCheckDelay = 20;
         private int _callNext = 80;
 
-        public MinerShip(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
-            : base(imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
+        public MinerShip(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
+            : base(game, imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
         {
             Type = EShipType.Miner;
             Resources = 0;
@@ -49,7 +49,7 @@ namespace AllegianceForms.Engine.Ships
             if (!Docked && Type == EShipType.Miner && Health < 0.65f * MaxHealth && _callNext <= 0)
             {
                 if (Team == 1) SoundEffect.Play(ESounds.vo_sal_minercritical, true);
-                OrderShip(new DockOrder(this));
+                OrderShip(new DockOrder(_game, this));
                 _callNext = 80;
             }
 
@@ -58,16 +58,16 @@ namespace AllegianceForms.Engine.Ships
                 _callNext = 80;
                 if (Team == 1)
                 {
-                    StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
+                    _game.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {_game.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
                     SoundEffect.Play(ESounds.vo_miner_underattack, true);
                 }
             }
         }
 
-        public override void Update(int currentSectorId)
+        public override void Update()
         {
             if (!Active) return;
-            base.Update(currentSectorId);
+            base.Update();
 
             _shootingNext--;
             _shootingStop--;
@@ -103,18 +103,18 @@ namespace AllegianceForms.Engine.Ships
                 Mining = false;
                 Target.BeingMined = false;
                 Target = null;
-                var backToWork = new MineOrder(CurrentOrder.OrderSectorId, CurrentOrder.OrderPosition, CurrentOrder.Offset);
-                var refinery = StrategyGame.ClosestDistance<Base>(CenterX, CenterY, StrategyGame.AllBases.Where(_ => _.Active && _.Team == Team && _.SectorId == SectorId));
+                var backToWork = new MineOrder(_game, CurrentOrder.OrderSectorId, CurrentOrder.OrderPosition, CurrentOrder.Offset);
+                var refinery = StrategyGame.ClosestDistance<Base>(CenterX, CenterY, _game.AllBases.Where(_ => _.Active && _.Team == Team && _.SectorId == SectorId));
 
                 if (refinery != null)
                 {
-                    OrderShip(new RefineOrder(this, refinery));
+                    OrderShip(new RefineOrder(_game, this, refinery));
                     OrderShip(backToWork, true);
                 }
                 else
                 {
                     Stop();
-                    OrderShip(new DockOrder(this));
+                    OrderShip(new DockOrder(_game, this));
                 }
             }
 
@@ -136,7 +136,7 @@ namespace AllegianceForms.Engine.Ships
                         SoundEffect.Play(ESounds.vo_miner_dontgetpaid, true);
                     }
 
-                    OrderShip(new DockOrder(this));
+                    OrderShip(new DockOrder(_game, this));
                     return;
                 }
                 _nextHealthCheck = _healthCheckDelay;
@@ -171,7 +171,7 @@ namespace AllegianceForms.Engine.Ships
 
         public virtual void Refine()
         {
-            StrategyGame.AddResources(Team, Resources);
+            _game.AddResources(Team, Resources);
             Resources = 0;
         }
     }

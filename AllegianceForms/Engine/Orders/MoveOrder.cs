@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -8,15 +9,15 @@ namespace AllegianceForms.Orders
     {
         protected Pen OrderPen = new Pen(Brushes.PaleVioletRed, 1);
 
-        public MoveOrder(int sectorId) : this(sectorId, Point.Empty, Point.Empty)
+        public MoveOrder(StrategyGame game, int sectorId) : this(game, sectorId, Point.Empty, Point.Empty)
         {
         }
 
-        public MoveOrder(int sectorId, PointF targetPosition) : this(sectorId, targetPosition, Point.Empty)
+        public MoveOrder(StrategyGame game, int sectorId, PointF targetPosition) : this(game, sectorId, targetPosition, Point.Empty)
         {
         }
 
-        public MoveOrder(int sectorId, PointF targetPosition, PointF offset) : base(sectorId, targetPosition, offset)
+        public MoveOrder(StrategyGame game, int sectorId, PointF targetPosition, PointF offset) : base(game, sectorId, targetPosition, offset)
         {
             OrderPen.DashStyle = DashStyle.Dash;
             OrderPen.DashCap = DashCap.Round;

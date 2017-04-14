@@ -10,13 +10,15 @@ namespace AllegianceForms.Engine.Bases
     public class BaseSpecs
     {
         public List<BaseSpec> Bases { get; set; }
+        private StrategyGame _game;
 
-        private BaseSpecs(IEnumerable<BaseSpec> items)
+        private BaseSpecs(StrategyGame game, IEnumerable<BaseSpec> items)
         {
             Bases = items.ToList();
+            _game = game;
         }
 
-        public static BaseSpecs LoadBaseSpecs(string baseFile)
+        public static BaseSpecs LoadBaseSpecs(StrategyGame game, string baseFile)
         {
             var cfg = new CsvConfiguration()
             {
@@ -31,7 +33,7 @@ namespace AllegianceForms.Engine.Bases
 
                 var records = csv.GetRecords<BaseSpec>().ToList();
 
-                return new BaseSpecs(records);
+                return new BaseSpecs(game, records);
             }
         }
 
@@ -46,13 +48,13 @@ namespace AllegianceForms.Engine.Bases
             if (spec == null) return null;
 
             var t = team - 1;
-            var faction = StrategyGame.Faction[t];
-            var research = StrategyGame.TechTree[t].ResearchedUpgrades;
-            var settings = StrategyGame.GameSettings;
+            var faction = _game.Faction[t];
+            var research = _game.TechTree[t].ResearchedUpgrades;
+            var settings = _game.GameSettings;
             var alliance = settings.TeamAlliance[t];
-            if (addPilots) StrategyGame.DockedPilots[t] += spec.Pilots;
+            if (addPilots) _game.DockedPilots[t] += spec.Pilots;
 
-            var bse = new Base(baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
+            var bse = new Base(_game, baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
             bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;

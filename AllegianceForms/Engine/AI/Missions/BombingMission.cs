@@ -13,7 +13,7 @@ namespace AllegianceForms.Engine.AI.Missions
         Base _targetBase;
         Base _launchBase;
 
-        public BombingMission(BaseAI ai, Ship.ShipEventHandler shipHandler) : base(ai, shipHandler)
+        public BombingMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipHandler) : base(game, ai, shipHandler)
         { }
 
         public override void UpdateMission()
@@ -35,19 +35,19 @@ namespace AllegianceForms.Engine.AI.Missions
                 {
                     if (firstBomber == null)
                     {
-                        i.OrderShip(new DockOrder(i));
+                        i.OrderShip(new DockOrder(_game, i));
                         LogOrder();
                         continue;
                     }
 
                     if (i.SectorId != firstBomber.SectorId)
                     {
-                        i.OrderShip(new NavigateOrder(i, _targetBase.SectorId));
+                        i.OrderShip(new NavigateOrder(_game, i, _targetBase.SectorId));
                         LogOrder();
                         append = true;
                     }
 
-                    i.OrderShip(new MoveOrder(firstBomber.SectorId, firstBomber.CenterPoint), append);
+                    i.OrderShip(new MoveOrder(_game, firstBomber.SectorId, firstBomber.CenterPoint), append);
                     LogOrder();
                 }
                 else
@@ -55,7 +55,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     // Bombers and escorts: Aim to surround the base!
                     if (i.SectorId != _targetBase.SectorId)
                     {
-                        i.OrderShip(new NavigateOrder(i, _targetBase.SectorId));
+                        i.OrderShip(new NavigateOrder(_game, i, _targetBase.SectorId));
                         LogOrder();
                         append = true;
                     }
@@ -65,7 +65,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     var x = _targetBase.CenterX + Math.Cos(angleAsRadians) * distanceFromCenter;
                     var y = _targetBase.CenterY + Math.Sin(angleAsRadians) * distanceFromCenter;
 
-                    i.OrderShip(new MoveOrder(_targetBase.SectorId, new PointF((float)x, (float)y)), append);
+                    i.OrderShip(new MoveOrder(_game, _targetBase.SectorId, new PointF((float)x, (float)y)), append);
                     LogOrder();
                 }
             }
@@ -79,11 +79,11 @@ namespace AllegianceForms.Engine.AI.Missions
         public override void AddMorePilots()
         {
             if (_launchBase == null || _targetBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
-                _targetBase = StrategyGame.ClosestEnemyBase(AI.Team, out _launchBase);
+                _targetBase = _game.ClosestEnemyBase(AI.Team, out _launchBase);
             if (_launchBase == null) return;
             
             // send any cap ships for support
-            var capships = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == AI.Team && Ship.IsCapitalShip(_.Type) && _.CurrentOrder == null).ToList();
+            var capships = _game.AllUnits.Where(_ => _.Active && _.Team == AI.Team && Ship.IsCapitalShip(_.Type) && _.CurrentOrder == null).ToList();
             IncludedShips.AddRange(capships);
             
             // launch scouts to assist the bomber if we have "enough"
@@ -92,12 +92,12 @@ namespace AllegianceForms.Engine.AI.Missions
 
             if (enoughBombers)
             {
-                ship = StrategyGame.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, _launchBase.SectorId);
+                ship = _game.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, _launchBase.SectorId);
             }
             else
             {
                 // launch a bomber if possible
-                ship = StrategyGame.Ships.CreateCombatShip(Keys.B, AI.Team, AI.TeamColour, _launchBase.SectorId);
+                ship = _game.Ships.CreateCombatShip(Keys.B, AI.Team, AI.TeamColour, _launchBase.SectorId);
             }
             if (ship == null) return;
 
@@ -106,10 +106,10 @@ namespace AllegianceForms.Engine.AI.Missions
 
             var pos = _launchBase.GetNextBuildPosition();
             ship.ShipEvent += _shipHandler;
-            ship.OrderShip(new MoveOrder(_launchBase.SectorId, pos, Point.Empty));
+            ship.OrderShip(new MoveOrder(_game, _launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
-            StrategyGame.LaunchShip(ship);
+            _game.LaunchShip(ship);
         }
 
         public override bool MissionComplete()
@@ -117,7 +117,7 @@ namespace AllegianceForms.Engine.AI.Missions
             // If we have no more visible bases to attack or launch from (we loose), abort!
             if (_targetBase == null || !_targetBase.Active || _targetBase.Alliance == AI.Alliance || _launchBase == null || !_launchBase.Active || _launchBase.Alliance != AI.Alliance)
             {
-                _targetBase = StrategyGame.ClosestEnemyBase(AI.Team, out _launchBase);
+                _targetBase = _game.ClosestEnemyBase(AI.Team, out _launchBase);
 
                 if (_targetBase == null || _launchBase == null) return true;
             }

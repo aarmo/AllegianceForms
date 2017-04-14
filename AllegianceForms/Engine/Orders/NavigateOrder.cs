@@ -11,7 +11,7 @@ namespace AllegianceForms.Orders
         private GameEntity _otherEnd;
         private int _targetSectorId;
 
-        public NavigateOrder(Ship ship, int targetSectorId) : base(ship.SectorId)
+        public NavigateOrder(StrategyGame game, Ship ship, int targetSectorId) : base(game, ship.SectorId)
         {
             OrderPen.Color = Color.CornflowerBlue;
             _team = ship.Team;
@@ -44,7 +44,7 @@ namespace AllegianceForms.Orders
 
         private void FindNextWormhole(int team, int sectorId)
         {
-            _nextStep = StrategyGame.NextWormholeEnd(team, sectorId, _targetSectorId, out _otherEnd);
+            _nextStep = _game.NextWormholeEnd(team, sectorId, _targetSectorId, out _otherEnd);
 
             if (_nextStep != null && _otherEnd != null)
             {

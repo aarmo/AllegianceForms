@@ -20,15 +20,17 @@ namespace AllegianceForms.Forms
 
         private bool _controlDown = false;
         private bool _shiftDown = false;
-        
+        private StrategyGame _game;
+
         public MapDesigner()
         {
             InitializeComponent();
 
+            _game = new StrategyGame();
             _selectedSector = SectorLabel;
             _frame = new Bitmap(MapPanel.Width, MapPanel.Height);
 
-            StrategyGame.SetupGame(GameSettings.Default());
+            _game.SetupGame(GameSettings.Default());
         }
         
         private void SectorLabel_Click(object sender, EventArgs e)
@@ -295,17 +297,17 @@ namespace AllegianceForms.Forms
             Clear_Click(sender, e);
 
             var teams = StrategyGame.Random.Next(2, 5);
-            var map = GameMaps.LoadMap(GameMaps.RandomName(teams)).ToSimpleMap();
+            var map = GameMaps.LoadMap(_game, GameMaps.RandomName(teams)).ToSimpleMap();
             LoadMap(map);
         }
 
         private void Preview_Click(object sender, EventArgs e)
         {
             var map = CreateMap();
-            StrategyGame.NumTeams = map.Sectors.Count(_ => _.StartingSectorTeam > 0);
-            if (StrategyGame.NumTeams == 0) return;
+            _game.NumTeams = map.Sectors.Count(_ => _.StartingSectorTeam > 0);
+            if (_game.NumTeams == 0) return;
 
-            var gameMap = GameMap.FromSimpleMap(map, true);
+            var gameMap = GameMap.FromSimpleMap(_game, map, true);
 
             var i = new Bitmap(MapPicture.Width, MapPicture.Height);
             var g = Graphics.FromImage(i);

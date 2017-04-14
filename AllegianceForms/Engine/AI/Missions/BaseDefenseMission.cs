@@ -13,9 +13,9 @@ namespace AllegianceForms.Engine.AI.Missions
         private int _lastTargetSectorId = -1;
         private PointF _lastPos;
 
-        public BaseDefenseMission(BaseAI ai, Ship.ShipEventHandler shipHandler) : base(ai, shipHandler)
+        public BaseDefenseMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipHandler) : base(game, ai, shipHandler)
         {
-            _numPilots = StrategyGame.GameSettings.NumPilots * 0.8f + 1f;
+            _numPilots = game.GameSettings.NumPilots * 0.8f + 1f;
         }
 
         public override bool RequireMorePilots()
@@ -27,11 +27,11 @@ namespace AllegianceForms.Engine.AI.Missions
         public override void AddMorePilots()
         {
             if (_lastTargetSectorId == -1) return;
-            var launchBase = StrategyGame.ClosestSectorWithBase(AI.Team, _lastTargetSectorId);
+            var launchBase = _game.ClosestSectorWithBase(AI.Team, _lastTargetSectorId);
             if (launchBase == null) return;
 
             // Create our best combat ship
-            Ship ship = StrategyGame.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
+            Ship ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
             if (ship == null) return;
             
             ship.CenterX = launchBase.CenterX;
@@ -39,10 +39,10 @@ namespace AllegianceForms.Engine.AI.Missions
 
             var pos = launchBase.GetNextBuildPosition();
             ship.ShipEvent += _shipHandler;
-            ship.OrderShip(new MoveOrder(launchBase.SectorId, pos, Point.Empty));
+            ship.OrderShip(new MoveOrder(_game, launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
-            StrategyGame.LaunchShip(ship);
+            _game.LaunchShip(ship);
         }
         
         public override bool MissionComplete()
@@ -55,7 +55,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         private void CheckForNextTargetSector()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance != AI.Alliance && _.VisibleToTeam[AI.Team-1] && (_.CanAttackBases() || _.Type == EShipType.Miner || _.Type == EShipType.Constructor)).ToList();
+            var bs = _game.AllUnits.Where(_ => _.Active && _.Alliance != AI.Alliance && _.VisibleToTeam[AI.Team-1] && (_.CanAttackBases() || _.Type == EShipType.Miner || _.Type == EShipType.Constructor)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -75,26 +75,26 @@ namespace AllegianceForms.Engine.AI.Missions
                 // Make sure we are in the same sector as the target bomber
                 if (i.SectorId != _lastTargetSectorId)
                 {
-                    i.OrderShip(new NavigateOrder(i, _lastTargetSectorId));
+                    i.OrderShip(new NavigateOrder(_game, i, _lastTargetSectorId));
                     LogOrder();
-                    i.OrderShip(new MoveOrder(_lastTargetSectorId, _lastPos), true);
+                    i.OrderShip(new MoveOrder(_game, _lastTargetSectorId, _lastPos), true);
                     LogOrder();
                 }
                 else
                 {
                     // Then find a random enemy here to attack!
-                    var ens = StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
+                    var ens = _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
                     if (ens.Count > 0)
                     {
                         var tar = ens[StrategyGame.Random.Next(ens.Count)];
-                        i.OrderShip(new MoveOrder(tar.SectorId, tar.CenterPoint));
+                        i.OrderShip(new MoveOrder(_game, tar.SectorId, tar.CenterPoint));
                         LogOrder();
                     }
                     else
                     {
                         if (i.Bounds.Contains(_lastPos)) continue;
 
-                        i.OrderShip(new MoveOrder(_lastTargetSectorId, _lastPos));
+                        i.OrderShip(new MoveOrder(_game, _lastTargetSectorId, _lastPos));
                         LogOrder();
                     }
                 }

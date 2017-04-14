@@ -15,14 +15,16 @@ namespace AllegianceForms.Engine.Tech
         public string PreReqsIds { get; set; }
         public int[] DependsOnIds { get; set; }
         public int Team { get; set; }
-
         public int ResearchedTicks { get; set; }
         public int DurationTicks { get; set; }
 
-        public void Initialise(int team)
+        private StrategyGame _game;
+
+        public void Initialise(StrategyGame game, int team)
         {
             Active = true;
             Team = team;
+            _game = game;
 
             if (!string.IsNullOrEmpty(PreReqsIds))
             {
@@ -61,11 +63,11 @@ namespace AllegianceForms.Engine.Tech
         {
             return (Type != ETechType.Construction && Type != ETechType.ShipyardConstruction)
                 || (Type == ETechType.ShipyardConstruction && Name.Contains("Shipyard"))
-                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && StrategyGame.NumberOfCapitalDrones(Team, Name) < StrategyGame.GameSettings.CapitalMaxDrones)
-                || (Name.Contains("Miner") && StrategyGame.NumberOfMinerDrones(Team) < StrategyGame.GameSettings.MinersMaxDrones)
-                || (Name.Contains("Tower") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxTowerDrones)
-                || (Name.Contains("Constructor") && StrategyGame.NumberOfConstructionDrones(Name, Team) < StrategyGame.GameSettings.ConstructorsMaxDrones
-                    && StrategyGame.AllAsteroids.Count(_ => _.VisibleToTeam[Team - 1] && _.Type == TechItem.GetAsteroidType(Name)) > 0);
+                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && _game.NumberOfCapitalDrones(Team, Name) < _game.GameSettings.CapitalMaxDrones)
+                || (Name.Contains("Miner") && _game.NumberOfMinerDrones(Team) < _game.GameSettings.MinersMaxDrones)
+                || (Name.Contains("Tower") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxTowerDrones)
+                || (Name.Contains("Constructor") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxDrones
+                    && _game.AllAsteroids.Count(_ => _.VisibleToTeam[Team - 1] && _.Type == GetAsteroidType(Name)) > 0);
         }
 
         public static EBaseType GetBaseType(string name)

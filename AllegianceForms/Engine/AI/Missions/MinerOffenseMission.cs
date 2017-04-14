@@ -15,14 +15,14 @@ namespace AllegianceForms.Engine.AI.Missions
         private PointF _lastPos;
         private DateTime _lastTargetExpire;
 
-        public MinerOffenseMission(CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(ai, shipEvent)
+        public MinerOffenseMission(StrategyGame game, CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         {
             CheckForNextTargetSector();
         }
 
         private void CheckForNextTargetSector()
         {
-            var bs = StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.VisibleToTeam[AI.Team - 1] && !_.Docked && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.VisibleToTeam[AI.Team - 1] && !_.Docked && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -33,14 +33,14 @@ namespace AllegianceForms.Engine.AI.Missions
 
         public override bool RequireMorePilots()
         {
-            var numPilots = (int)(StrategyGame.GameSettings.NumPilots * 0.8f) + 1;
+            var numPilots = (int)(_game.GameSettings.NumPilots * 0.8f) + 1;
 
             return IncludedShips.Sum(_ => _.NumPilots) < numPilots;
         }
 
         public override void AddMorePilots()
         {            
-            var launchBase = StrategyGame.ClosestSectorWithBase(AI.Team, _lastTargetSectorId);
+            var launchBase = _game.ClosestSectorWithBase(AI.Team, _lastTargetSectorId);
             if (launchBase == null)
             {
                 return;
@@ -51,11 +51,11 @@ namespace AllegianceForms.Engine.AI.Missions
             // Launch at least 1 scout first, followed by our best pilotable combat ships
             if (IncludedShips.Count < 2)
             {
-                ship = StrategyGame.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, launchBase.SectorId);
+                ship = _game.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, launchBase.SectorId);
             }
             else
             {
-                ship = StrategyGame.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
+                ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
             }
             if (ship == null) return;
 
@@ -64,10 +64,10 @@ namespace AllegianceForms.Engine.AI.Missions
 
             var pos = launchBase.GetNextBuildPosition();
             ship.ShipEvent += _shipHandler;
-            ship.OrderShip(new MoveOrder(launchBase.SectorId, pos, Point.Empty));
+            ship.OrderShip(new MoveOrder(_game, launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
-            StrategyGame.LaunchShip(ship);
+            _game.LaunchShip(ship);
         }
 
         public override bool MissionComplete()
@@ -95,35 +95,35 @@ namespace AllegianceForms.Engine.AI.Missions
                 // Make sure we are in the same sector as the target
                 if (i.SectorId != _lastTargetSectorId)
                 {
-                    i.OrderShip(new NavigateOrder(i, _lastTargetSectorId));
+                    i.OrderShip(new NavigateOrder(_game, i, _lastTargetSectorId));
                     LogOrder();
-                    i.OrderShip(new MoveOrder(_lastTargetSectorId, _lastPos), true);
+                    i.OrderShip(new MoveOrder(_game, _lastTargetSectorId, _lastPos), true);
                     LogOrder();
                 }
                 else
                 {
                     // Then find the closest random miner here to attack!
-                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
+                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
                     if (m != null)
                     {
-                        i.OrderShip(new MoveOrder(m.SectorId, m.CenterPoint));
+                        i.OrderShip(new MoveOrder(_game, m.SectorId, m.CenterPoint));
                         LogOrder();
                     }
                     else
                     {
                         // attack anything!
-                        var ens = StrategyGame.AllUnits.Where(_ => _.Active && !_.Docked && _.Alliance != AI.Alliance && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
+                        var ens = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Alliance != AI.Alliance && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
                         if (ens.Count > 0)
                         {
                             var tar = ens[StrategyGame.Random.Next(ens.Count)];
-                            i.OrderShip(new MoveOrder(tar.SectorId, tar.CenterPoint));
+                            i.OrderShip(new MoveOrder(_game, tar.SectorId, tar.CenterPoint));
                             LogOrder();
                         }
                         else
                         {
                             if (i.Bounds.Contains(_lastPos)) continue;
 
-                            i.OrderShip(new MoveOrder(_lastTargetSectorId, _lastPos));
+                            i.OrderShip(new MoveOrder(_game, _lastTargetSectorId, _lastPos));
                             LogOrder();
                         }
                     }

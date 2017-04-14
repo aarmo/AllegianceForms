@@ -25,8 +25,8 @@ namespace AllegianceForms.Engine.Ships
 
         private int _currentBuildingGlowHalfSize = StartBuildingGlowSize / 2;
 
-        public BuilderShip(string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, EBaseType baseType, int sectorId)
-            : base(imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
+        public BuilderShip(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, EBaseType baseType, int sectorId)
+            : base(game, imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
         {
             Type = EShipType.Constructor;
             BaseType = baseType;
@@ -82,7 +82,7 @@ namespace AllegianceForms.Engine.Ships
 
         public Base GetFinishedBase()
         {
-            var bse = StrategyGame.Bases.CreateBase(BaseType, Team, Colour, SectorId);
+            var bse = _game.Bases.CreateBase(BaseType, Team, Colour, SectorId);
             if (bse != null)
             {
                 bse.CenterX = CenterX;
@@ -92,10 +92,10 @@ namespace AllegianceForms.Engine.Ships
             return bse;
         }
 
-        public override void Update(int currentSectorId)
+        public override void Update()
         {
             if (!Active) return;
-            base.Update(currentSectorId);
+            base.Update();
             _callNext--;
 
             if (_buildingStop < DateTime.Now)
@@ -119,7 +119,7 @@ namespace AllegianceForms.Engine.Ships
             if (Team == 1 && !Docked && _callNext <= 0)
             {
                 _callNext = 80;
-                StrategyGame.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {StrategyGame.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
+                _game.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {_game.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
                 SoundEffect.Play(ESounds.vo_miner_underattack, true);
             }
         }

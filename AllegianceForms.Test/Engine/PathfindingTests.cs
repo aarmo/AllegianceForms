@@ -11,12 +11,15 @@ namespace AllegianceForms.Test.Engine
     public class PathfindingTests
     {
         private GameMap _target;
+        private StrategyGame _game;
 
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.SetupGame(GameSettings.Default());
-            _target = GameMaps.LoadMap("PinWheel2");
+            _game = new StrategyGame();
+
+            _game.SetupGame(GameSettings.Default());
+            _target = GameMaps.LoadMap(_game, "PinWheel2");
             _target.SetVisibilityToTeam(1, true);
         }
 

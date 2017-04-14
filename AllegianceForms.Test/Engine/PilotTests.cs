@@ -8,29 +8,33 @@ namespace AllegianceForms.Test.Engine
     [TestClass]
     public class PilotTests
     {
+        private StrategyGame _game;
+
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.SetupGame(GameSettings.Default());
-            StrategyGame.LoadData();
+            _game = new StrategyGame();
 
-            StrategyGame.DockedPilots[0] = 0;
-            StrategyGame.DockedPilots[1] = 0;
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
+
+            _game.DockedPilots[0] = 0;
+            _game.DockedPilots[1] = 0;
         }
 
         [TestMethod]
         public void DockPilots()
         {
-            StrategyGame.DockPilots(2, 10);
+            _game.DockPilots(2, 10);
 
-            StrategyGame.DockedPilots[0].ShouldBe(0);
-            StrategyGame.DockedPilots[1].ShouldBe(10);
+            _game.DockedPilots[0].ShouldBe(0);
+            _game.DockedPilots[1].ShouldBe(10);
         }
 
         [TestMethod]
         public void CantLaunchWithNoPilots()
         {
-            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Scout);
+            var result = _game.CanLaunchShip(2, 1, EShipType.Scout);
 
             result.ShouldBe(false);
         }
@@ -38,8 +42,8 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CantLaunchWithoutAllPilots()
         {
-            StrategyGame.DockedPilots[1] = 1;
-            var result = StrategyGame.CanLaunchShip(2, 2, EShipType.Scout);
+            _game.DockedPilots[1] = 1;
+            var result = _game.CanLaunchShip(2, 2, EShipType.Scout);
 
             result.ShouldBe(false);
         }
@@ -47,68 +51,68 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CanLaunchWithEnoughPilots()
         {
-            StrategyGame.DockedPilots[1] = 1;
-            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Scout);
+            _game.DockedPilots[1] = 1;
+            var result = _game.CanLaunchShip(2, 1, EShipType.Scout);
 
             result.ShouldBe(true);
-            StrategyGame.DockedPilots[1].ShouldBe(1);
+            _game.DockedPilots[1].ShouldBe(1);
         }
 
         [TestMethod]
         public void CantLaunchAConstructor()
         {
-            StrategyGame.DockedPilots[1] = 10;
-            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Constructor);
+            _game.DockedPilots[1] = 10;
+            var result = _game.CanLaunchShip(2, 1, EShipType.Constructor);
 
             result.ShouldBe(false);
-            StrategyGame.DockedPilots[1].ShouldBe(10);
+            _game.DockedPilots[1].ShouldBe(10);
         }
 
         [TestMethod]
         public void CantLaunchATower()
         {
-            StrategyGame.DockedPilots[1] = 10;
-            var result = StrategyGame.CanLaunchShip(2, 1, EShipType.Tower);
+            _game.DockedPilots[1] = 10;
+            var result = _game.CanLaunchShip(2, 1, EShipType.Tower);
 
             result.ShouldBe(false);
-            StrategyGame.DockedPilots[1].ShouldBe(10);
+            _game.DockedPilots[1].ShouldBe(10);
         }
 
         [TestMethod]
         public void CanLaunchWithMorePilots()
         {
-            StrategyGame.DockedPilots[1] = 4;
-            var result = StrategyGame.CanLaunchShip(2, 2, EShipType.Scout);
+            _game.DockedPilots[1] = 4;
+            var result = _game.CanLaunchShip(2, 2, EShipType.Scout);
 
             result.ShouldBe(true);
-            StrategyGame.DockedPilots[1].ShouldBe(4);
+            _game.DockedPilots[1].ShouldBe(4);
         }
 
         [TestMethod]
         public void LaunchWithoutAllPilots()
         {
-            StrategyGame.DockedPilots[1] = 1;
-            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 2, 0);
-            StrategyGame.LaunchShip(ship);
-            StrategyGame.DockedPilots[1].ShouldBe(1);
+            _game.DockedPilots[1] = 1;
+            var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 2, 0);
+            _game.LaunchShip(ship);
+            _game.DockedPilots[1].ShouldBe(1);
         }
 
         [TestMethod]
         public void LaunchWithEnoughPilots()
         {
-            StrategyGame.DockedPilots[1] = 1;
-            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 1, 0);
-            StrategyGame.LaunchShip(ship);
-            StrategyGame.DockedPilots[1].ShouldBe(0);
+            _game.DockedPilots[1] = 1;
+            var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 1, 0);
+            _game.LaunchShip(ship);
+            _game.DockedPilots[1].ShouldBe(0);
         }
 
         [TestMethod]
         public void LaunchWithMorePilots()
         {
-            StrategyGame.DockedPilots[1] = 4;
-            var ship = new Ship(string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 3, 0);
-            StrategyGame.LaunchShip(ship);
-            StrategyGame.DockedPilots[1].ShouldBe(1);
+            _game.DockedPilots[1] = 4;
+            var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 3, 0);
+            _game.LaunchShip(ship);
+            _game.DockedPilots[1].ShouldBe(1);
         }
     }
 }

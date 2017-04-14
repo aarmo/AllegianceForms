@@ -9,32 +9,35 @@ namespace AllegianceForms.Test.Engine
     [TestClass]
     public class BaseTests
     {
+        StrategyGame _game;
+
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.SetupGame(GameSettings.Default());
-            StrategyGame.LoadData();
+            _game = new StrategyGame();
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
         }
 
         [TestMethod]
         public void CheckStarbasesAddPilots()
         {
-            var pilots = StrategyGame.DockedPilots[0];
-            var newPilots = StrategyGame.Bases.Bases.First(_ => _.Type == EBaseType.Starbase).Pilots;
+            var pilots = _game.DockedPilots[0];
+            var newPilots = _game.Bases.Bases.First(_ => _.Type == EBaseType.Starbase).Pilots;
 
-            var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, 1, Color.White, 1);
+            var b1 = _game.Bases.CreateBase(EBaseType.Starbase, 1, Color.White, 1);
 
-            StrategyGame.DockedPilots[0].ShouldBe(pilots + newPilots);
+            _game.DockedPilots[0].ShouldBe(pilots + newPilots);
         }
 
         [TestMethod]
         public void CheckResourcesGenerateIncome()
         {
-            var res = StrategyGame.Credits[0];
-            var b1 = StrategyGame.Bases.CreateBase(EBaseType.Resource, 1, Color.White, 1);
-            b1.Update(0);
+            var res = _game.Credits[0];
+            var b1 = _game.Bases.CreateBase(EBaseType.Resource, 1, Color.White, 1);
+            b1.Update();
 
-            StrategyGame.Credits[0].ShouldBe(res + 10);
+            _game.Credits[0].ShouldBe(res + 10);
         }
     }
 }

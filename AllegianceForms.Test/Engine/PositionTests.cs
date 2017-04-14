@@ -10,11 +10,13 @@ namespace AllegianceForms.Test.Engine
     {
         GameEntity _target;
         RectangleF _bounds;
+        StrategyGame _game;
 
         [TestInitialize]
         public void TestSetup()
         {
-            _target = new GameEntity(string.Empty, 12, 14, 0);
+            _game = new StrategyGame();
+            _target = new GameEntity(_game, string.Empty, 12, 14, 0);
             _bounds = _target.Bounds;
         }
 

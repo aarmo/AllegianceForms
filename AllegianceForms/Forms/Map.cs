@@ -7,10 +7,12 @@ namespace AllegianceForms.Forms
     public partial class Map : Form
     {
         private readonly Bitmap _frame;
+        private readonly StrategyGame _game;
 
-        public Map()
+        public Map(StrategyGame game)
         {
             InitializeComponent();
+            _game = game;
             _frame = new Bitmap(Width, Height);
         }
 
@@ -18,7 +20,7 @@ namespace AllegianceForms.Forms
         {
             var g = Graphics.FromImage(_frame);
             g.Clear(BackColor);
-            StrategyGame.Map.Draw(g, currentSectorId);
+            _game.Map.Draw(g, currentSectorId);
 
             Invalidate();
         }
@@ -42,12 +44,12 @@ namespace AllegianceForms.Forms
         {
             var mousePos = PointToClient(MousePosition);
 
-            foreach (var s in StrategyGame.Map.Sectors)
+            foreach (var s in _game.Map.Sectors)
             {
                 if (s.Bounds.Contains(mousePos))
                 {
-                    if (e.Button == MouseButtons.Left) StrategyGame.OnGameEvent(s, EGameEventType.SectorLeftClicked);
-                    if (e.Button == MouseButtons.Right) StrategyGame.OnGameEvent(s, EGameEventType.SectorRightClicked);
+                    if (e.Button == MouseButtons.Left) _game.OnGameEvent(s, EGameEventType.SectorLeftClicked);
+                    if (e.Button == MouseButtons.Right) _game.OnGameEvent(s, EGameEventType.SectorRightClicked);
                     return;
                 }
             }

@@ -2,7 +2,6 @@
 using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Ships;
 using System.Drawing;
-using System.Linq;
 
 namespace AllegianceForms.Orders
 {
@@ -10,7 +9,7 @@ namespace AllegianceForms.Orders
     {
         private Base _target;
 
-        public RefineOrder(MinerShip ship, Base baseTarget) : base(ship.SectorId)
+        public RefineOrder(StrategyGame game, MinerShip ship, Base baseTarget) : base(game, ship.SectorId)
         {
             OrderPen.Color = Color.DarkGoldenrod;
 

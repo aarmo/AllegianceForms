@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 using System.Drawing;
 
 namespace AllegianceForms.Orders
@@ -8,19 +9,21 @@ namespace AllegianceForms.Orders
         public int OrderSectorId { get; set; }
         public PointF OrderPosition { get; set; }
         public PointF Offset { get; set; }
-
         public bool OrderComplete { get; protected set; }
 
-        public ShipOrder(int sectorId) : this(sectorId, Point.Empty, Point.Empty)
+        protected StrategyGame _game;
+
+        public ShipOrder(StrategyGame game, int sectorId) : this(game, sectorId, Point.Empty, Point.Empty)
         {
         }
 
-        public ShipOrder(int sectorId, PointF pos, PointF offset)
+        public ShipOrder(StrategyGame game, int sectorId, PointF pos, PointF offset)
         {
             OrderComplete = false;
             OrderSectorId = sectorId;
             OrderPosition = pos;
             Offset = offset;
+            _game = game;
         }
 
         public virtual void Update(Ship ship)
@@ -29,7 +32,6 @@ namespace AllegianceForms.Orders
 
         public virtual void Cancel(Ship ship)
         {
-
         }
 
         public virtual void Draw(Graphics g, PointF fromPos, int fromSectorId)

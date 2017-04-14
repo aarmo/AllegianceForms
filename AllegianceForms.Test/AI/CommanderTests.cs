@@ -12,15 +12,18 @@ namespace AllegianceForms.Test.AI
     public class CommanderTests
     {
         private CommanderAI _target;
+        private StrategyGame _game;
 
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.SetupGame(GameSettings.Default());
-            StrategyGame.LoadData();
-            StrategyGame.Map = GameMaps.LoadMap("PinWheel2");
+            _game = new StrategyGame();
 
-            _target = new CommanderAI(2, Color.Red, null);
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
+            _game.Map = GameMaps.LoadMap(_game, "PinWheel2");
+
+            _target = new CommanderAI(_game, 2, Color.Red, null);
         }
 
         [TestMethod]
@@ -49,7 +52,7 @@ namespace AllegianceForms.Test.AI
 
             _target.CreditPriorities[EAiCreditPriorities.Offense].ShouldBe(0);
             _target.CreditPriorities[EAiCreditPriorities.Defense].ShouldBe(0);
-            _target.CreditPriorities[EAiCreditPriorities.Expansion].ShouldBe(StrategyGame.Map.Sectors.Count);
+            _target.CreditPriorities[EAiCreditPriorities.Expansion].ShouldBe(_game.Map.Sectors.Count);
         }
 
         [TestMethod]
@@ -75,7 +78,7 @@ namespace AllegianceForms.Test.AI
 
             _target.CreditPriorities[EAiCreditPriorities.Offense].ShouldBe(p);
             _target.CreditPriorities[EAiCreditPriorities.Defense].ShouldBe(p);
-            _target.CreditPriorities[EAiCreditPriorities.Expansion].ShouldBe(p + StrategyGame.Map.Sectors.Count);
+            _target.CreditPriorities[EAiCreditPriorities.Expansion].ShouldBe(p + _game.Map.Sectors.Count);
         }
     }
 }

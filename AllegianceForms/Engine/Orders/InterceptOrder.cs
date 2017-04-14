@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 using System.Drawing;
 
 namespace AllegianceForms.Orders
@@ -6,7 +7,7 @@ namespace AllegianceForms.Orders
     public class InterceptOrder : MoveOrder
     {
         private Ship _target;
-        public InterceptOrder(Ship targetShip, int sectorId) : base(sectorId)
+        public InterceptOrder(StrategyGame game, Ship targetShip, int sectorId) : base(game, sectorId)
         {
             OrderPen.Color = Color.LightGray;
             _target = targetShip;

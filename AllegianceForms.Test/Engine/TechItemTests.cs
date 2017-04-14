@@ -9,18 +9,21 @@ namespace AllegianceForms.Test.Engine
     [TestClass]
     public class TechItemTests
     {
+        private StrategyGame _game;
+
         [TestInitialize]
         public void Setup()
         {
-            StrategyGame.SetupGame(GameSettings.Default());
-            StrategyGame.LoadData();
-            StrategyGame.Map = GameMaps.LoadMap("PinWheel2");
+            _game = new StrategyGame();
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
+            _game.Map = GameMaps.LoadMap(_game, "PinWheel2");
         }
 
         [TestMethod]
         public void CheckUpdateWithNoInvestment()
         {
-            var target = StrategyGame.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
+            var target = _game.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
 
             target.AmountInvested = 0;
             target.Update();
@@ -31,7 +34,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CheckUpdateWhenCompleted()
         {
-            var target = StrategyGame.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
+            var target = _game.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
 
             target.AmountInvested = target.Cost;
             target.ResearchedTicks = target.DurationTicks;
@@ -44,7 +47,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CheckUpdateIncompleteInvestment()
         {
-            var target = StrategyGame.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
+            var target = _game.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
 
             target.AmountInvested = target.Cost-10;
             target.ResearchedTicks = target.DurationTicks-1;
@@ -57,7 +60,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CheckUpdateIncompleteTime()
         {
-            var target = StrategyGame.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
+            var target = _game.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
 
             target.AmountInvested = target.Cost;
             target.ResearchedTicks = target.DurationTicks - 10;
@@ -71,7 +74,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CheckUpdateCompleted()
         {
-            var target = StrategyGame.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
+            var target = _game.TechTree[0].TechItems.First(_ => _.Active && !_.Completed);
 
             target.AmountInvested = target.Cost;
             target.ResearchedTicks = target.DurationTicks - 1;

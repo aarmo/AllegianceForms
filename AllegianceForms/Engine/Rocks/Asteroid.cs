@@ -8,13 +8,13 @@ namespace AllegianceForms.Engine.Rocks
 
         public EAsteroidType Type { get; set; }
 
-        public Asteroid(Random r, int width, int height, int sectorId)
-            : this(_images[r.Next(0, _images.Length)], width, height, sectorId)
+        public Asteroid(StrategyGame game, Random r, int width, int height, int sectorId)
+            : this(game, _images[r.Next(0, _images.Length)], width, height, sectorId)
         {
         }
 
-        public Asteroid(string imageFilename, int width, int height, int sectorId)
-            : base(imageFilename, width, height, sectorId)
+        public Asteroid(StrategyGame game, string imageFilename, int width, int height, int sectorId)
+            : base(game, imageFilename, width, height, sectorId)
         {
             Type = EAsteroidType.Rock;
         }

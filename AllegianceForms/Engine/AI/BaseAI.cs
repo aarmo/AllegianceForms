@@ -14,12 +14,14 @@ namespace AllegianceForms.Engine.AI
         protected int _limitActionsPerMinute = 300;
         protected int _limitActionsTickDelay;
         protected int _nextActionAllowed = 0;
+        protected StrategyGame _game;
 
-        public BaseAI(int team, Color teamColour)
+        public BaseAI(StrategyGame game, int team, Color teamColour)
         {
             Team = team;
             _t = team - 1;
-            Alliance = StrategyGame.GameSettings.TeamAlliance[_t];
+            _game = game;
+            Alliance = game.GameSettings.TeamAlliance[_t];
             TeamColour = teamColour;
             Enabled = true;
         }

@@ -11,24 +11,21 @@ namespace AllegianceForms.Engine.Weapons
         public float Tracking { get; set; }
         public int Width { get; set; }
         public bool Active { get; set; }
-
         public PointF Center { get; set; }
         public PointF PreviousPoint { get; set; }
         public PointF LastPoint { get; set; }
-
         public SolidBrush TeamColour { get; set; }
         public Pen SmokePen1 { get; set; }
         public Pen SmokePen2 { get; set; }
         public Ship Target { get; set; }
         public int Team { get; set; }
-
         public float Damage { get; set; }
-
         public RectangleF Bounds => new RectangleF(Center.X-Width/2, Center.Y-Width/2, Width, Width);
 
         private int _expireTicks;
+        private StrategyGame _game;
 
-        public MissileProjectile(int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target, int team)
+        public MissileProjectile(StrategyGame game, int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target, int team)
         {
             SectorId = sectorId;
             Heading = heading;
@@ -44,6 +41,7 @@ namespace AllegianceForms.Engine.Weapons
             Active = true;
             Target = target;
             Team = team;
+            _game = game;
         }
 
         public virtual void Draw(Graphics g)
@@ -52,7 +50,6 @@ namespace AllegianceForms.Engine.Weapons
             var b = Bounds;
             g.DrawLine(SmokePen2, LastPoint, PreviousPoint);
             g.DrawLine(SmokePen1, Center, PreviousPoint);
-
             g.FillEllipse(TeamColour, b);
         }
 
@@ -101,7 +98,7 @@ namespace AllegianceForms.Engine.Weapons
             if (Target != null && Target.Active && Target.Bounds.Contains(Center))
             {
                 Target.Damage(Damage, Team);
-                StrategyGame.OnGameEvent(Target, EGameEventType.MissileHit);
+                _game.OnGameEvent(Target, EGameEventType.MissileHit);
                 Active = false;
             }
         }

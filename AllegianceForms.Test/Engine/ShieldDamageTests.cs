@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Drawing;
@@ -14,7 +15,11 @@ namespace AllegianceForms.Test.Engine
         [TestInitialize]
         public void Setup()
         {
-            _target = new Ship(string.Empty, 10, 10, Color.White, 1, 1, TestHealth, 1, 0);
+            var game = new StrategyGame();
+            game.SetupGame(GameSettings.Default());
+            game.LoadData();
+
+            _target = new Ship(game, string.Empty, 10, 10, Color.White, 1, 1, TestHealth, 1, 0);
         }
 
         [TestMethod]
@@ -27,7 +32,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void ShieldDoesntOvercharge()
         {
-            _target.Update(0);
+            _target.Update();
 
             _target.MaxShield.ShouldBe(TestHealth);
             _target.Shield.ShouldBe(TestHealth);
@@ -37,7 +42,7 @@ namespace AllegianceForms.Test.Engine
         public void ShieldRecharges()
         {
             _target.Shield -= 0.1f;
-            _target.Update(0);
+            _target.Update();
 
             _target.MaxShield.ShouldBe(TestHealth);
             _target.Shield.ShouldBe(TestHealth);

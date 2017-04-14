@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Drawing;
@@ -8,13 +9,18 @@ namespace AllegianceForms.Test.Engine
     [TestClass]
     public class ShipDamageTests
     {
+        private StrategyGame _game;
         private Ship _target;
         private const int TestHealth = 100;
 
         [TestInitialize]
         public void Setup()
         {
-            _target = new Ship(string.Empty, 10, 10, Color.White, 1, 1, TestHealth, 1, 0);
+            _game = new StrategyGame();
+            _game.SetupGame(GameSettings.Default());
+            _game.LoadData();
+
+            _target = new Ship(_game, string.Empty, 10, 10, Color.White, 1, 1, TestHealth, 1, 0);
             _target.Shield = 0;
         }
 

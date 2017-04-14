@@ -9,9 +9,13 @@ namespace AllegianceForms.Forms
 {
     public partial class PilotList : Form
     {
-        public PilotList()
+        StrategyGame _game;
+
+        public PilotList(StrategyGame game)
         {
             InitializeComponent();
+
+            _game = game;
         }
 
         private void PilotList_KeyDown(object sender, KeyEventArgs e)
@@ -25,7 +29,7 @@ namespace AllegianceForms.Forms
 
         public void RefreshPilotList()
         {
-            var ships = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == 1).ToList();
+            var ships = _game.AllUnits.Where(_ => _.Active && _.Team == 1).ToList();
             var currentShips = new List<Ship>();
             for (var i = 0; i < PilotItems.Controls.Count; i++)
             {
@@ -49,7 +53,7 @@ namespace AllegianceForms.Forms
 
             foreach (var s in newShips)
             {
-                PilotItems.Controls.Add(new PilotListItem(s));
+                PilotItems.Controls.Add(new PilotListItem(_game, s));
             }
         }
     }

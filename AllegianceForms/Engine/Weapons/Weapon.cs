@@ -14,13 +14,14 @@ namespace AllegianceForms.Engine.Weapons
         public GameEntity Target { get; set; }
         public Ship Shooter { get; set; }
         public PointF FireOffset { get; set; }
+        public ESounds WeaponSound { get; set; }
 
         protected bool _damageOnShotEnd = true;
-        protected ESounds _weaponSound = ESounds.plasmaac1;
         protected int _shootingStop = int.MaxValue;
         protected int _shootingNext = 0;
-        
-        protected Weapon(int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
+        protected StrategyGame _game;
+                
+        protected Weapon(StrategyGame game, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
         {
             ShootingTicks = _shootingStop = fireTicks;
             ShootingDelayTicks = refireTicks;
@@ -29,9 +30,11 @@ namespace AllegianceForms.Engine.Weapons
             WeaponRange = range;
             WeaponDamage = damage;
             FireOffset = offset;
+            WeaponSound = ESounds.plasmaac1;
+            _game = game;
         }
 
-        public virtual void Update(int currentSectorId)
+        public virtual void Update()
         {
             _shootingStop--;
             _shootingNext--;
@@ -40,7 +43,7 @@ namespace AllegianceForms.Engine.Weapons
             {
                 Shooting = true;
                 _shootingStop = ShootingTicks;
-                if (currentSectorId == Shooter.SectorId) SoundEffect.Play(_weaponSound);
+                if (Shooter.SectorId == _game.PlayerCurrentSectorId) SoundEffect.Play(WeaponSound);
             }
 
             if (Shooting && _shootingStop <= 0)

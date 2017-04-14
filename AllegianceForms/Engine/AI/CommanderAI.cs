@@ -9,7 +9,6 @@ using System.Linq;
 
 namespace AllegianceForms.Engine.AI
 {
-
     public class CommanderAI : BaseAI
     {
         public Dictionary<EAiCreditPriorities, float> CreditPriorities { get; private set; }
@@ -63,7 +62,7 @@ namespace AllegianceForms.Engine.AI
         private float _minerDefenseFocus = 8;
         private Ship.ShipEventHandler _shipHandler;
 
-        public CommanderAI(int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(team, teamColour)
+        public CommanderAI(StrategyGame game, int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(game, team, teamColour)
         {
             _shipHandler = shipHandler;
             CreditPriorities = new Dictionary<EAiCreditPriorities, float>();
@@ -87,13 +86,13 @@ namespace AllegianceForms.Engine.AI
             BuildingMission = true;
             CreditsForDefence = CreditsForOffence = CreditsForExpansion = true;
 
-            _scouting = new ScoutingMission(this, _shipHandler);
-            _building = new BuilderMission(this, _shipHandler);
-            _mining = new MinerMission(this, _shipHandler);
-            _bombing = new BombingMission(this, _shipHandler);
-            _defense = new BaseDefenseMission(this, _shipHandler);
-            _minerO = new MinerOffenseMission(this, _shipHandler);
-            _minerD = new MinerDefenseMission(this, _shipHandler);
+            _scouting = new ScoutingMission(_game, this, _shipHandler);
+            _building = new BuilderMission(_game, this, _shipHandler);
+            _mining = new MinerMission(_game, this, _shipHandler);
+            _bombing = new BombingMission(_game, this, _shipHandler);
+            _defense = new BaseDefenseMission(_game, this, _shipHandler);
+            _minerO = new MinerOffenseMission(_game, this, _shipHandler);
+            _minerD = new MinerDefenseMission(_game, this, _shipHandler);
 
             if (randomise)
             {
@@ -175,9 +174,9 @@ namespace AllegianceForms.Engine.AI
                     .OrderByDescending(_ => _.Value).FirstOrDefault();
                 if (!c.IsDefault())
                 {
-                    var tech = StrategyGame.TechTree[_t].ResearchableItemsNot(ETechType.Construction).OrderByDescending(_ => _.Id).ToList();
-                    var cons = StrategyGame.TechTree[_t].ResearchableItems(ETechType.Construction).OrderByDescending(_ => _.Id).ToList();
-                    var funds = StrategyGame.Credits[_t];
+                    var tech = _game.TechTree[_t].ResearchableItemsNot(ETechType.Construction).OrderByDescending(_ => _.Id).ToList();
+                    var cons = _game.TechTree[_t].ResearchableItems(ETechType.Construction).OrderByDescending(_ => _.Id).ToList();
+                    var funds = _game.Credits[_t];
                     
                     var hasExpTech = Bases.Any(_ => _.Active && _.Team == Team && _.Type == EBaseType.Expansion);
                     var hasSupTech = Bases.Any(_ => _.Active && _.Team == Team && _.Type == EBaseType.Supremacy);
@@ -213,7 +212,7 @@ namespace AllegianceForms.Engine.AI
 
                         if (NextTech != null)
                         {
-                            var invested = StrategyGame.SpendCredits(Team, NextTech.Cost);
+                            var invested = _game.SpendCredits(Team, NextTech.Cost);
                             NextTech.AmountInvested += invested;
                         }
                     }
@@ -248,7 +247,7 @@ namespace AllegianceForms.Engine.AI
                 CheatCredits = false;
             }
             
-            if (CheatCredits) StrategyGame.AddResources(Team, CheatCreditAmout);
+            if (CheatCredits) _game.AddResources(Team, CheatCreditAmout);
         }
 
         private void UpdateMissions()
@@ -279,9 +278,9 @@ namespace AllegianceForms.Engine.AI
             if (Scouting && PilotPriorities[EAiPilotPriorities.Scout] < MaxPriorityValue)
                 PilotPriorities[EAiPilotPriorities.Scout] += _scoutFocus;
 
-            var enemyShips = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]).ToList();
-            Miners = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Miner).ToList();
-            Builders = StrategyGame.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Constructor).ToList();
+            var enemyShips = _game.AllUnits.Where(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]).ToList();
+            Miners = _game.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Miner).ToList();
+            Builders = _game.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Constructor).ToList();
 
             foreach (var s in enemyShips)
             {
@@ -316,18 +315,18 @@ namespace AllegianceForms.Engine.AI
                 PilotPriorities[EAiPilotPriorities.MinerDefense] += _minerDefenseFocus;
 
             //TODO: Ineffiencient to do each second!
-            Bases = StrategyGame.AllBases.Where(_ => _.Active && _.Team == Team).ToList();
-            var enemyBases = StrategyGame.AllBases.Count(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]);
-            var numOwnedSectors = StrategyGame.Map.Sectors.Count(s => Bases.Any(b => b.SectorId == s.Id));
+            Bases = _game.AllBases.Where(_ => _.Active && _.Team == Team).ToList();
+            var enemyBases = _game.AllBases.Count(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]);
+            var numOwnedSectors = _game.Map.Sectors.Count(s => Bases.Any(b => b.SectorId == s.Id));
 
-            if (StrategyGame.TechTree[_t].HasResearchedShipType(EShipType.Bomber))
+            if (_game.TechTree[_t].HasResearchedShipType(EShipType.Bomber))
             {
                 if (BaseOffence && PilotPriorities[EAiPilotPriorities.BaseOffense] < MaxPriorityValue) PilotPriorities[EAiPilotPriorities.BaseOffense] += (enemyBases * _baseDefenseFocus);                
             }
 
             if (CreditsForOffence && CreditPriorities[EAiCreditPriorities.Offense] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Offense] += (enemyBases * _baseDefenseFocus);
 
-            if (CreditsForExpansion && CreditPriorities[EAiCreditPriorities.Expansion] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Expansion] += StrategyGame.Map.Sectors.Count - numOwnedSectors;
+            if (CreditsForExpansion && CreditPriorities[EAiCreditPriorities.Expansion] < MaxPriorityValue) CreditPriorities[EAiCreditPriorities.Expansion] += _game.Map.Sectors.Count - numOwnedSectors;
         }
     }
 }

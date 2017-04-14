@@ -10,7 +10,7 @@ namespace AllegianceForms.Orders
         protected Ship _ship;
         private GameEntity _otherEnd;
 
-        public WarpOrder(Ship ship, Wormhole w) : base(ship.SectorId)
+        public WarpOrder(StrategyGame game, Ship ship, Wormhole w) : base(game, ship.SectorId)
         {
             OrderPen.Color = Color.CornflowerBlue;
             _ship = ship;

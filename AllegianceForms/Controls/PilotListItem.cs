@@ -8,11 +8,13 @@ namespace AllegianceForms.Controls
     public partial class PilotListItem : UserControl
     {
         public Ship Pilot { get; set; }
+        private StrategyGame _game;
 
-        public PilotListItem(Ship ship)
+        public PilotListItem(StrategyGame game, Ship ship)
         {
             InitializeComponent();
             Pilot = ship;
+            _game = game;
 
             RefreshPilot();
         }
@@ -32,7 +34,7 @@ namespace AllegianceForms.Controls
             ShipType.Text = Pilot.Type.ToString();
             if (b != null) ShipType.Text += string.Format("\n[{0}]", b.BaseType);
 
-            Sector.Text = string.Format("[{0}] {1}", Pilot.SectorId+1, StrategyGame.Map.Sectors[Pilot.SectorId].Name);            
+            Sector.Text = string.Format("[{0}] {1}", Pilot.SectorId+1, _game.Map.Sectors[Pilot.SectorId].Name);            
             Info.Text = string.Format("{0:P} {1}", Pilot.Health * 1.0f / Pilot.MaxHealth, info);
         }
 
@@ -52,7 +54,7 @@ namespace AllegianceForms.Controls
 
         private void Info_DoubleClick(object sender, System.EventArgs e)
         {
-            StrategyGame.OnGameEvent(Pilot, EGameEventType.ShipClicked);
+            _game.OnGameEvent(Pilot, EGameEventType.ShipClicked);
             SoundEffect.Play(ESounds.mousedown);
         }
     }

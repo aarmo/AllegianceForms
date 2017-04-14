@@ -49,20 +49,20 @@ namespace AllegianceForms.Engine.Map
             return maps[StrategyGame.Random.Next(maps.Length)];
         }
 
-        public static GameMap LoadMap(string name)
+        public static GameMap LoadMap(StrategyGame game, string name)
         {
             var map = Utils.DeserialiseFromFile<SimpleGameMap>(StrategyGame.MapFolder + "\\" + name + ".map");
-            if (map == null) return Brawl();
+            if (map == null) return Brawl(game);
 
-            return GameMap.FromSimpleMap(map);
+            return GameMap.FromSimpleMap(game, map);
         }
 
-        public static GameMap Brawl()
+        public static GameMap Brawl(StrategyGame game)
         {
-            var map = new GameMap
+            var map = new GameMap(game)
             {
                 Name = "Brawl",
-                Sectors = new List<MapSector> { new MapSector(0, SectorNames.NextString, new Point(0, 0)) { StartingSector = 1 } },
+                Sectors = new List<MapSector> { new MapSector(game, 0, SectorNames.NextString, new Point(0, 0)) { StartingSector = 1 } },
                 Wormholes = new List<Wormhole>()
             };
             map.InitialiseMap();

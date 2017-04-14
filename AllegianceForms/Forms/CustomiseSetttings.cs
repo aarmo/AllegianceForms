@@ -41,10 +41,9 @@ namespace AllegianceForms.Forms
         public void LoadSettings(GameSettings s)
         {
             Settings = s;
+            
+            LoadMaps(s.MapName);
 
-            LoadMaps();
-
-            MapList.Text = s.MapName;
             Pilots.Value = s.NumPilots;
             Difficulty.SelectedIndex = s.AiDifficulty;
             
@@ -646,18 +645,16 @@ namespace AllegianceForms.Forms
 
             Settings.NumTeams = teams;
 
-            LoadMaps();
+            LoadMaps(Settings.MapName);
             RefreshStartGame();
         }
 
-        private void LoadMaps()
+        private void LoadMaps(string currentMap)
         {
             var maps = GameMaps.AvailableMaps(Settings.NumTeams);
-            var currentMap = MapList.Text;
             MapList.Items.Clear();
             MapList.Items.AddRange(maps);
             MapList.Text = maps.Contains(currentMap) ? currentMap : maps[0];
-
         }
 
         private void Ctl_TeamChangedEvent(TeamListItem sender)

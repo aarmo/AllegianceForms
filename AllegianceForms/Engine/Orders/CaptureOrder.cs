@@ -10,11 +10,11 @@ namespace AllegianceForms.Orders
     {
         Base _target;
 
-        public CaptureOrder(Ship ship) : this(ship, null)
+        public CaptureOrder(StrategyGame game, Ship ship) : this(game, ship, null)
         {
         }
 
-        public CaptureOrder(Ship ship, Base bs) : base(ship.SectorId)
+        public CaptureOrder(StrategyGame game, Ship ship, Base bs) : base(game, ship.SectorId)
         {
             OrderPen.Color = Color.OrangeRed;
             _target = bs;
@@ -32,7 +32,7 @@ namespace AllegianceForms.Orders
         private void FindClosestEnemyBase(Ship ship)
         {
             // Find the closest Enemy station we can capture
-            _target = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, StrategyGame.AllBases.Where(_ => _.Active && _.Team != ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips()));
+            _target = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, _game.AllBases.Where(_ => _.Active && _.Team != ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips()));
 
             if (_target != null)
             {

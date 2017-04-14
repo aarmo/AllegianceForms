@@ -7,10 +7,10 @@ namespace AllegianceForms.Engine.Weapons
     {
         public Pen LaserPen { get; set; }
                 
-        public BaseLaserWeapon(Color laserColor, float laserWidth, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
-            : base(fireTicks, refireTicks, range, damage, shooter, offset)
+        public BaseLaserWeapon(StrategyGame game, Color laserColor, float laserWidth, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset)
+            : base(game, fireTicks, refireTicks, range, damage, shooter, offset)
         {
-            _weaponSound = ESounds.plasmamini1;
+            WeaponSound = ESounds.plasmamini1;
             LaserPen = new Pen(laserColor, laserWidth);
         }
         

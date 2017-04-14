@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Ships;
 using System.Drawing;
 
 namespace AllegianceForms.Orders
@@ -7,11 +8,11 @@ namespace AllegianceForms.Orders
     {
         private PointF _originalPosition = PointF.Empty;
 
-        public PatrolOrder(int sectorId) : this(sectorId, PointF.Empty, PointF.Empty)
+        public PatrolOrder(StrategyGame game, int sectorId) : this(game, sectorId, PointF.Empty, PointF.Empty)
         {
         }
 
-        public PatrolOrder(int sectorId, PointF targetPosition, PointF offset) : base(sectorId, targetPosition, offset)
+        public PatrolOrder(StrategyGame game, int sectorId, PointF targetPosition, PointF offset) : base(game, sectorId, targetPosition, offset)
         {
             OrderPen.Color = Color.SkyBlue;
         }

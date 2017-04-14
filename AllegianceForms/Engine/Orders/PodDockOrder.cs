@@ -10,11 +10,11 @@ namespace AllegianceForms.Orders
     {
         protected Ship _dockPodTarget;
 
-        public PodDockOrder(Ship ship, bool append = false) : this(ship, null, append)
+        public PodDockOrder(StrategyGame game, Ship ship, bool append = false) : this(game, ship, null, append)
         {
         }
 
-        public PodDockOrder(Ship ship, Base bs, bool append) : base(ship, bs, append)
+        public PodDockOrder(StrategyGame game, Ship ship, Base bs, bool append) : base(game, ship, bs, append)
         {
             OrderPen.Color = Color.WhiteSmoke;
             _dockTarget = bs;
@@ -63,7 +63,7 @@ namespace AllegianceForms.Orders
         protected void FindClosestFriendlyShip(Ship ship, bool append)
         {
             // Find the closest Friendly ship we can dock at
-            _dockPodTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, StrategyGame.AllUnits.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.Type != EShipType.Lifepod && _.Type != EShipType.Constructor && _.Type != EShipType.Miner));
+            _dockPodTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, _game.AllUnits.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.Type != EShipType.Lifepod && _.Type != EShipType.Constructor && _.Type != EShipType.Miner));
 
             if (_dockPodTarget != null)
             {

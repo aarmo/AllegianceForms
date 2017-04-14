@@ -10,18 +10,18 @@ namespace AllegianceForms.Orders
     {
         private ResourceAsteroid _targetAsteroid;
 
-        public MineOrder(int sectorId) : this(sectorId, Point.Empty, Point.Empty)
+        public MineOrder(StrategyGame game, int sectorId) : this(game, sectorId, Point.Empty, Point.Empty)
         {
         }
 
-        public MineOrder(int sectorId, PointF targetPosition, PointF offset) : base(sectorId, targetPosition, offset)
+        public MineOrder(StrategyGame game, int sectorId, PointF targetPosition, PointF offset) : base(game, sectorId, targetPosition, offset)
         {
             OrderPen.Color = Color.Gold;
         }
 
         private void SearchForAnotherRock(MinerShip miner)
         {
-            _targetAsteroid = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, StrategyGame.ResourceAsteroids.Where(_ => _.Active && !_.BeingMined && _.SectorId == miner.SectorId && _.VisibleToTeam[miner.Team - 1] && _.AvailableResources > 0 ));
+            _targetAsteroid = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, _game.ResourceAsteroids.Where(_ => _.Active && !_.BeingMined && _.SectorId == miner.SectorId && _.VisibleToTeam[miner.Team - 1] && _.AvailableResources > 0 ));
 
             if (_targetAsteroid != null)
             {
@@ -39,7 +39,7 @@ namespace AllegianceForms.Orders
                 OrderComplete = true;
 
                 if (miner.Team == 1) SoundEffect.Play(ESounds.vo_sal_minerpartial);
-                miner.OrderShip(new DockOrder(miner, true), true);
+                miner.OrderShip(new DockOrder(_game, miner, true), true);
             }
         }
 

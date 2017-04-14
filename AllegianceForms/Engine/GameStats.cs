@@ -2,12 +2,23 @@
 {
     public class GameStats
     {
-        public int[] TotalResourcesMined = new int[StrategyGame.NumTeams];
-        public int[] TotalBasesBuilt = new int[StrategyGame.NumTeams];
-        public int[] TotalBasesDestroyed = new int[StrategyGame.NumTeams];
-        public int[] TotalMinersBuilt = new int[StrategyGame.NumTeams];
-        public int[] TotalMinersDestroyed = new int[StrategyGame.NumTeams];
-        public int[] TotalConstructorsBuilt = new int[StrategyGame.NumTeams];
-        public int[] TotalConstructorsDestroyed = new int[StrategyGame.NumTeams];
+        public int[] TotalResourcesMined;
+        public int[] TotalBasesBuilt;
+        public int[] TotalBasesDestroyed;
+        public int[] TotalMinersBuilt;
+        public int[] TotalMinersDestroyed;
+        public int[] TotalConstructorsBuilt;
+        public int[] TotalConstructorsDestroyed;
+
+        public GameStats(int numTeams)
+        {
+            TotalResourcesMined = new int[numTeams];
+            TotalBasesBuilt = new int[numTeams];
+            TotalBasesDestroyed = new int[numTeams];
+            TotalMinersBuilt = new int[numTeams];
+            TotalMinersDestroyed = new int[numTeams];
+            TotalConstructorsBuilt = new int[numTeams];
+            TotalConstructorsDestroyed = new int[numTeams];
+        }
     }
 }

@@ -11,11 +11,11 @@ namespace AllegianceForms.Orders
     {
         private Asteroid _targetRock;
 
-        public BuildOrder(int sectorId) : this(sectorId, Point.Empty, Point.Empty)
+        public BuildOrder(StrategyGame game, int sectorId) : this(game, sectorId, Point.Empty, Point.Empty)
         {
         }
 
-        public BuildOrder(int sectorId, Point targetPosition, Point offset) : base(sectorId, targetPosition, offset)
+        public BuildOrder(StrategyGame game, int sectorId, Point targetPosition, Point offset) : base(game, sectorId, targetPosition, offset)
         {
             OrderPen.Color = Color.Blue;
         }
@@ -32,7 +32,7 @@ namespace AllegianceForms.Orders
             base.Update(ship);
             if (!BaseSpecs.IsTower(builder.BaseType) && _targetRock == null)
             {
-                _targetRock = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, StrategyGame.AllAsteroids.Where(_ => _.Active && _.SectorId == ship.SectorId && _.VisibleToTeam[ship.Team-1] && _.Type == builder.TargetRockType));
+                _targetRock = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, _game.AllAsteroids.Where(_ => _.Active && _.SectorId == ship.SectorId && _.VisibleToTeam[ship.Team-1] && _.Type == builder.TargetRockType));
 
                 if (_targetRock != null)
                 {
