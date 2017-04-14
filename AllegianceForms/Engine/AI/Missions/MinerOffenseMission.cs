@@ -37,12 +37,12 @@ namespace AllegianceForms.Engine.AI.Missions
             return IncludedShips.Count < numPilots;
         }
 
-        public override void AddMorePilots()
+        public override bool AddMorePilots()
         {            
             var launchBase = _game.ClosestSectorWithBase(AI.Team, _lastTargetSectorId);
             if (launchBase == null)
             {
-                return;
+                return false;
             }
 
             Ship ship = null;
@@ -56,7 +56,7 @@ namespace AllegianceForms.Engine.AI.Missions
             {
                 ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
             }
-            if (ship == null) return;
+            if (ship == null) return false;
 
             ship.CenterX = launchBase.CenterX;
             ship.CenterY = launchBase.CenterY;
@@ -67,6 +67,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
             IncludedShips.Add(ship);
             _game.LaunchShip(ship);
+            return true;
         }
 
         public override bool MissionComplete()
@@ -103,7 +104,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 else
                 {
                     // Then find the closest random miner/con/bomber here to attack!
-                    var m = _game.ClosestDistance(i.CenterX, i.CenterY, StrategyGame.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
+                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
                     if (m != null)
                     {
                         i.OrderShip(new MoveOrder(_game, m.SectorId, m.CenterPoint));

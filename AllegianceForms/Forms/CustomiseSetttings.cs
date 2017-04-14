@@ -46,7 +46,8 @@ namespace AllegianceForms.Forms
 
             Pilots.Value = s.NumPilots;
             Difficulty.SelectedIndex = s.AiDifficulty;
-            
+            VariantAI.Checked = Settings.VariantAi;
+
             ResearchCost.Text = s.ResearchCostMultiplier.ToString("P0");
             ResearchTime.Text = s.ResearchTimeMultiplier.ToString("P0");
 
@@ -673,6 +674,12 @@ namespace AllegianceForms.Forms
 
             StartGame.Enabled = !allSame;
 #endif
+        }
+
+        private void VariantAI_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.VariantAi = VariantAI.Checked;
+            CustomPresets.Text = string.Empty;
         }
     }
 }

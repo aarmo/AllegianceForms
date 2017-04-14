@@ -11,7 +11,7 @@ namespace AllegianceForms.Engine.AI.Missions
     {
         private List<Asteroid> _chosenRocks = new List<Asteroid>();
         
-        public BuilderMission(StrategyGame game, CommanderAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
+        public BuilderMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         {
         }
         
@@ -22,8 +22,8 @@ namespace AllegianceForms.Engine.AI.Missions
             var t = AI.Team - 1;
 
             // Check our constructor ships
-            var ships = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == AI.Team && _.Type == EShipType.Constructor).ToList();
-            var maxHops = StrategyGame.Map.Wormholes.Count + 4;
+            var ships = _game.AllUnits.Where(_ => _.Active && _.Team == AI.Team && _.Type == EShipType.Constructor).ToList();
+            var maxHops = _game.Map.Wormholes.Count + 4;
             
             foreach (var s in ships)
             {

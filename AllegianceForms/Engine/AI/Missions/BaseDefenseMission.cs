@@ -24,15 +24,15 @@ namespace AllegianceForms.Engine.AI.Missions
             return currentPilots < _numPilots;
         }
 
-        public override void AddMorePilots()
+        public override bool AddMorePilots()
         {
-            if (_lastTargetSectorId == -1) return;
+            if (_lastTargetSectorId == -1) return false;
             var launchBase = _game.ClosestSectorWithBase(AI.Team, _lastTargetSectorId);
-            if (launchBase == null) return;
+            if (launchBase == null) return false;
 
             // Create our best combat ship
             Ship ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
-            if (ship == null) return;
+            if (ship == null) return false;
             
             ship.CenterX = launchBase.CenterX;
             ship.CenterY = launchBase.CenterY;
@@ -43,6 +43,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
             IncludedShips.Add(ship);
             _game.LaunchShip(ship);
+            return true;
         }
         
         public override bool MissionComplete()
@@ -72,7 +73,7 @@ namespace AllegianceForms.Engine.AI.Missions
             {
                 if (i.CurrentOrder != null) continue;
 
-                // Make sure we are in the same sector as the target bomber
+                // Make sure we are in the same sector as the target
                 if (i.SectorId != _lastTargetSectorId)
                 {
                     i.OrderShip(new NavigateOrder(_game, i, _lastTargetSectorId));

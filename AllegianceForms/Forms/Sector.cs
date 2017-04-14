@@ -125,12 +125,26 @@ namespace AllegianceForms.Forms
                 if (aiPlayer)
                 {
                     // AI setup:
-                    var ai = new CommanderAI(StrategyGame, team, teamColour, F_ShipEvent, true);
-                    StrategyGame.AICommanders[t] = ai;
-                    ai.SetDifficulty(settings.AiDifficulty);
-                    StrategyGame.DockedPilots[t] = (int)(settings.NumPilots * ai.CheatAdditionalPilots);
+                    BaseAI ai;
 
-                    if (t == 1) _debugForm = new DebugAI(StrategyGame, ai);
+                    if (settings.VariantAi)
+                    {
+                        ai = new VariantAI(StrategyGame, team, teamColour, F_ShipEvent);
+                    }
+                    else
+                    {
+                        ai = new CommanderAI(StrategyGame, team, teamColour, F_ShipEvent, true);
+                    }
+
+                    StrategyGame.AICommanders[t] = ai;
+                    StrategyGame.AICommanders[t].SetDifficulty(settings.AiDifficulty);
+                    StrategyGame.DockedPilots[t] = (int)(settings.NumPilots * StrategyGame.AICommanders[t].CheatAdditionalPilots);
+
+                    if (t == 1 && !settings.VariantAi)
+                    {
+                        var comAi = ai as CommanderAI;
+                        _debugForm = new DebugAI(StrategyGame, comAi);
+                    }
 
                     //ai.Enabled = false;
                     //enemyAIDebugToolStripMenuItem_Click(null, null);
@@ -821,7 +835,7 @@ namespace AllegianceForms.Forms
 
             if (_selectedUnits.Count > 1)
             {
-                StrategyGame.SpreadOrderEvenly<MoveOrder>(_selectedUnits, _currentSector.Id, orderPosition, _shiftDown);
+                StrategyGame.SpreadOrderEvenly<MoveOrder>(StrategyGame, _selectedUnits, _currentSector.Id, orderPosition, _shiftDown);
             }
             else if (_selectedUnits.Count == 1 && _selectedUnits[0].SectorId == _currentSector.Id)
             {
@@ -833,7 +847,7 @@ namespace AllegianceForms.Forms
         {
             if (_selectedUnits.Count > 1)
             {
-                StrategyGame.SpreadOrderEvenly<PatrolOrder>(_selectedUnits, _currentSector.Id, orderPosition, _shiftDown);
+                StrategyGame.SpreadOrderEvenly<PatrolOrder>(StrategyGame, _selectedUnits, _currentSector.Id, orderPosition, _shiftDown);
             }
             else if (_selectedUnits.Count == 1 && _selectedUnits[0].SectorId == _currentSector.Id)
             {
@@ -847,7 +861,7 @@ namespace AllegianceForms.Forms
 
             if (minerUnits.Count > 1)
             {
-                StrategyGame.SpreadOrderEvenly<MineOrder>(minerUnits, _currentSector.Id, orderPosition, _shiftDown);
+                StrategyGame.SpreadOrderEvenly<MineOrder>(StrategyGame, minerUnits, _currentSector.Id, orderPosition, _shiftDown);
             }
             else if (minerUnits.Count == 1 && minerUnits[0].SectorId == _currentSector.Id)
             {
@@ -982,6 +996,8 @@ namespace AllegianceForms.Forms
 
         private void enemyAIDebugToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (_debugForm == null) return;
+
             SoundEffect.Play(ESounds.windowslides);
             if (_debugForm.Visible)
             {
@@ -1009,7 +1025,7 @@ namespace AllegianceForms.Forms
                 _mapForm.Top = Top;
                 _mapForm.Left = Left + Width - 5;
             }
-            if (_debugForm.Visible)
+            if (_debugForm != null && _debugForm.Visible)
             {
                 _debugForm.Top = Top + Height - _debugForm.Height - 10;
                 _debugForm.Left = Left + Width - 5;
@@ -1028,7 +1044,7 @@ namespace AllegianceForms.Forms
 
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
             
-            if (_debugForm.Visible) _debugForm.UpdateDebugInfo();
+            if (_debugForm != null && _debugForm.Visible) _debugForm.UpdateDebugInfo();
                         
             if (_pilotList.Visible) _pilotList.RefreshPilotList();
 

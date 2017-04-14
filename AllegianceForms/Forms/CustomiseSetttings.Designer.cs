@@ -137,6 +137,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.TeamItems = new System.Windows.Forms.FlowLayoutPanel();
             this.label51 = new System.Windows.Forms.Label();
+            this.VariantAI = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Teams)).BeginInit();
             this.panel1.SuspendLayout();
@@ -205,7 +206,7 @@
             this.WormholesVisible.AutoSize = true;
             this.WormholesVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.WormholesVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WormholesVisible.Location = new System.Drawing.Point(38, 153);
+            this.WormholesVisible.Location = new System.Drawing.Point(22, 153);
             this.WormholesVisible.Name = "WormholesVisible";
             this.WormholesVisible.Size = new System.Drawing.Size(81, 17);
             this.WormholesVisible.TabIndex = 13;
@@ -1474,7 +1475,7 @@
             this.RocksVisible.AutoSize = true;
             this.RocksVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.RocksVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RocksVisible.Location = new System.Drawing.Point(38, 289);
+            this.RocksVisible.Location = new System.Drawing.Point(22, 291);
             this.RocksVisible.Name = "RocksVisible";
             this.RocksVisible.Size = new System.Drawing.Size(81, 17);
             this.RocksVisible.TabIndex = 22;
@@ -1559,6 +1560,19 @@
             this.label51.TabIndex = 0;
             this.label51.Text = "Alliance:";
             // 
+            // VariantAI
+            // 
+            this.VariantAI.AutoSize = true;
+            this.VariantAI.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.VariantAI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VariantAI.Location = new System.Drawing.Point(31, 60);
+            this.VariantAI.Name = "VariantAI";
+            this.VariantAI.Size = new System.Drawing.Size(72, 17);
+            this.VariantAI.TabIndex = 13;
+            this.VariantAI.Text = "Variant AI:";
+            this.VariantAI.UseVisualStyleBackColor = true;
+            this.VariantAI.CheckedChanged += new System.EventHandler(this.VariantAI_CheckedChanged);
+            // 
             // CustomiseSetttings
             // 
             this.AcceptButton = this.StartGame;
@@ -1589,6 +1603,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.RocksVisible);
+            this.Controls.Add(this.VariantAI);
             this.Controls.Add(this.WormholesVisible);
             this.Controls.Add(this.Teams);
             this.Controls.Add(this.Pilots);
@@ -1802,5 +1817,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel TeamItems;
         private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.CheckBox VariantAI;
     }
 }

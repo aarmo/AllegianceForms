@@ -55,7 +55,7 @@ namespace AllegianceForms.Engine
         public BaseSpecs Bases;
         public int[] DockedPilots;
         public int[] Credits;
-        public CommanderAI[] AICommanders;
+        public BaseAI[] AICommanders;
         public TechTree[] TechTree;
         public Faction[] Faction;
         
@@ -121,7 +121,7 @@ namespace AllegianceForms.Engine
         }
 
         // Offset the order position evenly for these units...
-        public static void SpreadOrderEvenly<T>(List<Ship> units, int currentSectorId, PointF centerPos, bool append = false) where T : ShipOrder
+        public static void SpreadOrderEvenly<T>(StrategyGame game, List<Ship> units, int currentSectorId, PointF centerPos, bool append = false) where T : ShipOrder
         {
             var columns = (int)Math.Round(Math.Sqrt(units.Count), 0);
             var offset = units.Max(_ => _.Image.Width) + 4;
@@ -137,9 +137,9 @@ namespace AllegianceForms.Engine
                 ShipOrder order;
 
                 if (typeof(T) == typeof(RefineOrder) || typeof(T) == typeof(DockOrder))
-                    order = (T)Activator.CreateInstance(typeof(T), u);
+                    order = (T)Activator.CreateInstance(typeof(T), game, u);
                 else
-                    order = (T)Activator.CreateInstance(typeof(T), currentSectorId);
+                    order = (T)Activator.CreateInstance(typeof(T), game, currentSectorId);
 
                 order.OrderPosition = orderPos;
                 order.Offset = new PointF(orderPos.X - origX, orderPos.Y - origY);
@@ -580,7 +580,7 @@ namespace AllegianceForms.Engine
 
                 if (lifepods.Count > 1)
                 {
-                    SpreadOrderEvenly<MoveOrder>(lifepods, sender.SectorId, sender.CenterPoint);
+                    SpreadOrderEvenly<MoveOrder>(this, lifepods, sender.SectorId, sender.CenterPoint);
                 }
                 lifepods.ForEach(_ => _.OrderShip(new PodDockOrder(this, _, true), true));
 
@@ -740,6 +740,8 @@ namespace AllegianceForms.Engine
                         }
                     }
                 }
+
+                CheckForGameEnd();
             }
         }
 
@@ -861,13 +863,13 @@ namespace AllegianceForms.Engine
 
             DockedPilots = new int[NumTeams];
             Credits = new int[NumTeams];
-            AICommanders = new CommanderAI[NumTeams];
             Faction = new Faction[NumTeams];
             TechTree = new TechTree[NumTeams];
             TeamBrushes = new Brush[NumTeams];
             SelectedPens = new Pen[NumTeams];
             TextBrushes = new Brush[NumTeams];
-
+            AICommanders = new BaseAI[NumTeams];
+            
             for (var i = 0; i < NumTeams; i++)
             {
                 Faction[i] = settings.TeamFactions[i].Clone();

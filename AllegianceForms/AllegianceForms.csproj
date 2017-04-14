@@ -135,6 +135,7 @@
     <Compile Include="Controls\TeamListItem.Designer.cs">
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engine\AI\VariantAI.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Forms\ChanceGame.cs">
       <SubType>Form</SubType>

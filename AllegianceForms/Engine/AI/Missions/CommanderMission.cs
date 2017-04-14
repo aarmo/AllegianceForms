@@ -16,6 +16,7 @@ namespace AllegianceForms.Engine.AI.Missions
         protected bool _completed = false;
         protected int _recentOrderDelaySecs = 10;
         protected StrategyGame _game;
+        protected Point _centerPos;
 
         public CommanderMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipHandler)
         {
@@ -23,6 +24,7 @@ namespace AllegianceForms.Engine.AI.Missions
             IncludedShips = new List<Ship>();
             RecentOrders = new List<DateTime>();
             _shipHandler = shipHandler;
+            _centerPos = new Point(StrategyGame.ScreenWidth / 2, StrategyGame.ScreenHeight / 2);
             _game = game;
         }
 
@@ -56,8 +58,24 @@ namespace AllegianceForms.Engine.AI.Missions
             return false;
         }
 
-        public virtual void AddMorePilots()
+        public virtual bool AddMorePilots()
         {
+            return false;
+        }
+
+        public virtual void ReducePilots(float chance)
+        {
+            var dockedShips = new List<Ship>();
+            foreach (var s in IncludedShips)
+            {
+                if (StrategyGame.RandomChance(chance))
+                {
+                    s.OrderShip(new DockOrder(_game, s));
+                    LogOrder();
+                    dockedShips.Add(s);
+                }
+            }
+            if (dockedShips.Count > 0) IncludedShips.RemoveAll(dockedShips.Contains);
         }
 
         public virtual bool MissionComplete()

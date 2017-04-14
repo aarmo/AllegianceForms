@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace AllegianceForms.Test.Engine
 {
@@ -20,6 +19,7 @@ namespace AllegianceForms.Test.Engine
         public void Setup()
         {
             _settings = GameSettings.Default();
+            _settings.TeamFactions[1] = AllegianceForms.Engine.Factions.Faction.Default();
             _game = new StrategyGame();
         }
         
@@ -139,7 +139,7 @@ namespace AllegianceForms.Test.Engine
         }
 
         [TestMethod]
-        public void CheckSettingResourcesStartig()
+        public void CheckSettingResourcesStarting()
         {
             var value = 0.5f;
             _settings.ResourcesStartingMultiplier = value;

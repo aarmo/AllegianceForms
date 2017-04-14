@@ -13,7 +13,6 @@ namespace AllegianceForms.Engine.AI
     {
         public Dictionary<EAiCreditPriorities, float> CreditPriorities { get; private set; }
         public Dictionary<EAiPilotPriorities, float> PilotPriorities { get; private set; }
-        public bool ForceVisible { get; set; }
         public bool Scouting { get; set; }
         public bool MinerOffence { get; set; }
         public bool MinerDefence{ get; set; }
@@ -51,7 +50,7 @@ namespace AllegianceForms.Engine.AI
         private float _minerOffenseFocus = 8;
         private float _minerDefenseFocus = 8;
 
-        public CommanderAI(StrategyGame game, int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(game, team, teamColour)
+        public CommanderAI(StrategyGame game, int team, Color teamColour, Ship.ShipEventHandler shipHandler, bool randomise = false) : base(game, team, teamColour, shipHandler)
         {
             CreditPriorities = new Dictionary<EAiCreditPriorities, float>();
             foreach (var e in (EAiCreditPriorities[])Enum.GetValues(typeof(EAiCreditPriorities)))
@@ -100,6 +99,8 @@ namespace AllegianceForms.Engine.AI
 
             UpdatePriorities();
             UpdateCheats();
+
+            var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner).ToList();
             
             // Add more pilots to missions
             foreach (var v in PilotPriorities.OrderByDescending(_ => _.Value))
@@ -118,18 +119,28 @@ namespace AllegianceForms.Engine.AI
                         if (BaseOffence && _bombing.RequireMorePilots())
                         {
                             _bombing.AddMorePilots();
-                        }
-                        break;
-                    case EAiPilotPriorities.BaseDefense:
-                        if (BaseDefence && _defense.RequireMorePilots())
-                        {
-                            _defense.AddMorePilots();
+                            if (idleShips.Count > 0)
+                            {
+                                _bombing.IncludedShips.AddRange(idleShips);
+                                idleShips.Clear();
+                            }
                         }
                         break;
                     case EAiPilotPriorities.MinerOffense:
                         if (MinerOffence && _minerO.RequireMorePilots())
                         {
                             _minerO.AddMorePilots();
+                            if (idleShips.Count > 0)
+                            {
+                                _bombing.IncludedShips.AddRange(idleShips);
+                                idleShips.Clear();
+                            }
+                        }
+                        break;
+                    case EAiPilotPriorities.BaseDefense:
+                        if (BaseDefence && _defense.RequireMorePilots())
+                        {
+                            _defense.AddMorePilots();
                         }
                         break;
                     case EAiPilotPriorities.MinerDefense:

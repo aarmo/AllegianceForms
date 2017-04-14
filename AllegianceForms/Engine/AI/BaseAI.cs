@@ -9,6 +9,7 @@ namespace AllegianceForms.Engine.AI
         public int Alliance { get; set; }
         public Color TeamColour { get; set; }
         public bool Enabled { get; set; }
+        public bool ForceVisible { get; set; }
         public bool CheatVisibility { get; set; }
         public bool CheatCredits { get; set; }
 
@@ -29,7 +30,7 @@ namespace AllegianceForms.Engine.AI
         protected int _cheatCreditExpires = 0;
         protected Ship.ShipEventHandler _shipHandler;
 
-        public BaseAI(int team, Color teamColour, Ship.ShipEventHandler shipHandler)
+        public BaseAI(StrategyGame game, int team, Color teamColour, Ship.ShipEventHandler shipHandler)
         {
             Team = team;
             _t = team - 1;
@@ -60,7 +61,7 @@ namespace AllegianceForms.Engine.AI
         public virtual void UpdateCheats()
         {
             _cheatVisibilityExpires--;
-            _cheatCreditsLastsTicks--;
+            _cheatCreditExpires--;
 
             if (StrategyGame.Random.NextDouble() <= _cheatVisibilityChance)
             {
@@ -77,12 +78,12 @@ namespace AllegianceForms.Engine.AI
                 CheatCredits = true;
                 _cheatCreditExpires = _cheatCreditsLastsTicks;
             }
-            if (CheatCredits && _cheatCreditsLastsTicks <= 0)
+            if (CheatCredits && _cheatCreditExpires <= 0)
             {
                 CheatCredits = false;
             }
 
-            if (CheatCredits) StrategyGame.AddResources(Team, CheatCreditAmout);
+            if (CheatCredits) _game.AddResources(Team, CheatCreditAmout);
         }
     }
 }

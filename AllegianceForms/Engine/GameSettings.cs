@@ -59,6 +59,7 @@ namespace AllegianceForms.Engine
         public float MissileWeaponSpeedMultiplier { get; set; }
         public float MissileWeaponTrackingMultiplier { get; set; }
         public int AiDifficulty { get; set; }
+        public bool VariantAi { get; set; }
         public float ResearchTimeMultiplier { get; set; }
         public float ResearchCostMultiplier { get; set; }
 
@@ -71,12 +72,13 @@ namespace AllegianceForms.Engine
                 WormholesVisible = false,
                 RocksVisible = false,
 
-                TeamFactions = new[] { Faction.Default(), Faction.Default() },
+                TeamFactions = new[] { Faction.Default(), Faction.Random() },
                 TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1] },
                 TeamAlliance = new[] { 1, 2 },
 
                 NumPilots = 16,
                 AiDifficulty = 1,
+                VariantAi = false,
 
                 WormholesSignatureMultiplier = 1,
 

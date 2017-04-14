@@ -21,15 +21,15 @@ namespace AllegianceForms.Engine.AI.Missions
             return IncludedShips.Count < numScouts;
         }
 
-        public override void AddMorePilots()
+        public override bool AddMorePilots()
         {
             var bs = _game.AllBases.Where(_ => _.Team == AI.Team && _.Active && _.CanLaunchShips()).ToList();
-            if (bs.Count == 0) return;
+            if (bs.Count == 0) return false;
             var b = bs[StrategyGame.Random.Next(bs.Count)];
 
             // launch a scout if possible
             var ship = _game.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, b.SectorId);
-            if (ship == null) return;
+            if (ship == null) return false;
 
             ship.CenterX = b.CenterX;
             ship.CenterY = b.CenterY;
@@ -41,6 +41,7 @@ namespace AllegianceForms.Engine.AI.Missions
             IncludedShips.Add(ship);
             _game.LaunchShip(ship);
             _lastHealth.Add(ship, ship.Health);
+            return true;
         }
 
         public override void UpdateMission()
@@ -80,7 +81,7 @@ namespace AllegianceForms.Engine.AI.Missions
                         {
                             i.OrderShip(new NavigateOrder(_game, i, randomSectorId));
                             LogOrder();
-                            i.OrderShip(new MoveOrder(_game, randomSectorId, centerPos, PointF.Empty), true);
+                            i.OrderShip(new MoveOrder(_game, randomSectorId, _centerPos, PointF.Empty), true);
                             LogOrder();
                         }
                     }

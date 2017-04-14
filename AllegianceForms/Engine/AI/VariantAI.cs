@@ -3,7 +3,6 @@ using AllegianceForms.Engine.Ships;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System;
 using AllegianceForms.Engine.Tech;
 
 namespace AllegianceForms.Engine.AI
@@ -12,21 +11,28 @@ namespace AllegianceForms.Engine.AI
     {
         private ScoutingMission _scouting;
         private MinerOffenseMission _minerOffense;
+        private MinerMission _mining;
         private MinerDefenseMission _minerDefense;
         private BuilderMission _building;
         private BombingMission _baseOffense;
+        private BaseDefenseMission _baseDefense;
 
         private bool _flagBuiltTech;
         private bool _flagFoundEnemyBase;
+        private bool _flagFoundEnemyBombers;
         private bool _flagHaveBombers;
         
-        public VariantAI(int team, Color teamColour, Ship.ShipEventHandler shipHandler) : base(team, teamColour, shipHandler)
+        public VariantAI(StrategyGame game, int team, Color teamColour, Ship.ShipEventHandler shipHandler) : base(game, team, teamColour, shipHandler)
         {
-            _scouting = new ScoutingMission(this, _shipHandler);
-            _minerOffense = new MinerOffenseMission(this, shipHandler);
-            _building = new BuilderMission(this, shipHandler);
-            _baseOffense = new BombingMission(this, shipHandler);
-            _minerDefense = new MinerDefenseMission(this, shipHandler);
+            _scouting = new ScoutingMission(game, this, _shipHandler);
+            _minerOffense = new MinerOffenseMission(game, this, shipHandler);
+            _mining = new MinerMission(game, this, shipHandler);
+            _building = new BuilderMission(game, this, shipHandler);
+            _baseOffense = new BombingMission(game, this, shipHandler);
+            _minerDefense = new MinerDefenseMission(game, this, shipHandler);
+            _baseDefense = new BaseDefenseMission(game, this, shipHandler);
+
+            //ForceVisible = true;
         }
         
         public override void Update()
@@ -34,6 +40,7 @@ namespace AllegianceForms.Engine.AI
             if (!Enabled) return;
             _nextActionAllowed--;
             if (_nextActionAllowed > 0) return;
+            _nextActionAllowed = _limitActionsTickDelay;
 
             UpdateMissions();
             UpdateBuild();
@@ -59,59 +66,104 @@ namespace AllegianceForms.Engine.AI
         }
 
         private void UpdateMissions()
-        {
+        {            
+            _mining.UpdateMission();
             _minerOffense.UpdateMission();
             _baseOffense.UpdateMission();
             _building.UpdateMission();
             _scouting.UpdateMission();
             _minerDefense.UpdateMission();
+            _baseDefense.UpdateMission();
 
-            if (StrategyGame.DockedPilots[_t] == 0) return;
+            var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner).ToList();
+            if (_game.DockedPilots[_t] == 0 && idleShips.Count == 0) return;
 
-            if (!_flagHaveBombers || !_flagFoundEnemyBase || !_flagBuiltTech)
+            if (!_flagHaveBombers || !_flagFoundEnemyBase || !_flagBuiltTech || !_flagFoundEnemyBombers)
             {
-                _flagFoundEnemyBase = _flagFoundEnemyBase || StrategyGame.AllBases.Exists(_ => _.VisibleToTeam[_t] && _.Active && _.Alliance != Alliance);
-                _flagHaveBombers = _flagHaveBombers  || StrategyGame.TechTree[_t].HasResearchedShipType(EShipType.Bomber);
-                _flagBuiltTech = _flagBuiltTech || StrategyGame.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase());
+                _flagFoundEnemyBase = _flagFoundEnemyBase || _game.AllBases.Exists(_ => _.VisibleToTeam[_t] && _.Active && _.Alliance != Alliance);
+                _flagHaveBombers = _flagHaveBombers || _game.TechTree[_t].HasResearchedShipType(EShipType.Bomber);
+                _flagBuiltTech = _flagBuiltTech || _game.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase());
+                _flagFoundEnemyBombers = _flagFoundEnemyBombers || _game.AllUnits.Exists(_ => _.Active && _.VisibleToTeam[_t] && _.Alliance != Alliance && _.CanAttackBases());
             }
+
+            var addedPilots = true;
 
             if (_flagHaveBombers && _flagFoundEnemyBase)
             {
-                while (StrategyGame.DockedPilots[_t] > 0 && _baseOffense.RequireMorePilots())
+                if (idleShips.Count > 0)
                 {
-                    _baseOffense.AddMorePilots();
+                    _baseOffense.IncludedShips.AddRange(idleShips);
+                    idleShips.Clear();
+                }
+
+                while (addedPilots && _game.DockedPilots[_t] > 0 && _baseOffense.RequireMorePilots())
+                {
+                    addedPilots = _baseOffense.AddMorePilots();
                 }
             }
-
+            
             if (_flagFoundEnemyBase)
-            { 
-                while (StrategyGame.DockedPilots[_t] > 0 && _minerOffense.RequireMorePilots())
+            {
+                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.5f);
+                if (idleShips.Count > 0)
                 {
-                    _minerOffense.AddMorePilots();
+                    _minerOffense.IncludedShips.AddRange(idleShips);
+                    idleShips.Clear();
+                }
+
+                addedPilots = true;
+                while (addedPilots && _game.DockedPilots[_t] > 0 && _minerOffense.RequireMorePilots())
+                {
+                    addedPilots = _minerOffense.AddMorePilots();
                 }
             }
 
-            if (_building.IncludedShips.Count > 0 && StrategyGame.RandomChance(0.15f))
+            if (_flagFoundEnemyBombers)
             {
-                while (StrategyGame.DockedPilots[_t] > 0 && _minerDefense.RequireMorePilots())
+                addedPilots = true;
+                while (addedPilots && _game.DockedPilots[_t] > 0 && _baseDefense.RequireMorePilots())
                 {
-                    _minerDefense.AddMorePilots();
+                    addedPilots = _baseDefense.AddMorePilots();
                 }
             }
 
-            while (StrategyGame.DockedPilots[_t] > 0 && _scouting.RequireMorePilots())
+            addedPilots = true;
+            while (addedPilots && _game.DockedPilots[_t] > 0 && _scouting.RequireMorePilots())
             {
-                _scouting.AddMorePilots();
+                addedPilots = _scouting.AddMorePilots();
             }
+
+            if (_building.IncludedShips.Count > 0 || _mining.IncludedShips.Count > 0)
+            {
+                addedPilots = true;
+                while (addedPilots && _game.DockedPilots[_t] > 0 && _minerDefense.RequireMorePilots())
+                {
+                    addedPilots = _minerDefense.AddMorePilots();
+                }
+            }
+
         }
 
         private void UpdateResearch()
         {
+            if (!_flagBuiltTech || _game.Credits[_t] <= 100) return;
+
             // Research all available tech randomly!
-            var tech = (from t in StrategyGame.TechTree[_t].ResearchableItemsNot(ETechType.Construction)
+            var tech = (from t in _game.TechTree[_t].ResearchableItemsNot(ETechType.Construction)
+                        where t.CanBuild()
                         orderby t.Cost - t.AmountInvested, t.Id descending
-                        select t).Take(5).ToList();
+                        select t).Take(3).ToList();
             
+            if (!_flagHaveBombers)
+            {
+                var bbr = (from t in _game.TechTree[_t].TechItems
+                           where t.Active
+                           && !t.Completed
+                           && t.Name.Contains("Bombers")
+                           select t).FirstOrDefault();
+                if (bbr != null) tech.Add(bbr);
+            }
+
             InvestInRandomTech(tech);
         }
 
@@ -119,15 +171,18 @@ namespace AllegianceForms.Engine.AI
 
         private void UpdateBuild()
         {
-            var consBuilding = (from c in StrategyGame.TechTree[_t].ResearchableItems(ETechType.Construction)
+            if (_game.Credits[_t] <= 100) return;
+
+            var consBuilding = (from c in _game.TechTree[_t].ResearchableItems(ETechType.Construction)
                                 where c.AmountInvested == c.Cost
                                 select c).ToList();
             
-            var consCanBuild = (from c in StrategyGame.TechTree[_t].ResearchableItems(ETechType.Construction)
+            var consCanBuild = (from c in _game.TechTree[_t].ResearchableItems(ETechType.Construction)
                                 where c.CanBuild() && c.AmountInvested < c.Cost
-                                orderby c.Cost - c.AmountInvested
+                                orderby c.Cost - c.AmountInvested, c.Id descending
                                 select c).ToList();
-            var ourSectors = (from b in StrategyGame.AllBases
+
+            var ourSectors = (from b in _game.AllBases
                               where b.Active && b.Team == Team && b.CanLaunchShips()
                               select b.SectorId).Distinct().ToList();
 
@@ -137,13 +192,13 @@ namespace AllegianceForms.Engine.AI
             {   
                 if (consBuilding.Count < 5 && consCanBuild.Count > 0)
                 {
-                    TryToInvestInRefinery(consCanBuild, ourSectors);
+                    TryToInvestInResources(consCanBuild, ourSectors);
                     TryToInvestInBases(consCanBuild, ourSectors);
                     InvestInRandomTech(consCanBuild);
                 }
 
                 // Transition once we get or first Tech Base or loose our last
-                if (StrategyGame.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase()))
+                if (_flagBuiltTech)
                 {
                     if (_gamePhase == 0) _gamePhase = 1;
                 }
@@ -158,12 +213,12 @@ namespace AllegianceForms.Engine.AI
             {
                 if (consBuilding.Count < 1)
                 {
-                    TryToInvestInRefinery(consCanBuild, ourSectors);
-                    InvestInRandomTech(consCanBuild);
+                    TryToInvestInResources(consCanBuild, ourSectors);
+                    TryToInvestInBases(consCanBuild, ourSectors);
                 }
 
                 // Transition once we can't research anymore
-                if (StrategyGame.TechTree[_t].ResearchableItemsNot(ETechType.Construction).Count == 0)
+                if (_game.TechTree[_t].ResearchableItemsNot(ETechType.Construction).Count == 0)
                 {
                     _gamePhase = 2;
                 }
@@ -172,7 +227,7 @@ namespace AllegianceForms.Engine.AI
 
         private void TryToInvestInBases(List<TechItem> consCanBuild, List<int> ourSectors)
         {
-            if (ourSectors.Count == StrategyGame.Map.Sectors.Count) return;
+            if (ourSectors.Count == _game.Map.Sectors.Count / 2) return;
 
             var techCons = consCanBuild.Where(_ => _.Name.Contains("Expansion") || _.Name.Contains("Supremacy") || _.Name.Contains("Tactical") || _.Name.Contains("Shipyard")).ToList();
             var baseCons = consCanBuild.Where(_ => _.Name.Contains("Outpost") || _.Name.Contains("Starbase")).ToList();
@@ -186,34 +241,37 @@ namespace AllegianceForms.Engine.AI
             }
             else
             {
-                con = (StrategyGame.RandomChance(0.5f) && baseCons.Count > 0) ? baseCons[0] : techCons[0];
+                if (StrategyGame.RandomChance(0.5f) && baseCons.Count > 0)
+                    con = baseCons[0];
+                else if (techCons.Count > 0)
+                    con = techCons[0];
             }
             if (con == null) return;
 
             var remaining = con.Cost - con.AmountInvested;
             if (remaining <= 0) return;
 
-            var invested = StrategyGame.SpendCredits(Team, remaining);
+            var invested = _game.SpendCredits(Team, remaining);
             con.AmountInvested += invested;
         }
 
-        private void TryToInvestInRefinery(List<TechItem> consCanBuild, List<int> ourSectors)
+        private void TryToInvestInResources(List<TechItem> consCanBuild, List<int> ourSectors)
         {            
-            var con = consCanBuild.FirstOrDefault(_ => _.Name.Contains("Refinery"));
+            var con = consCanBuild.FirstOrDefault(_ => _.Name.Contains("Resource") || _.Name.Contains("Miner"));
             if (con == null) return;
 
-            var numResourceRocks = StrategyGame.ResourceAsteroids.Count(_ => _.Active && _.VisibleToTeam[_t] && ourSectors.Contains(_.SectorId));
+            var numResourceRocks = _game.ResourceAsteroids.Count(_ => _.Active && _.VisibleToTeam[_t] && ourSectors.Contains(_.SectorId));
             if (numResourceRocks == 0) return;
             
             // Build a refinery!
             var remaining = con.Cost - con.AmountInvested;
             if (remaining <= 0) return;
 
-            var invested = StrategyGame.SpendCredits(Team, remaining);
+            var invested = _game.SpendCredits(Team, remaining);
             con.AmountInvested += invested;
         }
 
-        private void InvestInRandomTech(List<Tech.TechItem> items)
+        private void InvestInRandomTech(List<TechItem> items)
         {
             var tech = items[StrategyGame.Random.Next(items.Count)];
             if (tech.Completed || !tech.Active) return;
@@ -221,7 +279,7 @@ namespace AllegianceForms.Engine.AI
             var remaining = tech.Cost - tech.AmountInvested;
             if (remaining <= 0) return;
 
-            var invested = StrategyGame.SpendCredits(Team, remaining);
+            var invested = _game.SpendCredits(Team, remaining);
             tech.AmountInvested += invested;
         }
     }

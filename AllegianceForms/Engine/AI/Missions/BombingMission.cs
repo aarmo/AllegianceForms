@@ -76,11 +76,11 @@ namespace AllegianceForms.Engine.AI.Missions
             return true;
         }
 
-        public override void AddMorePilots()
+        public override bool AddMorePilots()
         {
             if (_launchBase == null || _targetBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
                 _targetBase = _game.ClosestEnemyBase(AI.Team, out _launchBase);
-            if (_launchBase == null) return;
+            if (_launchBase == null) return false;
             
             // send any cap ships for support
             var capships = _game.AllUnits.Where(_ => _.Active && _.Team == AI.Team && Ship.IsCapitalShip(_.Type) && _.CurrentOrder == null).ToList();
@@ -99,7 +99,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 // launch a bomber if possible
                 ship = _game.Ships.CreateCombatShip(Keys.B, AI.Team, AI.TeamColour, _launchBase.SectorId);
             }
-            if (ship == null) return;
+            if (ship == null) return false;
 
             ship.CenterX = _launchBase.CenterX;
             ship.CenterY = _launchBase.CenterY;
@@ -110,6 +110,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
             IncludedShips.Add(ship);
             _game.LaunchShip(ship);
+            return true;
         }
 
         public override bool MissionComplete()
