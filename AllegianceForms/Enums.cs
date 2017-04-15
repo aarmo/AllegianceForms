@@ -262,15 +262,6 @@ namespace AllegianceForms
         EvenShip, EvenUpgrade, EvenEnd, SingleShip, SingleUpgrade, SingleEnd, Any, Random
     }
 
-    public enum EMapSize
-    {
-        Tiny,
-        Small,
-        Medium,
-        Large,
-        Massive
-    };
-
     public static class KeyValuePairExtensions
     {
         public static bool IsDefault<T, TU>(this KeyValuePair<T, TU> pair)

@@ -1,5 +1,4 @@
 ﻿using AllegianceForms.Engine.Rocks;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,8 +15,8 @@ namespace AllegianceForms.Engine.Map
         public List<MapSector> Sectors { get; set; }        
         public List<Wormhole> Wormholes { get; set; }
         public Image GridImage { get; set; }
-        public EMapSize Size { get; set; }
-        
+        public Rectangle MiniMapBounds { get; set; }
+
         private Pen _sectorPen = new Pen(Color.DarkBlue, 4);
         private Pen _currentSectorPen = new Pen(Color.DarkGreen, 4);
         private Pen _wormholePen = new Pen(Color.DarkGray, 4);
@@ -58,13 +57,40 @@ namespace AllegianceForms.Engine.Map
 
                 g.FillEllipse(s.Colour1, xs, ys, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
                 if (s.Colour2Set)
-                    g.FillEllipse(s.Colour2, xs+GameMaps.SectorHalfRadius, ys+ GameMaps.SectorHalfRadius, GameMaps.SectorRadius, GameMaps.SectorRadius);
+                    g.FillEllipse(s.Colour2, xs+GameMaps.SectorHalfRadius, ys+GameMaps.SectorHalfRadius, GameMaps.SectorRadius, GameMaps.SectorRadius);
 
                 if (s.CriticalAlert) g.DrawEllipse(_criticalAlertPen, xs-4, ys-4, GameMaps.SectorDiameter+8, GameMaps.SectorDiameter+8);
                 if (s.Conflict) g.DrawEllipse(_conflictPen, xs-2, ys-2, GameMaps.SectorDiameter+4, GameMaps.SectorDiameter+4);
                 g.DrawEllipse(pen, xs, ys, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
             }
         }
+        
+        private void SetupMiniMapBounds()
+        {
+            var minX = int.MaxValue;
+            var minY = int.MaxValue;
+            var maxX = int.MinValue;
+            var maxY = int.MinValue;
+
+            foreach (var s in Sectors)
+            {
+                var xs = s.MapPosition.X * GameMaps.SectorSpacing + GameMaps.MapPadding;
+                var ys = s.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.MapPadding;
+
+                if (xs - GameMaps.SectorRadius < minX)
+                    minX = xs - GameMaps.SectorDiameter;
+                if (xs + GameMaps.SectorRadius > maxX)
+                    maxX = xs + GameMaps.SectorDiameter;
+
+                if (ys - GameMaps.SectorRadius < minY)
+                    minY = ys - GameMaps.SectorDiameter;
+                if (ys + GameMaps.SectorRadius > maxY)
+                    maxY = ys + GameMaps.SectorDiameter;
+            }
+
+            MiniMapBounds = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+        }
+
 
         public void DrawSector(Graphics g, int sectorId)
         {
@@ -103,6 +129,7 @@ namespace AllegianceForms.Engine.Map
             ArrangeWormholes();
             SetupRocks();
             GenerateGraph();
+            SetupMiniMapBounds();
         }
 
         public static GameMap FromSimpleMap(StrategyGame game, SimpleGameMap map, bool preview = false)

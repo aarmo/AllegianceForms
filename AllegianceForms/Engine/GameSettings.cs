@@ -78,7 +78,7 @@ namespace AllegianceForms.Engine
 
                 NumPilots = 16,
                 AiDifficulty = 1,
-                VariantAi = false,
+                VariantAi = true,
 
                 WormholesSignatureMultiplier = 1,
 

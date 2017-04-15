@@ -31,8 +31,6 @@ namespace AllegianceForms.Engine.AI
             _baseOffense = new BombingMission(game, this, shipHandler);
             _minerDefense = new MinerDefenseMission(game, this, shipHandler);
             _baseDefense = new BaseDefenseMission(game, this, shipHandler);
-
-            //ForceVisible = true;
         }
         
         public override void Update()
@@ -227,7 +225,7 @@ namespace AllegianceForms.Engine.AI
 
         private void TryToInvestInBases(List<TechItem> consCanBuild, List<int> ourSectors)
         {
-            if (ourSectors.Count == _game.Map.Sectors.Count / 2) return;
+            if (ourSectors.Count >= _game.Map.Sectors.Count / 2) return;
 
             var techCons = consCanBuild.Where(_ => _.Name.Contains("Expansion") || _.Name.Contains("Supremacy") || _.Name.Contains("Tactical") || _.Name.Contains("Shipyard")).ToList();
             var baseCons = consCanBuild.Where(_ => _.Name.Contains("Outpost") || _.Name.Contains("Starbase")).ToList();

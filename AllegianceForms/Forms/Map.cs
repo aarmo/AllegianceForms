@@ -13,6 +13,8 @@ namespace AllegianceForms.Forms
         {
             InitializeComponent();
             _game = game;
+            Width = game.Map.MiniMapBounds.Width;
+            Height = game.Map.MiniMapBounds.Height;
             _frame = new Bitmap(Width, Height);
         }
 

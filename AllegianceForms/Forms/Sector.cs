@@ -56,11 +56,11 @@ namespace AllegianceForms.Forms
 
             _researchForm = new Research(StrategyGame);
             _pilotList = new PilotList(StrategyGame);
-            _mapForm = new Map(StrategyGame);
 
             StrategyGame.SetupGame(settings);
             StrategyGame.LoadData();
             StrategyGame.Map = GameMaps.LoadMap(StrategyGame, settings.MapName);
+            _mapForm = new Map(StrategyGame);
 
             var startSectors = (from s in StrategyGame.Map.Sectors
                                 where s.StartingSector != 0
@@ -185,21 +185,15 @@ namespace AllegianceForms.Forms
 
                 // Order selected units to navigate to the clicked sector
                 _selectedUnits.ForEach(_ => _.OrderShip(new NavigateOrder(StrategyGame, _, s.Id), _shiftDown));
-                _selectedUnits.ForEach(_ => _.Selected = false);
-                _selectedUnits.Clear();
+                ClearSelected();
                 Focus();
             }
             else if (e == EGameEventType.ShipClicked)
             {
                 var s = sender as Ship;
                 if (s == null) return;
-
+                
                 SwitchSector(s.SectorId+1);
-
-                _selectedUnits.ForEach(_ => _.Selected = false);
-                _selectedUnits.Clear();
-                _selectedBases.ForEach(_ => _.Selected = false);
-                _selectedBases.Clear();
 
                 s.Selected = true;
                 _selectedUnits.Add(s);
@@ -512,11 +506,7 @@ namespace AllegianceForms.Forms
         {
             if (!_shiftDown)
             {
-                _selectedUnits.ForEach(_ => _.Selected = false);
-                _selectedUnits.Clear();
-
-                _selectedBases.ForEach(_ => _.Selected = false);
-                _selectedBases.Clear();
+                ClearSelected();
             }
 
             var units = StrategyGame.AllUnits.Where(_ => _.Active && _.Team == 1).ToList();
@@ -697,8 +687,7 @@ namespace AllegianceForms.Forms
         {
             if (i < 1 || i > StrategyGame.Map.Sectors.Count) return;
 
-            _selectedBases.Clear();
-            _selectedUnits.Clear();
+            ClearSelected();
 
             var s = StrategyGame.Map.Sectors[i-1];
             _currentSector = s;
@@ -890,14 +879,21 @@ namespace AllegianceForms.Forms
             if (!e.Control) _ctrlDown = false;
         }
 
+        private void ClearSelected()
+        {
+            _selectedUnits.ForEach(_ => _.Selected = false);
+            _selectedUnits.Clear();
+            _selectedBases.ForEach(_ => _.Selected = false);
+            _selectedBases.Clear();
+        }
+
         private void Sector_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // Select all units of this type
             _mouseDouble = true;
             if (!_shiftDown)
             {
-                _selectedUnits.ForEach(_ => _.Selected = false);
-                _selectedUnits.Clear();
+                ClearSelected();
             }
 
             var pos = e.Location;
