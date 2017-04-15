@@ -75,13 +75,6 @@ namespace AllegianceForms.Forms
                 return;
             }
 
-#if DEBUG
-            // Testing setup: crazy money, fast tech, map visible
-            //StrategyGame.AddResources(1, 100000, false);
-            //settings.ResearchCostMultiplier = 0.25f;
-            settings.WormholesVisible = true;
-            settings.ResearchTimeMultiplier = 0.25f;
-#endif
             StrategyGame.InitialiseGame();
 
             Width = StrategyGame.ScreenWidth;
@@ -717,7 +710,7 @@ namespace AllegianceForms.Forms
 
         private void GiveBaseOrders(KeyEventArgs e)
         {
-            if (_selectedBases.Count == 0) return;
+            if (_selectedBases.Count == 0 || e.KeyCode == Keys.C) return;
 
             var b = _selectedBases.FirstOrDefault(_ => _.CanLaunchShips());
             if (b == null) return;

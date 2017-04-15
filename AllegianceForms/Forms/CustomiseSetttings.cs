@@ -634,7 +634,7 @@ namespace AllegianceForms.Forms
 
                 for (var i = Settings.NumTeams; i < teams; i++)
                 {
-                    Settings.TeamFactions[i] = Faction.Default();
+                    Settings.TeamFactions[i] = Faction.Random();
                     Settings.TeamColours[i] = GameSettings.DefaultTeamColours[i];
                     Settings.TeamAlliance[i] = i+1;
 

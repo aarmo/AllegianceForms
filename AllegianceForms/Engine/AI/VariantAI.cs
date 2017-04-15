@@ -75,7 +75,7 @@ namespace AllegianceForms.Engine.AI
             _minerDefense.UpdateMission();
             _baseDefense.UpdateMission();
 
-            var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner).ToList();
+            var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner && _.Type != EShipType.Lifepod).ToList();
             if (_game.DockedPilots[_t] == 0 && idleShips.Count == 0) return;
 
             if (!_flagHaveBombers || !_flagFoundEnemyBase || !_flagBuiltTech || !_flagFoundEnemyBombers)
@@ -273,7 +273,9 @@ namespace AllegianceForms.Engine.AI
 
         private void InvestInRandomTech(List<TechItem> items)
         {
+            if (items.Count == 0) return;
             var tech = items[StrategyGame.Random.Next(items.Count)];
+
             if (tech.Completed || !tech.Active) return;
 
             var remaining = tech.Cost - tech.AmountInvested;

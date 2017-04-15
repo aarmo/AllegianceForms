@@ -100,7 +100,7 @@ namespace AllegianceForms.Engine.AI
             UpdatePriorities();
             UpdateCheats();
 
-            var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner).ToList();
+            var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner && _.Type != EShipType.Lifepod).ToList();
             
             // Add more pilots to missions
             foreach (var v in PilotPriorities.OrderByDescending(_ => _.Value))

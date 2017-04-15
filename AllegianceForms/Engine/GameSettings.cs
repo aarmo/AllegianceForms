@@ -142,6 +142,14 @@ namespace AllegianceForms.Engine
                 s.ShipSignatureMultiplier.Add(e, 1);
             }
 
+#if DEBUG
+            // Testing setup: crazy money, fast tech, map visible
+            //StrategyGame.AddResources(1, 100000, false);
+            //settings.ResearchCostMultiplier = 0.25f;
+            s.WormholesVisible = true;
+            s.ResearchTimeMultiplier = 0.25f;
+#endif
+
             return s;
         }
     }
