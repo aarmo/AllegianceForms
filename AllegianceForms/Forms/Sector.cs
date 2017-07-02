@@ -10,11 +10,15 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using AllegianceForms.Engine.Factions;
 
 namespace AllegianceForms.Forms
 {
     public partial class Sector : Form
-    {        
+    {
+        public delegate void GameOverHandler(object sender);
+        public event GameOverHandler GameOverEvent;
+
         private readonly Bitmap _frame;
         private readonly List<Base> _selectedBases = new List<Base>();
         private readonly List<Ship> _selectedUnits = new List<Ship>();
@@ -48,8 +52,8 @@ namespace AllegianceForms.Forms
         private TimeSpan _alertDuration = new TimeSpan(0, 0, 0, 3);
         private Color _colourTeam1;
 
-        private StrategyGame StrategyGame = new StrategyGame();
-
+        public StrategyGame StrategyGame = new StrategyGame();
+        
         public Sector(GameSettings settings)
         {
             InitializeComponent();
@@ -61,6 +65,7 @@ namespace AllegianceForms.Forms
             StrategyGame.LoadData();
             StrategyGame.Map = GameMaps.LoadMap(StrategyGame, settings.MapName);
             _mapForm = new Map(StrategyGame);
+            UpdateWinnersAndLoosers(false);
 
             var startSectors = (from s in StrategyGame.Map.Sectors
                                 where s.StartingSector != 0
@@ -268,17 +273,45 @@ namespace AllegianceForms.Forms
             }
         }
 
-        private void GameOver(bool won)
+        private void UpdateWinnersAndLoosers(bool playerWon)
         {
-            if (won)
+            var winners = new List<Faction>();
+            var loosers = new List<Faction>();
+            var playerTeam = StrategyGame.GameSettings.TeamAlliance[0];
+
+            for (var i = 0; i < StrategyGame.Faction.Length; i++)
+            {
+                if (playerWon)
+                {
+                    if (StrategyGame.GameSettings.TeamAlliance[i] == playerTeam)
+                        winners.Add(StrategyGame.Faction[i]);
+                    else
+                        loosers.Add(StrategyGame.Faction[i]);
+                }
+                else
+                {
+                    if (StrategyGame.GameSettings.TeamAlliance[i] != playerTeam)
+                        winners.Add(StrategyGame.Faction[i]);
+                    else
+                        loosers.Add(StrategyGame.Faction[i]);                    
+                }
+            }
+            StrategyGame.Winners = winners.ToArray();
+            StrategyGame.Loosers = loosers.ToArray();
+        }
+
+        private void GameOver(bool playerWon)
+        {
+            UpdateWinnersAndLoosers(playerWon);
+            if (playerWon)
             {
                 WinLose.Text = "You Win!";
             }
             else
             {
                 WinLose.Text = "You Lose!";
-            }
-            
+            }            
+
             GameOverPanel.Left = Width / 2 - GameOverPanel.Width / 2;
             GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
             GameOverPanel.Visible = true;
@@ -1070,9 +1103,14 @@ namespace AllegianceForms.Forms
                 if (MessageBox.Show("A game is running, are you sure you want to quit?", "Quit Game?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation) != DialogResult.Yes)
                 {
                     e.Cancel = true;
-
                     tick.Enabled = timer.Enabled = true;
                 }
+            }
+
+            if (!e.Cancel)
+            {
+                TopMost = false;
+                if (GameOverEvent != null) GameOverEvent(this);
             }
         }
     }

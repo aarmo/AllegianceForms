@@ -119,6 +119,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\LadderCommander.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LadderCommander.Designer.cs">
+      <DependentUpon>LadderCommander.cs</DependentUpon>
+    </Compile>
     <Compile Include="Engine\AI\BaseAI.cs" />
     <Compile Include="Engine\AI\Missions\BaseDefenseMission.cs" />
     <Compile Include="Engine\AI\Missions\BombingMission.cs" />
@@ -136,6 +142,9 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
+    <Compile Include="Engine\Generation\RandomName.cs" />
+    <Compile Include="Engine\HSBColour.cs" />
+    <Compile Include="Engine\LadderGame.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Forms\ChanceGame.cs">
       <SubType>Form</SubType>
@@ -196,6 +205,12 @@
     </Compile>
     <Compile Include="Forms\FactionDetails.Designer.cs">
       <DependentUpon>FactionDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Ladder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Ladder.Designer.cs">
+      <DependentUpon>Ladder.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MapDesigner.cs">
       <SubType>Form</SubType>
@@ -261,6 +276,9 @@
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="Controls\LadderCommander.resx">
+      <DependentUpon>LadderCommander.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TeamListItem.resx">
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -275,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FactionDetails.resx">
       <DependentUpon>FactionDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Ladder.resx">
+      <DependentUpon>Ladder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
@@ -309,6 +330,9 @@
     <EmbeddedResource Include="Controls\TechTreeItem.resx">
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Art\Avatars\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art\allegb.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

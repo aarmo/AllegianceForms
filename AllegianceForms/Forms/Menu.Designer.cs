@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
-            this.Skirmish = new System.Windows.Forms.Button();
+            this.Ladder = new System.Windows.Forms.Button();
             this.Dogfight = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
             this.AppVersion = new System.Windows.Forms.Label();
@@ -38,19 +38,19 @@
             this.MapDesigner = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Skirmish
+            // Ladder
             // 
-            this.Skirmish.BackColor = System.Drawing.Color.Black;
-            this.Skirmish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Skirmish.Location = new System.Drawing.Point(54, 159);
-            this.Skirmish.Name = "Skirmish";
-            this.Skirmish.Size = new System.Drawing.Size(163, 45);
-            this.Skirmish.TabIndex = 1;
-            this.Skirmish.Text = "Conquest - Quick Battle";
-            this.Skirmish.UseVisualStyleBackColor = false;
-            this.Skirmish.Click += new System.EventHandler(this.Skirmish_Click);
-            this.Skirmish.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
-            this.Skirmish.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            this.Ladder.BackColor = System.Drawing.Color.Black;
+            this.Ladder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Ladder.Location = new System.Drawing.Point(54, 159);
+            this.Ladder.Name = "Ladder";
+            this.Ladder.Size = new System.Drawing.Size(163, 45);
+            this.Ladder.TabIndex = 1;
+            this.Ladder.Text = "Start Ladder";
+            this.Ladder.UseVisualStyleBackColor = false;
+            this.Ladder.Click += new System.EventHandler(this.Ladder_Click);
+            this.Ladder.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Ladder.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // Dogfight
             // 
@@ -140,7 +140,7 @@
             this.Controls.Add(this.MapDesigner);
             this.Controls.Add(this.Dogfight);
             this.Controls.Add(this.CustomGame);
-            this.Controls.Add(this.Skirmish);
+            this.Controls.Add(this.Ladder);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -154,7 +154,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Skirmish;
+        private System.Windows.Forms.Button Ladder;
         private System.Windows.Forms.Button Dogfight;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Label AppVersion;

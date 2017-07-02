@@ -246,6 +246,24 @@ namespace AllegianceForms
         MinerOffense,
         MinerDefense,
     }
+
+    public enum ELadderType
+    {
+        Ones = 1,
+        Twos = 2
+    }
+
+    public enum ELadderTier
+    {
+        Unranked,
+        Bronze,
+        Silver,
+        Gold,
+        Platinum,
+        Diamond,
+        Master,
+        Challenger
+    }
     
     public enum EVariantAiStyle
     {

@@ -1,6 +1,7 @@
 ﻿using AllegianceForms.Engine.AI;
 using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Factions;
+using AllegianceForms.Engine.Generation;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
@@ -35,6 +36,7 @@ namespace AllegianceForms.Engine
         public const string MapFolder = ".\\Data\\Maps";
         public static double SqrtTwo = Math.Sqrt(2);
         public static Random Random = new Random();
+        public static RandomName RandomName = new RandomName();
 
         public static Pen HealthBorderPen = new Pen(Color.DimGray, 1);
         public static Pen BaseBorderPen = new Pen(Color.Gray, 2);
@@ -58,7 +60,9 @@ namespace AllegianceForms.Engine
         public BaseAI[] AICommanders;
         public TechTree[] TechTree;
         public Faction[] Faction;
-        
+        public Faction[] Winners;
+        public Faction[] Loosers;
+
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
 
@@ -872,7 +876,7 @@ namespace AllegianceForms.Engine
             
             for (var i = 0; i < NumTeams; i++)
             {
-                Faction[i] = settings.TeamFactions[i].Clone();
+                Faction[i] = settings.TeamFactions[i];
                 var c = Color.FromArgb(settings.TeamColours[i]);
                 TeamBrushes[i] = new SolidBrush(c);
                 SelectedPens[i] = new Pen(c, 1) { DashStyle = DashStyle.Dot };

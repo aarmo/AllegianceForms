@@ -41,17 +41,23 @@ namespace AllegianceForms.Engine.AI
             Enabled = true;
         }
 
-        // 0-3 (Easy - Very Hard)
-        public virtual void SetDifficulty(int i)
+        // 0 to 7 (Inactive >> Normal >> Insane)
+        public virtual void SetDifficulty(float i)
         {
-            CheatAdditionalPilots = 1 + (0.25f * i);
-            _limitActionsPerMinute = 60 + (i * 60);
+            i = i - 3;
+
+            // Small negative numbers will make it even easier
+            // Don't go lower than -1 (or inactive)
+
+            CheatAdditionalPilots = (int)System.Math.Max(1 + (0.25f * i), 0);
+            _limitActionsPerMinute = (int)System.Math.Max((i+1) * 60, 20);
             _limitActionsTickDelay = (60 * 4 / _limitActionsPerMinute);
 
+            // <= 0 (never cheats)
             _cheatCreditsChance = 0.025f * i;
-            _cheatCreditsLastsTicks = 5 * 20 * i;
+            _cheatCreditsLastsTicks = (int)(5 * 20 * i);
             _cheatVisibilityChance = 0.005f * i;
-            _cheatVisibilityLastsTicks = 2 * 20 * i;
+            _cheatVisibilityLastsTicks = (int)(2 * 20 * i);
         }
 
         public virtual void Update()

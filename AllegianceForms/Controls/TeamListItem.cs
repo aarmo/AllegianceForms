@@ -55,7 +55,7 @@ namespace AllegianceForms.Controls
             var f = Faction.Clone();
 
             var form = new FactionDetails();
-            form.LoadFaction(f);
+            form.LoadFaction(f, Color.FromArgb(ColourArgb));
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {

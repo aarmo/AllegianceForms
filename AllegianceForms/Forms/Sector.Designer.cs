@@ -533,6 +533,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allegiance Forms - Conquest";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sector_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Sector_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Sector_KeyDown);

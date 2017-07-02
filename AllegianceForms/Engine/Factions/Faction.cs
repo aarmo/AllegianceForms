@@ -6,12 +6,26 @@ namespace AllegianceForms.Engine.Factions
     public class Faction
     {
         public string Name { get; set; }
+        public string PictureCode { get; set; }
+        public string CommanderName { get; set; }
+
+        public int CommanderRankPoints { get; set; }
+        public ELadderTier LeagueTier { get; set; }
+        public int LadderGamesPlayed { get; set; }
+        public int LadderGamesWon { get; set; }
+        public int LadderGamesLost { get; set; }
+        public int LeagueDivision { get; set; }
+
         public FactionBonus Bonuses { get; set; }
 
-        public Faction(string name)
+        public Faction(string name, string commanderName)
         {
-            Name = name;
+            PictureCode = Name = name;
+            CommanderName = commanderName;
             Bonuses = new FactionBonus();
+            CommanderRankPoints = LadderGame.MaxRankPointsPerDivision / 2;
+            LeagueTier = ELadderTier.Unranked;
+            LeagueDivision = 5;
         }
 
         public override string ToString()
@@ -23,7 +37,7 @@ namespace AllegianceForms.Engine.Factions
 
         public static Faction Default()
         {
-            return new Faction("Default");
+            return new Faction("Default", "Player1");
         }
 
         public static Faction CreateFaction(string name)
@@ -39,7 +53,8 @@ namespace AllegianceForms.Engine.Factions
 
         public static Faction Random(int min = 10)
         {
-            var f = new Faction(FactionNames.NextString);
+            var name = FactionNames.NextString;
+            var f = new Faction(name, StrategyGame.RandomName.GetRandomName(name));
             f.Bonuses.Randomise(min);
 
             return f;

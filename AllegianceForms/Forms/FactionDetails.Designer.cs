@@ -85,6 +85,11 @@
             this.MissileTrackingUp = new System.Windows.Forms.Button();
             this.MissileTrackingDown = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
+            this.FactionPicture = new System.Windows.Forms.PictureBox();
+            this.RandomImage = new System.Windows.Forms.Button();
+            this.PlayerName = new System.Windows.Forms.TextBox();
+            this.RandomCommanderName = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.FactionPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // Cancel
@@ -93,7 +98,7 @@
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Cancel.ForeColor = System.Drawing.Color.White;
-            this.Cancel.Location = new System.Drawing.Point(199, 431);
+            this.Cancel.Location = new System.Drawing.Point(230, 430);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(125, 45);
             this.Cancel.TabIndex = 58;
@@ -153,7 +158,7 @@
             this.Done.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Done.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Done.ForeColor = System.Drawing.Color.White;
-            this.Done.Location = new System.Drawing.Point(65, 431);
+            this.Done.Location = new System.Drawing.Point(68, 430);
             this.Done.Name = "Done";
             this.Done.Size = new System.Drawing.Size(125, 45);
             this.Done.TabIndex = 57;
@@ -207,7 +212,7 @@
             // 
             this.label51.AutoSize = true;
             this.label51.ForeColor = System.Drawing.Color.White;
-            this.label51.Location = new System.Drawing.Point(12, 99);
+            this.label51.Location = new System.Drawing.Point(22, 100);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(82, 13);
             this.label51.TabIndex = 60;
@@ -217,7 +222,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 127);
+            this.label2.Location = new System.Drawing.Point(22, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 60;
@@ -227,7 +232,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(12, 155);
+            this.label3.Location = new System.Drawing.Point(27, 156);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 60;
@@ -237,7 +242,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(12, 183);
+            this.label4.Location = new System.Drawing.Point(27, 184);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 60;
@@ -247,7 +252,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(12, 211);
+            this.label5.Location = new System.Drawing.Point(22, 212);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 13);
             this.label5.TabIndex = 60;
@@ -257,7 +262,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(12, 239);
+            this.label6.Location = new System.Drawing.Point(22, 240);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 13);
             this.label6.TabIndex = 60;
@@ -267,7 +272,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(12, 267);
+            this.label7.Location = new System.Drawing.Point(22, 268);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 60;
@@ -277,7 +282,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(12, 295);
+            this.label8.Location = new System.Drawing.Point(22, 296);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(75, 13);
             this.label8.TabIndex = 60;
@@ -287,7 +292,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(12, 351);
+            this.label9.Location = new System.Drawing.Point(22, 352);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 13);
             this.label9.TabIndex = 60;
@@ -297,7 +302,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(12, 379);
+            this.label10.Location = new System.Drawing.Point(22, 380);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(85, 13);
             this.label10.TabIndex = 60;
@@ -308,7 +313,7 @@
             this.ResearchTimeUp.BackColor = System.Drawing.Color.Black;
             this.ResearchTimeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResearchTimeUp.ForeColor = System.Drawing.Color.White;
-            this.ResearchTimeUp.Location = new System.Drawing.Point(135, 94);
+            this.ResearchTimeUp.Location = new System.Drawing.Point(139, 95);
             this.ResearchTimeUp.Name = "ResearchTimeUp";
             this.ResearchTimeUp.Size = new System.Drawing.Size(58, 22);
             this.ResearchTimeUp.TabIndex = 54;
@@ -323,7 +328,7 @@
             this.ResearchTimeDown.BackColor = System.Drawing.Color.Black;
             this.ResearchTimeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResearchTimeDown.ForeColor = System.Drawing.Color.White;
-            this.ResearchTimeDown.Location = new System.Drawing.Point(321, 94);
+            this.ResearchTimeDown.Location = new System.Drawing.Point(325, 95);
             this.ResearchTimeDown.Name = "ResearchTimeDown";
             this.ResearchTimeDown.Size = new System.Drawing.Size(58, 22);
             this.ResearchTimeDown.TabIndex = 54;
@@ -337,7 +342,7 @@
             // 
             this.ResearchTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ResearchTime.ForeColor = System.Drawing.Color.Lime;
-            this.ResearchTime.Location = new System.Drawing.Point(199, 96);
+            this.ResearchTime.Location = new System.Drawing.Point(203, 97);
             this.ResearchTime.Name = "ResearchTime";
             this.ResearchTime.Size = new System.Drawing.Size(116, 16);
             this.ResearchTime.TabIndex = 52;
@@ -363,7 +368,7 @@
             // 
             this.ResearchCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ResearchCost.ForeColor = System.Drawing.Color.Lime;
-            this.ResearchCost.Location = new System.Drawing.Point(199, 125);
+            this.ResearchCost.Location = new System.Drawing.Point(203, 126);
             this.ResearchCost.Name = "ResearchCost";
             this.ResearchCost.Size = new System.Drawing.Size(116, 16);
             this.ResearchCost.TabIndex = 52;
@@ -375,7 +380,7 @@
             this.ResearchCostUp.BackColor = System.Drawing.Color.Black;
             this.ResearchCostUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResearchCostUp.ForeColor = System.Drawing.Color.White;
-            this.ResearchCostUp.Location = new System.Drawing.Point(135, 122);
+            this.ResearchCostUp.Location = new System.Drawing.Point(139, 123);
             this.ResearchCostUp.Name = "ResearchCostUp";
             this.ResearchCostUp.Size = new System.Drawing.Size(58, 22);
             this.ResearchCostUp.TabIndex = 54;
@@ -390,7 +395,7 @@
             this.ResearchCostDown.BackColor = System.Drawing.Color.Black;
             this.ResearchCostDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResearchCostDown.ForeColor = System.Drawing.Color.White;
-            this.ResearchCostDown.Location = new System.Drawing.Point(321, 122);
+            this.ResearchCostDown.Location = new System.Drawing.Point(325, 123);
             this.ResearchCostDown.Name = "ResearchCostDown";
             this.ResearchCostDown.Size = new System.Drawing.Size(58, 22);
             this.ResearchCostDown.TabIndex = 54;
@@ -404,7 +409,7 @@
             // 
             this.Speed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Speed.ForeColor = System.Drawing.Color.Lime;
-            this.Speed.Location = new System.Drawing.Point(199, 153);
+            this.Speed.Location = new System.Drawing.Point(203, 154);
             this.Speed.Name = "Speed";
             this.Speed.Size = new System.Drawing.Size(116, 16);
             this.Speed.TabIndex = 52;
@@ -416,7 +421,7 @@
             this.SpeedUp.BackColor = System.Drawing.Color.Black;
             this.SpeedUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SpeedUp.ForeColor = System.Drawing.Color.White;
-            this.SpeedUp.Location = new System.Drawing.Point(135, 150);
+            this.SpeedUp.Location = new System.Drawing.Point(139, 151);
             this.SpeedUp.Name = "SpeedUp";
             this.SpeedUp.Size = new System.Drawing.Size(58, 22);
             this.SpeedUp.TabIndex = 54;
@@ -431,7 +436,7 @@
             this.SpeedDown.BackColor = System.Drawing.Color.Black;
             this.SpeedDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SpeedDown.ForeColor = System.Drawing.Color.White;
-            this.SpeedDown.Location = new System.Drawing.Point(321, 150);
+            this.SpeedDown.Location = new System.Drawing.Point(325, 151);
             this.SpeedDown.Name = "SpeedDown";
             this.SpeedDown.Size = new System.Drawing.Size(58, 22);
             this.SpeedDown.TabIndex = 54;
@@ -445,7 +450,7 @@
             // 
             this.Health.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Health.ForeColor = System.Drawing.Color.Lime;
-            this.Health.Location = new System.Drawing.Point(199, 181);
+            this.Health.Location = new System.Drawing.Point(203, 182);
             this.Health.Name = "Health";
             this.Health.Size = new System.Drawing.Size(116, 16);
             this.Health.TabIndex = 52;
@@ -457,7 +462,7 @@
             this.HealthUp.BackColor = System.Drawing.Color.Black;
             this.HealthUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HealthUp.ForeColor = System.Drawing.Color.White;
-            this.HealthUp.Location = new System.Drawing.Point(135, 178);
+            this.HealthUp.Location = new System.Drawing.Point(139, 179);
             this.HealthUp.Name = "HealthUp";
             this.HealthUp.Size = new System.Drawing.Size(58, 22);
             this.HealthUp.TabIndex = 54;
@@ -472,7 +477,7 @@
             this.HealthDown.BackColor = System.Drawing.Color.Black;
             this.HealthDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HealthDown.ForeColor = System.Drawing.Color.White;
-            this.HealthDown.Location = new System.Drawing.Point(321, 178);
+            this.HealthDown.Location = new System.Drawing.Point(325, 179);
             this.HealthDown.Name = "HealthDown";
             this.HealthDown.Size = new System.Drawing.Size(58, 22);
             this.HealthDown.TabIndex = 54;
@@ -486,7 +491,7 @@
             // 
             this.ScanRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ScanRange.ForeColor = System.Drawing.Color.Lime;
-            this.ScanRange.Location = new System.Drawing.Point(199, 209);
+            this.ScanRange.Location = new System.Drawing.Point(203, 210);
             this.ScanRange.Name = "ScanRange";
             this.ScanRange.Size = new System.Drawing.Size(116, 16);
             this.ScanRange.TabIndex = 52;
@@ -498,7 +503,7 @@
             this.ScanRangeUp.BackColor = System.Drawing.Color.Black;
             this.ScanRangeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ScanRangeUp.ForeColor = System.Drawing.Color.White;
-            this.ScanRangeUp.Location = new System.Drawing.Point(135, 206);
+            this.ScanRangeUp.Location = new System.Drawing.Point(139, 207);
             this.ScanRangeUp.Name = "ScanRangeUp";
             this.ScanRangeUp.Size = new System.Drawing.Size(58, 22);
             this.ScanRangeUp.TabIndex = 54;
@@ -513,7 +518,7 @@
             this.ScanRangeDown.BackColor = System.Drawing.Color.Black;
             this.ScanRangeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ScanRangeDown.ForeColor = System.Drawing.Color.White;
-            this.ScanRangeDown.Location = new System.Drawing.Point(321, 206);
+            this.ScanRangeDown.Location = new System.Drawing.Point(325, 207);
             this.ScanRangeDown.Name = "ScanRangeDown";
             this.ScanRangeDown.Size = new System.Drawing.Size(58, 22);
             this.ScanRangeDown.TabIndex = 54;
@@ -527,7 +532,7 @@
             // 
             this.Signature.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Signature.ForeColor = System.Drawing.Color.Lime;
-            this.Signature.Location = new System.Drawing.Point(199, 237);
+            this.Signature.Location = new System.Drawing.Point(203, 238);
             this.Signature.Name = "Signature";
             this.Signature.Size = new System.Drawing.Size(116, 16);
             this.Signature.TabIndex = 52;
@@ -539,7 +544,7 @@
             this.SignatureUp.BackColor = System.Drawing.Color.Black;
             this.SignatureUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SignatureUp.ForeColor = System.Drawing.Color.White;
-            this.SignatureUp.Location = new System.Drawing.Point(135, 234);
+            this.SignatureUp.Location = new System.Drawing.Point(139, 235);
             this.SignatureUp.Name = "SignatureUp";
             this.SignatureUp.Size = new System.Drawing.Size(58, 22);
             this.SignatureUp.TabIndex = 54;
@@ -554,7 +559,7 @@
             this.SignatureDown.BackColor = System.Drawing.Color.Black;
             this.SignatureDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SignatureDown.ForeColor = System.Drawing.Color.White;
-            this.SignatureDown.Location = new System.Drawing.Point(321, 234);
+            this.SignatureDown.Location = new System.Drawing.Point(325, 235);
             this.SignatureDown.Name = "SignatureDown";
             this.SignatureDown.Size = new System.Drawing.Size(58, 22);
             this.SignatureDown.TabIndex = 54;
@@ -568,7 +573,7 @@
             // 
             this.FireRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FireRate.ForeColor = System.Drawing.Color.Lime;
-            this.FireRate.Location = new System.Drawing.Point(199, 265);
+            this.FireRate.Location = new System.Drawing.Point(203, 266);
             this.FireRate.Name = "FireRate";
             this.FireRate.Size = new System.Drawing.Size(116, 16);
             this.FireRate.TabIndex = 52;
@@ -580,7 +585,7 @@
             this.FireRateUp.BackColor = System.Drawing.Color.Black;
             this.FireRateUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FireRateUp.ForeColor = System.Drawing.Color.White;
-            this.FireRateUp.Location = new System.Drawing.Point(135, 262);
+            this.FireRateUp.Location = new System.Drawing.Point(139, 263);
             this.FireRateUp.Name = "FireRateUp";
             this.FireRateUp.Size = new System.Drawing.Size(58, 22);
             this.FireRateUp.TabIndex = 54;
@@ -595,7 +600,7 @@
             this.FireRateDown.BackColor = System.Drawing.Color.Black;
             this.FireRateDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FireRateDown.ForeColor = System.Drawing.Color.White;
-            this.FireRateDown.Location = new System.Drawing.Point(321, 262);
+            this.FireRateDown.Location = new System.Drawing.Point(325, 263);
             this.FireRateDown.Name = "FireRateDown";
             this.FireRateDown.Size = new System.Drawing.Size(58, 22);
             this.FireRateDown.TabIndex = 54;
@@ -609,7 +614,7 @@
             // 
             this.MissileSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MissileSpeed.ForeColor = System.Drawing.Color.Lime;
-            this.MissileSpeed.Location = new System.Drawing.Point(199, 293);
+            this.MissileSpeed.Location = new System.Drawing.Point(203, 294);
             this.MissileSpeed.Name = "MissileSpeed";
             this.MissileSpeed.Size = new System.Drawing.Size(116, 16);
             this.MissileSpeed.TabIndex = 52;
@@ -621,7 +626,7 @@
             this.MissileSpeedUp.BackColor = System.Drawing.Color.Black;
             this.MissileSpeedUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MissileSpeedUp.ForeColor = System.Drawing.Color.White;
-            this.MissileSpeedUp.Location = new System.Drawing.Point(135, 290);
+            this.MissileSpeedUp.Location = new System.Drawing.Point(139, 291);
             this.MissileSpeedUp.Name = "MissileSpeedUp";
             this.MissileSpeedUp.Size = new System.Drawing.Size(58, 22);
             this.MissileSpeedUp.TabIndex = 54;
@@ -636,7 +641,7 @@
             this.MissileSpeedDown.BackColor = System.Drawing.Color.Black;
             this.MissileSpeedDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MissileSpeedDown.ForeColor = System.Drawing.Color.White;
-            this.MissileSpeedDown.Location = new System.Drawing.Point(321, 290);
+            this.MissileSpeedDown.Location = new System.Drawing.Point(325, 291);
             this.MissileSpeedDown.Name = "MissileSpeedDown";
             this.MissileSpeedDown.Size = new System.Drawing.Size(58, 22);
             this.MissileSpeedDown.TabIndex = 54;
@@ -650,7 +655,7 @@
             // 
             this.MiningEfficiency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MiningEfficiency.ForeColor = System.Drawing.Color.Lime;
-            this.MiningEfficiency.Location = new System.Drawing.Point(199, 349);
+            this.MiningEfficiency.Location = new System.Drawing.Point(203, 350);
             this.MiningEfficiency.Name = "MiningEfficiency";
             this.MiningEfficiency.Size = new System.Drawing.Size(116, 16);
             this.MiningEfficiency.TabIndex = 52;
@@ -662,7 +667,7 @@
             this.MiningSpeedUp.BackColor = System.Drawing.Color.Black;
             this.MiningSpeedUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MiningSpeedUp.ForeColor = System.Drawing.Color.White;
-            this.MiningSpeedUp.Location = new System.Drawing.Point(135, 346);
+            this.MiningSpeedUp.Location = new System.Drawing.Point(139, 347);
             this.MiningSpeedUp.Name = "MiningSpeedUp";
             this.MiningSpeedUp.Size = new System.Drawing.Size(58, 22);
             this.MiningSpeedUp.TabIndex = 54;
@@ -677,7 +682,7 @@
             this.MiningSpeedDown.BackColor = System.Drawing.Color.Black;
             this.MiningSpeedDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MiningSpeedDown.ForeColor = System.Drawing.Color.White;
-            this.MiningSpeedDown.Location = new System.Drawing.Point(321, 346);
+            this.MiningSpeedDown.Location = new System.Drawing.Point(325, 347);
             this.MiningSpeedDown.Name = "MiningSpeedDown";
             this.MiningSpeedDown.Size = new System.Drawing.Size(58, 22);
             this.MiningSpeedDown.TabIndex = 54;
@@ -691,7 +696,7 @@
             // 
             this.MiningCapacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MiningCapacity.ForeColor = System.Drawing.Color.Lime;
-            this.MiningCapacity.Location = new System.Drawing.Point(199, 377);
+            this.MiningCapacity.Location = new System.Drawing.Point(203, 378);
             this.MiningCapacity.Name = "MiningCapacity";
             this.MiningCapacity.Size = new System.Drawing.Size(116, 16);
             this.MiningCapacity.TabIndex = 52;
@@ -703,7 +708,7 @@
             this.MiningCapacityUp.BackColor = System.Drawing.Color.Black;
             this.MiningCapacityUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MiningCapacityUp.ForeColor = System.Drawing.Color.White;
-            this.MiningCapacityUp.Location = new System.Drawing.Point(135, 374);
+            this.MiningCapacityUp.Location = new System.Drawing.Point(139, 375);
             this.MiningCapacityUp.Name = "MiningCapacityUp";
             this.MiningCapacityUp.Size = new System.Drawing.Size(58, 22);
             this.MiningCapacityUp.TabIndex = 54;
@@ -718,7 +723,7 @@
             this.MiningCapacityDown.BackColor = System.Drawing.Color.Black;
             this.MiningCapacityDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MiningCapacityDown.ForeColor = System.Drawing.Color.White;
-            this.MiningCapacityDown.Location = new System.Drawing.Point(321, 374);
+            this.MiningCapacityDown.Location = new System.Drawing.Point(325, 375);
             this.MiningCapacityDown.Name = "MiningCapacityDown";
             this.MiningCapacityDown.Size = new System.Drawing.Size(58, 22);
             this.MiningCapacityDown.TabIndex = 54;
@@ -732,9 +737,9 @@
             // 
             this.BalancedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BalancedLabel.ForeColor = System.Drawing.Color.Red;
-            this.BalancedLabel.Location = new System.Drawing.Point(135, 399);
+            this.BalancedLabel.Location = new System.Drawing.Point(40, 400);
             this.BalancedLabel.Name = "BalancedLabel";
-            this.BalancedLabel.Size = new System.Drawing.Size(244, 18);
+            this.BalancedLabel.Size = new System.Drawing.Size(343, 18);
             this.BalancedLabel.TabIndex = 60;
             this.BalancedLabel.Text = "...";
             this.BalancedLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -743,18 +748,18 @@
             // 
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Lime;
-            this.label11.Location = new System.Drawing.Point(135, 75);
+            this.label11.Location = new System.Drawing.Point(10, 71);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(244, 16);
             this.label11.TabIndex = 52;
             this.label11.Text = "Faction Bonuses:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MissileTracking
             // 
             this.MissileTracking.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MissileTracking.ForeColor = System.Drawing.Color.Lime;
-            this.MissileTracking.Location = new System.Drawing.Point(199, 321);
+            this.MissileTracking.Location = new System.Drawing.Point(203, 322);
             this.MissileTracking.Name = "MissileTracking";
             this.MissileTracking.Size = new System.Drawing.Size(116, 16);
             this.MissileTracking.TabIndex = 52;
@@ -766,7 +771,7 @@
             this.MissileTrackingUp.BackColor = System.Drawing.Color.Black;
             this.MissileTrackingUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MissileTrackingUp.ForeColor = System.Drawing.Color.White;
-            this.MissileTrackingUp.Location = new System.Drawing.Point(135, 318);
+            this.MissileTrackingUp.Location = new System.Drawing.Point(139, 319);
             this.MissileTrackingUp.Name = "MissileTrackingUp";
             this.MissileTrackingUp.Size = new System.Drawing.Size(58, 22);
             this.MissileTrackingUp.TabIndex = 54;
@@ -781,7 +786,7 @@
             this.MissileTrackingDown.BackColor = System.Drawing.Color.Black;
             this.MissileTrackingDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MissileTrackingDown.ForeColor = System.Drawing.Color.White;
-            this.MissileTrackingDown.Location = new System.Drawing.Point(321, 318);
+            this.MissileTrackingDown.Location = new System.Drawing.Point(325, 319);
             this.MissileTrackingDown.Name = "MissileTrackingDown";
             this.MissileTrackingDown.Size = new System.Drawing.Size(58, 22);
             this.MissileTrackingDown.TabIndex = 54;
@@ -795,11 +800,62 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(12, 323);
+            this.label13.Location = new System.Drawing.Point(22, 324);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(86, 13);
             this.label13.TabIndex = 60;
             this.label13.Text = "Missile Tracking:";
+            // 
+            // FactionPicture
+            // 
+            this.FactionPicture.Location = new System.Drawing.Point(389, 66);
+            this.FactionPicture.Name = "FactionPicture";
+            this.FactionPicture.Size = new System.Drawing.Size(200, 200);
+            this.FactionPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FactionPicture.TabIndex = 61;
+            this.FactionPicture.TabStop = false;
+            // 
+            // RandomImage
+            // 
+            this.RandomImage.BackColor = System.Drawing.Color.Black;
+            this.RandomImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RandomImage.ForeColor = System.Drawing.Color.White;
+            this.RandomImage.Location = new System.Drawing.Point(492, 272);
+            this.RandomImage.Name = "RandomImage";
+            this.RandomImage.Size = new System.Drawing.Size(97, 27);
+            this.RandomImage.TabIndex = 56;
+            this.RandomImage.Text = "Random Image";
+            this.RandomImage.UseVisualStyleBackColor = false;
+            this.RandomImage.Click += new System.EventHandler(this.RandomImage_Click);
+            this.RandomImage.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.RandomImage.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
+            // PlayerName
+            // 
+            this.PlayerName.BackColor = System.Drawing.Color.Black;
+            this.PlayerName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerName.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.PlayerName.Location = new System.Drawing.Point(389, 37);
+            this.PlayerName.Name = "PlayerName";
+            this.PlayerName.Size = new System.Drawing.Size(137, 23);
+            this.PlayerName.TabIndex = 62;
+            this.PlayerName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // RandomCommanderName
+            // 
+            this.RandomCommanderName.BackColor = System.Drawing.Color.Black;
+            this.RandomCommanderName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RandomCommanderName.ForeColor = System.Drawing.Color.White;
+            this.RandomCommanderName.Location = new System.Drawing.Point(531, 37);
+            this.RandomCommanderName.Name = "RandomCommanderName";
+            this.RandomCommanderName.Size = new System.Drawing.Size(58, 22);
+            this.RandomCommanderName.TabIndex = 56;
+            this.RandomCommanderName.Text = "Random";
+            this.RandomCommanderName.UseVisualStyleBackColor = false;
+            this.RandomCommanderName.Click += new System.EventHandler(this.RandomCommanderName_Click);
+            this.RandomCommanderName.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.RandomCommanderName.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // FactionDetails
             // 
@@ -807,7 +863,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.Cancel;
-            this.ClientSize = new System.Drawing.Size(384, 484);
+            this.ClientSize = new System.Drawing.Size(596, 483);
+            this.Controls.Add(this.PlayerName);
             this.Controls.Add(this.BalancedLabel);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -822,6 +879,8 @@
             this.Controls.Add(this.label51);
             this.Controls.Add(this.FactionName);
             this.Controls.Add(this.Cancel);
+            this.Controls.Add(this.RandomImage);
+            this.Controls.Add(this.RandomCommanderName);
             this.Controls.Add(this.RandomName);
             this.Controls.Add(this.Random);
             this.Controls.Add(this.MiningCapacityDown);
@@ -864,14 +923,17 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.CustomPresets);
+            this.Controls.Add(this.FactionPicture);
             this.ForeColor = System.Drawing.Color.Lime;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "FactionDetails";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Allegiance Forms - Faction Details";
             this.Load += new System.EventHandler(this.FactionDetails_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.FactionPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -935,5 +997,9 @@
         private System.Windows.Forms.Button MissileTrackingUp;
         private System.Windows.Forms.Button MissileTrackingDown;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.PictureBox FactionPicture;
+        private System.Windows.Forms.Button RandomImage;
+        private System.Windows.Forms.TextBox PlayerName;
+        private System.Windows.Forms.Button RandomCommanderName;
     }
 }
