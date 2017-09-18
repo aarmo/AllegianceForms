@@ -17,6 +17,10 @@ namespace AllegianceForms.Engine.Factions
         public int LeagueDivision { get; set; }
 
         public FactionBonus Bonuses { get; set; }
+        public bool PromotionGamesRunning { get; set; }
+        public bool DemotionGamesRunning { get; set; }
+        public int PromotionGamesPlayed { get; set; }
+        public int PromotionGamesWon { get; set; }
 
         public Faction(string name, string commanderName)
         {

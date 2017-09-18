@@ -99,7 +99,7 @@ namespace AllegianceForms.Engine
                 TeamAlliance = new[] { 1, 2 },
 
                 NumPilots = 16,
-                AiDifficulty = 1,
+                AiDifficulty = 3,
                 VariantAi = true,
 
                 WormholesSignatureMultiplier = 1,

@@ -65,10 +65,22 @@ namespace AllegianceForms.Engine.Bases
         {
             return Type != EBaseType.Resource;
         }
+        
+        protected const int LimitResourcesTickDelay = 4;
+        protected int _nextResourcesAllowed = LimitResourcesTickDelay;
 
         public bool CanGenerateIncome()
         {
-            return Type == EBaseType.Resource;
+            if (Type == EBaseType.Resource)
+            {
+                _nextResourcesAllowed--;
+                if (_nextResourcesAllowed<=0)
+                {
+                    _nextResourcesAllowed = LimitResourcesTickDelay;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Capture(Ship capturedBy)

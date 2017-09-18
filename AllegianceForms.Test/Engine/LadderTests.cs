@@ -19,7 +19,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CheckInitialSetup()
         {
-            LadderGame.TotalOtherPlayers.ShouldBe(8 * 5 * 5 - 1);
+            LadderGame.TotalOtherPlayers.ShouldBe(11);
 
             _ladder.AiDifficulty.ShouldBe(1);
             _ladder.LadderType.ShouldBe(ELadderType.Ones);
@@ -28,10 +28,11 @@ namespace AllegianceForms.Test.Engine
 
             var p = _ladder.Player;
             p.ShouldNotBeNull();
+            p.CommanderRankPoints.ShouldBe(LadderGame.MaxRankPointsPerDivision / 2);
             p.LeagueTier.ShouldBe(ELadderTier.Unranked);
             p.LeagueDivision.ShouldBe(5);
-            p.CommanderRankPoints.ShouldBe(LadderGame.MaxRankPointsPerDivision / 2);
-            
+            LadderGame.IsInPlacement(p).ShouldBe(true);
+
             for (var i = 0; i < _ladder.OtherPlayers.Length; i++)
             {
                 var op = _ladder.OtherPlayers[i];
@@ -40,6 +41,7 @@ namespace AllegianceForms.Test.Engine
                 op.CommanderRankPoints.ShouldBe(LadderGame.MaxRankPointsPerDivision / 2);
                 op.LeagueTier.ShouldBe(ELadderTier.Unranked);
                 op.LeagueDivision.ShouldBe(5);
+                LadderGame.IsInPlacement(op).ShouldBe(true);
             }
         }
 
@@ -305,10 +307,13 @@ namespace AllegianceForms.Test.Engine
 
             var w1 = _ladder.GetWinnersRandomly(t1, t2);
             _ladder.UpdateCommanderRanks(w1, (w1 == t1 ? t2 : t1));
+            
 
             _ladder.PlayGamesForAllOtherPlayers();
 
+            t1[0].ShouldBe(_ladder.Player);
             _ladder.Player.LadderGamesPlayed.ShouldBe(1);
+            t2[0].LadderGamesPlayed.ShouldBe(1);
 
             var unplayedPlayers = _ladder.OtherPlayers.Count(_ => _.LadderGamesPlayed == 0);
             unplayedPlayers.ShouldBe(0);
@@ -324,13 +329,57 @@ namespace AllegianceForms.Test.Engine
 
             var w1 = _ladder.GetWinnersRandomly(t1, t2);
             _ladder.UpdateCommanderRanks(w1, (w1 == t1 ? t2 : t1));
-
+            
             _ladder.PlayGamesForAllOtherPlayers();
 
-            _ladder.Player.LadderGamesPlayed.ShouldBe(1);
+            t1[0].ShouldBe(_ladder.Player);
+            t1[0].LadderGamesPlayed.ShouldBe(1);
+            LadderGame.IsInPlacement(t1[0]).ShouldBe(true);
+
+            t1[1].LadderGamesPlayed.ShouldBe(1);
+            t2[0].LadderGamesPlayed.ShouldBe(1);
+            t2[1].LadderGamesPlayed.ShouldBe(1);
 
             var unplayedPlayers = _ladder.OtherPlayers.Count(_ => _.LadderGamesPlayed == 0);
             unplayedPlayers.ShouldBe(0);
+        }
+
+        public void CheckPlacementFinished()
+        {
+            _ladder.Player.LadderGamesPlayed = 10;
+            LadderGame.FinishedPlacement(_ladder.Player).ShouldBe(true);
+        }
+
+        public void CheckPlacementResult()
+        {
+
+        }
+
+        public void CheckBeforePromotion()
+        {
+
+        }
+        public void CheckBeforeDemotion()
+        {
+
+        }
+
+        public void CheckAfterPlayerPromotion()
+        {
+
+        }
+        public void CheckAfterPlayerDemotion()
+        {
+
+        }
+
+        public void CheckAfterAiPromotion()
+        {
+
+        }
+        public void CheckAfterAiDemotion()
+        {
+
         }
     }
 }

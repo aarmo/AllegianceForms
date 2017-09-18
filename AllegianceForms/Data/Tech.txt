@@ -11,7 +11,7 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed
 10,0,Advanced Repair Towers,1,5000,120,False
 11,0,Advanced Missile Towers,1,5000,120,False
 
-19,-1,Miner,,2000,30,False
+19,-1,Miner,,1000,30,False
 20,-1,Resource Constructor,,3000,30,False
 21,-1,Tower Constructor,,1000,60,False
 22,-1,Repair Tower Constructor,,1000,60,False

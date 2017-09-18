@@ -26,7 +26,7 @@ namespace AllegianceForms.Engine
         public const int ScreenHeight = 800;
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
-        public const float BaseConversionRate = 5f;
+        public const float BaseConversionRate = 4f;
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";

@@ -1,6 +1,5 @@
 ﻿using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Map;
-using AllegianceForms.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +9,7 @@ namespace AllegianceForms.Engine
 {
     public class LadderGame
     {
-        public const int NumPlayersPerDivision = 5;
+        public const int NumPlayersPerDivision = 12;
         public const int MinRankPointsPerGame = 12;
         public const int MaxRankPointsPerDivision = 100;
         public const int NumDivisions = 5;
@@ -29,8 +28,7 @@ namespace AllegianceForms.Engine
         {
             get
             {
-                var numTiers = Enum.GetValues(typeof(ELadderTier)).Length;
-                return NumPlayersPerDivision * NumDivisions * numTiers - 1;
+                return NumPlayersPerDivision - 1;
             }
         }
 
@@ -79,6 +77,125 @@ namespace AllegianceForms.Engine
                 l.LadderGamesLost++;
             }
         }
+
+        public static bool IsInPlacement(Faction commander)
+        {
+            return (commander.LeagueTier == ELadderTier.Unranked && commander.LadderGamesPlayed < 10);
+        }
+
+        public bool PlaceInTier(Faction commander)
+        {
+            if (!FinishedPlacement(commander)) return false;
+
+            var winPerc = 1f * commander.LadderGamesWon / commander.LadderGamesPlayed;
+            var numDivisions = NumDivisions * 3; // Bronze/Silver/Gold
+
+
+
+            return true;
+        }
+
+        public static bool FinishedPlacement(Faction commander)
+        {
+            return (commander.LeagueTier == ELadderTier.Unranked && commander.LadderGamesPlayed >= 10);
+        }
+
+        public static bool ShouldStartDemotion(Faction commander)
+        {
+            return (commander.LeagueTier != ELadderTier.Bronze && commander.LeagueTier != ELadderTier.Unranked && commander.CommanderRankPoints <= 0);
+        }
+
+        public static bool ShouldEndDemotion(Faction commander)
+        {
+            return (commander.DemotionGamesRunning && commander.PromotionGamesPlayed >= 3);
+        }
+
+        public static bool ShouldStartPromotion(Faction commander)
+        {
+            return (commander.LeagueTier != ELadderTier.Challenger && commander.LeagueTier != ELadderTier.Unranked && commander.CommanderRankPoints >= 100);
+        }
+
+        public static bool ShouldEndPromotion(Faction commander)
+        {
+            return (commander.PromotionGamesRunning && commander.PromotionGamesPlayed >= 3);
+        }
+
+        public static bool ShouldBePromoted(Faction commander)
+        {
+            return (ShouldEndPromotion(commander) && commander.PromotionGamesWon >= 2);
+        }
+
+        public static bool ShouldBeDemoted(Faction commander)
+        {
+            return (ShouldEndDemotion(commander) && commander.PromotionGamesWon < 2);
+        }
+
+        public void Promote(Faction commander)
+        {
+            if (commander.LeagueDivision == 1)
+            { 
+                commander.LeagueTier = (ELadderTier)((int)commander.LeagueTier + 1);
+                commander.LeagueDivision = 5;
+            }
+            else
+            {
+                commander.LeagueDivision--;
+            }
+            commander.CommanderRankPoints = LadderGame.MaxRankPointsPerDivision / 2;
+
+            ReplaceCommander(commander);
+        }
+
+        public void Deomote(Faction commander)
+        {
+            if (commander.LeagueDivision == 5)
+            {
+                commander.LeagueTier = (ELadderTier)((int)commander.LeagueTier - 1);
+                commander.LeagueDivision = 1;
+            }
+            else
+            {
+                commander.LeagueDivision++;
+            }
+            commander.CommanderRankPoints = LadderGame.MaxRankPointsPerDivision / 2;
+
+            ReplaceCommander(commander);
+        }
+
+        public void ReplaceCommander(Faction commander)
+        {
+            if (commander == Player)
+            {
+                // Generate new AIs
+                var newOthers = new List<Faction>();
+                Faction.FactionNames.Reset();
+
+                for (var i = 0; i < NumPlayersPerDivision; i++)
+                {
+                    var f = Faction.Random();
+                    f.CommanderRankPoints = StrategyGame.Random.Next(1, 101);
+                    f.LeagueTier = commander.LeagueTier;
+                    f.LeagueDivision = commander.LeagueDivision;
+                    f.LadderGamesPlayed = commander.LadderGamesPlayed;
+                    f.LadderGamesWon = StrategyGame.Random.Next(0, f.LadderGamesPlayed + 1);
+                    f.LadderGamesLost = f.LadderGamesPlayed - f.LadderGamesWon;
+
+                    newOthers.Add(f);
+                }
+            }
+            else
+            {
+                // Replace this AI
+                var f = Faction.Random();
+                f.CommanderRankPoints = 1;
+                f.LeagueTier = commander.LeagueTier;
+                f.LeagueDivision = commander.LeagueDivision;
+                f.LadderGamesPlayed = commander.LadderGamesPlayed;
+                f.LadderGamesWon = StrategyGame.Random.Next(0, f.LadderGamesPlayed + 1);
+                f.LadderGamesLost = f.LadderGamesPlayed - f.LadderGamesWon;
+            }
+        }
+
 
         List<Faction> _availableCommanders = new List<Faction>();
 
@@ -159,12 +276,8 @@ namespace AllegianceForms.Engine
             }
 
             var avgRank = 1f * allies.Sum(_ => _.CommanderRankPoints) / allies.Length;
-            var tier = allies[0].LeagueTier;
-            var division = allies[0].LeagueDivision;
 
             var available = (from c in _availableCommanders
-                             where c.LeagueTier == tier
-                             && c.LeagueDivision == division
                              orderby Math.Abs(c.CommanderRankPoints - avgRank)
                              select c).ToList();
 

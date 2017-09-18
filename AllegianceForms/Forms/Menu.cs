@@ -16,8 +16,6 @@ namespace AllegianceForms.Forms
             SoundEffect.Play(ESounds.windowslides);
 
             AppVersion.Text = string.Format("(ALPHA) v{0}", Assembly.GetEntryAssembly().GetName().Version);
-
-            if (_ladderGame.LadderStarted) Ladder.Text = "Continue Ladder";
         }
 
         private void Dogfight_Click(object sender, EventArgs e)
@@ -47,7 +45,7 @@ namespace AllegianceForms.Forms
         }
 
         private GameSettings _gameSettings = GameSettings.Default();
-        private LadderGame _ladderGame = LadderGame.LoadOrDefault();
+        private LadderGame _ladderGame; // = LadderGame.LoadOrDefault();
 
         private void CustomGame_Click(object sender, EventArgs e)
         {
@@ -120,7 +118,14 @@ namespace AllegianceForms.Forms
 
             // TODO: Promotions, tiers, demotions, etc.
 
-            Ladder.Text = "Continue Ladder";
+            //Ladder.Text = "Continue Ladder";
+        }
+
+        private void QuickPlay_Click(object sender, EventArgs e)
+        {
+            var settings = GameSettings.Default();
+            var f2 = new Sector(_gameSettings);
+            if (!f2.IsDisposed) f2.Show();
         }
     }
 }

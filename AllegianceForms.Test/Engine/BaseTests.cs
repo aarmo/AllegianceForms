@@ -35,9 +35,13 @@ namespace AllegianceForms.Test.Engine
         {
             var res = _game.Credits[0];
             var b1 = _game.Bases.CreateBase(EBaseType.Resource, 1, Color.White, 1);
+
+            b1.Update();
+            b1.Update();
+            b1.Update();
             b1.Update();
 
-            _game.Credits[0].ShouldBe(res + 10);
+            _game.Credits[0].ShouldBe(res + 8);
         }
     }
 }
