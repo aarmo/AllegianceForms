@@ -40,3 +40,7 @@ Destroyed bases leave salvage?
 
 3. Start multiplayer
 4. Write a campaign story
+
+Redo sound effects
+http://www.oddcast.com/home/demos/tts/tts_example.php
+http://cache-a.oddcast.com/tts/gen.php?EID=3&LID=1&VID=1&TXT=Constructor%20requesting%20Uranium%20Rock&IS_UTF8=1&EXT=mp3&FX_TYPE=R&FX_LEVEL=3&FNAME=&ACC=5883747&API=&SESSION=&CS=26b9348145cb4252f1ab8c217bad840a

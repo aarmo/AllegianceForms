@@ -8,20 +8,17 @@ namespace AllegianceForms.Engine.AI.Missions
     public class BaseDefenseMission : CommanderMission
     {
         private const int LastTargetExpireSeconds = 30;
-
-        private float _numPilots;
+        
         private int _lastTargetSectorId = -1;
         private PointF _lastPos;
 
         public BaseDefenseMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipHandler) : base(game, ai, shipHandler)
         {
-            _numPilots = game.GameSettings.NumPilots * 0.8f + 1f;
         }
 
         public override bool RequireMorePilots()
         {
-            var currentPilots = IncludedShips.Sum(_ => _.NumPilots);
-            return currentPilots < _numPilots;
+            return true;
         }
 
         public override bool AddMorePilots()

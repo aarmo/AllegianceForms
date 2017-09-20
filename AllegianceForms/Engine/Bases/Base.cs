@@ -35,6 +35,11 @@ namespace AllegianceForms.Engine.Bases
             ScanRange = 500;
         }
 
+        public bool CanBeCaptured()
+        {
+            return Shield <= MaxShield / 100f;
+        }
+
         public PointF GetNextBuildPosition()
         {            
             if (_lastBuildPos != BuildPosition)

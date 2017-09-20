@@ -100,6 +100,22 @@ namespace AllegianceForms.Engine.AI
                 }
             }
             
+            if (_flagFoundEnemyBombers)
+            {
+                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.5f);
+                if (idleShips.Count > 0)
+                {
+                    _baseDefense.IncludedShips.AddRange(idleShips);
+                    idleShips.Clear();
+                }
+
+                addedPilots = true;
+                while (addedPilots && _game.DockedPilots[_t] > 0 && _baseDefense.RequireMorePilots())
+                {
+                    addedPilots = _baseDefense.AddMorePilots();
+                }
+            }
+
             if (_flagFoundEnemyBase)
             {
                 if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.5f);
@@ -113,15 +129,6 @@ namespace AllegianceForms.Engine.AI
                 while (addedPilots && _game.DockedPilots[_t] > 0 && _minerOffense.RequireMorePilots())
                 {
                     addedPilots = _minerOffense.AddMorePilots();
-                }
-            }
-
-            if (_flagFoundEnemyBombers)
-            {
-                addedPilots = true;
-                while (addedPilots && _game.DockedPilots[_t] > 0 && _baseDefense.RequireMorePilots())
-                {
-                    addedPilots = _baseDefense.AddMorePilots();
                 }
             }
 
@@ -139,7 +146,6 @@ namespace AllegianceForms.Engine.AI
                     addedPilots = _minerDefense.AddMorePilots();
                 }
             }
-
         }
 
         private void UpdateResearch()
