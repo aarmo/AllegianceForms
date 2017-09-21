@@ -77,6 +77,23 @@ namespace AllegianceForms.Engine.Ships
             return CreateShip(spec, team, teamColour, sectorId);
         }
 
+        public CombatShip CreateBomberShip(int team, Color teamColour, int sectorId)
+        {
+            var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
+            var keys = new[] { "B", "O", "X" };
+
+            // Get the most advanced ship for any of these keys
+            var spec = (from s in Ships
+                        where keys.Contains(s.Key)
+                       && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
+                       && _game.CanLaunchShip(team, s.NumPilots, s.Type)
+                        orderby s.Id descending
+                        select s).FirstOrDefault();
+            if (spec == null) return null;
+
+            return CreateShip(spec, team, teamColour, sectorId);
+        }
+
         public CombatShip CreateTowerShip(EShipType type, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();

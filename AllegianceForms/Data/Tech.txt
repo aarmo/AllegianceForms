@@ -77,11 +77,11 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed
 102,-2,Upgrade Shipyard (L),101,10000,480,False
 103,-2,Upgrade Shipyard (XL),102,10000,480,False
 
-109,-2,Support,100,1000,30,False
-110,-2,Corvette,100,1000,30,False
-111,-2,Destroyer,101,1500,30,False
-112,-2,Frigate,101|4,1500,30,False
-113,-2,Devastator,102,2000,60,False
-114,-2,Cruiser,102|4,2000,60,False
-115,-2,Battleship,102,2500,60,False
-116,-2,Battlecruiser,103|4,2500,60,False
+109,-2,Support,100,2000,60,False
+110,-2,Corvette,100,2000,60,False
+111,-2,Destroyer,101,3000,60,False
+112,-2,Frigate,101|4,3000,60,False
+113,-2,Devastator,102,4000,120,False
+114,-2,Cruiser,102|4,4000,120,False
+115,-2,Battleship,102,5000,120,False
+116,-2,Battlecruiser,103|4,5000,120,False

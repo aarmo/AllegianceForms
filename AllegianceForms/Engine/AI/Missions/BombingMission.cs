@@ -86,18 +86,20 @@ namespace AllegianceForms.Engine.AI.Missions
             var capships = _game.AllUnits.Where(_ => _.Active && _.Team == AI.Team && Ship.IsCapitalShip(_.Type) && _.CurrentOrder == null).ToList();
             IncludedShips.AddRange(capships);
             
-            // launch scouts to assist the bomber if we have "enough"
-            var enoughBombers = IncludedShips.Count(_ => _.Active && _.CanAttackBases()) > 1;
             Ship ship;
+            var t = AI.Team - 1;
 
-            if (enoughBombers)
+            ship = _game.Ships.CreateBomberShip(AI.Team, AI.TeamColour, _launchBase.SectorId);
+            if (ship == null)
             {
-                ship = _game.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, _launchBase.SectorId);
-            }
-            else
-            {
-                // launch a bomber if possible
-                ship = _game.Ships.CreateCombatShip(Keys.B, AI.Team, AI.TeamColour, _launchBase.SectorId);
+                if (StrategyGame.RandomChance(0.3f))
+                {
+                    ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, _launchBase.SectorId);
+                }
+                else
+                {
+                    ship = _game.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, _launchBase.SectorId);
+                }
             }
             if (ship == null) return false;
 
