@@ -105,8 +105,8 @@ namespace AllegianceForms.Forms
                 var aiPlayer = t != 0;
 
                 var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, team, teamColour, startingSector.Id, false);
-                b1.CenterX = (aiPlayer ? Width - 300 : 100);
-                b1.CenterY = (aiPlayer ? Height - 300 : 100);
+                b1.CenterX = Width / 2 + (aiPlayer ?  300 : -300);
+                b1.CenterY = Height / 2 + (aiPlayer ? 300 : -300);
                 b1.BaseEvent += B_BaseEvent;
                 StrategyGame.AddBase(b1);
                 StrategyGame.GameStats.TotalBasesBuilt[t] = 1;
@@ -382,8 +382,7 @@ namespace AllegianceForms.Forms
         {
             var g = Graphics.FromImage(_frame);
             var currentSectorId = _currentSector.Id;
-
-            //g.Clear(BackColor);
+            
             g.FillRectangle(_bgBrush, 0, 0, Width, Height);
             StrategyGame.Map.DrawSector(g, currentSectorId);
 

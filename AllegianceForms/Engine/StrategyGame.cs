@@ -22,8 +22,8 @@ namespace AllegianceForms.Engine
         public delegate void GameEventHandler(object sender, EGameEventType e);
         public event GameEventHandler GameEvent;
 
-        public const int ScreenWidth = 1200;
-        public const int ScreenHeight = 800;
+        public const int ScreenWidth = 1680;
+        public const int ScreenHeight = 1080;
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
         public const float BaseConversionRate = 4f;
@@ -559,7 +559,13 @@ namespace AllegianceForms.Engine
                 if (tech == null) return;
                 if (TechItem.IsGlobalUpgrade(tech.Name)) tech.ApplyGlobalUpgrade(TechTree[tech.Team - 1]);
 
-                if (tech.Team == 1) SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+                if (tech.Team == 1)
+                {
+                    if (tech.IsShipType())
+                        SoundEffect.Play(ESounds.vo_sal_shiptech);
+                    else
+                        SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+                }
             }
         }
 

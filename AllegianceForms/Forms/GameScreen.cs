@@ -39,6 +39,7 @@ namespace AllegianceForms.Forms
             {
                 _maximised = !_maximised;
                 WindowState = (_maximised ? FormWindowState.Maximized : FormWindowState.Normal);
+
             }
         }
     }

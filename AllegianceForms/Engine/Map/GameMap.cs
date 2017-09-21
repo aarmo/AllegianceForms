@@ -94,7 +94,7 @@ namespace AllegianceForms.Engine.Map
 
         public void DrawSector(Graphics g, int sectorId)
         {
-            g.DrawImage(GridImage, 0, 0);
+            //g.DrawImage(GridImage, 0, 0, StrategyGame.ScreenWidth, StrategyGame.ScreenHeight);
 
             foreach (var u in _game.AllAsteroids)
             {
