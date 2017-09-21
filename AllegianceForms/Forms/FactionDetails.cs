@@ -12,7 +12,8 @@ namespace AllegianceForms.Forms
     public partial class FactionDetails : Form
     {
         public Faction Faction { get; set; }
-        
+        private Color _colour;
+
         public FactionDetails()
         {
             InitializeComponent();
@@ -26,9 +27,10 @@ namespace AllegianceForms.Forms
             CustomPresets.Items.AddRange(filenames);
         }
 
-        public void LoadFaction(Faction f)
+        public void LoadFaction(Faction f, Color c)
         {
             Faction = f;
+            _colour = c;
 
             FactionName.Text = f.Name;
             ResearchTime.Text = f.Bonuses.ResearchTime.ToString("P0");
@@ -43,6 +45,10 @@ namespace AllegianceForms.Forms
             MiningEfficiency.Text = f.Bonuses.MiningEfficiency.ToString("P0");
             MiningCapacity.Text = f.Bonuses.MiningCapacity.ToString("P0");
 
+            FactionPicture.Image = Utils.GetAvatarImage(f.PictureCode);
+            PlayerName.ForeColor = c;
+            PlayerName.Text = Faction.CommanderName;
+
             RefreshBalance();
         }
 
@@ -50,7 +56,7 @@ namespace AllegianceForms.Forms
         {
             SoundEffect.Play(ESounds.mousedown);
             CustomPresets.Text = string.Empty;
-            LoadFaction(Faction.Random());
+            LoadFaction(Faction.Random(), _colour);
         }
 
         private void FactionDetails_Load(object sender, EventArgs e)
@@ -86,7 +92,7 @@ namespace AllegianceForms.Forms
             SoundEffect.Play(ESounds.mousedown);
             var f = Utils.DeserialiseFromFile<Faction>(filename);
             if (f == null) return;
-            LoadFaction(f);
+            LoadFaction(f, _colour);
         }
 
         private void RandomName_Click(object sender, EventArgs e)
@@ -334,6 +340,19 @@ namespace AllegianceForms.Forms
             Faction.Bonuses.MiningEfficiency -= 0.1f;
             MiningEfficiency.Text = Faction.Bonuses.MiningEfficiency.ToString("P0");
             RefreshBalance();
+        }
+
+        private void RandomImage_Click(object sender, EventArgs e)
+        {
+            Faction.PictureCode = Utils.RandomString();
+            FactionPicture.Image = Utils.GetAvatarImage(Faction.PictureCode);
+        }
+
+        private void RandomCommanderName_Click(object sender, EventArgs e)
+        {
+            Faction.CommanderName = StrategyGame.RandomName.GetRandomName(Utils.RandomString());
+            PlayerName.Text = Faction.CommanderName;
+
         }
     }
 }

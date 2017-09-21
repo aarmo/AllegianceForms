@@ -40,8 +40,6 @@
             this.researchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pilotListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enemyAIDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.pauseGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.GameOverPanel = new System.Windows.Forms.Panel();
             this.TotalBases2 = new System.Windows.Forms.Label();
@@ -139,9 +137,7 @@
             this.miniMapToolStripMenuItem,
             this.researchToolStripMenuItem,
             this.pilotListToolStripMenuItem,
-            this.enemyAIDebugToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.pauseGameToolStripMenuItem});
+            this.enemyAIDebugToolStripMenuItem});
             this.toolStripDropDownButton1.ForeColor = System.Drawing.Color.Black;
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -176,17 +172,6 @@
             this.enemyAIDebugToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.enemyAIDebugToolStripMenuItem.Text = "[F12] Enemy AI &Testing";
             this.enemyAIDebugToolStripMenuItem.Click += new System.EventHandler(this.enemyAIDebugToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(234, 6);
-            // 
-            // pauseGameToolStripMenuItem
-            // 
-            this.pauseGameToolStripMenuItem.Name = "pauseGameToolStripMenuItem";
-            this.pauseGameToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
-            this.pauseGameToolStripMenuItem.Text = "[&Esc] Main Menu";
             // 
             // timer
             // 
@@ -525,14 +510,15 @@
             this.Controls.Add(this.statusStrip);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Lime;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Sector";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Allegiance Forms - Conquest";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sector_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Sector_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Sector_KeyDown);
@@ -558,8 +544,6 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem researchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem miniMapToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem pauseGameToolStripMenuItem;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripStatusLabel PilotsLabel;
         private System.Windows.Forms.ToolStripMenuItem enemyAIDebugToolStripMenuItem;

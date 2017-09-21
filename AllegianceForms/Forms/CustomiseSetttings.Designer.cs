@@ -1121,9 +1121,12 @@
             this.Difficulty.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Difficulty.FormattingEnabled = true;
             this.Difficulty.Items.AddRange(new object[] {
+            "Inactive",
+            "Very Easy",
             "Easy",
             "Normal",
             "Hard",
+            "Very Hard",
             "Insane"});
             this.Difficulty.Location = new System.Drawing.Point(90, 33);
             this.Difficulty.Name = "Difficulty";

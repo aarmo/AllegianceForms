@@ -119,5 +119,12 @@ namespace AllegianceForms.Engine.Tech
             return (Type == ETechType.Construction || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard")));
         }
 
+        static string[] ShipTypes = { "Scout", "Fighter", "Gunship", "Bomber", "Interceptor", "Transport" };
+
+        public bool IsShipType()
+        {
+            return ShipTypes.Any(_ => Name.Contains(_));
+        }
+
     }
 }

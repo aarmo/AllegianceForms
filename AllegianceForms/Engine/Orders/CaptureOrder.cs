@@ -31,8 +31,9 @@ namespace AllegianceForms.Orders
 
         private void FindClosestEnemyBase(Ship ship)
         {
-            // Find the closest Enemy station we can capture
-            _target = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, _game.AllBases.Where(_ => _.Active && _.Team != ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips()));
+            // Find the closest Enemy station we can capture (shield < 1%)
+            _target = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, 
+                    _game.AllBases.Where(_ => _.Active && _.Team != ship.Team && _.SectorId == ship.SectorId && _.CanLaunchShips() && _.CanBeCaptured()));
 
             if (_target != null)
             {

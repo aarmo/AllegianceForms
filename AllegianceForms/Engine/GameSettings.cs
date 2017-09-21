@@ -3,6 +3,7 @@ using AllegianceForms.Engine.Map;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace AllegianceForms.Engine
 {
@@ -63,13 +64,34 @@ namespace AllegianceForms.Engine
         public float ResearchTimeMultiplier { get; set; }
         public float ResearchCostMultiplier { get; set; }
 
+        public static GameSettings LadderDefault(LadderGame ladder, Faction[] team1, Faction[] team2)
+        {
+            var s = Default();
+
+            // Override map, ai
+            s.MapName = ladder.MapPool[StrategyGame.Random.Next(ladder.MapPool.Length)];
+            s.AiDifficulty = ladder.AiDifficulty;
+
+            // Setup commanders
+            var numPlayers = team1.Length + team2.Length;
+            s.TeamFactions = team1.Union(team2).ToArray();
+            if (numPlayers > s.NumTeams)
+            {
+                s.NumTeams = numPlayers;
+                s.TeamAlliance = new[] { 1, 1, 2, 2 };
+                s.TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1], DefaultTeamColours[2], DefaultTeamColours[3] };
+            }
+
+            return s;
+        }
+
         public static GameSettings Default()
         {
             var s = new GameSettings
             {
                 NumTeams = 2,
                 MapName = GameMaps.RandomName(2), // "Brawl",
-                WormholesVisible = false,
+                WormholesVisible = true,
                 RocksVisible = false,
 
                 TeamFactions = new[] { Faction.Default(), Faction.Random() },
@@ -77,7 +99,7 @@ namespace AllegianceForms.Engine
                 TeamAlliance = new[] { 1, 2 },
 
                 NumPilots = 16,
-                AiDifficulty = 1,
+                AiDifficulty = 3,
                 VariantAi = true,
 
                 WormholesSignatureMultiplier = 1,
@@ -142,14 +164,13 @@ namespace AllegianceForms.Engine
                 s.ShipSignatureMultiplier.Add(e, 1);
             }
 
-#if DEBUG
-            // Testing setup: crazy money, fast tech, map visible
+/*#if DEBUG
+            // Testing setup: fast cheap tech, map visible
             //StrategyGame.AddResources(1, 100000, false);
             //settings.ResearchCostMultiplier = 0.25f;
-            s.WormholesVisible = true;
+            s.ResearchCostMultiplier = 0.25f;
             s.ResearchTimeMultiplier = 0.25f;
-#endif
-
+#endif*/
             return s;
         }
     }

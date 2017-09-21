@@ -1,6 +1,7 @@
 ﻿using AllegianceForms.Engine.AI;
 using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Factions;
+using AllegianceForms.Engine.Generation;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
@@ -21,11 +22,11 @@ namespace AllegianceForms.Engine
         public delegate void GameEventHandler(object sender, EGameEventType e);
         public event GameEventHandler GameEvent;
 
-        public const int ScreenWidth = 1200;
-        public const int ScreenHeight = 800;
+        public const int ScreenWidth = 1680;
+        public const int ScreenHeight = 1080;
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
-        public const float BaseConversionRate = 5f;
+        public const float BaseConversionRate = 4f;
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
@@ -35,6 +36,7 @@ namespace AllegianceForms.Engine
         public const string MapFolder = ".\\Data\\Maps";
         public static double SqrtTwo = Math.Sqrt(2);
         public static Random Random = new Random();
+        public static RandomName RandomName = new RandomName();
 
         public static Pen HealthBorderPen = new Pen(Color.DimGray, 1);
         public static Pen BaseBorderPen = new Pen(Color.Gray, 2);
@@ -58,7 +60,9 @@ namespace AllegianceForms.Engine
         public BaseAI[] AICommanders;
         public TechTree[] TechTree;
         public Faction[] Faction;
-        
+        public Faction[] Winners;
+        public Faction[] Loosers;
+
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
 
@@ -555,7 +559,13 @@ namespace AllegianceForms.Engine
                 if (tech == null) return;
                 if (TechItem.IsGlobalUpgrade(tech.Name)) tech.ApplyGlobalUpgrade(TechTree[tech.Team - 1]);
 
-                if (tech.Team == 1) SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+                if (tech.Team == 1)
+                {
+                    if (tech.IsShipType())
+                        SoundEffect.Play(ESounds.vo_sal_shiptech);
+                    else
+                        SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+                }
             }
         }
 
@@ -872,7 +882,7 @@ namespace AllegianceForms.Engine
             
             for (var i = 0; i < NumTeams; i++)
             {
-                Faction[i] = settings.TeamFactions[i].Clone();
+                Faction[i] = settings.TeamFactions[i];
                 var c = Color.FromArgb(settings.TeamColours[i]);
                 TeamBrushes[i] = new SolidBrush(c);
                 SelectedPens[i] = new Pen(c, 1) { DashStyle = DashStyle.Dot };
