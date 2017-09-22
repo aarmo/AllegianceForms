@@ -22,8 +22,14 @@ namespace AllegianceForms.Engine
         public delegate void GameEventHandler(object sender, EGameEventType e);
         public event GameEventHandler GameEvent;
 
-        public const int ScreenWidth = 1680;
-        public const int ScreenHeight = 1080;
+        public const int ScreenPositionOffset_Left = 0;
+        public const int ScreenPositionOffset_Top = 0;
+        public const int ScreenPositionOffset_Width = -230;
+        public const int ScreenPositionOffset_Height = 0;
+        
+        public static int ScreenWidth = 0;
+        public static int ScreenHeight = 0;
+
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 2;
         public const float BaseConversionRate = 4f;

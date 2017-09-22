@@ -57,6 +57,7 @@ namespace AllegianceForms.Forms
         public Sector(GameSettings settings)
         {
             InitializeComponent();
+            SetupScreenSize();
 
             _researchForm = new Research(StrategyGame);
             _pilotList = new PilotList(StrategyGame);
@@ -82,8 +83,6 @@ namespace AllegianceForms.Forms
 
             StrategyGame.InitialiseGame();
 
-            Width = StrategyGame.ScreenWidth;
-            Height = StrategyGame.ScreenHeight;
             _frame = new Bitmap(Width, Height);
             _bgBrush = new TextureBrush(Image.FromFile(".\\Art\\Backgrounds\\stars.png"));
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
@@ -170,6 +169,17 @@ namespace AllegianceForms.Forms
             miniMapToolStripMenuItem_Click(null, null);
 
             timer.Enabled = tick.Enabled = true;
+        }
+
+        private void SetupScreenSize()
+        {
+            var scr = Screen.FromControl(this);
+            var area = scr.WorkingArea;
+
+            StrategyGame.ScreenWidth = Width = area.Width + StrategyGame.ScreenPositionOffset_Width;
+            StrategyGame.ScreenHeight = Height = area.Height + StrategyGame.ScreenPositionOffset_Height;
+            Top = StrategyGame.ScreenPositionOffset_Top;
+            Left = StrategyGame.ScreenPositionOffset_Left;
         }
 
         private void StrategyGame_GameEvent(object sender, EGameEventType e)
