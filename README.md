@@ -19,9 +19,9 @@ Made for the Free Allegiance community: http://www.freeallegiance.org/
 
 Features
 ------
-- Multiple [Maps](#maps) & [Tech Paths](#tech-tree)
 - Customisable [Game Settings & Factions](#customise-the-game)
-- Pilot & Commander AI
+- Commander AI
+- Multiple [Maps](#maps), [Map Editor](#map-editor) & [Tech Paths](#tech-tree)
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers and Capital Ships!
 
 ![alt text][ships]
@@ -73,7 +73,8 @@ Key	| Description
 ### General Commands
 Key	| Description
 --- | ---
-**1-9** | View sector 1-9.
+**Control+(0-9)** | Set sector preset 0-9.
+**(0-9)** | View sector preset 0-9.
 **Space** | Switch between the sector of the last alert.
 **F3** | Show/Hide the Minimap window.
 **F5** | Show/Hide the Research/Construction window.
@@ -112,12 +113,47 @@ Key	| Description
 
 Maps
 ------
-Name | Image | Name | Image
---- | --- | ---  | ---
-Single Ring: | ![alt text][mapsingle] | Double Ring: | ![alt text][mapdouble]
-Pin Wheel: |  ![alt text][mappin] | Hi-Lo: | ![alt text][maphilo]
-Hi-Higher: | ![alt text][maphigh] | Grid: | ![alt text][mapgrid]
-Star: | ![alt text][mapstar]
+Name | Image | Teams
+--- | --- | --- 
+Across4 | ![alt text][mapacross4] | 2 / 4
+Brawl2 | ![alt text][mapbrawl2] | 2
+Cross2 | ![alt text][mapcross2] | 2
+Cross3 | ![alt text][mapcross3] | 3
+Cross4 | ![alt text][mapcross4] | 2 / 4
+DoubleRing2 | ![alt text][mapdoublering2] | 2
+DoubleRing3 | ![alt text][mapdoublering3] | 3
+DoubleRing4 | ![alt text][mapdoublering4] | 2 / 4
+Grid2 | ![alt text][mapgrid2] | 2
+HiHigher2 | ![alt text][maphihigher2] | 2
+HiLo2 | ![alt text][maphilo2] | 2
+NerveHigh2 | ![alt text][mapnervehigh2] | 2
+NerveHigh3 | ![alt text][mapnervehigh3] | 3
+NerveHigh4 | ![alt text][mapnervehigh4] | 2 / 4
+NerveLow2 | ![alt text][mapnervelow2] | 2
+NerveLow3 | ![alt text][mapnervelow3] | 3
+NerveLow4 | ![alt text][mapnervelow4] | 2 / 4
+PinWheel2 | ![alt text][mappinwheel2] | 2
+PinWheel3 | ![alt text][mappinwheel3] | 3
+PinWheel4 | ![alt text][mappinwheel4] | 2 / 4
+QuadClose2 | ![alt text][mapquadclose2] | 2
+QuadClose3 | ![alt text][mapquadclose3] | 3
+QuadClose4 | ![alt text][mapquadclose4] | 2 / 4
+SingleRing2 | ![alt text][mapsinglering2] | 2
+SingleRing3 | ![alt text][mapsinglering3] | 3
+SingleRing4 | ![alt text][mapsinglering4] | 2 / 4
+Spine2 | ![alt text][mapspine2] | 2
+Spine3 | ![alt text][mapspine3] | 3
+Spine4 | ![alt text][mapspine4] | 2 / 4
+Star2 | ![alt text][mapstar2] | 2
+TriClose2 | ![alt text][maptriclose2] | 2
+TriClose3 | ![alt text][maptriclose3] | 3
+TriClose4 | ![alt text][maptriclose4] | 2 / 4
+
+[Overview](#overview)
+
+Map Editor
+------
+![alt text][mapeditor]
 
 [Overview](#overview)
 
@@ -135,7 +171,6 @@ Item | Source
 **Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar
 **Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 **Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
-**Maps** | Free Allegiance: http://www.freeallegiance.org/FAW/index.php/Maps
 
 [Overview](#overview)
 
@@ -163,15 +198,43 @@ Bonus Game
 [battle1]: /Doc/Screenshots/01a_Gameplay02.png "Battle"
 [battle2]: /Doc/Screenshots/01a_Gameplay05.png "Battle"
 [gameover]: /Doc/Screenshots/01a_GameOver.png "Game Over"
-[custom]: /Doc/Screenshots/01a_CustomGame.png "Custom Game"
-[faction]: /Doc/Screenshots/01a_Faction.png "Custom Factions"
+[custom]: /Doc/Screenshots/CustomSettings.png "Custom Settings"
+[faction]: /Doc/Screenshots/FactionDetails.png "Custom Factions"
 [bonus]: /Doc/Screenshots/01a_Bonus.png "Dogfight"
 [techtree]: /Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
+[mapeditor]: /Doc/Screenshots/MapDesigner.png "Map Editor"
 
-[mapsingle]: /Doc/Images/Map_SingleRing.png "SingleRing"
-[mapdouble]: /Doc/Images/Map_DoubleRing.png "DoubleRing"
-[mappin]: /Doc/Images/Map_PinWheel.png "PinWheel"
-[maphilo]: /Doc/Images/Map_HiLo.png "HiLo"
-[maphigh]: /Doc/Images/Map_HiHigher.png "HiHigher"
-[mapgrid]: /Doc/Images/Map_Grid.png "Grid"
-[mapstar]: /Doc/Images/Map_Star.png "Star"
+
+[mapacross4]: /Doc/Images/Maps/Across4.png "Across4"
+[mapbrawl2]: /Doc/Images/Maps/Brawl2.png "Brawl2"
+[mapcross2]: /Doc/Images/Maps/Cross2.png "Cross2"
+[mapcross3]: /Doc/Images/Maps/Cross3.png "Cross3"
+[mapcross4]: /Doc/Images/Maps/Cross4.png "Cross4"
+[mapdoublering2]: /Doc/Images/Maps/DoubleRing2.png "DoubleRing2"
+[mapdoublering3]: /Doc/Images/Maps/DoubleRing3.png "DoubleRing3"
+[mapdoublering4]: /Doc/Images/Maps/DoubleRing4.png "DoubleRing4"
+[mapgrid2]: /Doc/Images/Maps/Grid2.png "Grid2"
+[maphihigher2]: /Doc/Images/Maps/HiHigher2.png "HiHigher2"
+[maphilo2]: /Doc/Images/Maps/HiLo2.png "HiLo2"
+[mapnervehigh2]: /Doc/Images/Maps/NerveHigh2.png "NerveHigh2"
+[mapnervehigh3]: /Doc/Images/Maps/NerveHigh3.png "NerveHigh3"
+[mapnervehigh4]: /Doc/Images/Maps/NerveHigh4.png "NerveHigh4"
+[mapnervelow2]: /Doc/Images/Maps/NerveLow2.png "NerveLow2"
+[mapnervelow3]: /Doc/Images/Maps/NerveLow3.png "NerveLow3"
+[mapnervelow4]: /Doc/Images/Maps/NerveLow4.png "NerveLow4"
+[mappinwheel2]: /Doc/Images/Maps/PinWheel2.png "PinWheel2"
+[mappinwheel3]: /Doc/Images/Maps/PinWheel3.png "PinWheel3"
+[mappinwheel4]: /Doc/Images/Maps/PinWheel4.png "PinWheel4"
+[mapquadclose2]: /Doc/Images/Maps/QuadClose2.png "QuadClose2"
+[mapquadclose3]: /Doc/Images/Maps/QuadClose3.png "QuadClose3"
+[mapquadclose4]: /Doc/Images/Maps/QuadClose4.png "QuadClose4"
+[mapsinglering2]: /Doc/Images/Maps/SingleRing2.png "SingleRing2"
+[mapsinglering3]: /Doc/Images/Maps/SingleRing3.png "SingleRing3"
+[mapsinglering4]: /Doc/Images/Maps/SingleRing4.png "SingleRing4"
+[mapspine2]: /Doc/Images/Maps/Spine2.png "Spine2"
+[mapspine3]: /Doc/Images/Maps/Spine3.png "Spine3"
+[mapspine4]: /Doc/Images/Maps/Spine4.png "Spine4"
+[mapstar2]: /Doc/Images/Maps/Star2.png "Star2"
+[maptriclose2]: /Doc/Images/Maps/TriClose2.png "TriClose2"
+[maptriclose3]: /Doc/Images/Maps/TriClose3.png "TriClose3"
+[maptriclose4]: /Doc/Images/Maps/TriClose4.png "TriClose4"

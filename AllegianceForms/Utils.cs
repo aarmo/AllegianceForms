@@ -50,73 +50,36 @@ namespace AllegianceForms
             return (Bitmap)Image.FromFile(imgs[rnd.Next(imgs.Length)]);
         }
 
-        public static Bitmap GenerateAvatarImage(string key)
+        public static Bitmap CropImageToNonTransparent(Bitmap b)
         {
-            var hash = key.GetHashCode();
-            var rnd = new System.Random(hash);
-            const string basePath = ".\\Art\\Avatars\\generated";
-            var sets = Directory.GetDirectories(basePath);
-            var s = rnd.Next(sets.Length);
+            var cropTo = new Rectangle(int.MaxValue, int.MaxValue, int.MinValue, int.MinValue);
 
-            var robot = DrawAllImagesinSubDir(rnd, sets[s], sets[s]);
-
-            var hueShift = rnd.Next(180);
-
-            for (var w = 0; w < robot.Width; w++)
+            for (var x = 0; x < b.Width; x++ )
             {
-                for (var h = 0; h < robot.Height; h++)
+                for (var y = 0; y < b.Height; y++)
                 {
-                    var c = robot.GetPixel(w, h);
-                    var c2 = ColorHelper.ShiftHue(c, hueShift);
-                    robot.SetPixel(w, h, c2);
-                }
-            }
-
-            return robot;
-        }
-
-        private static Bitmap DrawAllImagesinSubDir(System.Random rnd, string dirPath, string imgPath)
-        {
-            var imgs = Directory.GetFiles(imgPath);
-
-            if (imgs.Length > 0)
-            {
-                Graphics g = null;
-                Bitmap img = null;
-
-                // Draw one image from the parent's sub dirs                
-                var dirs = Directory.GetDirectories(dirPath);
-                
-                foreach (var d in Directory.GetDirectories(dirPath))
-                {
-                    var imgs2 = Directory.GetFiles(d);
-
-                    if (imgs2.Length > 0)
+                    var p = b.GetPixel(x, y);
+                    if (p.A != 0)
                     {
-                        var i = Image.FromFile(imgs2[rnd.Next(imgs2.Length)]);
-                        if (g == null)
-                        {
-                            img = (Bitmap)i;
-                            g = Graphics.FromImage(img);
-                        }
-                        else
-                        {
-                            g.DrawImage(i, 0, 0);
-                        }
+                        if (x < cropTo.X) cropTo.X = x;
+                        if (x > cropTo.Width) cropTo.Width = x;
+                        if (y < cropTo.Y) cropTo.Y = y;
+                        if (y > cropTo.Height) cropTo.Height = y;
                     }
                 }
+            }
+            cropTo.Width -= cropTo.X;
+            cropTo.Height -= cropTo.Y;
 
-                return img;
-            }
-            else
-            {
-                // Recurse deeper to find the final sub dirs
-                var dirs = Directory.GetDirectories(imgPath);
-                if (dirs.Length > 0)
-                    return DrawAllImagesinSubDir(rnd, imgPath, dirs[rnd.Next(dirs.Length)]);
-                else
-                    return null;
-            }
+            return CropImage(b, cropTo);
+        }
+
+        public static Bitmap CropImage(Bitmap b, Rectangle r)
+        {
+            var nb = new Bitmap(r.Width, r.Height);
+            var g = Graphics.FromImage(nb);
+            g.DrawImage(b, -r.X, -r.Y);
+            return nb;
         }
     }
 }

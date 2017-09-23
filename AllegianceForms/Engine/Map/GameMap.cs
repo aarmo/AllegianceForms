@@ -257,16 +257,17 @@ namespace AllegianceForms.Engine.Map
                 rockSize = 70;
                 radiusX = 200;
                 radiusY = 100;
-                var rockOptionsFull = new List<Asteroid>
-                {
-                    new TechCarbonAsteroid(_game, rnd, rockSize, rockSize, sector.Id),
-                    new TechSiliconAsteroid(_game, rnd, rockSize, rockSize, sector.Id),
-                    new TechUraniumAsteroid(_game, rnd, rockSize, rockSize, sector.Id)
-                };
-                var rockOptions = new List<Asteroid>(rockOptionsFull);
+                List<Asteroid> rockOptions = new List<Asteroid>();
                 for (var i = 0; i < settings.RocksPerSectorTech; i++)
                 {
+                    if (rockOptions.Count == 0)
+                    {
+                        rockOptions.Add(new TechCarbonAsteroid(_game, rnd, rockSize, rockSize, sector.Id));
+                        rockOptions.Add(new TechSiliconAsteroid(_game, rnd, rockSize, rockSize, sector.Id));
+                        rockOptions.Add(new TechUraniumAsteroid(_game, rnd, rockSize, rockSize, sector.Id));
+                    }
                     var a = rockOptions[rnd.Next(0, rockOptions.Count)];
+
                     a.CenterX = rnd.Next(centerPos.X - radiusX, centerPos.X + radiusX);
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
                     asteroids.Add(a);
@@ -276,8 +277,6 @@ namespace AllegianceForms.Engine.Map
                     }
                     _game.BuildableAsteroids.Add(a);
                     rockOptions.Remove(a);
-
-                    if (rockOptions.Count == 0) rockOptions.AddRange(rockOptionsFull);
                 }
 
                 // Resources

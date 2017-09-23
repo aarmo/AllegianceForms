@@ -241,7 +241,7 @@ namespace AllegianceForms.Forms
 
                 var map = Utils.DeserialiseFromFile<SimpleGameMap>(openFileDialog.FileName);
                 if (map == null) return;
-
+                
                 LoadMap(map);
             }
         }
@@ -264,6 +264,11 @@ namespace AllegianceForms.Forms
                 _paths.Add(new SectorPath { FromSector = from, ToSector = to });
             }
             DrawPaths();
+
+            if (MapPicture.Visible)
+            {
+                Preview_Click(this, null);
+            }
         }
 
         private void MapPanel_Paint(object sender, PaintEventArgs e)
@@ -292,15 +297,6 @@ namespace AllegianceForms.Forms
             Invalidate();
         }
 
-        private void Preset_Click(object sender, EventArgs e)
-        {
-            Clear_Click(sender, e);
-
-            var teams = StrategyGame.Random.Next(2, 5);
-            var map = GameMaps.LoadMap(_game, GameMaps.RandomName(teams)).ToSimpleMap();
-            LoadMap(map);
-        }
-
         private void Preview_Click(object sender, EventArgs e)
         {
             var map = CreateMap();
@@ -316,11 +312,6 @@ namespace AllegianceForms.Forms
             MapPicture.Image = i;
             MapPicture.Visible = true;
             Preview.Visible = false;
-            /*
-            StrategyGame.Map = gameMap;
-            var f = new Map();
-            f.ShowDialog(this);
-            */
         }
 
         private void MapPicture_Click(object sender, EventArgs e)
@@ -328,6 +319,42 @@ namespace AllegianceForms.Forms
             MapPicture.Visible = false;
             Preview.Visible = true;
             MapPicture.Image = null;
+        }
+
+        private void SavePreviewForAll_Click(object sender, EventArgs e)
+        {
+            // Choose a list of map files
+            openFileDialog.Multiselect = true;
+
+            // TODO: Choose an output dir
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (var filename in openFileDialog.FileNames)
+                {
+                    var map = Utils.DeserialiseFromFile<SimpleGameMap>(filename);
+                    if (map == null) return;
+
+                    var gameMap = GameMap.FromSimpleMap(_game, map, true);
+                    if (gameMap == null) return;
+
+                    var i = new Bitmap(MapPicture.Width, MapPicture.Height);
+                    var g = Graphics.FromImage(i);
+                    gameMap.Draw(g, -1);
+
+                    var outputFile = filename.Replace(".map", ".png");
+
+                    var cropped = Utils.CropImageToNonTransparent(i);
+                    cropped.Save(outputFile, System.Drawing.Imaging.ImageFormat.Png);
+
+                    i.Dispose();
+                    g.Dispose();
+                    map = null;
+                    gameMap = null;
+                    GC.Collect();
+                }
+            }
+            openFileDialog.Multiselect = false;
         }
     }
 

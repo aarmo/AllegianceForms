@@ -191,7 +191,6 @@ namespace AllegianceForms.Forms
 
                 SoundEffect.Play(ESounds.text);
                 SwitchSector(s.Id+1);
-                Focus();
             }
             else if (e == EGameEventType.SectorRightClicked)
             {
@@ -213,8 +212,6 @@ namespace AllegianceForms.Forms
                 s.Selected = true;
                 _selectedUnits.Add(s);
                 RefreshCommandText();
-
-                Focus();
             }
             else if (e == EGameEventType.MissileHit)
             {
@@ -653,6 +650,8 @@ namespace AllegianceForms.Forms
             _selection = new Rectangle(x, y, width, height);
         }
 
+        private int[] _mappedSectors = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+
         private void Sector_KeyDown(object sender, KeyEventArgs e)
         {
             _shiftDown = e.Shift;
@@ -690,7 +689,6 @@ namespace AllegianceForms.Forms
                     var lastSectorId = _currentSector.Id;
                     SwitchSector(_alertSectorId+1);
                     _alertSectorId = lastSectorId;
-                    Focus();
                     return;
                 }
             }
@@ -698,6 +696,7 @@ namespace AllegianceForms.Forms
             {
                 switch (e.KeyCode)
                 {
+                    case Keys.D0:
                     case Keys.D1:
                     case Keys.D2:
                     case Keys.D3:
@@ -707,8 +706,22 @@ namespace AllegianceForms.Forms
                     case Keys.D7:
                     case Keys.D8:
                     case Keys.D9:
-                        SoundEffect.Play(ESounds.text);
-                        SwitchSector(Convert.ToInt32(e.KeyCode.ToString().Replace("D", string.Empty)));
+                        var i = Convert.ToInt32(e.KeyCode.ToString().Replace("D", string.Empty));
+                        
+                        if (e.Control)
+                        {
+                            SoundEffect.Play(ESounds.mousedown);
+                            _mappedSectors[i] = _currentSector.Id;
+                        }
+                        else
+                        {
+                            var sectorId = _mappedSectors[i];
+                            if (sectorId > -1)
+                            {
+                                SoundEffect.Play(ESounds.text);
+                                SwitchSector(sectorId+1);
+                            }
+                        }
                         return;
                 }
 
@@ -736,7 +749,8 @@ namespace AllegianceForms.Forms
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
 
             Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
-            if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
+            if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);            
+            Focus();
         }
 
         private void GiveBaseOrders(KeyEventArgs e)

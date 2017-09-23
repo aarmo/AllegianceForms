@@ -643,105 +643,105 @@
     <Content Include="Art\Sounds\sidewinder.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Data\Maps\Across4.map">
+    <Content Include="Data\Maps\Across4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Brawl2.map">
+    </Content>
+    <Content Include="Data\Maps\Brawl2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Cross2.map">
+    </Content>
+    <Content Include="Data\Maps\Cross2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Cross3.map">
+    </Content>
+    <Content Include="Data\Maps\Cross3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Cross4.map">
+    </Content>
+    <Content Include="Data\Maps\Cross4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\DoubleRing2.map">
+    </Content>
+    <Content Include="Data\Maps\DoubleRing2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\DoubleRing3.map">
+    </Content>
+    <Content Include="Data\Maps\DoubleRing3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\DoubleRing4.map">
+    </Content>
+    <Content Include="Data\Maps\DoubleRing4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Grid2.map">
+    </Content>
+    <Content Include="Data\Maps\Grid2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\HiHigher2.map">
+    </Content>
+    <Content Include="Data\Maps\HiHigher2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\HiLo2.map">
+    </Content>
+    <Content Include="Data\Maps\HiLo2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\NerveHigh2.map">
+    </Content>
+    <Content Include="Data\Maps\NerveHigh2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\NerveHigh3.map">
+    </Content>
+    <Content Include="Data\Maps\NerveHigh3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\NerveHigh4.map">
+    </Content>
+    <Content Include="Data\Maps\NerveHigh4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\NerveLow2.map">
+    </Content>
+    <Content Include="Data\Maps\NerveLow2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\NerveLow3.map">
+    </Content>
+    <Content Include="Data\Maps\NerveLow3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\NerveLow4.map">
+    </Content>
+    <Content Include="Data\Maps\NerveLow4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\PinWheel2.map">
+    </Content>
+    <Content Include="Data\Maps\PinWheel2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\PinWheel3.map">
+    </Content>
+    <Content Include="Data\Maps\PinWheel3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\PinWheel4.map">
+    </Content>
+    <Content Include="Data\Maps\PinWheel4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\QuadClose2.map">
+    </Content>
+    <Content Include="Data\Maps\QuadClose2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\QuadClose3.map">
+    </Content>
+    <Content Include="Data\Maps\QuadClose3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\QuadClose4.map">
+    </Content>
+    <Content Include="Data\Maps\QuadClose4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\SingleRing2.map">
+    </Content>
+    <Content Include="Data\Maps\SingleRing2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\SingleRing3.map">
+    </Content>
+    <Content Include="Data\Maps\SingleRing3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\SingleRing4.map">
+    </Content>
+    <Content Include="Data\Maps\SingleRing4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Spine2.map">
+    </Content>
+    <Content Include="Data\Maps\Spine2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Spine3.map">
+    </Content>
+    <Content Include="Data\Maps\Spine3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Spine4.map">
+    </Content>
+    <Content Include="Data\Maps\Spine4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\Star2.map">
+    </Content>
+    <Content Include="Data\Maps\Star2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\TriClose2.map">
+    </Content>
+    <Content Include="Data\Maps\TriClose2.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\TriClose3.map">
+    </Content>
+    <Content Include="Data\Maps\TriClose3.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Maps\TriClose4.map">
+    </Content>
+    <Content Include="Data\Maps\TriClose4.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

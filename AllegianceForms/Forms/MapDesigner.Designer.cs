@@ -38,9 +38,9 @@
             this.Clear = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.Preset = new System.Windows.Forms.Button();
             this.Preview = new System.Windows.Forms.Button();
             this.MapPicture = new System.Windows.Forms.PictureBox();
+            this.SavePreviewForAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.MapPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,21 +140,6 @@
             // 
             this.openFileDialog.Filter = "Map files|*.map|All files|*.*";
             // 
-            // Preset
-            // 
-            this.Preset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Preset.Location = new System.Drawing.Point(2, 191);
-            this.Preset.Name = "Preset";
-            this.Preset.Size = new System.Drawing.Size(72, 37);
-            this.Preset.TabIndex = 2;
-            this.Preset.Text = "Rnd Preset";
-            this.Preset.UseVisualStyleBackColor = true;
-            this.Preset.Visible = false;
-            this.Preset.Click += new System.EventHandler(this.Preset_Click);
-            this.Preset.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MapDesigner_KeyDown);
-            this.Preset.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
-            this.Preset.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
-            // 
             // Preview
             // 
             this.Preview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -179,6 +164,20 @@
             this.MapPicture.Visible = false;
             this.MapPicture.Click += new System.EventHandler(this.MapPicture_Click);
             // 
+            // SavePreviewForAll
+            // 
+            this.SavePreviewForAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SavePreviewForAll.Location = new System.Drawing.Point(2, 202);
+            this.SavePreviewForAll.Name = "SavePreviewForAll";
+            this.SavePreviewForAll.Size = new System.Drawing.Size(72, 27);
+            this.SavePreviewForAll.TabIndex = 2;
+            this.SavePreviewForAll.Text = "Export Pics";
+            this.SavePreviewForAll.UseVisualStyleBackColor = true;
+            this.SavePreviewForAll.Click += new System.EventHandler(this.SavePreviewForAll_Click);
+            this.SavePreviewForAll.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MapDesigner_KeyDown);
+            this.SavePreviewForAll.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.SavePreviewForAll.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
             // MapDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,7 +191,7 @@
             this.Controls.Add(this.MapPanel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.MapName);
-            this.Controls.Add(this.Preset);
+            this.Controls.Add(this.SavePreviewForAll);
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.Open);
@@ -224,8 +223,8 @@
         private System.Windows.Forms.Button Clear;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.Button Preset;
         private System.Windows.Forms.Button Preview;
         private System.Windows.Forms.PictureBox MapPicture;
+        private System.Windows.Forms.Button SavePreviewForAll;
     }
 }

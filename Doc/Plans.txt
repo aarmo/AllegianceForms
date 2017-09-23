@@ -1,10 +1,13 @@
 Allegiance Forms: Future?
+	
+Ideas:
+Neutral ships/bases/space monsters?
+Destroyed bases leave salvage?
+Multiple resources (ala Gass in SC2)
 
 Gameplay
 Story Campaign
 Better UI: shortcut buttons
-Neutral ships/bases/space monsters?
-Destroyed bases leave salvage?
 
 Technology
 Support small screens & touch controls
