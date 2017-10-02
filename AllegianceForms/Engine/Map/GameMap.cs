@@ -88,9 +88,8 @@ namespace AllegianceForms.Engine.Map
                     maxY = ys + GameMaps.SectorDiameter;
             }
 
-            MiniMapBounds = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+            MiniMapBounds = new Rectangle(0, 0, maxX + GameMaps.MapPadding, maxY + GameMaps.MapPadding);
         }
-
 
         public void DrawSector(Graphics g, int sectorId)
         {

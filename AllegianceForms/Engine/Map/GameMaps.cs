@@ -24,7 +24,7 @@ namespace AllegianceForms.Engine.Map
             if (!Directory.Exists(StrategyGame.MapFolder))
                 return files;
 
-            var presetFiles = Directory.GetFiles(StrategyGame.MapFolder);
+            var presetFiles = Directory.GetFiles(StrategyGame.MapFolder, "*.map");
             var filenames = (from f in presetFiles
                              select f.Substring(f.LastIndexOf("\\") + 1).Replace(".map", string.Empty)).ToList();
 

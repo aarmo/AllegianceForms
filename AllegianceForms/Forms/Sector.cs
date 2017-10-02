@@ -93,7 +93,7 @@ namespace AllegianceForms.Forms
             _currentSector = startSectors[0];
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
 
-            Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
+            SectorLabel.Text = _currentSector.Name;
             
             // Friendy & enemy team setup:
             for (var t = 0; t < StrategyGame.NumTeams; t++)
@@ -748,7 +748,7 @@ namespace AllegianceForms.Forms
             _currentSector = s;
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
 
-            Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
+            SectorLabel.Text = _currentSector.Name;
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);            
             Focus();
         }

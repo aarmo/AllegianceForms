@@ -228,7 +228,8 @@ namespace AllegianceForms
         final_explosion_small,
         final_explosion_medium,
         final_explosion_large,
-        explosion_tiny
+        explosion_tiny,
+        dropmine
     }
     
     public enum EAiCreditPriorities

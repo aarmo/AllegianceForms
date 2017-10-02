@@ -12,8 +12,11 @@
 Overview
 ------
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance.
+Originally released on 16th March 2000.
 
 Made for the Free Allegiance community: http://www.freeallegiance.org/
+The original game is now free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
+Open Source: https://github.com/FreeAllegiance/Allegiance
 
 [Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)&nbsp;&nbsp;&nbsp;[Dependancies](#dependancies)
 
@@ -22,7 +25,7 @@ Features
 - Customisable [Game Settings & Factions](#customise-the-game)
 - Commander AI
 - Multiple [Maps](#maps), [Map Editor](#map-editor) & [Tech Paths](#tech-tree)
-- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers and Capital Ships!
+- Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers, Minefields and Capital Ships!
 
 ![alt text][ships]
 <br/>
@@ -148,6 +151,14 @@ Star2 | ![alt text][mapstar2] | 2
 TriClose2 | ![alt text][maptriclose2] | 2
 TriClose3 | ![alt text][maptriclose3] | 3
 TriClose4 | ![alt text][maptriclose4] | 2 / 4
+Amber2 | ![alt text][mapamber2] | 2
+Constellation2 | ![alt text][mapconstellation2] | 2
+Limited2 | ![alt text][maplimited2] | 2
+Mica2 | ![alt text][mapmica2] | 2
+Pyrite2 | ![alt text][mappyrite2] | 2
+Schist2 | ![alt text][mapschist2] | 2
+Serpentine2 | ![alt text][mapserpentine2] | 2
+Xenon2 | ![alt text][mapxenon2] | 2
 
 [Overview](#overview)
 
@@ -204,37 +215,45 @@ Bonus Game
 [techtree]: /Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
 [mapeditor]: /Doc/Screenshots/MapDesigner.png "Map Editor"
 
+[mapacross4]: /AllegianceForms/Data/Maps/Across4.png "Across4"
+[mapbrawl2]: /AllegianceForms/Data/Maps/Brawl2.png "Brawl2"
+[mapcross2]: /AllegianceForms/Data/Maps/Cross2.png "Cross2"
+[mapcross3]: /AllegianceForms/Data/Maps/Cross3.png "Cross3"
+[mapcross4]: /AllegianceForms/Data/Maps/Cross4.png "Cross4"
+[mapdoublering2]: /AllegianceForms/Data/Maps/DoubleRing2.png "DoubleRing2"
+[mapdoublering3]: /AllegianceForms/Data/Maps/DoubleRing3.png "DoubleRing3"
+[mapdoublering4]: /AllegianceForms/Data/Maps/DoubleRing4.png "DoubleRing4"
+[mapgrid2]: /AllegianceForms/Data/Maps/Grid2.png "Grid2"
+[maphihigher2]: /AllegianceForms/Data/Maps/HiHigher2.png "HiHigher2"
+[maphilo2]: /AllegianceForms/Data/Maps/HiLo2.png "HiLo2"
+[mapnervehigh2]: /AllegianceForms/Data/Maps/NerveHigh2.png "NerveHigh2"
+[mapnervehigh3]: /AllegianceForms/Data/Maps/NerveHigh3.png "NerveHigh3"
+[mapnervehigh4]: /AllegianceForms/Data/Maps/NerveHigh4.png "NerveHigh4"
+[mapnervelow2]: /AllegianceForms/Data/Maps/NerveLow2.png "NerveLow2"
+[mapnervelow3]: /AllegianceForms/Data/Maps/NerveLow3.png "NerveLow3"
+[mapnervelow4]: /AllegianceForms/Data/Maps/NerveLow4.png "NerveLow4"
+[mappinwheel2]: /AllegianceForms/Data/Maps/PinWheel2.png "PinWheel2"
+[mappinwheel3]: /AllegianceForms/Data/Maps/PinWheel3.png "PinWheel3"
+[mappinwheel4]: /AllegianceForms/Data/Maps/PinWheel4.png "PinWheel4"
+[mapquadclose2]: /AllegianceForms/Data/Maps/QuadClose2.png "QuadClose2"
+[mapquadclose3]: /AllegianceForms/Data/Maps/QuadClose3.png "QuadClose3"
+[mapquadclose4]: /AllegianceForms/Data/Maps/QuadClose4.png "QuadClose4"
+[mapsinglering2]: /AllegianceForms/Data/Maps/SingleRing2.png "SingleRing2"
+[mapsinglering3]: /AllegianceForms/Data/Maps/SingleRing3.png "SingleRing3"
+[mapsinglering4]: /AllegianceForms/Data/Maps/SingleRing4.png "SingleRing4"
+[mapspine2]: /AllegianceForms/Data/Maps/Spine2.png "Spine2"
+[mapspine3]: /AllegianceForms/Data/Maps/Spine3.png "Spine3"
+[mapspine4]: /AllegianceForms/Data/Maps/Spine4.png "Spine4"
+[mapstar2]: /AllegianceForms/Data/Maps/Star2.png "Star2"
+[maptriclose2]: /AllegianceForms/Data/Maps/TriClose2.png "TriClose2"
+[maptriclose3]: /AllegianceForms/Data/Maps/TriClose3.png "TriClose3"
+[maptriclose4]: /AllegianceForms/Data/Maps/TriClose4.png "TriClose4"
 
-[mapacross4]: /Doc/Images/Maps/Across4.png "Across4"
-[mapbrawl2]: /Doc/Images/Maps/Brawl2.png "Brawl2"
-[mapcross2]: /Doc/Images/Maps/Cross2.png "Cross2"
-[mapcross3]: /Doc/Images/Maps/Cross3.png "Cross3"
-[mapcross4]: /Doc/Images/Maps/Cross4.png "Cross4"
-[mapdoublering2]: /Doc/Images/Maps/DoubleRing2.png "DoubleRing2"
-[mapdoublering3]: /Doc/Images/Maps/DoubleRing3.png "DoubleRing3"
-[mapdoublering4]: /Doc/Images/Maps/DoubleRing4.png "DoubleRing4"
-[mapgrid2]: /Doc/Images/Maps/Grid2.png "Grid2"
-[maphihigher2]: /Doc/Images/Maps/HiHigher2.png "HiHigher2"
-[maphilo2]: /Doc/Images/Maps/HiLo2.png "HiLo2"
-[mapnervehigh2]: /Doc/Images/Maps/NerveHigh2.png "NerveHigh2"
-[mapnervehigh3]: /Doc/Images/Maps/NerveHigh3.png "NerveHigh3"
-[mapnervehigh4]: /Doc/Images/Maps/NerveHigh4.png "NerveHigh4"
-[mapnervelow2]: /Doc/Images/Maps/NerveLow2.png "NerveLow2"
-[mapnervelow3]: /Doc/Images/Maps/NerveLow3.png "NerveLow3"
-[mapnervelow4]: /Doc/Images/Maps/NerveLow4.png "NerveLow4"
-[mappinwheel2]: /Doc/Images/Maps/PinWheel2.png "PinWheel2"
-[mappinwheel3]: /Doc/Images/Maps/PinWheel3.png "PinWheel3"
-[mappinwheel4]: /Doc/Images/Maps/PinWheel4.png "PinWheel4"
-[mapquadclose2]: /Doc/Images/Maps/QuadClose2.png "QuadClose2"
-[mapquadclose3]: /Doc/Images/Maps/QuadClose3.png "QuadClose3"
-[mapquadclose4]: /Doc/Images/Maps/QuadClose4.png "QuadClose4"
-[mapsinglering2]: /Doc/Images/Maps/SingleRing2.png "SingleRing2"
-[mapsinglering3]: /Doc/Images/Maps/SingleRing3.png "SingleRing3"
-[mapsinglering4]: /Doc/Images/Maps/SingleRing4.png "SingleRing4"
-[mapspine2]: /Doc/Images/Maps/Spine2.png "Spine2"
-[mapspine3]: /Doc/Images/Maps/Spine3.png "Spine3"
-[mapspine4]: /Doc/Images/Maps/Spine4.png "Spine4"
-[mapstar2]: /Doc/Images/Maps/Star2.png "Star2"
-[maptriclose2]: /Doc/Images/Maps/TriClose2.png "TriClose2"
-[maptriclose3]: /Doc/Images/Maps/TriClose3.png "TriClose3"
-[maptriclose4]: /Doc/Images/Maps/TriClose4.png "TriClose4"
+[mapamber2]: /AllegianceForms/Data/Maps/Amber2.png "Amber2"
+[mapconstellation2]: /AllegianceForms/Data/Maps/Constellation2.png "Constellation2"
+[maplimited2]: /AllegianceForms/Data/Maps/Limited2.png "Limited2"
+[mapmica2]: /AllegianceForms/Data/Maps/Mica2.png "Mica2"
+[mappyrite2]: /AllegianceForms/Data/Maps/Pyrite2.png "Pyrite2"
+[mapschist2]: /AllegianceForms/Data/Maps/Schist2.png "Schist2"
+[mapserpentine2]: /AllegianceForms/Data/Maps/Serpentine2.png "Serpentine2"
+[mapxenon2]: /AllegianceForms/Data/Maps/Xenon2.png "Xenon2"

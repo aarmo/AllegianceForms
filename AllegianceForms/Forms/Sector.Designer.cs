@@ -68,6 +68,7 @@
             this.WinLose = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.AlertMessage = new System.Windows.Forms.Label();
+            this.SectorLabel = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -488,10 +489,12 @@
             // 
             // AlertMessage
             // 
+            this.AlertMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AlertMessage.BackColor = System.Drawing.Color.Transparent;
             this.AlertMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AlertMessage.ForeColor = System.Drawing.Color.DimGray;
-            this.AlertMessage.Location = new System.Drawing.Point(12, 13);
+            this.AlertMessage.Location = new System.Drawing.Point(12, 40);
             this.AlertMessage.Name = "AlertMessage";
             this.AlertMessage.Size = new System.Drawing.Size(1160, 41);
             this.AlertMessage.TabIndex = 12;
@@ -499,12 +502,27 @@
             this.AlertMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.AlertMessage.Visible = false;
             // 
+            // SectorLabel
+            // 
+            this.SectorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SectorLabel.BackColor = System.Drawing.Color.Transparent;
+            this.SectorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SectorLabel.ForeColor = System.Drawing.Color.Silver;
+            this.SectorLabel.Location = new System.Drawing.Point(12, -1);
+            this.SectorLabel.Name = "SectorLabel";
+            this.SectorLabel.Size = new System.Drawing.Size(1160, 33);
+            this.SectorLabel.TabIndex = 12;
+            this.SectorLabel.Text = "[Sector Info]";
+            this.SectorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Sector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1184, 741);
+            this.Controls.Add(this.SectorLabel);
             this.Controls.Add(this.AlertMessage);
             this.Controls.Add(this.GameOverPanel);
             this.Controls.Add(this.statusStrip);
@@ -518,7 +536,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Allegiance Forms - Conquest";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sector_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Sector_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Sector_KeyDown);
@@ -575,6 +592,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Team2;
         private System.Windows.Forms.Label AlertMessage;
+        private System.Windows.Forms.Label SectorLabel;
     }
 }
 

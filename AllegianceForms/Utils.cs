@@ -50,6 +50,19 @@ namespace AllegianceForms
             return (Bitmap)Image.FromFile(imgs[rnd.Next(imgs.Length)]);
         }
 
+        public static void ReplaceColour(Bitmap bmp, Color newColour)
+        {
+            // Set the image's team color
+            for (var x = 0; x < bmp.Width; x++)
+            {
+                for (var y = 0; y < bmp.Height; y++)
+                {
+                    var c = bmp.GetPixel(x, y);
+                    if (c.A != 0) bmp.SetPixel(x, y, Color.FromArgb(c.A, newColour.R, newColour.G, newColour.B));
+                }
+            }
+        }
+
         public static Bitmap CropImageToNonTransparent(Bitmap b)
         {
             var cropTo = new Rectangle(int.MaxValue, int.MaxValue, int.MinValue, int.MinValue);

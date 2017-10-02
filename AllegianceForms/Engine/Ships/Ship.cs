@@ -28,20 +28,7 @@ namespace AllegianceForms.Engine.Ships
         public Ship(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
             : base(game, imageFilename, width, height, health, sectorId, team)
         {
-            if (Image != null)
-            {
-                var bmp = (Bitmap)Image;
-
-                // Set the image's team color
-                for (var x = 0; x < bmp.Width; x++)
-                {
-                    for (var y = 0; y < bmp.Height; y++)
-                    {
-                        var c = bmp.GetPixel(x, y);
-                        if (c.A != 0) bmp.SetPixel(x, y, teamColor);
-                    }
-                }
-            }
+            if (Image != null) Utils.ReplaceColour((Bitmap)Image, teamColor);
 
             Active = true;
             Alliance = alliance;

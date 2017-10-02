@@ -82,6 +82,7 @@
     <Compile Include="Engine\LadderTests.cs" />
     <Compile Include="Engine\MapPathfindingTests.cs" />
     <Compile Include="Engine\MathTests.cs" />
+    <Compile Include="Engine\MineWeaponTests.cs" />
     <Compile Include="Engine\PathfindingTests.cs" />
     <Compile Include="Engine\PilotTests.cs" />
     <Compile Include="Engine\PositionTests.cs" />

@@ -138,9 +138,11 @@
             this.TeamItems = new System.Windows.Forms.FlowLayoutPanel();
             this.label51 = new System.Windows.Forms.Label();
             this.VariantAI = new System.Windows.Forms.CheckBox();
+            this.MapPreview = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Teams)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MapPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -148,7 +150,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(13, 7);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 16);
             this.label1.TabIndex = 0;
@@ -160,7 +162,7 @@
             this.MapList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MapList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MapList.FormattingEnabled = true;
-            this.MapList.Location = new System.Drawing.Point(90, 6);
+            this.MapList.Location = new System.Drawing.Point(90, 12);
             this.MapList.Name = "MapList";
             this.MapList.Size = new System.Drawing.Size(101, 21);
             this.MapList.TabIndex = 0;
@@ -171,7 +173,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Lime;
-            this.label2.Location = new System.Drawing.Point(207, 37);
+            this.label2.Location = new System.Drawing.Point(692, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 16);
             this.label2.TabIndex = 0;
@@ -180,7 +182,7 @@
             // Pilots
             // 
             this.Pilots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Pilots.Location = new System.Drawing.Point(283, 35);
+            this.Pilots.Location = new System.Drawing.Point(769, 131);
             this.Pilots.Maximum = new decimal(new int[] {
             32,
             0,
@@ -1109,7 +1111,7 @@
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label41.ForeColor = System.Drawing.Color.Lime;
-            this.label41.Location = new System.Drawing.Point(13, 37);
+            this.label41.Location = new System.Drawing.Point(11, 49);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(71, 16);
             this.label41.TabIndex = 0;
@@ -1128,9 +1130,9 @@
             "Hard",
             "Very Hard",
             "Insane"});
-            this.Difficulty.Location = new System.Drawing.Point(90, 33);
+            this.Difficulty.Location = new System.Drawing.Point(90, 48);
             this.Difficulty.Name = "Difficulty";
-            this.Difficulty.Size = new System.Drawing.Size(76, 21);
+            this.Difficulty.Size = new System.Drawing.Size(101, 21);
             this.Difficulty.TabIndex = 2;
             this.Difficulty.Text = "Normal";
             this.Difficulty.SelectedIndexChanged += new System.EventHandler(this.Difficulty_SelectedIndexChanged);
@@ -1502,7 +1504,7 @@
             this.label56.AutoSize = true;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label56.ForeColor = System.Drawing.Color.Lime;
-            this.label56.Location = new System.Drawing.Point(207, 9);
+            this.label56.Location = new System.Drawing.Point(692, 107);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(60, 16);
             this.label56.TabIndex = 0;
@@ -1511,7 +1513,7 @@
             // Teams
             // 
             this.Teams.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Teams.Location = new System.Drawing.Point(283, 9);
+            this.Teams.Location = new System.Drawing.Point(769, 107);
             this.Teams.Maximum = new decimal(new int[] {
             4,
             0,
@@ -1568,13 +1570,22 @@
             this.VariantAI.AutoSize = true;
             this.VariantAI.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.VariantAI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VariantAI.Location = new System.Drawing.Point(31, 60);
+            this.VariantAI.Location = new System.Drawing.Point(31, 75);
             this.VariantAI.Name = "VariantAI";
             this.VariantAI.Size = new System.Drawing.Size(72, 17);
             this.VariantAI.TabIndex = 13;
             this.VariantAI.Text = "Variant AI:";
             this.VariantAI.UseVisualStyleBackColor = true;
             this.VariantAI.CheckedChanged += new System.EventHandler(this.VariantAI_CheckedChanged);
+            // 
+            // MapPreview
+            // 
+            this.MapPreview.Location = new System.Drawing.Point(199, 6);
+            this.MapPreview.Name = "MapPreview";
+            this.MapPreview.Size = new System.Drawing.Size(133, 94);
+            this.MapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.MapPreview.TabIndex = 53;
+            this.MapPreview.TabStop = false;
             // 
             // CustomiseSetttings
             // 
@@ -1584,6 +1595,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(848, 526);
+            this.Controls.Add(this.MapPreview);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.ResetPreset);
@@ -1705,6 +1717,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Teams)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MapPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1821,5 +1834,6 @@
         private System.Windows.Forms.FlowLayoutPanel TeamItems;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.CheckBox VariantAI;
+        private System.Windows.Forms.PictureBox MapPreview;
     }
 }

@@ -531,6 +531,7 @@ namespace AllegianceForms.Forms
         private void MapList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Settings.MapName = MapList.Text;
+            MapPreview.Image = Image.FromFile(StrategyGame.MapFolder + "\\" + MapList.Text + ".png");
         }
 
         private void MaxTowerDrones_SelectedIndexChanged(object sender, EventArgs e)
