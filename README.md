@@ -12,11 +12,12 @@
 Overview
 ------
 A 2D strategy game inspired by Microsoft's space combat game: Allegiance.
-Originally released on 16th March 2000.
 
 Made for the Free Allegiance community: http://www.freeallegiance.org/
-The original game is now free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
-Open Source: https://github.com/FreeAllegiance/Allegiance
+
+- Allegiance was originally released on 16th March 2000.
+- It is Open Source: https://github.com/FreeAllegiance/Allegiance
+- And it is now available free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
 
 [Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)&nbsp;&nbsp;&nbsp;[Dependancies](#dependancies)
 
