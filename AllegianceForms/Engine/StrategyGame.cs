@@ -244,27 +244,22 @@ namespace AllegianceForms.Engine
             var maxHops = Map.Wormholes.Count + 4;
             var minHops = int.MaxValue;
             Base targetBase = null;
-            launchingBase = null;
 
-            var launchingBases = AllBases.Where(_ => _.Active && _.Team == team && _.CanLaunchShips());
-            
-            foreach (var l in launchingBases)
+            launchingBase = AllBases.FirstOrDefault(_ => _.Active && _.Team == team && _.CanLaunchShips());
+            if (launchingBase == null) return targetBase;
+
+            var launchingSector = launchingBase.SectorId;
+
+            var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId != launchingSector).ToList();
+            foreach (var b in otherSectorBases)
             {
-                if (launchingBase == null)
-                if (launchingBase != null && l.SectorId == launchingBase.SectorId) continue;
+                var path = Map.ShortestPath(team, launchingSector, b.SectorId);
+                var newHops = path == null ? int.MaxValue : path.Count();
 
-                var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId != l.SectorId).ToList();
-                foreach (var b in otherSectorBases)
+                if (newHops < minHops)
                 {
-                    var path = Map.ShortestPath(team, l.SectorId, b.SectorId);
-                    var newHops = path == null ? int.MaxValue : path.Count();
-
-                    if (newHops < minHops)
-                    {
-                        minHops = newHops;
-                        targetBase = b;
-                        launchingBase = l;
-                    }
+                    minHops = newHops;
+                    targetBase = b;
                 }
             }
 

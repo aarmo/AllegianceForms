@@ -17,6 +17,7 @@ namespace AllegianceForms.Engine.Tech
         public int Team { get; set; }
         public int ResearchedTicks { get; set; }
         public int DurationTicks { get; set; }
+        public string Icon { get; set; }
 
         private StrategyGame _game;
 

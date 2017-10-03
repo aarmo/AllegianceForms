@@ -43,6 +43,11 @@ namespace AllegianceForms.Controls
             Item = item;
 
             TechName.Text = item.Name;
+            TechAmount.Text = $"${item.Cost}";
+            TechDuration.Text = $"({item.DurationTicks / 4}s)";
+
+            if (!string.IsNullOrWhiteSpace(item.Icon))
+                TechIcon.Image = Image.FromFile(StrategyGame.IconPicDir + item.Icon);
 
             InvestmentProgress.Maximum = item.Cost;
             TimeProgress.Maximum = item.DurationTicks;
