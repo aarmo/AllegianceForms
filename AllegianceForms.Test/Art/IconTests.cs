@@ -1,4 +1,5 @@
 ﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.IO;
@@ -31,6 +32,25 @@ namespace AllegianceForms.Test.Art
                 var exists = File.Exists(file);
                 exists.ShouldBe(true, "File doesn't exist: " + file);
             }
+        }
+
+        [TestMethod]
+        public void AnimationFramesExist()
+        {
+            var files = StrategyGame.GetExplosionFrames();
+            foreach (var file in files)
+            {
+                var exists = File.Exists(file);
+                exists.ShouldBe(true, "File doesn't exist: " + file);
+            }
+        }
+
+        [TestMethod]
+        public void MinefieldImageExists()
+        {
+            var file = MineWeapon.MinefieldImage;
+            var exists = File.Exists(file);
+            exists.ShouldBe(true, "File doesn't exist: " + file);            
         }
 
         [TestMethod]

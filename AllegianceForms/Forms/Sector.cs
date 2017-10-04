@@ -149,11 +149,7 @@ namespace AllegianceForms.Forms
             }
 
             // Explosions!
-            var explosionFrames = new string[10];
-            for (var i = 0; i < 10; i++)
-            {
-                explosionFrames[i] = $".\\Art\\Animations\\Explode\\bubble_explo{i + 1}.png";
-            }
+            var explosionFrames = StrategyGame.GetExplosionFrames();
 
             for (var i = 0; i < 30; i++)
             {
@@ -458,7 +454,10 @@ namespace AllegianceForms.Forms
                     u.Draw(g, currentSectorId);
                 }
             }
-            
+
+            StrategyGame.DrawMinefields(g, currentSectorId);
+            StrategyGame.DrawMissiles(g, currentSectorId);
+
             foreach (var a in _animations)
             {
                 a.Draw(g, a.SectorId == currentSectorId);

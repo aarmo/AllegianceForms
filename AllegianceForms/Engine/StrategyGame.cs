@@ -6,6 +6,7 @@ using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Engine.Tech;
+using AllegianceForms.Engine.Weapons;
 using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,8 @@ namespace AllegianceForms.Engine
         public List<Asteroid> AllAsteroids = new List<Asteroid>();
         public List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();        
         public List<Asteroid> BuildableAsteroids = new List<Asteroid>();
+        public List<Minefield> Minefields = new List<Minefield>();
+        public List<MissileProjectile> Missiles = new List<MissileProjectile>();
 
         public Brush[] TeamBrushes;
         public Brush[] TextBrushes;
@@ -896,6 +899,8 @@ namespace AllegianceForms.Engine
             AllAsteroids.Clear();
             ResourceAsteroids.Clear();
             BuildableAsteroids.Clear();
+            Missiles.Clear();
+            Minefields.Clear();
         }
 
         public void InitialiseGame(bool sound = true)
@@ -987,9 +992,30 @@ namespace AllegianceForms.Engine
                 var u = AllBases[i];
                 u.Update();
             }
-            
+
+            foreach (var m in Missiles)
+            {
+                if (m.Target == null || !m.Target.Active)
+                {
+                    m.Target = GetRandomEnemyInRange(m.Team, m.Alliance, m.SectorId, m.Center, 200);
+                }
+
+                m.Update();
+            }
+
+            // Apply damage to all ships within enemy minefields
+            foreach (var m in Minefields)
+            {
+                m.Update();
+
+                var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && m.SectorId == _.SectorId && _.Alliance != m.Alliance && m.Bounds.Contains(_.Bounds));
+                hits.ForEach(_ => _.Damage(m.Damage, m.Team));
+            }
+
             AllUnits.RemoveAll(_ => !_.Active);
             AllBases.RemoveAll(_ => !_.Active);
+            Missiles.RemoveAll(_ => !_.Active);
+            Minefields.RemoveAll(_ => !_.Active);
         }
 
         public void SlowTick()
@@ -1027,6 +1053,53 @@ namespace AllegianceForms.Engine
                 var ai = AICommanders[t];
                 if (ai != null) ai.Update();
             }
+        }
+
+        public static string[] GetExplosionFrames()
+        {
+            var explosionFrames = new string[10];
+            for (var i = 0; i < 10; i++)
+            {
+                explosionFrames[i] = $".\\Art\\Animations\\Explode\\bubble_explo{i + 1}.png";
+            }
+
+            return explosionFrames;
+        }
+
+        public void DrawMissiles(Graphics g, int currentSectorId)
+        {
+            foreach (var m in Missiles)
+            {
+                if (m.SectorId != currentSectorId) continue;
+
+                m.Draw(g);
+            }
+        }
+
+        public void DrawMinefields(Graphics g, int currentSectorId)
+        {
+            foreach (var m in Minefields)
+            {
+                if (!m.Active || m.SectorId != currentSectorId) continue;
+
+                m.Draw(g, currentSectorId);
+            }
+        }
+
+        public Ship GetRandomEnemyInRange(int team, int alliance, int sectorId, PointF pos, float range)
+        {
+            var enemysInRange = AllUnits.Where(_ => _.Active && _.Alliance != alliance && !_.Docked && _.SectorId == sectorId && _.VisibleToTeam[team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(pos.X, pos.Y, _.CenterX, _.CenterY, range)).ToList();
+
+            if (enemysInRange.Count > 1)
+            {
+                return enemysInRange[Random.Next(enemysInRange.Count)];
+            }
+            else if (enemysInRange.Count == 1)
+            {
+                return enemysInRange[0];
+            }
+
+            return null;
         }
     }
 }
