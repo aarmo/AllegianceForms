@@ -37,6 +37,7 @@ namespace AllegianceForms.Engine
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
         public const string IconPicDir = ".\\Art\\Trans\\";
+        public const string SoundsDir = ".\\Art\\Sounds\\";
         public const string GamePresetFolder = ".\\Data\\GamePresets";
         public const string FactionPresetFolder = ".\\Data\\FactionPresets";
         public const string MapFolder = ".\\Data\\Maps";

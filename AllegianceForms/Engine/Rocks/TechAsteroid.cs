@@ -4,10 +4,10 @@ namespace AllegianceForms.Engine.Rocks
 {
     public class TechCarbonAsteroid : Asteroid
     {
-        private static string[] _images = new[] { ".\\Art\\Rocks\\carbon_1.png", ".\\Art\\Rocks\\carbon_2.png", ".\\Art\\Rocks\\carbon_3.png", ".\\Art\\Rocks\\carbon_4.png" };
+        public static new string[] Images = new[] { ".\\Art\\Rocks\\carbon_1.png", ".\\Art\\Rocks\\carbon_2.png", ".\\Art\\Rocks\\carbon_3.png", ".\\Art\\Rocks\\carbon_4.png" };
 
         public TechCarbonAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
-            : base(game, _images[r.Next(0, _images.Length)], width, height, sectorId)
+            : base(game, Images[r.Next(0, Images.Length)], width, height, sectorId)
         {
             Type = EAsteroidType.TechCarbon;
         }
@@ -15,10 +15,10 @@ namespace AllegianceForms.Engine.Rocks
 
     public class TechSiliconAsteroid : Asteroid
     {
-        private static string[] _images = new[] { ".\\Art\\Rocks\\silicon_1.png", ".\\Art\\Rocks\\silicon_2.png", ".\\Art\\Rocks\\silicon_3.png", ".\\Art\\Rocks\\silicon_4.png" };
+        public static new string[] Images = new[] { ".\\Art\\Rocks\\silicon_1.png", ".\\Art\\Rocks\\silicon_2.png", ".\\Art\\Rocks\\silicon_3.png", ".\\Art\\Rocks\\silicon_4.png" };
 
         public TechSiliconAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
-            : base(game, _images[r.Next(0, _images.Length)], width, height, sectorId)
+            : base(game, Images[r.Next(0, Images.Length)], width, height, sectorId)
         {
             Type = EAsteroidType.TechSilicon;
         }
@@ -26,10 +26,10 @@ namespace AllegianceForms.Engine.Rocks
 
     public class TechUraniumAsteroid : Asteroid
     {
-        private static string[] _images = new[] { ".\\Art\\Rocks\\uranium_1.png", ".\\Art\\Rocks\\uranium_2.png", ".\\Art\\Rocks\\uranium_3.png", ".\\Art\\Rocks\\uranium_4.png" };
+        public static new string[] Images = new[] { ".\\Art\\Rocks\\uranium_1.png", ".\\Art\\Rocks\\uranium_2.png", ".\\Art\\Rocks\\uranium_3.png", ".\\Art\\Rocks\\uranium_4.png" };
 
         public TechUraniumAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
-            : base(game, _images[r.Next(0, _images.Length)], width, height, sectorId)
+            : base(game, Images[r.Next(0, Images.Length)], width, height, sectorId)
         {
             Type = EAsteroidType.TechUranium;
         }
