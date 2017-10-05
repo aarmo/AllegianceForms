@@ -38,7 +38,7 @@ namespace AllegianceForms.Test.Faction
         [TestMethod]
         public void MoreRandomIsDifferent()
         {
-            var f = AllegianceForms.Engine.Factions.Faction.Random(30);
+            var f = AllegianceForms.Engine.Factions.Faction.Random(11);
 
             var b1 = _target.Bonuses;
             var b2 = f.Bonuses;

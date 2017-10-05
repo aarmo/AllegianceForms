@@ -2,6 +2,8 @@
 using AllegianceForms.Engine.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace AllegianceForms.Test.Art
@@ -17,6 +19,37 @@ namespace AllegianceForms.Test.Art
             _game = new StrategyGame();
             _game.SetupGame(GameSettings.Default());
             _game.LoadData();
+        }
+
+        [TestMethod]
+        public void ExtraIconsDontExist()
+        {
+            var allItems = new List<string>();
+            var extraItems = new List<string>();
+
+            foreach (var s in _game.Ships.Ships)
+            {
+                if (string.IsNullOrWhiteSpace(s.Image)) continue;
+                allItems.Add(s.Image.ToUpper());
+            }
+
+            foreach (var i in _game.TechTree[0].TechItems)
+            {
+                if (string.IsNullOrWhiteSpace(i.Icon)) continue;
+                allItems.Add(i.Icon.ToUpper());
+            }
+
+            var files = Directory.GetFiles(StrategyGame.IconPicDir, "*.png");
+
+            foreach (var f in files)
+            {
+                var i = f.Replace(StrategyGame.IconPicDir, string.Empty).ToUpper();
+
+                if (!allItems.Contains(i))
+                    extraItems.Add(i);
+            }
+
+            extraItems.Count.ShouldBe(0, $"Unexpected icons found: {string.Join("\n", extraItems)}");
         }
 
         [TestMethod]
