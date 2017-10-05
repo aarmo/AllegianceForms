@@ -525,34 +525,7 @@ namespace AllegianceForms.Engine
                     var builder = drone as BuilderShip;
                     if (builder == null) return;
 
-                    if (tech.Team == 1)
-                    {
-                        if (BaseSpecs.IsTower(builder.BaseType))
-                        {
-                            SoundEffect.Play(ESounds.vo_request_tower);
-                        }
-                        else
-                        {
-                            switch (builder.TargetRockType)
-                            {
-                                case EAsteroidType.Resource:
-                                    SoundEffect.Play(ESounds.vo_request_builderhelium);
-                                    break;
-                                case EAsteroidType.Rock:
-                                    SoundEffect.Play(ESounds.vo_request_buildergeneric);
-                                    break;
-                                case EAsteroidType.TechCarbon:
-                                    SoundEffect.Play(ESounds.vo_request_buildercarbon);
-                                    break;
-                                case EAsteroidType.TechSilicon:
-                                    SoundEffect.Play(ESounds.vo_request_buildersilicon);
-                                    break;
-                                case EAsteroidType.TechUranium:
-                                    SoundEffect.Play(ESounds.vo_request_builderuranium);
-                                    break;
-                            }
-                        }
-                    }
+                    if (tech.Team == 1) PlayConstructorRequestSound(builder);
                 }
 
                 drone.CenterX = b1.CenterX;
@@ -574,6 +547,38 @@ namespace AllegianceForms.Engine
                         SoundEffect.Play(ESounds.vo_sal_shiptech);
                     else
                         SoundEffect.Play(ESounds.vo_sal_researchcomplete);
+                }
+            }
+        }
+
+        private void PlayConstructorRequestSound(BuilderShip builder)
+        {
+            if (builder == null) return;
+
+            _constructorCheckNext = ConstructorCheckDelay;
+            if (BaseSpecs.IsTower(builder.BaseType))
+            {
+                SoundEffect.Play(ESounds.vo_request_tower);
+            }
+            else
+            {
+                switch (builder.TargetRockType)
+                {
+                    case EAsteroidType.Resource:
+                        SoundEffect.Play(ESounds.vo_request_builderhelium);
+                        break;
+                    case EAsteroidType.Rock:
+                        SoundEffect.Play(ESounds.vo_request_buildergeneric);
+                        break;
+                    case EAsteroidType.TechCarbon:
+                        SoundEffect.Play(ESounds.vo_request_buildercarbon);
+                        break;
+                    case EAsteroidType.TechSilicon:
+                        SoundEffect.Play(ESounds.vo_request_buildersilicon);
+                        break;
+                    case EAsteroidType.TechUranium:
+                        SoundEffect.Play(ESounds.vo_request_builderuranium);
+                        break;
                 }
             }
         }
@@ -1023,6 +1028,9 @@ namespace AllegianceForms.Engine
             Minefields.RemoveAll(_ => !_.Active);
         }
 
+        private const int ConstructorCheckDelay = 120;
+        private int _constructorCheckNext = ConstructorCheckDelay;
+        
         public void SlowTick()
         {
             UpdateVisibility(false);
@@ -1058,6 +1066,18 @@ namespace AllegianceForms.Engine
                 var ai = AICommanders[t];
                 if (ai != null) ai.Update();
             }
+
+            _constructorCheckNext--;
+            if (_constructorCheckNext <= 0)
+            {
+                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.Orders.Count == 0).ToArray();
+                if (constructorsWaiting.Length > 0)
+                {
+                    var con = constructorsWaiting[Random.Next(constructorsWaiting.Length)] as BuilderShip;
+                    PlayConstructorRequestSound(con);
+                }
+            }            
+
         }
 
         public static string[] GetExplosionFrames()
