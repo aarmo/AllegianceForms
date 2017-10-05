@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using AllegianceForms.Engine.Factions;
+using AllegianceForms.Engine.QuickChat;
 
 namespace AllegianceForms.Forms
 {
@@ -31,6 +32,8 @@ namespace AllegianceForms.Forms
         private Map _mapForm;
         private DebugAI _debugForm;
         private MapSector _currentSector;
+        private List<QuickChatItem> _currentQuickList;
+        private List<QuickChatItem> _currentQuickSubList;
 
         private readonly Pen _selectionPen;
         private readonly Brush _sensorBrush;
@@ -94,7 +97,8 @@ namespace AllegianceForms.Forms
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
 
             SectorLabel.Text = _currentSector.Name;
-            
+            LoadQuickMenu(0);
+
             // Friendy & enemy team setup:
             for (var t = 0; t < StrategyGame.NumTeams; t++)
             {
@@ -165,6 +169,26 @@ namespace AllegianceForms.Forms
             miniMapToolStripMenuItem_Click(null, null);
 
             timer.Enabled = tick.Enabled = true;
+        }
+
+        private void LoadQuickMenu(int m)
+        {
+            QuickItems.Controls.Clear();
+            _currentQuickList = StrategyGame.QuickChat.QuickItems.Where(_ => _.MenuId == m).ToList();
+            foreach (var q in _currentQuickList)
+            {
+                QuickItems.Controls.Add(new Controls.QuickChatItem(q));
+            }
+        }
+
+        private void LoadQuickSubMenu(int m)
+        {
+            QuickItems2.Controls.Clear();
+            _currentQuickSubList = StrategyGame.QuickChat.QuickItems.Where(_ => _.MenuId == m).ToList();
+            foreach (var q in _currentQuickSubList)
+            {
+                QuickItems2.Controls.Add(new Controls.QuickChatItem(q));
+            }
         }
 
         private void SetupScreenSize()
@@ -655,13 +679,13 @@ namespace AllegianceForms.Forms
         {
             _shiftDown = e.Shift;
             _ctrlDown = e.Control;
-            
+
             if (e.KeyCode == Keys.F3)
             {
                 miniMapToolStripMenuItem_Click(sender, null);
                 return;
             }
-            else if(e.KeyCode == Keys.F5)
+            else if (e.KeyCode == Keys.F5)
             {
                 researchToolStripMenuItem_Click(sender, null);
                 return;
@@ -680,15 +704,39 @@ namespace AllegianceForms.Forms
             {
                 if (_researchForm.Visible) researchToolStripMenuItem_Click(sender, null);
                 if (_pilotList.Visible) pilotListToolStripMenuItem_Click(sender, null);
+                QuickItems.Visible = false;
+                QuickItems2.Visible = false;
             }
             else if (e.KeyCode == Keys.Space)
             {
                 if (_alertSectorId > -1)
                 {
                     var lastSectorId = _currentSector.Id;
-                    SwitchSector(_alertSectorId+1);
+                    SwitchSector(_alertSectorId + 1);
                     _alertSectorId = lastSectorId;
                     return;
+                }
+            }
+            else if (e.KeyCode == Keys.Oemtilde)
+            {
+                SoundEffect.Play(ESounds.text);
+                QuickItems.Visible = !QuickItems.Visible;
+                QuickItems2.Visible = false;
+            }
+            else if (QuickItems2.Visible)
+            {
+                if (ProcessQuickItem(_currentQuickSubList, e))
+                {
+                    QuickItems.Visible = false;
+                    QuickItems2.Visible = false;
+                }
+            }
+            else if (QuickItems.Visible)
+            {
+                if (ProcessQuickItem(_currentQuickList, e))
+                {
+                    QuickItems.Visible = false;
+                    QuickItems2.Visible = false;
                 }
             }
             else
@@ -706,7 +754,7 @@ namespace AllegianceForms.Forms
                     case Keys.D8:
                     case Keys.D9:
                         var i = Convert.ToInt32(e.KeyCode.ToString().Replace("D", string.Empty));
-                        
+
                         if (e.Control)
                         {
                             SoundEffect.Play(ESounds.mousedown);
@@ -718,7 +766,7 @@ namespace AllegianceForms.Forms
                             if (sectorId > -1)
                             {
                                 SoundEffect.Play(ESounds.text);
-                                SwitchSector(sectorId+1);
+                                SwitchSector(sectorId + 1);
                             }
                         }
                         return;
@@ -734,6 +782,40 @@ namespace AllegianceForms.Forms
                         GiveBaseOrders(e);
                         break;
                 }
+            }
+        }
+
+        private bool ProcessQuickItem(List<QuickChatItem> quickList, KeyEventArgs e)
+        {
+            var key = e.KeyCode.ToString();
+            if (key.Length > 1) key = key.Substring(1, 1);
+
+            var i = quickList.FirstOrDefault(_ => _.Key == key);
+            if (i == null) return false;
+
+            if (i.OpenMenuId == string.Empty)
+            {
+                if (i.Filename == string.Empty) return false;
+
+                ESounds s;
+                if (Enum.TryParse(i.Filename, out s))
+                {
+                    SoundEffect.Play(s);
+                }
+                return true;
+            }
+            else
+            {
+                int m;
+                if (int.TryParse(i.OpenMenuId, out m))
+                {
+                    // Load the other menu;
+                    SoundEffect.Play(ESounds.text);
+                    LoadQuickSubMenu(m);
+                    QuickItems2.Visible = true;
+                    QuickItems2.Left = QuickItems.Left + QuickItems.Width;
+                }
+                return false;
             }
         }
 

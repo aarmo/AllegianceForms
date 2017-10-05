@@ -39,10 +39,9 @@ namespace AllegianceForms.Test.Art
             var sounds = Enum.GetValues(typeof(ESounds));
 
             foreach (var s in sounds)
-            {
+            { 
                 var file = SoundEffect.GetSoundFile((ESounds)s);
                 var exists = File.Exists(file);
-
                 exists.ShouldBe(true, "File doesn't exist: " + file);
             }
         }

@@ -69,6 +69,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.AlertMessage = new System.Windows.Forms.Label();
             this.SectorLabel = new System.Windows.Forms.Label();
+            this.QuickItems = new System.Windows.Forms.FlowLayoutPanel();
+            this.QuickItems2 = new System.Windows.Forms.FlowLayoutPanel();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -207,7 +209,7 @@
             this.GameOverPanel.Controls.Add(this.label3);
             this.GameOverPanel.Controls.Add(this.WinLose);
             this.GameOverPanel.Controls.Add(this.label1);
-            this.GameOverPanel.Location = new System.Drawing.Point(12, 12);
+            this.GameOverPanel.Location = new System.Drawing.Point(388, 84);
             this.GameOverPanel.Name = "GameOverPanel";
             this.GameOverPanel.Size = new System.Drawing.Size(403, 332);
             this.GameOverPanel.TabIndex = 11;
@@ -516,12 +518,40 @@
             this.SectorLabel.Text = "[Sector Info]";
             this.SectorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // QuickItems
+            // 
+            this.QuickItems.AutoSize = true;
+            this.QuickItems.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.QuickItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.QuickItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.QuickItems.Location = new System.Drawing.Point(0, 84);
+            this.QuickItems.Name = "QuickItems";
+            this.QuickItems.Size = new System.Drawing.Size(0, 0);
+            this.QuickItems.TabIndex = 13;
+            this.QuickItems.Visible = false;
+            this.QuickItems.WrapContents = false;
+            // 
+            // QuickItems2
+            // 
+            this.QuickItems2.AutoSize = true;
+            this.QuickItems2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.QuickItems2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.QuickItems2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.QuickItems2.Location = new System.Drawing.Point(35, 90);
+            this.QuickItems2.Name = "QuickItems2";
+            this.QuickItems2.Size = new System.Drawing.Size(0, 0);
+            this.QuickItems2.TabIndex = 14;
+            this.QuickItems2.Visible = false;
+            this.QuickItems2.WrapContents = false;
+            // 
             // Sector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1184, 741);
+            this.Controls.Add(this.QuickItems2);
+            this.Controls.Add(this.QuickItems);
             this.Controls.Add(this.SectorLabel);
             this.Controls.Add(this.AlertMessage);
             this.Controls.Add(this.GameOverPanel);
@@ -593,6 +623,8 @@
         private System.Windows.Forms.Label Team2;
         private System.Windows.Forms.Label AlertMessage;
         private System.Windows.Forms.Label SectorLabel;
+        private System.Windows.Forms.FlowLayoutPanel QuickItems;
+        private System.Windows.Forms.FlowLayoutPanel QuickItems2;
     }
 }
 

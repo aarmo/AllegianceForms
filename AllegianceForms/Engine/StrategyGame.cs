@@ -3,6 +3,7 @@ using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Generation;
 using AllegianceForms.Engine.Map;
+using AllegianceForms.Engine.QuickChat;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Engine.Tech;
@@ -37,6 +38,7 @@ namespace AllegianceForms.Engine
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
+        public const string QuickChatDataFile = ".\\Data\\QuickChatCommands.txt";
         public const string RockPicDir = ".\\Art\\Rocks\\";
         public const string IconPicDir = ".\\Art\\Trans\\";
         public const string SoundsDir = ".\\Art\\Sounds\\";
@@ -71,6 +73,7 @@ namespace AllegianceForms.Engine
         public Faction[] Faction;
         public Faction[] Winners;
         public Faction[] Loosers;
+        public QuickComms QuickChat;
 
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
@@ -926,6 +929,7 @@ namespace AllegianceForms.Engine
         {
             Ships = ShipSpecs.LoadShipSpecs(this, ShipDataFile);
             Bases = BaseSpecs.LoadBaseSpecs(this, BaseDataFile);
+            QuickChat = QuickComms.LoadQuickChat(QuickChatDataFile);
 
             for (var t = 0; t < NumTeams; t++)
             {
