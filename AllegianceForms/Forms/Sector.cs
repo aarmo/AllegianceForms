@@ -215,10 +215,12 @@ namespace AllegianceForms.Forms
             else if (e == EGameEventType.SectorRightClicked)
             {
                 var s = sender as MapSector;
-                if (s == null) return;
+                if (s == null || _selectedUnits.Count == 0) return;
 
                 // Order selected units to navigate to the clicked sector
                 _selectedUnits.ForEach(_ => _.OrderShip(new NavigateOrder(StrategyGame, _, s.Id), _shiftDown));
+                PlayOrderSound();
+
                 ClearSelected();
                 Focus();
             }
@@ -537,6 +539,7 @@ namespace AllegianceForms.Forms
                 if (_selectedUnits.Count > 0)
                 {
                     GiveMoveOrder(mousePos);
+                    PlayOrderSound();
                 }
                 if (_selectedBases.Count > 0)
                 {
@@ -901,7 +904,6 @@ namespace AllegianceForms.Forms
                     break;
                 case Keys.E:
                     GiveMineOrder(centerPos);
-                    playKey = true;
                     break;
                 case Keys.B:
                     GiveBuildOrder(centerPos);
@@ -909,7 +911,13 @@ namespace AllegianceForms.Forms
                     break;
             }
 
-            if (playKey) SoundEffect.Play(ESounds.text);
+            if (playKey) PlayOrderSound();
+        }
+
+        private ESounds[] _affirmativeSounds = { ESounds.text, ESounds.vo_player_affirmative, ESounds.vo_player_roger, ESounds.vo_player_onmyway, ESounds.vo_player_acknowledged };
+        private void PlayOrderSound()
+        {
+            SoundEffect.Play(_affirmativeSounds[_rnd.Next(_affirmativeSounds.Length)]);
         }
 
         private void GiveMoveOrder(Point orderPosition)
