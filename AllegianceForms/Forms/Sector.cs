@@ -343,6 +343,7 @@ namespace AllegianceForms.Forms
 
             GameOverPanel.Left = Width / 2 - GameOverPanel.Width / 2;
             GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
+            SoundEffect.Play((_rnd.Next(2) == 0) ? ESounds.static1 : ESounds.static2);
             GameOverPanel.Visible = true;
 
             TotalBases1.Text = StrategyGame.GameStats.TotalBasesBuilt[0].ToString();
@@ -930,10 +931,21 @@ namespace AllegianceForms.Forms
             if (playKey) PlayOrderSound();
         }
 
-        private ESounds[] _affirmativeSounds = { ESounds.text, ESounds.vo_player_affirmative, ESounds.vo_player_roger, ESounds.vo_player_onmyway, ESounds.vo_player_acknowledged };
+        private const int AffirmativeSoundDelay = 12;
+        private int _afirmativeSoundNext = AffirmativeSoundDelay;
+
+        private ESounds[] _affirmativeSounds = { ESounds.vo_player_affirmative, ESounds.vo_player_roger, ESounds.vo_player_onmyway, ESounds.vo_player_acknowledged };
         private void PlayOrderSound()
         {
-            SoundEffect.Play(_affirmativeSounds[_rnd.Next(_affirmativeSounds.Length)]);
+            var sound = ESounds.text;
+
+            if (_afirmativeSoundNext <= 0)
+            {
+                sound = _affirmativeSounds[_rnd.Next(_affirmativeSounds.Length)];
+                _afirmativeSoundNext = AffirmativeSoundDelay;
+            }
+
+            SoundEffect.Play(sound);
         }
 
         private void GiveMoveOrder(Point orderPosition)
@@ -1191,6 +1203,7 @@ namespace AllegianceForms.Forms
         {
             // The Game's slow update!
             StrategyGame.SlowTick();
+            _afirmativeSoundNext--;
 
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
             

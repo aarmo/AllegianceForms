@@ -92,6 +92,11 @@ namespace AllegianceForms.Engine.Ships
             return bse;
         }
 
+        public bool HasBuildSphere()
+        {
+            return BaseType != EBaseType.Tower && BaseType != EBaseType.Minefield;
+        }
+
         public override void Update()
         {
             if (!Active) return;
@@ -101,7 +106,7 @@ namespace AllegianceForms.Engine.Ships
             if (_buildingStop < DateTime.Now)
             {
                 Active = Building = false;
-                if (BaseType != EBaseType.Tower) OnShipEvent(EShipEventType.BuildingFinished);
+                if (HasBuildSphere()) OnShipEvent(EShipEventType.BuildingFinished);
             }
             else if (Building && _buildingStop == DateTime.MaxValue)
             {
@@ -128,7 +133,7 @@ namespace AllegianceForms.Engine.Ships
         {
             if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
 
-            if (!Building || BaseType == EBaseType.Tower)
+            if (!Building || !HasBuildSphere())
             {
                 base.Draw(g, currentSectorId);
                 return;

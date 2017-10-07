@@ -94,7 +94,8 @@ namespace AllegianceForms
         Tower,
         MissileTower,
         RepairTower,
-        Resource
+        Resource,
+        Minefield,
     }
 
     public enum EOrderType
@@ -137,6 +138,7 @@ namespace AllegianceForms
 
     public enum ESounds
     {
+        vo_request_minefield,
         accept,
         criticalmessage,
         mousedown,

@@ -10,12 +10,14 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon
 9,0,Advanced Towers,1,5000,120,False,Dn_hipdtabmp.png
 10,0,Advanced Repair Towers,1,5000,120,False,Dn_hipdnbbmp.png
 11,0,Advanced Missile Towers,1,5000,120,False,Dn_hipdchbmp.png
+12,0,Advanced Minefield,1,5000,120,False,Dn_hicsmmnlbmp.png
 
-19,-1,Miner,,1000,30,False,Dn_himnrbmp.png
-20,-1,Resource Constructor,,3000,30,False,Dn_hiconbmp.png
-21,-1,Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png
-22,-1,Repair Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png
-23,-1,Missile Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png
+18,-1,Miner,,1000,30,False,Dn_himnrbmp.png
+19,-1,Resource Constructor,,3000,30,False,Dn_hiconbmp.png
+20,-1,Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png
+21,-1,Repair Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png
+22,-1,Missile Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png
+23,-1,Minefield Constructor,,1000,60,False,Dn_hicsmmnlbmp.png
 24,-1,Starbase Constructor,,10000,120,False,Dn_hiconbmp.png
 25,-1,Outpost Constructor,,5000,120,False,Dn_hiconbmp.png
 26,-1,Tactical Constructor,,10000,120,False,Dn_hiconbmp.png

@@ -87,6 +87,7 @@ namespace AllegianceForms.Engine
         public Brush[] TeamBrushes;
         public Brush[] TextBrushes;
         public Pen[] SelectedPens;
+        public Image[] MinefieldImages;
 
         public static double AngleBetweenPoints(PointF from, PointF to)
         {
@@ -564,8 +565,11 @@ namespace AllegianceForms.Engine
 
             if (BaseSpecs.IsTower(builder.BaseType))
             {
+                var sound = ESounds.vo_request_tower;
+                if (builder.BaseType == EBaseType.Minefield) sound = ESounds.vo_request_minefield;
+
                 message = $"{builder.BaseType} requesting location...";
-                SoundEffect.Play(ESounds.vo_request_tower);
+                SoundEffect.Play(sound);
             }
             else
             {
@@ -626,15 +630,25 @@ namespace AllegianceForms.Engine
                 var b = sender as BuilderShip;
                 if (b != null && BaseSpecs.IsTower(b.BaseType))
                 {
-                    var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
-                    var tower = Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
-                    if (tower == null) return;
+                    if (b.BaseType == EBaseType.Minefield)
+                    {
+                        // Add a Minefield
+                        Minefields.Add(new Minefield(b, Point.Empty, 100, 120 * 20, MinefieldImages[b.Team - 1], 1));
+                    }
+                    else
+                    {
+                        // Add a Tower
+                        var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
+                        var tower = Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
+                        if (tower == null) return;
 
-                    tower.CenterX = b.CenterX;
-                    tower.CenterY = b.CenterY;
-                    tower.ShipEvent += f_shipEvent;
+                        tower.CenterX = b.CenterX;
+                        tower.CenterY = b.CenterY;
+                        tower.ShipEvent += f_shipEvent;
 
-                    AddUnit(tower);
+                        AddUnit(tower);
+                    }
+
                     b.Active = false;
                 }
             }
@@ -904,7 +918,8 @@ namespace AllegianceForms.Engine
             SelectedPens = new Pen[NumTeams];
             TextBrushes = new Brush[NumTeams];
             AICommanders = new BaseAI[NumTeams];
-            
+            MinefieldImages = new Image[NumTeams];
+
             for (var i = 0; i < NumTeams; i++)
             {
                 Faction[i] = settings.TeamFactions[i];
@@ -912,6 +927,10 @@ namespace AllegianceForms.Engine
                 TeamBrushes[i] = new SolidBrush(c);
                 SelectedPens[i] = new Pen(c, 1) { DashStyle = DashStyle.Dot };
                 TextBrushes[i] = new SolidBrush(PerceivedBrightness(c) > 130 ? Color.Black : Color.White);
+                
+                MinefieldImages[i] = Image.FromFile(MineWeapon.MinefieldImage);
+
+                Utils.ReplaceColour((Bitmap)MinefieldImages[i], c);
             }
 
             AllUnits.Clear();

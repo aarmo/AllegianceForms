@@ -44,6 +44,24 @@ namespace AllegianceForms.Engine.Factions
             return new Faction("Default", "Player1");
         }
 
+        public static Faction CampaignStart()
+        {
+            var f = new Faction("Campaign", "Player1");
+            f.Bonuses.FireRate = 0.7f;
+            f.Bonuses.Health = 0.7f;
+            f.Bonuses.MiningCapacity = 0.7f;
+            f.Bonuses.MiningEfficiency = 0.7f;
+            f.Bonuses.MissileSpeed = 0.7f;
+            f.Bonuses.MissileTracking = 0.7f;
+            f.Bonuses.ResearchCost = 1.3f;
+            f.Bonuses.ResearchTime = 1.3f;
+            f.Bonuses.ScanRange = 0.7f;
+            f.Bonuses.Signature = 1.3f;
+            f.Bonuses.Speed = 0.7f;
+
+            return f;
+        }
+
         public static Faction CreateFaction(string name)
         {
             switch (name)

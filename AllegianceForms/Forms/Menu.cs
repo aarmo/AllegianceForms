@@ -2,6 +2,7 @@
 using AllegianceForms.Engine.Factions;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -9,6 +10,8 @@ namespace AllegianceForms.Forms
 {
     public partial class Menu : Form
     {
+        private GameSettings _gameSettings = GameSettings.Default();
+
         public Menu()
         {
             InitializeComponent();
@@ -44,9 +47,6 @@ namespace AllegianceForms.Forms
             if (b != null) b.BackColor = Color.Black;
         }
 
-        private GameSettings _gameSettings = GameSettings.Default();
-        private LadderGame _ladderGame; // = LadderGame.LoadOrDefault();
-
         private void CustomGame_Click(object sender, EventArgs e)
         {
             Faction.FactionNames.Reset();
@@ -69,63 +69,25 @@ namespace AllegianceForms.Forms
             f.ShowDialog(this);
         }
 
-        private void Ladder_Click(object sender, EventArgs e)
-        {
-            SoundEffect.Play(ESounds.mousedown);
-            
-            var f = new Ladder();
-            f.LoadLadder(_ladderGame);
-            if (f.ShowDialog(this) == DialogResult.OK)
-            {
-                StartLadderGame();
-            }
-            else
-            {
-                // Reset
-                if (_ladderGame.Abandoned)
-                {
-                    _ladderGame = LadderGame.Default();
-                    _ladderGame.SaveLadder();
-                }
-            }                        
-        }
-
-        private void StartLadderGame()
-        {
-            // Get teams
-            Faction[] team1 = null;
-            var team2 = _ladderGame.GetCommandersForPlayerToFight(ref team1);
-            if (team1 == null || team2 == null || team1.Length != team2.Length) return;
-
-            // Play the game!
-            var f2 = new Sector(GameSettings.LadderDefault(_ladderGame, team1, team2));
-            f2.Show();
-
-            f2.GameOverEvent += Ladder_GameOverEvent;
-        }
-
-        private void Ladder_GameOverEvent(object sender)
-        {
-            var f2 = sender as Sector;
-            if (f2 == null) return;
-
-            // If you leave early, you loose. Sorry :(
-            _ladderGame.UpdateCommanderRanks(f2.StrategyGame.Winners, f2.StrategyGame.Loosers);
-
-            // Update other players & save results
-            _ladderGame.PlayGamesForAllOtherPlayers();
-            _ladderGame.SaveLadder();
-
-            // TODO: Promotions, tiers, demotions, etc.
-
-            //Ladder.Text = "Continue Ladder";
-        }
-
         private void QuickPlay_Click(object sender, EventArgs e)
         {
             var settings = GameSettings.Default();
             var f2 = new Sector(_gameSettings);
             if (!f2.IsDisposed) f2.Show();
+        }
+
+        private void PlayCampaign_Click(object sender, EventArgs e)
+        {
+            var game = new StrategyGame();
+            var playerTech = Engine.Tech.TechTree.LoadTechTree(game, StrategyGame.TechDataFile, 1);
+
+            // Low power faction (-30% to all)
+            var playersFaction = Faction.CampaignStart();
+
+            // Starting with garrison tech 
+            var allowedIds = new[] { 1,2,3,4,5,19,20,21,22,23,24,25 };
+            playerTech.TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
+
         }
     }
 }
