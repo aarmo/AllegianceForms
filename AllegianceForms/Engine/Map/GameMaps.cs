@@ -16,6 +16,9 @@ namespace AllegianceForms.Engine.Map
         public const int SectorDiameter = 20;
         public const int SectorSpacing = 30;
         public const int MapPadding = 10;
+        public const string RandomMapName_Small = "Random-Small2";
+        public const string RandomMapName_Normal = "Random2";
+        public const string RandomMapName_Large = "Random-Large2";
 
         private static string[][] GetMapFiles()
         {
@@ -27,6 +30,10 @@ namespace AllegianceForms.Engine.Map
             var presetFiles = Directory.GetFiles(StrategyGame.MapFolder, "*.map");
             var filenames = (from f in presetFiles
                              select f.Substring(f.LastIndexOf("\\") + 1).Replace(".map", string.Empty)).ToList();
+
+            filenames.Add(RandomMapName_Normal);
+            filenames.Add(RandomMapName_Small);
+            filenames.Add(RandomMapName_Large);
 
             files[0] = filenames.Where(_ => _.EndsWith("2") || _.EndsWith("4")).ToArray();
             files[1] = filenames.Where(_ => _.EndsWith("3")).ToArray();
@@ -51,7 +58,23 @@ namespace AllegianceForms.Engine.Map
 
         public static GameMap LoadMap(StrategyGame game, string name)
         {
-            var map = Utils.DeserialiseFromFile<SimpleGameMap>(StrategyGame.MapFolder + "\\" + name + ".map");
+            SimpleGameMap map;
+            switch (name)
+            {
+                case RandomMapName_Small:
+                    map = RandomMap.GenerateSimpleMap(EMapSize.Small);
+                    break;
+                case RandomMapName_Normal:
+                    map = RandomMap.GenerateSimpleMap(EMapSize.Normal);
+                    break;
+                case RandomMapName_Large:
+                    map = RandomMap.GenerateSimpleMap(EMapSize.Large);
+                    break;
+                default:
+                    map = Utils.DeserialiseFromFile<SimpleGameMap>(StrategyGame.MapFolder + "\\" + name + ".map");
+                    break;
+            }
+
             if (map == null) return Brawl(game);
 
             return GameMap.FromSimpleMap(game, map);

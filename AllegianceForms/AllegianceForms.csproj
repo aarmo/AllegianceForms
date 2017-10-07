@@ -148,6 +148,7 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
+    <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Generation\RandomName.cs" />
     <Compile Include="Engine\HSBColour.cs" />
     <Compile Include="Engine\LadderGame.cs" />
@@ -1945,6 +1946,15 @@
     </Content>
     <Content Include="Data\Maps\QuadClose4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Random-Large2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Random2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Random-Small2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Schist2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
