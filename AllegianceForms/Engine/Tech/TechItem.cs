@@ -84,11 +84,11 @@ namespace AllegianceForms.Engine.Tech
 
         public static EAsteroidType GetAsteroidType(string name)
         {
-            if (name.Contains("Expansion")) return EAsteroidType.TechUranium;
-            if (name.Contains("Tactical")) return EAsteroidType.TechSilicon;
-            if (name.Contains("Supremacy")) return EAsteroidType.TechCarbon;
+            if (name.Contains("Expansion")) return EAsteroidType.Uranium;
+            if (name.Contains("Tactical")) return EAsteroidType.Silicon;
+            if (name.Contains("Supremacy")) return EAsteroidType.Carbon;
 
-            return EAsteroidType.Rock;
+            return EAsteroidType.Generic;
         }
 
         public static bool IsGlobalUpgrade(string name)

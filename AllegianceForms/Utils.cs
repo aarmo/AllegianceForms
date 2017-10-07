@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,7 +43,7 @@ namespace AllegianceForms
         public static Bitmap GetAvatarImage(string key)
         {
             var hash = key.GetHashCode();
-            var rnd = new System.Random(hash);
+            var rnd = new Random(hash);
             
             const string basePath = ".\\Art\\Avatars\\full";
 
@@ -51,6 +52,39 @@ namespace AllegianceForms
 
             var imgs = Directory.GetFiles(dirs[d]);
             return (Bitmap)Image.FromFile(imgs[rnd.Next(imgs.Length)]);
+        }
+
+        public static Bitmap ScaleColoursRandomly(Image img)
+        {
+            var rScale = (float)StrategyGame.Random.NextDouble();
+            var gScale = (float)StrategyGame.Random.NextDouble();
+            var bScale = (float)StrategyGame.Random.NextDouble();
+
+            var b = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppPArgb);
+            using (var g = Graphics.FromImage(b))
+            {
+                float[][] colorMatrixElements = {
+                   new float[] { rScale,  0,  0,  0, 0},
+                   new float[] {0, gScale,  0,  0, 0},
+                   new float[] {0,  0, bScale,  0, 0},
+                   new float[] {0,  0,  0,  1f, 0},
+                   new float[] {0, 0, 0, 0, 1f}
+                };
+                var colorMatrix = new ColorMatrix(colorMatrixElements);
+
+                var imageAttributes = new ImageAttributes();
+                imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                g.DrawImage(img,
+                    new Rectangle(0, 0, img.Width, img.Height),
+                    0, 0,
+                    img.Width,
+                    img.Height,
+                    GraphicsUnit.Pixel,
+                    imageAttributes);
+
+                return b;
+            }
         }
 
         public static void ReplaceColour(Bitmap bmp, Color newColour)

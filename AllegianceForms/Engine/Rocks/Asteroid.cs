@@ -16,7 +16,7 @@ namespace AllegianceForms.Engine.Rocks
         public Asteroid(StrategyGame game, string imageFilename, int width, int height, int sectorId)
             : base(game, imageFilename, width, height, sectorId)
         {
-            Type = EAsteroidType.Rock;
+            Type = EAsteroidType.Generic;
         }
 
         public void BuildingComplete()

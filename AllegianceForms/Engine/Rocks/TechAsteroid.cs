@@ -9,7 +9,7 @@ namespace AllegianceForms.Engine.Rocks
         public TechCarbonAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
             : base(game, StrategyGame.RockPicDir + Images[r.Next(0, Images.Length)], width, height, sectorId)
         {
-            Type = EAsteroidType.TechCarbon;
+            Type = EAsteroidType.Carbon;
         }
     }
 
@@ -20,7 +20,7 @@ namespace AllegianceForms.Engine.Rocks
         public TechSiliconAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
             : base(game, StrategyGame.RockPicDir + Images[r.Next(0, Images.Length)], width, height, sectorId)
         {
-            Type = EAsteroidType.TechSilicon;
+            Type = EAsteroidType.Silicon;
         }
     }
 
@@ -31,7 +31,7 @@ namespace AllegianceForms.Engine.Rocks
         public TechUraniumAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
             : base(game, StrategyGame.RockPicDir + Images[r.Next(0, Images.Length)], width, height, sectorId)
         {
-            Type = EAsteroidType.TechUranium;
+            Type = EAsteroidType.Uranium;
         }
     }
 }

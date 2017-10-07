@@ -12,6 +12,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.QuickChat;
+using AllegianceForms.Engine.Generation;
 
 namespace AllegianceForms.Forms
 {
@@ -37,7 +38,6 @@ namespace AllegianceForms.Forms
 
         private readonly Pen _selectionPen;
         private readonly Brush _sensorBrush;
-        private readonly TextureBrush _bgBrush;
         private readonly Pen _sensorPen;
         private Point _selectionStart;
         private Point _selectionEnd;
@@ -87,7 +87,6 @@ namespace AllegianceForms.Forms
             StrategyGame.InitialiseGame();
 
             _frame = new Bitmap(Width, Height);
-            _bgBrush = new TextureBrush(Image.FromFile(".\\Art\\Backgrounds\\stars.png"));
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
             _colourTeam1 = Color.FromArgb(settings.TeamColours[0]);
             _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
@@ -95,6 +94,7 @@ namespace AllegianceForms.Forms
             _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
             _currentSector = startSectors[0];
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
+            GetCurrentSectorBounds();
 
             SectorLabel.Text = _currentSector.Name;
             LoadQuickMenu(0);
@@ -407,12 +407,27 @@ namespace AllegianceForms.Forms
             }
         }
 
+        private void GetCurrentSectorBounds()
+        {
+            var maxWidth = StrategyGame.Map.Background.Width;
+            var maxHeight = StrategyGame.Map.Background.Height;
+            if (maxWidth <= Width || maxHeight <= Height) return;
+
+            var extraWidth = maxWidth - Width;
+            var extraHeight = maxHeight - Height;
+
+            var mapPosStep = new Point(extraWidth / RandomMap.MaxWidth, extraHeight / RandomMap.MaxHeight);
+
+            _currentSectorBounds = new Rectangle(_currentSector.MapPosition.X * mapPosStep.X, _currentSector.MapPosition.Y * mapPosStep.Y, Width, Height);
+        }
+
+        private Rectangle _currentSectorBounds;
         private void UpdateFrame()
         {
             var g = Graphics.FromImage(_frame);
             var currentSectorId = _currentSector.Id;
-            
-            g.FillRectangle(_bgBrush, 0, 0, Width, Height);
+
+            g.DrawImage(StrategyGame.Map.Background, 0, 0, _currentSectorBounds, GraphicsUnit.Pixel);
             StrategyGame.Map.DrawSector(g, currentSectorId);
 
             if (_shiftDown)
@@ -831,6 +846,7 @@ namespace AllegianceForms.Forms
             var s = StrategyGame.Map.Sectors[i-1];
             _currentSector = s;
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
+            GetCurrentSectorBounds();
 
             SectorLabel.Text = _currentSector.Name;
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);            

@@ -47,11 +47,11 @@ namespace AllegianceForms
     public enum EAsteroidType
     {
         None,
-        Rock,
+        Generic,
         Resource,
-        TechCarbon,
-        TechUranium,
-        TechSilicon
+        Carbon,
+        Uranium,
+        Silicon
     }
 
     public enum EShipType

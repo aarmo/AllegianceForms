@@ -123,7 +123,7 @@ namespace AllegianceForms.Engine
                 RocksPerSectorTech = 2,
                 RocksPerSectorResource = 4,
                 RocksPerSectorGeneral = 8,
-                RocksAllowedTech = new List<EAsteroidType> { EAsteroidType.TechCarbon, EAsteroidType.TechSilicon, EAsteroidType.TechUranium },
+                RocksAllowedTech = new List<EAsteroidType> { EAsteroidType.Carbon, EAsteroidType.Silicon, EAsteroidType.Uranium },
 
                 StationHealthMultiplier = new Dictionary<EBaseType, float>(),
                 StationSignatureMultiplier = new Dictionary<EBaseType, float>(),

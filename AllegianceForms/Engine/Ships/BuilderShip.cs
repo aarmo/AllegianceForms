@@ -35,15 +35,15 @@ namespace AllegianceForms.Engine.Ships
             switch (baseType)
             {
                 case EBaseType.Tactical:
-                    TargetRockType = EAsteroidType.TechSilicon;
+                    TargetRockType = EAsteroidType.Silicon;
                     break;
 
                 case EBaseType.Supremacy:
-                    TargetRockType = EAsteroidType.TechCarbon;
+                    TargetRockType = EAsteroidType.Carbon;
                     break;
 
                 case EBaseType.Expansion:
-                    TargetRockType = EAsteroidType.TechUranium;
+                    TargetRockType = EAsteroidType.Uranium;
                     break;
 
                 case EBaseType.Resource:
@@ -51,19 +51,19 @@ namespace AllegianceForms.Engine.Ships
                     break;
 
                 default:
-                    TargetRockType = EAsteroidType.Rock;
+                    TargetRockType = EAsteroidType.Generic;
                     break;
             }
             var buildFilename = BuildImagePath;
             switch (TargetRockType)
             {
-                case EAsteroidType.TechCarbon:
+                case EAsteroidType.Carbon:
                     buildFilename += "CarbonBuildGlow.png";
                     break;
-                case EAsteroidType.TechSilicon:
+                case EAsteroidType.Silicon:
                     buildFilename += "SiliconBuildGlow.png";
                     break;
-                case EAsteroidType.TechUranium:
+                case EAsteroidType.Uranium:
                     buildFilename += "UraniumBuildGlow.png";
                     break;
                 default:

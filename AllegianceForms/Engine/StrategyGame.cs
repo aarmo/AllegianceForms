@@ -506,7 +506,11 @@ namespace AllegianceForms.Engine
                     drone = Ships.CreateMinerShip(tech.Team, colour, b1.SectorId);
                     if (drone == null) return;
 
-                    if (tech.Team == 1) SoundEffect.Play(ESounds.vo_miner_report4duty);
+                    if (tech.Team == 1)
+                    {
+                        OnGameEvent(new GameAlert(drone.SectorId, $"New miner launching in {Map.Sectors[drone.SectorId]}."), EGameEventType.ImportantMessage);
+                        SoundEffect.Play(ESounds.vo_miner_report4duty);
+                    }
                 }
                 else if (tech.Type == ETechType.ShipyardConstruction)
                 {
@@ -551,36 +555,43 @@ namespace AllegianceForms.Engine
             }
         }
 
-        private void PlayConstructorRequestSound(BuilderShip builder)
+        public void PlayConstructorRequestSound(BuilderShip builder)
         {
             if (builder == null) return;
 
             _constructorCheckNext = ConstructorCheckDelay;
+            string message;
+
             if (BaseSpecs.IsTower(builder.BaseType))
             {
+                message = $"{builder.BaseType} requesting location...";
                 SoundEffect.Play(ESounds.vo_request_tower);
             }
             else
             {
+                message = $"Constructor requesting {builder.TargetRockType} rock...";
+
                 switch (builder.TargetRockType)
                 {
                     case EAsteroidType.Resource:
                         SoundEffect.Play(ESounds.vo_request_builderhelium);
                         break;
-                    case EAsteroidType.Rock:
+                    case EAsteroidType.Generic:
                         SoundEffect.Play(ESounds.vo_request_buildergeneric);
                         break;
-                    case EAsteroidType.TechCarbon:
+                    case EAsteroidType.Carbon:
                         SoundEffect.Play(ESounds.vo_request_buildercarbon);
                         break;
-                    case EAsteroidType.TechSilicon:
+                    case EAsteroidType.Silicon:
                         SoundEffect.Play(ESounds.vo_request_buildersilicon);
                         break;
-                    case EAsteroidType.TechUranium:
+                    case EAsteroidType.Uranium:
                         SoundEffect.Play(ESounds.vo_request_builderuranium);
                         break;
                 }
             }
+
+            OnGameEvent(new GameAlert(builder.SectorId, message), EGameEventType.ImportantMessage);
         }
 
         public void ProcessShipEvent(Ship sender, EShipEventType e, ShipEventHandler f_shipEvent, BaseEventHandler b_baseEvent)
@@ -1070,7 +1081,7 @@ namespace AllegianceForms.Engine
             _constructorCheckNext--;
             if (_constructorCheckNext <= 0)
             {
-                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.Orders.Count == 0).ToArray();
+                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.CurrentOrder == null).ToArray();
                 if (constructorsWaiting.Length > 0)
                 {
                     var con = constructorsWaiting[Random.Next(constructorsWaiting.Length)] as BuilderShip;

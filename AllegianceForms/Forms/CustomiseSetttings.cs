@@ -55,9 +55,9 @@ namespace AllegianceForms.Forms
             AsteroidResource.Text = s.RocksPerSectorResource.ToString();
             AsteroidGeneral.Text = s.RocksPerSectorGeneral.ToString();
 
-            AllowTechExp.Checked = s.RocksAllowedTech.Contains(EAsteroidType.TechUranium);
-            AllowTechSup.Checked = s.RocksAllowedTech.Contains(EAsteroidType.TechCarbon);
-            AllowTechTac.Checked = s.RocksAllowedTech.Contains(EAsteroidType.TechSilicon);
+            AllowTechExp.Checked = s.RocksAllowedTech.Contains(EAsteroidType.Uranium);
+            AllowTechSup.Checked = s.RocksAllowedTech.Contains(EAsteroidType.Carbon);
+            AllowTechTac.Checked = s.RocksAllowedTech.Contains(EAsteroidType.Silicon);
 
             ShipWeaponRange.Text = s.AntiShipWeaponRangeMultiplier.ToString("P0");
             ShipWeaponDamage.Text = s.AntiShipWeaponDamageMultiplier.ToString("P0");
@@ -187,7 +187,7 @@ namespace AllegianceForms.Forms
         {
             var s = sender as CheckBox;
             if (s == null) return;
-            var t = EAsteroidType.TechUranium;
+            var t = EAsteroidType.Uranium;
 
             if (!s.Checked)
                 Settings.RocksAllowedTech.Remove(t);
@@ -201,7 +201,7 @@ namespace AllegianceForms.Forms
         {
             var s = sender as CheckBox;
             if (s == null) return;
-            var t = EAsteroidType.TechSilicon;
+            var t = EAsteroidType.Silicon;
 
             if (!s.Checked)
                 Settings.RocksAllowedTech.Remove(t);
@@ -215,7 +215,7 @@ namespace AllegianceForms.Forms
         {
             var s = sender as CheckBox;
             if (s == null) return;
-            var t = EAsteroidType.TechCarbon;
+            var t = EAsteroidType.Carbon;
 
             if (!s.Checked)
                 Settings.RocksAllowedTech.Remove(t);
