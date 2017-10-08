@@ -633,7 +633,9 @@ namespace AllegianceForms.Engine
                     if (b.BaseType == EBaseType.Minefield)
                     {
                         // Add a Minefield
-                        Minefields.Add(new Minefield(b, Point.Empty, 100, 120 * 20, MinefieldImages[b.Team - 1], 1));
+                        var t = b.Team - 1;
+                        var mineTech = TechTree[t].HasResearchedTech("Advanced Minefield") ? 1.5f : 1f;
+                        Minefields.Add(new Minefield(b, Point.Empty, 100, 120 * 20 * mineTech, MinefieldImages[t], 1 * mineTech));
                     }
                     else
                     {
