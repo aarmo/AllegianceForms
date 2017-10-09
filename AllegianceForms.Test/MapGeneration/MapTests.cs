@@ -1,4 +1,5 @@
 ﻿using AllegianceForms.Engine.Generation;
+using AllegianceForms.Engine.Map;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 
@@ -7,6 +8,30 @@ namespace AllegianceForms.Test.MapGeneration
     [TestClass]
     public class MapTests
     {
+        [TestMethod]
+        public void AvailableMaps_Unrestricted()
+        {
+            var maps = GameMaps.AvailableMaps(2, true);
+
+            maps.Length.ShouldBeGreaterThan(0);
+            maps.ShouldContain("Brawl2");
+            maps.ShouldContain(GameMaps.RandomMapName_Small);
+            maps.ShouldContain(GameMaps.RandomMapName_Normal);
+            maps.ShouldContain(GameMaps.RandomMapName_Large);
+        }
+
+        [TestMethod]
+        public void AvailableMaps_Restricted()
+        {
+            var maps = GameMaps.AvailableMaps(2);
+
+            maps.Length.ShouldBeGreaterThan(0);
+            maps.ShouldNotContain("Brawl2");
+            maps.ShouldNotContain(GameMaps.RandomMapName_Small);
+            maps.ShouldNotContain(GameMaps.RandomMapName_Normal);
+            maps.ShouldNotContain(GameMaps.RandomMapName_Large);
+        }
+
         [TestMethod]
         public void SmallCheck()
         {

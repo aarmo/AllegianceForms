@@ -9,7 +9,7 @@ namespace AllegianceForms.Engine.Rocks
         public static new string[] Images = new[] { "helium_1.png", "helium_2.png", "helium_3.png", "helium_4.png" };
 
         public int AvailableResources { get; set; }
-        public const int MaxResources = 500;
+        public const int MaxResources = 3000;
 
         public ResourceAsteroid(StrategyGame game, Random r, int width, int height, int sectorId)
             : base(game, StrategyGame.RockPicDir + Images[r.Next(0, Images.Length)], width, height, sectorId)

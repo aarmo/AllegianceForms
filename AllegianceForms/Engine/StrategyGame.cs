@@ -33,7 +33,7 @@ namespace AllegianceForms.Engine
         public static int ScreenHeight = 0;
 
         public const int ResourcesInitial = 4000;
-        public const int ResourceRegularAmount = 2;
+        public const int ResourceRegularAmount = 1;
         public const float BaseConversionRate = 4f;
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
@@ -699,7 +699,7 @@ namespace AllegianceForms.Engine
                                 break;
                         }
 
-                        if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured, true);
+                        if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured);
                     }
                 }
             }
@@ -976,6 +976,12 @@ namespace AllegianceForms.Engine
                 foreach (var i in autoCompleted)
                 {
                     i.Active = false;
+                }
+
+                var allowedIds = GameSettings.RestrictTechToIds[t];
+                if (allowedIds != null)
+                {                    
+                    TechTree[t].TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
                 }
             }            
         }

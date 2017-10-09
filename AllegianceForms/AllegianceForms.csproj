@@ -373,6 +373,9 @@
     <Content Include="Art\Backgrounds\space.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art\Backgrounds\stars.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art\header_logo.png" />
     <Content Include="Art\license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1521,6 +1524,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\Sounds\vo_request_minefield.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Sounds\vo_sal_recruitsarrived.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

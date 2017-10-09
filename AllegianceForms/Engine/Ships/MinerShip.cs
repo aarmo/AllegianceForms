@@ -17,7 +17,7 @@ namespace AllegianceForms.Engine.Ships
         public ResourceAsteroid Target { get; set; }
 
         public const int MineDistance = 100;
-        public const int MineAmount = 10;
+        public const int MineAmount = 100;
 
         public int MaxResourceCapacity { get; set; }
 
@@ -39,7 +39,7 @@ namespace AllegianceForms.Engine.Ships
             ShootingDelayTicks = 5;
             Shooting = false;
 
-            MaxResourceCapacity = 100;
+            MaxResourceCapacity = 1000;
         }
 
         public override void Damage(float amount, int senderTeam)

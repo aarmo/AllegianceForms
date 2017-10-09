@@ -78,16 +78,9 @@ namespace AllegianceForms.Forms
 
         private void PlayCampaign_Click(object sender, EventArgs e)
         {
-            var game = new StrategyGame();
-            var playerTech = Engine.Tech.TechTree.LoadTechTree(game, StrategyGame.TechDataFile, 1);
-
-            // Low power faction (-30% to all)
-            var playersFaction = Faction.CampaignStart();
-
-            // Starting with garrison tech 
-            var allowedIds = new[] { 1,2,3,4,5,19,20,21,22,23,24,25 };
-            playerTech.TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
-
+            var settings = GameSettings.CampaignStart();
+            var f2 = new Sector(settings);
+            if (!f2.IsDisposed) f2.Show();
         }
     }
 }

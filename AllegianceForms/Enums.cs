@@ -138,6 +138,7 @@ namespace AllegianceForms
 
     public enum ESounds
     {
+        vo_sal_recruitsarrived,
         vo_request_minefield,
         accept,
         criticalmessage,
