@@ -41,7 +41,7 @@ namespace AllegianceForms.Test.Engine
             b1.Update();
             b1.Update();
 
-            _game.Credits[0].ShouldBe(res + 8);
+            _game.Credits[0].ShouldBe(res + 4);
         }
     }
 }

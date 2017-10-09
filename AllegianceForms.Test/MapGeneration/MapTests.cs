@@ -23,7 +23,7 @@ namespace AllegianceForms.Test.MapGeneration
         [TestMethod]
         public void AvailableMaps_Restricted()
         {
-            var maps = GameMaps.AvailableMaps(2);
+            var maps = GameMaps.AvailableMaps(2, false);
 
             maps.Length.ShouldBeGreaterThan(0);
             maps.ShouldNotContain("Brawl2");
