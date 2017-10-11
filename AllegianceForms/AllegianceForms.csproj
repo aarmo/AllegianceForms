@@ -222,6 +222,12 @@
     <Compile Include="Forms\GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CampaignEnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CampaignEnd.Designer.cs">
+      <DependentUpon>CampaignEnd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Ladder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CampaignEnd.resx">
+      <DependentUpon>CampaignEnd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Ladder.resx">
       <DependentUpon>Ladder.cs</DependentUpon>

@@ -1254,5 +1254,23 @@ namespace AllegianceForms.Forms
                 if (GameOverEvent != null) GameOverEvent(this);
             }
         }
+
+        private void Done_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mouseover);
+            var b = sender as Button;
+            if (b != null) b.BackColor = Color.DarkGreen;
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b != null) b.BackColor = Color.Black;
+        }
     }
 }

@@ -71,6 +71,7 @@
             this.SectorLabel = new System.Windows.Forms.Label();
             this.QuickItems = new System.Windows.Forms.FlowLayoutPanel();
             this.QuickItems2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.Done = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -184,6 +185,7 @@
             // GameOverPanel
             // 
             this.GameOverPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GameOverPanel.Controls.Add(this.Done);
             this.GameOverPanel.Controls.Add(this.TotalBases2);
             this.GameOverPanel.Controls.Add(this.TotalBases1);
             this.GameOverPanel.Controls.Add(this.label6);
@@ -211,7 +213,7 @@
             this.GameOverPanel.Controls.Add(this.label1);
             this.GameOverPanel.Location = new System.Drawing.Point(388, 84);
             this.GameOverPanel.Name = "GameOverPanel";
-            this.GameOverPanel.Size = new System.Drawing.Size(403, 332);
+            this.GameOverPanel.Size = new System.Drawing.Size(403, 422);
             this.GameOverPanel.TabIndex = 11;
             this.GameOverPanel.Visible = false;
             // 
@@ -526,7 +528,7 @@
             this.QuickItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.QuickItems.Location = new System.Drawing.Point(0, 84);
             this.QuickItems.Name = "QuickItems";
-            this.QuickItems.Size = new System.Drawing.Size(0, 0);
+            this.QuickItems.Size = new System.Drawing.Size(2, 2);
             this.QuickItems.TabIndex = 13;
             this.QuickItems.Visible = false;
             this.QuickItems.WrapContents = false;
@@ -539,10 +541,25 @@
             this.QuickItems2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.QuickItems2.Location = new System.Drawing.Point(35, 90);
             this.QuickItems2.Name = "QuickItems2";
-            this.QuickItems2.Size = new System.Drawing.Size(0, 0);
+            this.QuickItems2.Size = new System.Drawing.Size(2, 2);
             this.QuickItems2.TabIndex = 14;
             this.QuickItems2.Visible = false;
             this.QuickItems2.WrapContents = false;
+            // 
+            // Done
+            // 
+            this.Done.BackColor = System.Drawing.Color.Black;
+            this.Done.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Done.ForeColor = System.Drawing.Color.White;
+            this.Done.Location = new System.Drawing.Point(70, 345);
+            this.Done.Name = "Done";
+            this.Done.Size = new System.Drawing.Size(260, 45);
+            this.Done.TabIndex = 2;
+            this.Done.Text = "Done";
+            this.Done.UseVisualStyleBackColor = false;
+            this.Done.Click += new System.EventHandler(this.Done_Click);
+            this.Done.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Done.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // Sector
             // 
@@ -625,6 +642,7 @@
         private System.Windows.Forms.Label SectorLabel;
         private System.Windows.Forms.FlowLayoutPanel QuickItems;
         private System.Windows.Forms.FlowLayoutPanel QuickItems2;
+        private System.Windows.Forms.Button Done;
     }
 }
 

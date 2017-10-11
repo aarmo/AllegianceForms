@@ -76,11 +76,33 @@ namespace AllegianceForms.Forms
             if (!f2.IsDisposed) f2.Show();
         }
 
+        private Sector _gamescreen;
+
         private void PlayCampaign_Click(object sender, EventArgs e)
         {
             var settings = GameSettings.CampaignStart();
-            var f2 = new Sector(settings);
-            if (!f2.IsDisposed) f2.Show();
+            _gamescreen = new Sector(settings);
+            _gamescreen.FormClosed += Game_FormClosed;
+
+            if (!_gamescreen.IsDisposed) _gamescreen.Show();
+        }
+
+        private void Game_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var f = sender as Sector;
+            if (f == null) return;
+
+            var game = f.StrategyGame;
+            if (game.GameSettings.GameType == EGameType.Campaign)
+            {
+                var c = new CampaignEnd(game);
+                if (c.ShowDialog() != DialogResult.OK) return;
+
+                _gamescreen = new Sector(c.Settings);
+                _gamescreen.FormClosed += Game_FormClosed;
+
+                if (!_gamescreen.IsDisposed) _gamescreen.Show();            }
+            
         }
     }
 }

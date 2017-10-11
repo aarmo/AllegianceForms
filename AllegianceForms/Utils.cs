@@ -161,5 +161,10 @@ namespace AllegianceForms
                 elements[swapIndex] = elements[i];
             }
         }
+
+        public static bool IsDefault<T, TU>(KeyValuePair<T, TU> pair)
+        {
+            return pair.Equals(new KeyValuePair<T, TU>());
+        }
     }
 }

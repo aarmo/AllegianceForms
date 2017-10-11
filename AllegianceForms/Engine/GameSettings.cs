@@ -18,6 +18,7 @@ namespace AllegianceForms.Engine
             Color.FromArgb(73, 161, 36).ToArgb()
         };
 
+        public EGameType GameType { get; set; }
         public int NumTeams { get; set; }
         public int NumPilots { get; set; }
         public string MapName { get; set; }
@@ -90,6 +91,7 @@ namespace AllegianceForms.Engine
         public static GameSettings CampaignStart()
         {
             var settings = Default();
+            settings.GameType = EGameType.Campaign;
             settings.MapName = GameMaps.RandomName(2, false);
 
             // Low power faction (-20% to all)
@@ -106,6 +108,7 @@ namespace AllegianceForms.Engine
             var s = new GameSettings
             {
                 NumTeams = 2,
+                GameType = EGameType.Skirmish,
                 MapName = GameMaps.RandomName(2), // "Brawl",
                 WormholesVisible = true,
                 RocksVisible = false,

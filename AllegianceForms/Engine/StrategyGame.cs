@@ -1164,5 +1164,20 @@ namespace AllegianceForms.Engine
 
             return null;
         }
+
+        public int TotalCampaignPoints(int team)
+        {
+            var t = team - 1;
+            var won = Winners.Contains(Faction[t]);
+            var multiplier = won ? 1.5f : 1f;
+
+            return (int)(multiplier * (GameStats.TotalResourcesMined[t] / 1000
+                + GameStats.TotalBasesBuilt[t]
+                + GameStats.TotalBasesDestroyed[t]
+                + GameStats.TotalMinersBuilt[t]
+                + GameStats.TotalMinersDestroyed[t]
+                + GameStats.TotalConstructorsBuilt[t]
+                + GameStats.TotalConstructorsDestroyed[t]));
+        }
     }
 }

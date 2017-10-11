@@ -582,11 +582,8 @@ namespace AllegianceForms
         Small, Normal, Large
     }
 
-    public static class KeyValuePairExtensions
+    public enum EGameType
     {
-        public static bool IsDefault<T, TU>(this KeyValuePair<T, TU> pair)
-        {
-            return pair.Equals(new KeyValuePair<T, TU>());
-        }
+        Skirmish, Campaign
     }
 }
