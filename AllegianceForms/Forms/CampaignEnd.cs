@@ -8,12 +8,13 @@ namespace AllegianceForms.Forms
     public partial class CampaignEnd : Form
     {
         public GameSettings Settings;
-
+        private int _points;
         public CampaignEnd(StrategyGame game)
         {
             InitializeComponent();
+            _points = game.TotalCampaignPoints(1);
 
-            Points.Text = game.TotalCampaignPoints(1).ToString();
+            Points.Text = _points.ToString();
             Settings = game.GameSettings;
         }
 
@@ -39,6 +40,22 @@ namespace AllegianceForms.Forms
         private void Ladder_Load(object sender, EventArgs e)
         {
             SoundEffect.Play(ESounds.windowslides);
+        }
+
+        private void ChangeFaction_Click(object sender, EventArgs e)
+        {
+            var f = Settings.TeamFactions[0].Clone();
+            var c = Settings.TeamColours[0];
+            var b = Math.Round(f.Bonuses.TotalBonus, 2);
+            var extra = (_points / 10) * 0.1f;
+            var form = new FactionDetails(b, b + extra);
+
+            form.LoadFaction(f, Color.FromArgb(c));
+
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                Settings.TeamFactions[0] = form.Faction;
+            }
         }
     }
 }

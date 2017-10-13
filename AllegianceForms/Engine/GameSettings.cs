@@ -92,7 +92,6 @@ namespace AllegianceForms.Engine
         {
             var settings = Default();
             settings.GameType = EGameType.Campaign;
-            settings.MapName = GameMaps.RandomName(2, false);
 
             // Low power faction (-20% to all)
             settings.TeamFactions[0] = Faction.CampaignStart(2);
@@ -109,7 +108,7 @@ namespace AllegianceForms.Engine
             {
                 NumTeams = 2,
                 GameType = EGameType.Skirmish,
-                MapName = GameMaps.RandomName(2), // "Brawl",
+                MapName = GameMaps.RandomName(2, false),
                 WormholesVisible = true,
                 RocksVisible = false,
 

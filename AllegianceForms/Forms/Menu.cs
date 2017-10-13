@@ -72,7 +72,7 @@ namespace AllegianceForms.Forms
         private void QuickPlay_Click(object sender, EventArgs e)
         {
             var settings = GameSettings.Default();
-            var f2 = new Sector(_gameSettings);
+            var f2 = new Sector(settings);
             if (!f2.IsDisposed) f2.Show();
         }
 

@@ -33,6 +33,7 @@
             this.Points = new System.Windows.Forms.Label();
             this.Cancel = new System.Windows.Forms.Button();
             this.StartGame = new System.Windows.Forms.Button();
+            this.ChangeFaction = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -63,7 +64,7 @@
             this.Cancel.BackColor = System.Drawing.Color.Black;
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel.Location = new System.Drawing.Point(401, 111);
+            this.Cancel.Location = new System.Drawing.Point(408, 224);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(125, 45);
             this.Cancel.TabIndex = 60;
@@ -77,7 +78,7 @@
             this.StartGame.BackColor = System.Drawing.Color.Black;
             this.StartGame.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.StartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StartGame.Location = new System.Drawing.Point(263, 111);
+            this.StartGame.Location = new System.Drawing.Point(270, 224);
             this.StartGame.Name = "StartGame";
             this.StartGame.Size = new System.Drawing.Size(125, 45);
             this.StartGame.TabIndex = 59;
@@ -87,13 +88,29 @@
             this.StartGame.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.StartGame.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // ChangeFaction
+            // 
+            this.ChangeFaction.BackColor = System.Drawing.Color.Black;
+            this.ChangeFaction.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ChangeFaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeFaction.Location = new System.Drawing.Point(15, 76);
+            this.ChangeFaction.Name = "ChangeFaction";
+            this.ChangeFaction.Size = new System.Drawing.Size(222, 32);
+            this.ChangeFaction.TabIndex = 59;
+            this.ChangeFaction.Text = "Upgrade Faction";
+            this.ChangeFaction.UseVisualStyleBackColor = false;
+            this.ChangeFaction.Click += new System.EventHandler(this.ChangeFaction_Click);
+            this.ChangeFaction.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.ChangeFaction.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
             // CampaignEnd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(801, 174);
+            this.ClientSize = new System.Drawing.Size(801, 291);
             this.Controls.Add(this.Cancel);
+            this.Controls.Add(this.ChangeFaction);
             this.Controls.Add(this.StartGame);
             this.Controls.Add(this.Points);
             this.Controls.Add(this.label3);
@@ -116,5 +133,6 @@
         private System.Windows.Forms.Label Points;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Button StartGame;
+        private System.Windows.Forms.Button ChangeFaction;
     }
 }

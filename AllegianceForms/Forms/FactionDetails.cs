@@ -13,11 +13,21 @@ namespace AllegianceForms.Forms
     {
         public Faction Faction { get; set; }
         private Color _colour;
+        private double _initBalance;
+        private double _targetBalance;
 
-        public FactionDetails()
+        public FactionDetails(double balance = 0, double target = 0)
         {
             InitializeComponent();
 
+            _initBalance = balance;
+            _targetBalance = target;
+
+            InitialisePresets();
+        }
+
+        private void InitialisePresets()
+        {
             if (!Directory.Exists(StrategyGame.FactionPresetFolder)) return;
 
             var presetFiles = Directory.GetFiles(StrategyGame.FactionPresetFolder);
@@ -50,6 +60,42 @@ namespace AllegianceForms.Forms
             PlayerName.Text = Faction.CommanderName;
 
             RefreshBalance();
+        }
+
+        private void RefreshBalance()
+        {
+            var f = Faction;
+
+            SoundEffect.Play(ESounds.mousedown);
+            var balance = Math.Round(f.Bonuses.TotalBonus, 2);
+
+            Speed.ForeColor = GetColour(f.Bonuses.Speed);
+            ResearchTime.ForeColor = GetColour(f.Bonuses.ResearchTime, true);
+            ResearchCost.ForeColor = GetColour(f.Bonuses.ResearchCost, true);
+            Health.ForeColor = GetColour(f.Bonuses.Health);
+            ScanRange.ForeColor = GetColour(f.Bonuses.ScanRange);
+            Signature.ForeColor = GetColour(f.Bonuses.Signature, true);
+            FireRate.ForeColor = GetColour(f.Bonuses.FireRate);
+            MissileSpeed.ForeColor = GetColour(f.Bonuses.MissileSpeed);
+            MissileTracking.ForeColor = GetColour(f.Bonuses.MissileTracking);
+            MiningEfficiency.ForeColor = GetColour(f.Bonuses.MiningEfficiency);
+            MiningCapacity.ForeColor = GetColour(f.Bonuses.MiningCapacity);
+
+            var balanced = (balance >= _initBalance && balance <= _targetBalance);
+            Done.Enabled = balanced;
+
+            if (balanced)
+            {
+                BalancedLabel.ForeColor = Color.Lime;
+                BalancedLabel.Text = "OK";
+            }
+            else
+            {
+                BalancedLabel.ForeColor = Color.Red;
+
+                if (balance < _initBalance) BalancedLabel.Text = "Too Low";
+                if (balance > _targetBalance) BalancedLabel.Text = "Too High";
+            } 
         }
 
         private void Random_Click(object sender, EventArgs e)
@@ -101,29 +147,6 @@ namespace AllegianceForms.Forms
             FactionName.Text = Faction.Name = Faction.FactionNames.NextString;
         }
 
-        private void RefreshBalance()
-        {
-            var f = Faction;
-
-            SoundEffect.Play(ESounds.mousedown);
-            var balance = Math.Round(f.Bonuses.TotalBonus,2);
-
-            Speed.ForeColor = GetColour(f.Bonuses.Speed);
-            ResearchTime.ForeColor = GetColour(f.Bonuses.ResearchTime, true);
-            ResearchCost.ForeColor = GetColour(f.Bonuses.ResearchCost, true);
-            Health.ForeColor = GetColour(f.Bonuses.Health);
-            ScanRange.ForeColor = GetColour(f.Bonuses.ScanRange);
-            Signature.ForeColor = GetColour(f.Bonuses.Signature, true);
-            FireRate.ForeColor = GetColour(f.Bonuses.FireRate);
-            MissileSpeed.ForeColor = GetColour(f.Bonuses.MissileSpeed);
-            MissileTracking.ForeColor = GetColour(f.Bonuses.MissileTracking);
-            MiningEfficiency.ForeColor = GetColour(f.Bonuses.MiningEfficiency);
-            MiningCapacity.ForeColor = GetColour(f.Bonuses.MiningCapacity);
-
-            BalancedLabel.Text = balance == 0 ? "Balanced" : (balance < 0 ? "Too Low" : "Too High");
-            BalancedLabel.ForeColor = balance == 0 ? Color.Lime : Color.Red;
-            Done.Enabled = balance == 0;
-        }
 
         private Color GetColour(float value, bool inverse = false)
         {
