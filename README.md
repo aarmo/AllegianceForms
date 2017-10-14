@@ -19,7 +19,7 @@ Made for the Free Allegiance community: http://www.freeallegiance.org/
 - It is now Open Source: https://github.com/FreeAllegiance/Allegiance
 - And available free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
 
-[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)&nbsp;&nbsp;&nbsp;[Dependancies](#dependancies)
+[Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Video](#video)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)&nbsp;&nbsp;&nbsp;[Dependancies](#dependancies)
 
 Features
 ------
@@ -62,6 +62,10 @@ Screenshots
 ### Customise the Game
 ![alt text][custom]
 ![alt text][faction]
+
+Video
+------
+[![Allegiance Forms v0.3a](https://img.youtube.com/vi/08LoZASbGGA/0.jpg)](https://www.youtube.com/watch?v=08LoZASbGGA)
 
 [Overview](#overview)
 
