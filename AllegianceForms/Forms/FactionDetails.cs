@@ -368,7 +368,6 @@ namespace AllegianceForms.Forms
         {
             Faction.CommanderName = StrategyGame.RandomName.GetRandomName(Utils.RandomString());
             PlayerName.Text = Faction.CommanderName;
-
         }
         
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -384,5 +383,11 @@ namespace AllegianceForms.Forms
             if (b != null) b.BackColor = Color.Black;
         }
 
+        private void Default_Click(object sender, EventArgs e)
+        {
+            var f = Faction.Default();
+            f.CommanderName = "Default";
+            LoadFaction(f, _colour);
+        }
     }
 }
