@@ -52,6 +52,7 @@ namespace AllegianceForms.Engine
         public static Pen HealthBorderPen = new Pen(Color.DimGray, 1);
         public static Pen BaseBorderPen = new Pen(Color.Gray, 2);
         public static Brush ShieldBrush = new SolidBrush(Color.CornflowerBlue);
+        public static Brush ResourceBrush = new SolidBrush(Color.MintCream);
 
         private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
         private static DateTime _nextBbrSoundAllowed = DateTime.MinValue;
@@ -1108,7 +1109,7 @@ namespace AllegianceForms.Engine
             _constructorCheckNext--;
             if (_constructorCheckNext <= 0)
             {
-                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.CurrentOrder == null).ToArray();
+                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.CurrentOrder == null && _.Orders.Count == 0).ToArray();
                 if (constructorsWaiting.Length > 0)
                 {
                     var con = constructorsWaiting[Random.Next(constructorsWaiting.Length)] as BuilderShip;

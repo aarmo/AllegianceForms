@@ -132,7 +132,7 @@ namespace AllegianceForms.Engine
             }
         }
 
-        protected void DrawHealthBar(Graphics g, int t, Rectangle b)
+        protected virtual void DrawHealthBar(Graphics g, int t, Rectangle b)
         {
             g.FillRectangle(StrategyGame.ShieldBrush, b.Left, b.Bottom + 3, (Shield / MaxShield) * b.Width, 3);
             g.FillRectangle(_game.TeamBrushes[t], b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);

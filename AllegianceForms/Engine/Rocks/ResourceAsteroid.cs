@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace AllegianceForms.Engine.Rocks
 {
@@ -41,6 +42,22 @@ namespace AllegianceForms.Engine.Rocks
             {
                 AvailableResources = MaxResources;
             }
+        }
+
+        public override void Draw(Graphics g, int currentSectorId)
+        {
+            if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
+
+            base.Draw(g, currentSectorId);            
+            DrawResourceBar(g);
+        }
+
+        protected void DrawResourceBar(Graphics g)
+        {
+            var b = Bounds;
+            var p = b.Width * (1f * AvailableResources / MaxResources);
+            g.FillRectangle(StrategyGame.ResourceBrush, b.Left, b.Bottom + 3, p, 3);
+            g.DrawRectangle(StrategyGame.HealthBorderPen, b.Left, b.Bottom + 3, b.Width, 3);
         }
     }
 }
