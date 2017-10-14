@@ -38,6 +38,8 @@ namespace AllegianceForms.Forms
         private const int MaxScore = 5;
         private const int MaxTimerState = 5;
 
+        private StarField _starfield = new StarField();
+
         public ChanceGame()
         {
             InitializeComponent();
@@ -105,7 +107,6 @@ namespace AllegianceForms.Forms
                 DefeatsType2 = EShipType.Interceptor,
             });
 
-
             var sb = new StringBuilder();
             foreach (var k in _rules.Keys)
             {
@@ -115,6 +116,9 @@ namespace AllegianceForms.Forms
 
             _keyLines = sb.ToString();
             SoundEffect.Play(ESounds.windowslides);
+
+            _starfield.Init(Width, Height);
+            animateStars.Enabled = true;
         }
 
         private void GameRules_Click(object sender, EventArgs e)
@@ -368,6 +372,20 @@ namespace AllegianceForms.Forms
         private void ChanceGame_FormClosed(object sender, FormClosedEventArgs e)
         {
             gameTimer.Enabled = false;
+            animateStars.Enabled = false;
+        }
+
+        private void animateStars_Tick(object sender, EventArgs e)
+        {
+            _starfield.UpdateFrame();
+            Invalidate();
+        }
+
+        private void Form_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+
+            if (_starfield.Frame != null) g.DrawImage(_starfield.Frame, 0, 0);
         }
     }
 

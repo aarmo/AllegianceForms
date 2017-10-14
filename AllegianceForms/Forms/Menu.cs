@@ -2,7 +2,6 @@
 using AllegianceForms.Engine.Factions;
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -10,7 +9,10 @@ namespace AllegianceForms.Forms
 {
     public partial class Menu : Form
     {
-        private GameSettings _gameSettings = GameSettings.Default();
+        private Sector _gamescreen;
+        private CampaignGame _campaignGame;
+        private GameSettings _customSettings = GameSettings.Default();
+        private StarField _starfield = new StarField();
 
         public Menu()
         {
@@ -19,13 +21,20 @@ namespace AllegianceForms.Forms
             SoundEffect.Play(ESounds.windowslides);
 
             AppVersion.Text = string.Format("(ALPHA) v{0}", Assembly.GetEntryAssembly().GetName().Version);
+            _campaignGame = CampaignGame.LoadOrDefault();
+            if (_campaignGame.GamesPlayed > 0) PlayCampaign.Text = "Continue Campaign";
+
+            _starfield.Init(Width, Height);
+            animateStars.Enabled = true;
         }
 
         private void Dogfight_Click(object sender, EventArgs e)
         {
             SoundEffect.Play(ESounds.mousedown);
             var f = new ChanceGame();
+            animateStars.Enabled = false;
             f.ShowDialog(this);
+            animateStars.Enabled = true;
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -52,13 +61,15 @@ namespace AllegianceForms.Forms
             Faction.FactionNames.Reset();
             SoundEffect.Play(ESounds.mousedown);
             var f = new CustomiseSetttings();
-            f.LoadSettings(_gameSettings);
+            f.LoadSettings(_customSettings);
 
             if (f.ShowDialog(this) == DialogResult.OK)
             {
-                _gameSettings = f.Settings;
-                var f2 = new Sector(_gameSettings);
-                if (!f2.IsDisposed) f2.Show();
+                _customSettings = f.Settings;
+                _gamescreen = new Sector(_customSettings);
+                _gamescreen.FormClosed += Game_FormClosed;
+                if (!_gamescreen.IsDisposed) _gamescreen.Show();
+                animateStars.Enabled = false;
             }
         }
 
@@ -72,19 +83,18 @@ namespace AllegianceForms.Forms
         private void QuickPlay_Click(object sender, EventArgs e)
         {
             var settings = GameSettings.Default();
-            var f2 = new Sector(settings);
-            if (!f2.IsDisposed) f2.Show();
+            _gamescreen = new Sector(settings);
+            _gamescreen.FormClosed += Game_FormClosed;
+            if (!_gamescreen.IsDisposed) _gamescreen.Show();
+            animateStars.Enabled = false;
         }
-
-        private Sector _gamescreen;
 
         private void PlayCampaign_Click(object sender, EventArgs e)
         {
-            var settings = GameSettings.CampaignStart();
-            _gamescreen = new Sector(settings);
+            _gamescreen = new Sector(_campaignGame.CurrentSettings);
             _gamescreen.FormClosed += Game_FormClosed;
-
             if (!_gamescreen.IsDisposed) _gamescreen.Show();
+            animateStars.Enabled = false;
         }
 
         private void Game_FormClosed(object sender, FormClosedEventArgs e)
@@ -92,17 +102,38 @@ namespace AllegianceForms.Forms
             var f = sender as Sector;
             if (f == null) return;
 
+            animateStars.Enabled = true;
+
             var game = f.StrategyGame;
             if (game.GameSettings.GameType == EGameType.Campaign)
             {
-                var c = new CampaignEnd(game);
-                if (c.ShowDialog() != DialogResult.OK) return;
+                _campaignGame.UpdateResults(game);
 
-                _gamescreen = new Sector(c.Settings);
-                _gamescreen.FormClosed += Game_FormClosed;
+                var c = new CampaignEnd(_campaignGame);
+                if (c.ShowDialog() == DialogResult.OK)
+                {
+                    // Save & play again!
+                    _campaignGame.SaveGame();
+                    _gamescreen = new Sector(c.Settings);
+                    _gamescreen.FormClosed += Game_FormClosed;
 
-                if (!_gamescreen.IsDisposed) _gamescreen.Show();            }
-            
+                    if (!_gamescreen.IsDisposed) _gamescreen.Show();
+                    animateStars.Enabled = false;
+                }
+            }
+        }        
+
+        private void animateStars_Tick(object sender, EventArgs e)
+        {
+            _starfield.UpdateFrame();
+            Invalidate();
+        }
+
+        private void Menu_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+
+            if (_starfield.Frame != null) g.DrawImage(_starfield.Frame, 0, 0);
         }
     }
 }

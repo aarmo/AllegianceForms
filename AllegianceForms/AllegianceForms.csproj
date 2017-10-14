@@ -148,12 +148,14 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
+    <Compile Include="Engine\CampaignGame.cs" />
     <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Generation\RandomName.cs" />
     <Compile Include="Engine\HSBColour.cs" />
     <Compile Include="Engine\LadderGame.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Engine\QuickChat\QuickComms.cs" />
+    <Compile Include="Engine\StarField.cs" />
     <Compile Include="Engine\Weapons\Minefield.cs" />
     <Compile Include="Engine\Weapons\MineWeapon.cs" />
     <Compile Include="Forms\ChanceGame.cs">

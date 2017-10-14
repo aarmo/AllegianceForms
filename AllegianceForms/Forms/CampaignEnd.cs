@@ -7,15 +7,17 @@ namespace AllegianceForms.Forms
 {
     public partial class CampaignEnd : Form
     {
+        CampaignGame _game;
         public GameSettings Settings;
-        private int _points;
-        public CampaignEnd(StrategyGame game)
+
+        public CampaignEnd(CampaignGame game)
         {
             InitializeComponent();
-            _points = game.TotalCampaignPoints(1);
 
-            Points.Text = _points.ToString();
-            Settings = game.GameSettings;
+            _game = game;
+            Settings = _game.CurrentSettings;
+
+            Points.Text = _game.UnspentPoints.ToString();
         }
 
         private void StartGame_Click(object sender, EventArgs e)
@@ -44,17 +46,28 @@ namespace AllegianceForms.Forms
 
         private void ChangeFaction_Click(object sender, EventArgs e)
         {
-            var f = Settings.TeamFactions[0].Clone();
-            var c = Settings.TeamColours[0];
+            if (_game.UnspentPoints < 10) return;
+
+            var s = _game.CurrentSettings;
+            var f = s.TeamFactions[0].Clone();
+            var c = s.TeamColours[0];
             var b = Math.Round(f.Bonuses.TotalBonus, 2);
-            var extra = (_points / 10) * 0.1f;
-            var form = new FactionDetails(b, b + extra);
+            var p = (_game.UnspentPoints / 10) * 0.1;           
+
+            var form = new FactionDetails(b, b + p);
 
             form.LoadFaction(f, Color.FromArgb(c));
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Settings.TeamFactions[0] = form.Faction;
+                var newF = form.Faction;
+                var newB = Math.Round(newF.Bonuses.TotalBonus, 2);
+                var spentPoints = (int)((newB - b) * 100);
+
+                _game.UnspentPoints -= spentPoints;
+                Points.Text = _game.UnspentPoints.ToString();
+
+                _game.CurrentSettings.TeamFactions[0] = newF;
             }
         }
     }

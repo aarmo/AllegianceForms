@@ -1209,7 +1209,7 @@ namespace AllegianceForms.Forms
             
             if (_debugForm != null && _debugForm.Visible) _debugForm.UpdateDebugInfo();
                         
-            if (_pilotList.Visible) _pilotList.RefreshPilotList();
+            //if (_pilotList.Visible) _pilotList.RefreshPilotList();
 
             if (AlertMessage.Visible && DateTime.Now >= _alertExpire) AlertMessage.Visible = false;
 

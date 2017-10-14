@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.Dogfight = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
@@ -37,15 +38,17 @@
             this.MapDesigner = new System.Windows.Forms.Button();
             this.QuickPlay = new System.Windows.Forms.Button();
             this.PlayCampaign = new System.Windows.Forms.Button();
+            this.animateStars = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // Dogfight
             // 
+            this.Dogfight.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Dogfight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Dogfight.Location = new System.Drawing.Point(53, 238);
+            this.Dogfight.Location = new System.Drawing.Point(59, 253);
             this.Dogfight.Name = "Dogfight";
             this.Dogfight.Size = new System.Drawing.Size(91, 45);
-            this.Dogfight.TabIndex = 1;
+            this.Dogfight.TabIndex = 4;
             this.Dogfight.Text = "Lucky Dogfight";
             this.Dogfight.UseVisualStyleBackColor = true;
             this.Dogfight.Click += new System.EventHandler(this.Dogfight_Click);
@@ -54,11 +57,12 @@
             // 
             // Exit
             // 
+            this.Exit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Exit.Location = new System.Drawing.Point(53, 301);
+            this.Exit.Location = new System.Drawing.Point(59, 345);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(260, 45);
-            this.Exit.TabIndex = 1;
+            this.Exit.TabIndex = 6;
             this.Exit.Text = "Exit";
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
@@ -67,24 +71,27 @@
             // 
             // AppVersion
             // 
+            this.AppVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AppVersion.BackColor = System.Drawing.Color.Transparent;
             this.AppVersion.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppVersion.ForeColor = System.Drawing.Color.Lime;
-            this.AppVersion.Location = new System.Drawing.Point(2, 339);
+            this.AppVersion.Location = new System.Drawing.Point(2, 398);
             this.AppVersion.Name = "AppVersion";
-            this.AppVersion.Size = new System.Drawing.Size(366, 31);
-            this.AppVersion.TabIndex = 3;
+            this.AppVersion.Size = new System.Drawing.Size(371, 21);
+            this.AppVersion.TabIndex = 7;
             this.AppVersion.Text = "(ALPHA) v0.1a";
             this.AppVersion.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // CustomGame
             // 
+            this.CustomGame.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.CustomGame.BackColor = System.Drawing.Color.Black;
             this.CustomGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CustomGame.Location = new System.Drawing.Point(222, 187);
+            this.CustomGame.Location = new System.Drawing.Point(228, 202);
             this.CustomGame.Name = "CustomGame";
             this.CustomGame.Size = new System.Drawing.Size(91, 45);
-            this.CustomGame.TabIndex = 1;
+            this.CustomGame.TabIndex = 3;
             this.CustomGame.Text = "Custom Battle";
             this.CustomGame.UseVisualStyleBackColor = false;
             this.CustomGame.Click += new System.EventHandler(this.CustomGame_Click);
@@ -93,21 +100,24 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label1.Location = new System.Drawing.Point(2, -13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(369, 156);
-            this.label1.TabIndex = 4;
+            this.label1.Size = new System.Drawing.Size(374, 156);
+            this.label1.TabIndex = 0;
             // 
             // MapDesigner
             // 
+            this.MapDesigner.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.MapDesigner.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MapDesigner.Location = new System.Drawing.Point(150, 238);
+            this.MapDesigner.Location = new System.Drawing.Point(156, 253);
             this.MapDesigner.Name = "MapDesigner";
             this.MapDesigner.Size = new System.Drawing.Size(163, 45);
-            this.MapDesigner.TabIndex = 1;
+            this.MapDesigner.TabIndex = 5;
             this.MapDesigner.Text = "Map Designer";
             this.MapDesigner.UseVisualStyleBackColor = true;
             this.MapDesigner.Click += new System.EventHandler(this.MapDesigner_Click);
@@ -116,12 +126,13 @@
             // 
             // QuickPlay
             // 
+            this.QuickPlay.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.QuickPlay.BackColor = System.Drawing.Color.Black;
             this.QuickPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.QuickPlay.Location = new System.Drawing.Point(53, 187);
+            this.QuickPlay.Location = new System.Drawing.Point(59, 202);
             this.QuickPlay.Name = "QuickPlay";
             this.QuickPlay.Size = new System.Drawing.Size(163, 45);
-            this.QuickPlay.TabIndex = 1;
+            this.QuickPlay.TabIndex = 2;
             this.QuickPlay.Text = "Quick Skirmish";
             this.QuickPlay.UseVisualStyleBackColor = false;
             this.QuickPlay.Click += new System.EventHandler(this.QuickPlay_Click);
@@ -130,9 +141,10 @@
             // 
             // PlayCampaign
             // 
+            this.PlayCampaign.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PlayCampaign.BackColor = System.Drawing.Color.Black;
             this.PlayCampaign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PlayCampaign.Location = new System.Drawing.Point(53, 136);
+            this.PlayCampaign.Location = new System.Drawing.Point(59, 151);
             this.PlayCampaign.Name = "PlayCampaign";
             this.PlayCampaign.Size = new System.Drawing.Size(260, 45);
             this.PlayCampaign.TabIndex = 1;
@@ -142,13 +154,17 @@
             this.PlayCampaign.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.PlayCampaign.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // animateStars
+            // 
+            this.animateStars.Interval = 30;
+            this.animateStars.Tick += new System.EventHandler(this.animateStars_Tick);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(369, 374);
+            this.ClientSize = new System.Drawing.Size(374, 423);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.MapDesigner);
             this.Controls.Add(this.Dogfight);
@@ -157,6 +173,7 @@
             this.Controls.Add(this.QuickPlay);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AppVersion);
+            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -164,6 +181,7 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allegiance Forms";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Menu_Paint);
             this.ResumeLayout(false);
 
         }
@@ -177,5 +195,6 @@
         private System.Windows.Forms.Button MapDesigner;
         private System.Windows.Forms.Button QuickPlay;
         private System.Windows.Forms.Button PlayCampaign;
+        private System.Windows.Forms.Timer animateStars;
     }
 }

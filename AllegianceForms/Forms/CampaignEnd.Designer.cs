@@ -91,7 +91,6 @@
             // ChangeFaction
             // 
             this.ChangeFaction.BackColor = System.Drawing.Color.Black;
-            this.ChangeFaction.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ChangeFaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ChangeFaction.Location = new System.Drawing.Point(15, 76);
             this.ChangeFaction.Name = "ChangeFaction";
