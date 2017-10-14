@@ -1128,6 +1128,11 @@ namespace AllegianceForms.Forms
             }
             else
             {
+                if (_researchForm.IsDisposed)
+                {
+                    _researchForm = new Research(StrategyGame);
+                }
+
                 _researchForm.RefreshItems();
                 _researchForm.Show(this);
 
@@ -1147,6 +1152,10 @@ namespace AllegianceForms.Forms
             }
             else
             {
+                if (_mapForm.IsDisposed)
+                {
+                    _mapForm = new Map(StrategyGame);
+                }
                 _mapForm.UpdateMap(_currentSector.Id);
                 _mapForm.Show(this);
 
@@ -1227,6 +1236,11 @@ namespace AllegianceForms.Forms
             }
             else
             {
+                if (_pilotList.IsDisposed)
+                {
+                    _pilotList = new PilotList(StrategyGame);
+                }
+
                 _pilotList.RefreshPilotList();
                 _pilotList.Show(this);
 

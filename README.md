@@ -2,7 +2,7 @@
 <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/header_logo.png" />
 <br/>
 <a href="https://ci.appveyor.com/project/aarmo/allegianceforms"><img src="https://ci.appveyor.com/api/projects/status/6xvt3vn0cev4iupc?svg=true"/></a>
-<a href="https://github.com/aarmo/AllegianceForms/releases"><img src="https://img.shields.io/badge/release-v0.2%20alpha-green.svg"/></a>
+<a href="https://github.com/aarmo/AllegianceForms/releases"><img src="https://img.shields.io/badge/release-v0.3%20alpha-green.svg"/></a>
 <a href="https://github.com/aarmo/AllegianceForms/projects/1"><img src="https://img.shields.io/badge/release-v1.0%20alpha-yellow.svg"/></a>
 <a href="https://github.com/aarmo/AllegianceForms/issues"><img src="https://img.shields.io/github/issues/aarmo/AllegianceForms.svg"/></a>
 <img src="https://raw.githubusercontent.com/aarmo/AllegianceForms/master/Doc/Images/contributions-welcome-brightgreen.png"/>
@@ -15,9 +15,9 @@ A 2D strategy game inspired by Microsoft's space combat game: Allegiance.
 
 Made for the Free Allegiance community: http://www.freeallegiance.org/
 
-- Allegiance was originally released on 16th March 2000.
-- It is Open Source: https://github.com/FreeAllegiance/Allegiance
-- And it is now available free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
+- Allegiance was originally released in March 2000.
+- It is now Open Source: https://github.com/FreeAllegiance/Allegiance
+- And available free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
 
 [Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)&nbsp;&nbsp;&nbsp;[Dependancies](#dependancies)
 
@@ -47,7 +47,7 @@ Screenshots
 - Miners collect resources from *Helium* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/helium_1.png" width="30"/>
 
 ### Build bases & expand
-![alt text][build2]
+![alt text][expand]
 - Outpost, Refinery, Starbase and Shipyard constructors require *Standard* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/rock_2.png" width="30"/>
 - Supremacy constructors require *Carbon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/carbon_1.png" width="30"/>
 - Tactical constructors require *Silicon* asteroids: <img src="https://github.com/aarmo/AllegianceForms/raw/master/AllegianceForms/Art/Rocks/silicon_2.png" width="30"/>
@@ -55,8 +55,8 @@ Screenshots
 - Tower constructors require *No* asteroids.
 
 ### Upgrade your tech & battle the enemy
-![alt text][battle1]
-![alt text][battle2]
+![alt text][tech]
+![alt text][battle]
 ![alt text][gameover]
 
 ### Customise the Game
@@ -84,6 +84,7 @@ Key	| Description
 **F5** | Show/Hide the Research/Construction window.
 **F6** | Show/Hide the Pilot List window.
 **F12** | Show/Hide the AI Debug window.
+**`** | Show/Hide the Quick Command menu.
 
 ### Base Commands
 Key	| Description
@@ -118,7 +119,7 @@ Key	| Description
 Maps
 ------
 Name | Image | Teams
---- | --- | --- 
+--- | --- | ---
 Across4 | ![alt text][mapacross4] | 2 / 4
 Brawl2 | ![alt text][mapbrawl2] | 2
 Cross2 | ![alt text][mapcross2] | 2
@@ -167,6 +168,16 @@ Map Editor
 ------
 ![alt text][mapeditor]
 
+### Editor Commands
+Key	| Description
+--- | ---
+**Control+Left Click** | Places a new sector.
+**Left Click** | Selects a sector.
+**W**,**A**,**S**,**D** | Moves the selected sector up/left/down/right.
+**Delete** | Removes the selected sector.
+**Shift+Left Click** | Places a wormhole between sectors.
+**(1-4)** | Toggles a starting sector for team 1-4.
+
 [Overview](#overview)
 
 Tech Tree
@@ -204,15 +215,15 @@ Bonus Game
 [ships]: /Doc/Images/Ships.png "Ship Types"
 [capships]: /Doc/Images/CapShips.png "Capital Ships"
 [menu]: /Doc/Screenshots/MainMenu.png "Main Menu"
-[explore]: /Doc/Screenshots/01a_Gameplay06.png "Explore"
-[defend]: /Doc/Screenshots/01a_Gameplay01.png "Defend"
-[build2]: /Doc/Screenshots/01a_Build.png "Expand"
-[battle1]: /Doc/Screenshots/01a_Gameplay02.png "Battle"
-[battle2]: /Doc/Screenshots/01a_Gameplay05.png "Battle"
-[gameover]: /Doc/Screenshots/01a_GameOver.png "Game Over"
+[explore]: /Doc/Screenshots/03a_Gameplay01.png "Explore"
+[defend]: /Doc/Screenshots/03a_Gameplay02.png "Defend"
+[expand]: /Doc/Screenshots/03a_Gameplay03.png "Expand"
+[tech]: /Doc/Screenshots/03a_Gameplay05.png "Upgrade"
+[battle]: /Doc/Screenshots/03a_Gameplay06.png "Battle"
+[gameover]: /Doc/Screenshots/03a_GameOver.png "Game Over"
 [custom]: /Doc/Screenshots/CustomSettings.png "Custom Settings"
 [faction]: /Doc/Screenshots/FactionDetails.png "Custom Factions"
-[bonus]: /Doc/Screenshots/01a_Bonus.png "Dogfight"
+[bonus]: /Doc/Screenshots/03a_Bonus.png "Dogfight"
 [techtree]: /Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
 [mapeditor]: /Doc/Screenshots/MapDesigner.png "Map Editor"
 

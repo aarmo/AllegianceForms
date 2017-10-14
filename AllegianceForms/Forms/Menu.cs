@@ -102,6 +102,7 @@ namespace AllegianceForms.Forms
             var f = sender as Sector;
             if (f == null) return;
 
+            f.Visible = false;
             animateStars.Enabled = true;
 
             var game = f.StrategyGame;
@@ -110,7 +111,7 @@ namespace AllegianceForms.Forms
                 _campaignGame.UpdateResults(game);
 
                 var c = new CampaignEnd(_campaignGame);
-                if (c.ShowDialog() == DialogResult.OK)
+                if (c.ShowDialog(this) == DialogResult.OK)
                 {
                     // Save & play again!
                     _campaignGame.SaveGame();

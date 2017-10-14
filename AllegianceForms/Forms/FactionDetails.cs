@@ -19,14 +19,28 @@ namespace AllegianceForms.Forms
 
         private const float BalanceIncrement = 0.1f;
 
-        public FactionDetails(double balance = 0, double target = 0)
+        public FactionDetails(double balance = 0, double target = 0, bool locked = false)
         {
             InitializeComponent();
             
             _initBalance = Math.Round(balance, 2);
             _targetBalance = Math.Round(target, 2);
 
-            InitialisePresets();
+            if (locked)
+            {
+                CustomPresets.Enabled = false;
+                LoadPreset.Enabled = false;
+                SavePreset.Enabled = false;
+                Random.Enabled = false;
+                RandomName.Enabled = false;
+                FactionName.Enabled = false;
+                PlayerName.Enabled = false;
+                RandomCommanderName.Enabled = false;
+            }
+            else
+            {
+                InitialisePresets();
+            }
         }
 
         private void InitialisePresets()

@@ -54,7 +54,7 @@ namespace AllegianceForms.Forms
             var b = Math.Round(f.Bonuses.TotalBonus, 2);
             var p = (_game.UnspentPoints / 10) * 0.1;           
 
-            var form = new FactionDetails(b, b + p);
+            var form = new FactionDetails(b, b + p, true);
 
             form.LoadFaction(f, Color.FromArgb(c));
 
