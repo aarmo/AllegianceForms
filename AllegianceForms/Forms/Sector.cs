@@ -331,13 +331,18 @@ namespace AllegianceForms.Forms
 
         private void GameOver(bool playerWon)
         {
+            var t1C = Color.FromArgb(StrategyGame.GameSettings.TeamColours[0]);
+            var t2C = Color.FromArgb(StrategyGame.GameSettings.TeamColours[1]);
+
             UpdateWinnersAndLoosers(playerWon);
             if (playerWon)
             {
+                WinLose.ForeColor = t1C;
                 WinLose.Text = "You Win!";
             }
             else
             {
+                WinLose.ForeColor = t2C;
                 WinLose.Text = "You Lose!";
             }            
 
@@ -345,6 +350,14 @@ namespace AllegianceForms.Forms
             GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
             SoundEffect.Play((_rnd.Next(2) == 0) ? ESounds.static1 : ESounds.static2);
             GameOverPanel.Visible = true;
+
+            Team1.ForeColor = TotalBases1.ForeColor = TotalBasesDestroyed1.ForeColor 
+                = TotalConstructors1.ForeColor = TotalConstructorsDestroyed1.ForeColor = TotalMined1.ForeColor 
+                = TotalMiners1.ForeColor = TotalMinersDestroyed1.ForeColor = t1C;
+
+            Team2.ForeColor = TotalBases2.ForeColor = TotalBasesDestroyed2.ForeColor
+                = TotalConstructors2.ForeColor = TotalConstructorsDestroyed2.ForeColor = TotalMined2.ForeColor
+                = TotalMiners2.ForeColor = TotalMinersDestroyed2.ForeColor = t2C;
 
             TotalBases1.Text = StrategyGame.GameStats.TotalBasesBuilt[0].ToString();
             TotalBases2.Text = StrategyGame.GameStats.TotalBasesBuilt[1].ToString();

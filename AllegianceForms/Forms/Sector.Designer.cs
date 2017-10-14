@@ -42,6 +42,7 @@
             this.enemyAIDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.GameOverPanel = new System.Windows.Forms.Panel();
+            this.Done = new System.Windows.Forms.Button();
             this.TotalBases2 = new System.Windows.Forms.Label();
             this.TotalBases1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -71,7 +72,6 @@
             this.SectorLabel = new System.Windows.Forms.Label();
             this.QuickItems = new System.Windows.Forms.FlowLayoutPanel();
             this.QuickItems2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Done = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -216,6 +216,21 @@
             this.GameOverPanel.Size = new System.Drawing.Size(403, 422);
             this.GameOverPanel.TabIndex = 11;
             this.GameOverPanel.Visible = false;
+            // 
+            // Done
+            // 
+            this.Done.BackColor = System.Drawing.Color.Black;
+            this.Done.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Done.ForeColor = System.Drawing.Color.White;
+            this.Done.Location = new System.Drawing.Point(70, 345);
+            this.Done.Name = "Done";
+            this.Done.Size = new System.Drawing.Size(260, 45);
+            this.Done.TabIndex = 2;
+            this.Done.Text = "Done";
+            this.Done.UseVisualStyleBackColor = false;
+            this.Done.Click += new System.EventHandler(this.Done_Click);
+            this.Done.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Done.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // TotalBases2
             // 
@@ -545,21 +560,6 @@
             this.QuickItems2.TabIndex = 14;
             this.QuickItems2.Visible = false;
             this.QuickItems2.WrapContents = false;
-            // 
-            // Done
-            // 
-            this.Done.BackColor = System.Drawing.Color.Black;
-            this.Done.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Done.ForeColor = System.Drawing.Color.White;
-            this.Done.Location = new System.Drawing.Point(70, 345);
-            this.Done.Name = "Done";
-            this.Done.Size = new System.Drawing.Size(260, 45);
-            this.Done.TabIndex = 2;
-            this.Done.Text = "Done";
-            this.Done.UseVisualStyleBackColor = false;
-            this.Done.Click += new System.EventHandler(this.Done_Click);
-            this.Done.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
-            this.Done.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // Sector
             // 
