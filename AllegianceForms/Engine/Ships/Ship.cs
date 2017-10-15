@@ -1,3 +1,4 @@
+using AllegianceForms.Engine.Bases;
 using AllegianceForms.Orders;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,7 +23,8 @@ namespace AllegianceForms.Engine.Ships
         public ShipOrder CurrentOrder { get; private set; }
         public int NumPilots { get; set; }
         public float ScanRange { get; set; }
-        public bool Docked { get; set; }
+        public bool Docked { get; private set; }
+        public Base DockedAtBase { get; private set; }
         
 
         public Ship(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
@@ -66,6 +68,12 @@ namespace AllegianceForms.Engine.Ships
 
             if (CurrentOrder == null) StopMoving();
 
+            if (Docked && DockedAtBase != null && (!DockedAtBase.Active || DockedAtBase.Team != Team))
+            {
+                Docked = false;
+                DockedAtBase = null;
+            }
+
             Move();
         }
 
@@ -94,10 +102,10 @@ namespace AllegianceForms.Engine.Ships
             Orders.Clear();
         }
 
-        public virtual void Dock()
+        public virtual void Dock(Base dockedBase)
         {
             if (Docked) return;
-            
+
             Health = MaxHealth;
 
             if (Ship.CanDock(Type) && Orders.Count == 0)
@@ -110,6 +118,7 @@ namespace AllegianceForms.Engine.Ships
             if (Orders.Count == 0)
             {
                 Docked = true;
+                DockedAtBase = dockedBase;
             }
         }
 

@@ -175,9 +175,9 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Dock()
+        public override void Dock(Base dockAt)
         {
-            base.Dock();
+            base.Dock(dockAt);
             Refine();
         }
 
