@@ -65,7 +65,7 @@ Screenshots
 
 Video
 ------
-[![Allegiance Forms v0.3a](https://img.youtube.com/vi/08LoZASbGGA/0.jpg)](https://www.youtube.com/watch?v=08LoZASbGGA)
+[![Allegiance Forms Gameplay](https://raw.githubusercontent.com/aarmo/AllegianceForms/master/Doc/Screenshots/03a_AllegianceFormsYouTube.png)](https://youtu.be/08LoZASbGGA?t=188)
 
 [Overview](#overview)
 
@@ -73,7 +73,7 @@ Controls
 ------
 ### Selection
 Key	| Description
---- | --- 
+--- | ---
 **Left Click** & **Drag** | Selects units and bases.
 **Double Click** | Select all units of the same type in sector.
 **Shift** | Hold to add units/bases to the current selection.
