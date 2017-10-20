@@ -78,7 +78,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         public override bool AddMorePilots()
         {
-            if (_launchBase == null || _targetBase == null || !_launchBase.Active || _launchBase.Team != AI.Team)
+            if (_launchBase == null || _targetBase == null || !_launchBase.Active || !_targetBase.Active || _targetBase.Alliance == AI.Alliance || _launchBase.Team != AI.Team)
                 _targetBase = _game.ClosestEnemyBase(AI.Team, out _launchBase);
             if (_launchBase == null) return false;
             
