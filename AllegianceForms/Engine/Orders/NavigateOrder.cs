@@ -40,6 +40,11 @@ namespace AllegianceForms.Orders
                     FindNextWormhole(ship.Team, ship.SectorId);
                 }
             }
+
+            if (ship.Team == 1 && OrderComplete && ship.GetType() == typeof(BuilderShip))
+            {
+                _game.PlayConstructorRequestSound((BuilderShip) ship);
+            }
         }
 
         private void FindNextWormhole(int team, int sectorId)

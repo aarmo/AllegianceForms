@@ -36,6 +36,7 @@
             this.GameInfo = new System.Windows.Forms.Label();
             this.Score = new System.Windows.Forms.Label();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.animateStars = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // GameRules
@@ -111,12 +112,16 @@
             this.gameTimer.Interval = 1000;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
+            // animateStars
+            // 
+            this.animateStars.Interval = 30;
+            this.animateStars.Tick += new System.EventHandler(this.animateStars_Tick);
+            // 
             // ChanceGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(358, 493);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.WinLose);
@@ -134,6 +139,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allegiance Forms - Dogfight";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanceGame_FormClosed);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ChanceGame_KeyDown);
             this.ResumeLayout(false);
 
@@ -147,5 +153,6 @@
         private System.Windows.Forms.Label GameInfo;
         private System.Windows.Forms.Label Score;
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Timer animateStars;
     }
 }

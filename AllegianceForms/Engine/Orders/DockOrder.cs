@@ -46,7 +46,7 @@ namespace AllegianceForms.Orders
             if (OrderComplete && _dockTarget != null)
             {
                 // Offload miner, repair/rearm etc.
-                ship.Dock();
+                ship.Dock(_dockTarget);
             }
         }
 

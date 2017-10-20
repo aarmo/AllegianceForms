@@ -31,6 +31,10 @@
             this.TimeProgress = new System.Windows.Forms.ProgressBar();
             this.TechName = new System.Windows.Forms.Label();
             this.InvestmentProgress = new System.Windows.Forms.ProgressBar();
+            this.TechAmount = new System.Windows.Forms.Label();
+            this.TechDuration = new System.Windows.Forms.Label();
+            this.TechIcon = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.TechIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // TimeProgress
@@ -43,15 +47,15 @@
             this.TimeProgress.TabIndex = 6;
             this.TimeProgress.Value = 50;
             // 
-            // Name
+            // TechName
             // 
             this.TechName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TechName.Location = new System.Drawing.Point(3, 3);
-            this.TechName.Name = "Name";
-            this.TechName.Size = new System.Drawing.Size(224, 45);
+            this.TechName.Location = new System.Drawing.Point(2, 2);
+            this.TechName.Name = "TechName";
+            this.TechName.Size = new System.Drawing.Size(199, 27);
             this.TechName.TabIndex = 5;
             this.TechName.Text = "[Description]";
-            this.TechName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.TechName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.TechName.Click += new System.EventHandler(this.Name_Click);
             this.TechName.DoubleClick += new System.EventHandler(this.Name_DoubleClick);
             this.TechName.MouseEnter += new System.EventHandler(this.Name_MouseEnter);
@@ -67,17 +71,58 @@
             this.InvestmentProgress.TabIndex = 6;
             this.InvestmentProgress.Value = 50;
             // 
+            // TechAmount
+            // 
+            this.TechAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TechAmount.Location = new System.Drawing.Point(2, 29);
+            this.TechAmount.Name = "TechAmount";
+            this.TechAmount.Size = new System.Drawing.Size(116, 25);
+            this.TechAmount.TabIndex = 5;
+            this.TechAmount.Text = "$[Amount]";
+            this.TechAmount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TechAmount.Click += new System.EventHandler(this.Name_Click);
+            this.TechAmount.DoubleClick += new System.EventHandler(this.Name_DoubleClick);
+            this.TechAmount.MouseEnter += new System.EventHandler(this.Name_MouseEnter);
+            this.TechAmount.MouseLeave += new System.EventHandler(this.Name_MouseLeave);
+            // 
+            // TechDuration
+            // 
+            this.TechDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TechDuration.Location = new System.Drawing.Point(116, 29);
+            this.TechDuration.Name = "TechDuration";
+            this.TechDuration.Size = new System.Drawing.Size(111, 25);
+            this.TechDuration.TabIndex = 5;
+            this.TechDuration.Text = "([Seconds])";
+            this.TechDuration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TechDuration.Click += new System.EventHandler(this.Name_Click);
+            this.TechDuration.DoubleClick += new System.EventHandler(this.Name_DoubleClick);
+            this.TechDuration.MouseEnter += new System.EventHandler(this.Name_MouseEnter);
+            this.TechDuration.MouseLeave += new System.EventHandler(this.Name_MouseLeave);
+            // 
+            // TechIcon
+            // 
+            this.TechIcon.Location = new System.Drawing.Point(203, 3);
+            this.TechIcon.Name = "TechIcon";
+            this.TechIcon.Size = new System.Drawing.Size(24, 24);
+            this.TechIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.TechIcon.TabIndex = 7;
+            this.TechIcon.TabStop = false;
+            // 
             // TechTreeItem
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.TechIcon);
             this.Controls.Add(this.TimeProgress);
+            this.Controls.Add(this.TechDuration);
+            this.Controls.Add(this.TechAmount);
             this.Controls.Add(this.TechName);
             this.Controls.Add(this.InvestmentProgress);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "TechTreeItem";
             this.Size = new System.Drawing.Size(230, 80);
+            ((System.ComponentModel.ISupportInitialize)(this.TechIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -87,5 +132,8 @@
         private System.Windows.Forms.ProgressBar TimeProgress;
         private System.Windows.Forms.Label TechName;
         private System.Windows.Forms.ProgressBar InvestmentProgress;
+        private System.Windows.Forms.Label TechAmount;
+        private System.Windows.Forms.Label TechDuration;
+        private System.Windows.Forms.PictureBox TechIcon;
     }
 }

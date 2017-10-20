@@ -1,5 +1,4 @@
 ﻿using AllegianceForms.Engine.Ships;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace AllegianceForms.Engine.Weapons
@@ -12,7 +11,6 @@ namespace AllegianceForms.Engine.Weapons
         public int Width { get; set; }
         public Pen Smoke1 { get; set; }
         public Pen Smoke2 { get; set; }
-        public List<MissileProjectile> Missiles { get; set; }
 
         public ShipMissileWeapon(StrategyGame game, int width, float missileSpeed, float missileTracking, int fireTicks, int refireTicks, float range, float damage, Ship shooter, PointF offset, SolidBrush teamColour) 
             : base(game, fireTicks, refireTicks, range, damage, shooter, offset)
@@ -21,44 +19,24 @@ namespace AllegianceForms.Engine.Weapons
             Speed = missileSpeed;
             Tracking = missileTracking;
             _damageOnShotEnd = false;
-            Missiles = new List<MissileProjectile>();
             TeamColour = teamColour;
             Smoke1 = new Pen(Color.Orange, width/2);
             Smoke2 = new Pen(Color.Gray, 1);
             Width = width;
         }
-
-        public override void Draw(Graphics g, int currentSectorId)
-        {
-            foreach (var m in Missiles)
-            {
-                if (m.SectorId != currentSectorId) continue;
-
-                m.Draw(g);
-            }
-        }
-
+        
         public override void Update()
         {
-            Missiles.RemoveAll(_ => !_.Active);
-
             if (!Shooting && Firing && _shootingNext <= 1 && Target != null)
             {
                 var heading = (float) StrategyGame.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
-                Missiles.Add(new MissileProjectile(_game, Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, Shooter.Team));
+                _game.Missiles.Add(new MissileProjectile(_game, Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, Shooter.Team, Shooter.Alliance));
             }
             base.Update();
-
-            foreach (var m in Missiles)
-            {
-                if (m.Target == null || !m.Target.Active)
-                {
-                    m.Target = (Ship)Target;
-                }
-
-                m.Update();
-            }
         }
+
+        public override void Draw(Graphics g, int currentSectorId)
+        { }
     }
 }

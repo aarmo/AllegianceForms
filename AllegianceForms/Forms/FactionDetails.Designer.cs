@@ -89,6 +89,7 @@
             this.RandomImage = new System.Windows.Forms.Button();
             this.PlayerName = new System.Windows.Forms.TextBox();
             this.RandomCommanderName = new System.Windows.Forms.Button();
+            this.Default = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FactionPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -857,6 +858,21 @@
             this.RandomCommanderName.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.RandomCommanderName.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // Default
+            // 
+            this.Default.BackColor = System.Drawing.Color.Black;
+            this.Default.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Default.ForeColor = System.Drawing.Color.White;
+            this.Default.Location = new System.Drawing.Point(389, 5);
+            this.Default.Name = "Default";
+            this.Default.Size = new System.Drawing.Size(58, 22);
+            this.Default.TabIndex = 56;
+            this.Default.Text = "Default";
+            this.Default.UseVisualStyleBackColor = false;
+            this.Default.Click += new System.EventHandler(this.Default_Click);
+            this.Default.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Default.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
             // FactionDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -882,6 +898,7 @@
             this.Controls.Add(this.RandomImage);
             this.Controls.Add(this.RandomCommanderName);
             this.Controls.Add(this.RandomName);
+            this.Controls.Add(this.Default);
             this.Controls.Add(this.Random);
             this.Controls.Add(this.MiningCapacityDown);
             this.Controls.Add(this.MissileTrackingDown);
@@ -1001,5 +1018,6 @@
         private System.Windows.Forms.Button RandomImage;
         private System.Windows.Forms.TextBox PlayerName;
         private System.Windows.Forms.Button RandomCommanderName;
+        private System.Windows.Forms.Button Default;
     }
 }

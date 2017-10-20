@@ -31,7 +31,7 @@ namespace AllegianceForms.Orders
 
             if (OrderComplete && ship.Type == EShipType.Lifepod)
             {
-                ship.Dock();
+                ship.Dock(null);
             }
         }
 

@@ -161,7 +161,7 @@ namespace AllegianceForms.Engine.AI
                                 (_.Key == EAiCreditPriorities.Offense && CreditsForOffence) ||
                                 (_.Key == EAiCreditPriorities.Defense && CreditsForDefence))
                     .OrderByDescending(_ => _.Value).FirstOrDefault();
-                if (!c.IsDefault())
+                if (!Utils.IsDefault(c))
                 {
                     var tech = _game.TechTree[_t].ResearchableItemsNot(ETechType.Construction).OrderByDescending(_ => _.Id).ToList();
                     var cons = _game.TechTree[_t].ResearchableItems(ETechType.Construction).OrderByDescending(_ => _.Id).ToList();

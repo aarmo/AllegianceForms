@@ -57,7 +57,7 @@ namespace AllegianceForms.Orders
             {
                 // Capture base! 
                 _target.Capture(ship);
-                ship.Dock();
+                ship.Dock(_target);
             }
         }
     }

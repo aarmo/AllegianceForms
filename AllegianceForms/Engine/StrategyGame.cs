@@ -3,9 +3,11 @@ using AllegianceForms.Engine.Bases;
 using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Generation;
 using AllegianceForms.Engine.Map;
+using AllegianceForms.Engine.QuickChat;
 using AllegianceForms.Engine.Rocks;
 using AllegianceForms.Engine.Ships;
 using AllegianceForms.Engine.Tech;
+using AllegianceForms.Engine.Weapons;
 using AllegianceForms.Orders;
 using System;
 using System.Collections.Generic;
@@ -31,12 +33,15 @@ namespace AllegianceForms.Engine
         public static int ScreenHeight = 0;
 
         public const int ResourcesInitial = 4000;
-        public const int ResourceRegularAmount = 2;
+        public const int ResourceRegularAmount = 1;
         public const float BaseConversionRate = 4f;
         public const string ShipDataFile = ".\\Data\\Ships.txt";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
+        public const string QuickChatDataFile = ".\\Data\\QuickChatCommands.txt";
+        public const string RockPicDir = ".\\Art\\Rocks\\";
         public const string IconPicDir = ".\\Art\\Trans\\";
+        public const string SoundsDir = ".\\Art\\Sounds\\";
         public const string GamePresetFolder = ".\\Data\\GamePresets";
         public const string FactionPresetFolder = ".\\Data\\FactionPresets";
         public const string MapFolder = ".\\Data\\Maps";
@@ -47,6 +52,7 @@ namespace AllegianceForms.Engine
         public static Pen HealthBorderPen = new Pen(Color.DimGray, 1);
         public static Pen BaseBorderPen = new Pen(Color.Gray, 2);
         public static Brush ShieldBrush = new SolidBrush(Color.CornflowerBlue);
+        public static Brush ResourceBrush = new SolidBrush(Color.MintCream);
 
         private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
         private static DateTime _nextBbrSoundAllowed = DateTime.MinValue;
@@ -68,6 +74,7 @@ namespace AllegianceForms.Engine
         public Faction[] Faction;
         public Faction[] Winners;
         public Faction[] Loosers;
+        public QuickComms QuickChat;
 
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
@@ -75,10 +82,13 @@ namespace AllegianceForms.Engine
         public List<Asteroid> AllAsteroids = new List<Asteroid>();
         public List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();        
         public List<Asteroid> BuildableAsteroids = new List<Asteroid>();
+        public List<Minefield> Minefields = new List<Minefield>();
+        public List<MissileProjectile> Missiles = new List<MissileProjectile>();
 
         public Brush[] TeamBrushes;
         public Brush[] TextBrushes;
         public Pen[] SelectedPens;
+        public Image[] MinefieldImages;
 
         public static double AngleBetweenPoints(PointF from, PointF to)
         {
@@ -322,27 +332,22 @@ namespace AllegianceForms.Engine
             var maxHops = Map.Wormholes.Count + 4;
             var minHops = int.MaxValue;
             Base targetBase = null;
-            launchingBase = null;
 
-            var launchingBases = AllBases.Where(_ => _.Active && _.Team == team && _.CanLaunchShips());
-            
-            foreach (var l in launchingBases)
+            launchingBase = AllBases.FirstOrDefault(_ => _.Active && _.Team == team && _.CanLaunchShips());
+            if (launchingBase == null) return targetBase;
+
+            var launchingSector = launchingBase.SectorId;
+
+            var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId != launchingSector).ToList();
+            foreach (var b in otherSectorBases)
             {
-                if (launchingBase == null)
-                if (launchingBase != null && l.SectorId == launchingBase.SectorId) continue;
+                var path = Map.ShortestPath(team, launchingSector, b.SectorId);
+                var newHops = path == null ? int.MaxValue : path.Count();
 
-                var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId != l.SectorId).ToList();
-                foreach (var b in otherSectorBases)
+                if (newHops < minHops)
                 {
-                    var path = Map.ShortestPath(team, l.SectorId, b.SectorId);
-                    var newHops = path == null ? int.MaxValue : path.Count();
-
-                    if (newHops < minHops)
-                    {
-                        minHops = newHops;
-                        targetBase = b;
-                        launchingBase = l;
-                    }
+                    minHops = newHops;
+                    targetBase = b;
                 }
             }
 
@@ -581,7 +586,11 @@ namespace AllegianceForms.Engine
                     drone = Ships.CreateMinerShip(tech.Team, colour, b1.SectorId);
                     if (drone == null) return;
 
-                    if (tech.Team == 1) SoundEffect.Play(ESounds.vo_miner_report4duty);
+                    if (tech.Team == 1)
+                    {
+                        OnGameEvent(new GameAlert(drone.SectorId, $"New miner launching in {Map.Sectors[drone.SectorId]}."), EGameEventType.ImportantMessage);
+                        SoundEffect.Play(ESounds.vo_miner_report4duty);
+                    }
                 }
                 else if (tech.Type == ETechType.ShipyardConstruction)
                 {
@@ -600,34 +609,7 @@ namespace AllegianceForms.Engine
                     var builder = drone as BuilderShip;
                     if (builder == null) return;
 
-                    if (tech.Team == 1)
-                    {
-                        if (BaseSpecs.IsTower(builder.BaseType))
-                        {
-                            SoundEffect.Play(ESounds.vo_request_tower);
-                        }
-                        else
-                        {
-                            switch (builder.TargetRockType)
-                            {
-                                case EAsteroidType.Resource:
-                                    SoundEffect.Play(ESounds.vo_request_builderhelium);
-                                    break;
-                                case EAsteroidType.Rock:
-                                    SoundEffect.Play(ESounds.vo_request_buildergeneric);
-                                    break;
-                                case EAsteroidType.TechCarbon:
-                                    SoundEffect.Play(ESounds.vo_request_buildercarbon);
-                                    break;
-                                case EAsteroidType.TechSilicon:
-                                    SoundEffect.Play(ESounds.vo_request_buildersilicon);
-                                    break;
-                                case EAsteroidType.TechUranium:
-                                    SoundEffect.Play(ESounds.vo_request_builderuranium);
-                                    break;
-                            }
-                        }
-                    }
+                    if (tech.Team == 1) PlayConstructorRequestSound(builder);
                 }
 
                 drone.CenterX = b1.CenterX;
@@ -651,6 +633,48 @@ namespace AllegianceForms.Engine
                         SoundEffect.Play(ESounds.vo_sal_researchcomplete);
                 }
             }
+        }
+
+        public void PlayConstructorRequestSound(BuilderShip builder)
+        {
+            if (builder == null) return;
+
+            _constructorCheckNext = ConstructorCheckDelay;
+            string message;
+
+            if (BaseSpecs.IsTower(builder.BaseType))
+            {
+                var sound = ESounds.vo_request_tower;
+                if (builder.BaseType == EBaseType.Minefield) sound = ESounds.vo_request_minefield;
+
+                message = $"{builder.BaseType} requesting location...";
+                SoundEffect.Play(sound);
+            }
+            else
+            {
+                message = $"Constructor requesting {builder.TargetRockType} rock...";
+
+                switch (builder.TargetRockType)
+                {
+                    case EAsteroidType.Resource:
+                        SoundEffect.Play(ESounds.vo_request_builderhelium);
+                        break;
+                    case EAsteroidType.Generic:
+                        SoundEffect.Play(ESounds.vo_request_buildergeneric);
+                        break;
+                    case EAsteroidType.Carbon:
+                        SoundEffect.Play(ESounds.vo_request_buildercarbon);
+                        break;
+                    case EAsteroidType.Silicon:
+                        SoundEffect.Play(ESounds.vo_request_buildersilicon);
+                        break;
+                    case EAsteroidType.Uranium:
+                        SoundEffect.Play(ESounds.vo_request_builderuranium);
+                        break;
+                }
+            }
+
+            OnGameEvent(new GameAlert(builder.SectorId, message), EGameEventType.ImportantMessage);
         }
 
         public void ProcessShipEvent(Ship sender, EShipEventType e, ShipEventHandler f_shipEvent, BaseEventHandler b_baseEvent)
@@ -685,15 +709,27 @@ namespace AllegianceForms.Engine
                 var b = sender as BuilderShip;
                 if (b != null && BaseSpecs.IsTower(b.BaseType))
                 {
-                    var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
-                    var tower = Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
-                    if (tower == null) return;
+                    if (b.BaseType == EBaseType.Minefield)
+                    {
+                        // Add a Minefield
+                        var t = b.Team - 1;
+                        var mineTech = TechTree[t].HasResearchedTech("Advanced Minefield") ? 1.5f : 1f;
+                        Minefields.Add(new Minefield(b, Point.Empty, 100, 120 * 20 * mineTech, MinefieldImages[t], 1 * mineTech));
+                    }
+                    else
+                    {
+                        // Add a Tower
+                        var type = (EShipType)Enum.Parse(typeof(EShipType), b.BaseType.ToString());
+                        var tower = Ships.CreateTowerShip(type, b.Team, b.Colour, b.SectorId);
+                        if (tower == null) return;
 
-                    tower.CenterX = b.CenterX;
-                    tower.CenterY = b.CenterY;
-                    tower.ShipEvent += f_shipEvent;
+                        tower.CenterX = b.CenterX;
+                        tower.CenterY = b.CenterY;
+                        tower.ShipEvent += f_shipEvent;
 
-                    AddUnit(tower);
+                        AddUnit(tower);
+                    }
+
                     b.Active = false;
                 }
             }
@@ -742,7 +778,7 @@ namespace AllegianceForms.Engine
                                 break;
                         }
 
-                        if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured, true);
+                        if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured);
                     }
                 }
             }
@@ -963,7 +999,8 @@ namespace AllegianceForms.Engine
             SelectedPens = new Pen[NumTeams];
             TextBrushes = new Brush[NumTeams];
             AICommanders = new BaseAI[NumTeams];
-            
+            MinefieldImages = new Image[NumTeams];
+
             for (var i = 0; i < NumTeams; i++)
             {
                 Faction[i] = settings.TeamFactions[i];
@@ -971,6 +1008,10 @@ namespace AllegianceForms.Engine
                 TeamBrushes[i] = new SolidBrush(c);
                 SelectedPens[i] = new Pen(c, 1) { DashStyle = DashStyle.Dot };
                 TextBrushes[i] = new SolidBrush(PerceivedBrightness(c) > 130 ? Color.Black : Color.White);
+                
+                MinefieldImages[i] = Image.FromFile(MineWeapon.MinefieldImage);
+
+                Utils.ReplaceColour((Bitmap)MinefieldImages[i], c);
             }
 
             AllUnits.Clear();
@@ -978,6 +1019,8 @@ namespace AllegianceForms.Engine
             AllAsteroids.Clear();
             ResourceAsteroids.Clear();
             BuildableAsteroids.Clear();
+            Missiles.Clear();
+            Minefields.Clear();
         }
 
         public void InitialiseGame(bool sound = true)
@@ -1002,6 +1045,7 @@ namespace AllegianceForms.Engine
         {
             Ships = ShipSpecs.LoadShipSpecs(this, ShipDataFile);
             Bases = BaseSpecs.LoadBaseSpecs(this, BaseDataFile);
+            QuickChat = QuickComms.LoadQuickChat(QuickChatDataFile);
 
             for (var t = 0; t < NumTeams; t++)
             {
@@ -1011,6 +1055,12 @@ namespace AllegianceForms.Engine
                 foreach (var i in autoCompleted)
                 {
                     i.Active = false;
+                }
+
+                var allowedIds = GameSettings.RestrictTechToIds[t];
+                if (allowedIds != null)
+                {                    
+                    TechTree[t].TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
                 }
             }            
         }
@@ -1069,11 +1119,35 @@ namespace AllegianceForms.Engine
                 var u = AllBases[i];
                 u.Update();
             }
-            
+
+            foreach (var m in Missiles)
+            {
+                if (m.Target == null || !m.Target.Active)
+                {
+                    m.Target = GetRandomEnemyInRange(m.Team, m.Alliance, m.SectorId, m.Center, 200);
+                }
+
+                m.Update();
+            }
+
+            // Apply damage to all ships within enemy minefields
+            foreach (var m in Minefields)
+            {
+                m.Update();
+
+                var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && m.SectorId == _.SectorId && _.Alliance != m.Alliance && m.Bounds.Contains(_.Bounds));
+                hits.ForEach(_ => _.Damage(m.Damage, m.Team));
+            }
+
             AllUnits.RemoveAll(_ => !_.Active);
             AllBases.RemoveAll(_ => !_.Active);
+            Missiles.RemoveAll(_ => !_.Active);
+            Minefields.RemoveAll(_ => !_.Active);
         }
 
+        private const int ConstructorCheckDelay = 120;
+        private int _constructorCheckNext = ConstructorCheckDelay;
+        
         public void SlowTick()
         {
             UpdateVisibility(false);
@@ -1109,6 +1183,80 @@ namespace AllegianceForms.Engine
                 var ai = AICommanders[t];
                 if (ai != null) ai.Update();
             }
+
+            _constructorCheckNext--;
+            if (_constructorCheckNext <= 0)
+            {
+                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.CurrentOrder == null && _.Orders.Count == 0).ToArray();
+                if (constructorsWaiting.Length > 0)
+                {
+                    var con = constructorsWaiting[Random.Next(constructorsWaiting.Length)] as BuilderShip;
+                    PlayConstructorRequestSound(con);
+                }
+            }            
+
+        }
+
+        public static string[] GetExplosionFrames()
+        {
+            var explosionFrames = new string[10];
+            for (var i = 0; i < 10; i++)
+            {
+                explosionFrames[i] = $".\\Art\\Animations\\Explode\\bubble_explo{i + 1}.png";
+            }
+
+            return explosionFrames;
+        }
+
+        public void DrawMissiles(Graphics g, int currentSectorId)
+        {
+            foreach (var m in Missiles)
+            {
+                if (m.SectorId != currentSectorId) continue;
+
+                m.Draw(g);
+            }
+        }
+
+        public void DrawMinefields(Graphics g, int currentSectorId)
+        {
+            foreach (var m in Minefields)
+            {
+                if (!m.Active || m.SectorId != currentSectorId) continue;
+
+                m.Draw(g, currentSectorId);
+            }
+        }
+
+        public Ship GetRandomEnemyInRange(int team, int alliance, int sectorId, PointF pos, float range)
+        {
+            var enemysInRange = AllUnits.Where(_ => _.Active && _.Alliance != alliance && !_.Docked && _.SectorId == sectorId && _.VisibleToTeam[team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(pos.X, pos.Y, _.CenterX, _.CenterY, range)).ToList();
+
+            if (enemysInRange.Count > 1)
+            {
+                return enemysInRange[Random.Next(enemysInRange.Count)];
+            }
+            else if (enemysInRange.Count == 1)
+            {
+                return enemysInRange[0];
+            }
+
+            return null;
+        }
+
+        public int TotalCampaignPoints(int team)
+        {
+            var t = team - 1;
+            var won = Winners.Contains(Faction[t]);
+            var multiplier = won ? 1.5f : 1f;
+
+            return (int)(multiplier * (GameStats.TotalResourcesMined[t] / 1000
+                + GameStats.TotalBasesBuilt[t]
+                + GameStats.TotalBasesDestroyed[t]
+                + GameStats.TotalMinersBuilt[t]
+                + GameStats.TotalMinersDestroyed[t]
+                + GameStats.TotalConstructorsBuilt[t]
+                + GameStats.TotalConstructorsDestroyed[t]));
         }
     }
 }

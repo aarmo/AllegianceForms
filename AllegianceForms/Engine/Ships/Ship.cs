@@ -1,3 +1,4 @@
+using AllegianceForms.Engine.Bases;
 using AllegianceForms.Orders;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,26 +23,14 @@ namespace AllegianceForms.Engine.Ships
         public ShipOrder CurrentOrder { get; private set; }
         public int NumPilots { get; set; }
         public float ScanRange { get; set; }
-        public bool Docked { get; set; }
+        public bool Docked { get; private set; }
+        public Base DockedAtBase { get; private set; }
         
 
         public Ship(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
             : base(game, imageFilename, width, height, health, sectorId, team)
         {
-            if (Image != null)
-            {
-                var bmp = (Bitmap)Image;
-
-                // Set the image's team color
-                for (var x = 0; x < bmp.Width; x++)
-                {
-                    for (var y = 0; y < bmp.Height; y++)
-                    {
-                        var c = bmp.GetPixel(x, y);
-                        if (c.A != 0) bmp.SetPixel(x, y, teamColor);
-                    }
-                }
-            }
+            if (Image != null) Utils.ReplaceColour((Bitmap)Image, teamColor);
 
             Active = true;
             Alliance = alliance;
@@ -79,6 +68,12 @@ namespace AllegianceForms.Engine.Ships
 
             if (CurrentOrder == null) StopMoving();
 
+            if (Docked && DockedAtBase != null && (!DockedAtBase.Active || DockedAtBase.Team != Team))
+            {
+                Docked = false;
+                DockedAtBase = null;
+            }
+
             Move();
         }
 
@@ -107,10 +102,10 @@ namespace AllegianceForms.Engine.Ships
             Orders.Clear();
         }
 
-        public virtual void Dock()
+        public virtual void Dock(Base dockedBase)
         {
             if (Docked) return;
-            
+
             Health = MaxHealth;
 
             if (Ship.CanDock(Type) && Orders.Count == 0)
@@ -123,6 +118,7 @@ namespace AllegianceForms.Engine.Ships
             if (Orders.Count == 0)
             {
                 Docked = true;
+                DockedAtBase = dockedBase;
             }
         }
 

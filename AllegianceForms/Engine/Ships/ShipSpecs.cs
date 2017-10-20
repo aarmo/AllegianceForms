@@ -172,6 +172,20 @@ namespace AllegianceForms.Engine.Ships
                         continue;
                     }
                     
+                    var mw = w as MineWeapon;
+                    if (mw != null)
+                    {
+                        var c = mw.Colour;
+                        if (c.Name == "0") c = teamColour;
+                        var clone = new MineWeapon(_game, mw.Width, (int)mw.Duration
+                            , (int)(mw.ShootingDelayTicks / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , mw.WeaponRange * settings.AntiShipWeaponRangeMultiplier
+                            , mw.WeaponDamage * settings.AntiShipWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
+                            , ship, mw.FireOffset, c);
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+
                     var ml = w as ShipMissileWeapon;
                     if (ml != null)
                     {
@@ -332,8 +346,12 @@ namespace AllegianceForms.Engine.Ships
 
                     case "3":
                     case "missile":
-                        //new ShipMissileWeapon(8, 5, 250, 2000, 400, 10, testShip, Point.Empty, new SolidBrush(_colourTeam1)
                         Weapons.Add(new ShipMissileWeapon(game, int.Parse(data[1]), float.Parse(data[8]), float.Parse(data[9]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7])), new SolidBrush(Color.Empty)));
+                        break;
+
+                    case "4":
+                    case "mine":
+                        Weapons.Add(new MineWeapon(game, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7])), Color.Empty));
                         break;
                 }
             }

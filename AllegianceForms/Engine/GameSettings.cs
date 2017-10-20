@@ -1,5 +1,6 @@
 ﻿using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Map;
+using AllegianceForms.Engine.Tech;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,11 +18,13 @@ namespace AllegianceForms.Engine
             Color.FromArgb(73, 161, 36).ToArgb()
         };
 
+        public EGameType GameType { get; set; }
         public int NumTeams { get; set; }
         public int NumPilots { get; set; }
         public string MapName { get; set; }
         public int[] TeamColours { get; set; }
         public Faction[] TeamFactions { get; set; }
+        public int[][] RestrictTechToIds;
         public int[] TeamAlliance { get; set; }
         public bool WormholesVisible { get; set; }
         public float WormholesSignatureMultiplier { get; set; }
@@ -85,19 +88,34 @@ namespace AllegianceForms.Engine
             return s;
         }
 
+        public static GameSettings CampaignStart()
+        {
+            var settings = Default();
+            settings.GameType = EGameType.Campaign;
+
+            // Low power faction (-20% to all)
+            settings.TeamFactions[0] = Faction.CampaignStart(2);
+
+            // Starting with garrison tech 
+            settings.RestrictTechToIds[0] = new[] { 1, 3, 4, 5, 18, 19, 20, 21, 22, 23, 24, 25 };
+
+            return settings;
+        }
+
         public static GameSettings Default()
         {
             var s = new GameSettings
             {
                 NumTeams = 2,
-                MapName = GameMaps.RandomName(2), // "Brawl",
+                GameType = EGameType.Skirmish,
+                MapName = GameMaps.RandomName(2, false),
                 WormholesVisible = true,
                 RocksVisible = false,
 
                 TeamFactions = new[] { Faction.Default(), Faction.Random() },
                 TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1] },
                 TeamAlliance = new[] { 1, 2 },
-
+                RestrictTechToIds = new int[2][],
                 NumPilots = 16,
                 AiDifficulty = 3,
                 VariantAi = true,
@@ -123,7 +141,7 @@ namespace AllegianceForms.Engine
                 RocksPerSectorTech = 2,
                 RocksPerSectorResource = 4,
                 RocksPerSectorGeneral = 8,
-                RocksAllowedTech = new List<EAsteroidType> { EAsteroidType.TechCarbon, EAsteroidType.TechSilicon, EAsteroidType.TechUranium },
+                RocksAllowedTech = new List<EAsteroidType> { EAsteroidType.Carbon, EAsteroidType.Silicon, EAsteroidType.Uranium },
 
                 StationHealthMultiplier = new Dictionary<EBaseType, float>(),
                 StationSignatureMultiplier = new Dictionary<EBaseType, float>(),

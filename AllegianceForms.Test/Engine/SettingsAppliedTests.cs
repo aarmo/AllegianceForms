@@ -182,7 +182,7 @@ namespace AllegianceForms.Test.Engine
 
             foreach (var s in _game.Map.Sectors)
             {
-                var rocks = _game.BuildableAsteroids.Count(_ => _.SectorId == s.Id && _.Type != EAsteroidType.Rock);
+                var rocks = _game.BuildableAsteroids.Count(_ => _.SectorId == s.Id && _.Type != EAsteroidType.Generic);
                 rocks.ShouldBe(value);
             }
         }

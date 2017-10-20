@@ -11,6 +11,8 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using AllegianceForms.Engine.Factions;
+using AllegianceForms.Engine.QuickChat;
+using AllegianceForms.Engine.Generation;
 
 namespace AllegianceForms.Forms
 {
@@ -31,10 +33,11 @@ namespace AllegianceForms.Forms
         private Map _mapForm;
         private DebugAI _debugForm;
         private MapSector _currentSector;
+        private List<QuickChatItem> _currentQuickList;
+        private List<QuickChatItem> _currentQuickSubList;
 
         private readonly Pen _selectionPen;
         private readonly Brush _sensorBrush;
-        private readonly TextureBrush _bgBrush;
         private readonly Pen _sensorPen;
         private Point _selectionStart;
         private Point _selectionEnd;
@@ -84,7 +87,6 @@ namespace AllegianceForms.Forms
             StrategyGame.InitialiseGame();
 
             _frame = new Bitmap(Width, Height);
-            _bgBrush = new TextureBrush(Image.FromFile(".\\Art\\Backgrounds\\stars.png"));
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
             _colourTeam1 = Color.FromArgb(settings.TeamColours[0]);
             _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
@@ -92,9 +94,11 @@ namespace AllegianceForms.Forms
             _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
             _currentSector = startSectors[0];
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
+            GetCurrentSectorBounds();
 
-            Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
-            
+            SectorLabel.Text = _currentSector.Name;
+            LoadQuickMenu(0);
+
             // Friendy & enemy team setup:
             for (var t = 0; t < StrategyGame.NumTeams; t++)
             {
@@ -149,11 +153,7 @@ namespace AllegianceForms.Forms
             }
 
             // Explosions!
-            var explosionFrames = new string[10];
-            for (var i = 0; i < 10; i++)
-            {
-                explosionFrames[i] = $".\\Art\\Animations\\Explode\\bubble_explo{i + 1}.png";
-            }
+            var explosionFrames = StrategyGame.GetExplosionFrames();
 
             for (var i = 0; i < 30; i++)
             {
@@ -169,6 +169,26 @@ namespace AllegianceForms.Forms
             miniMapToolStripMenuItem_Click(null, null);
 
             timer.Enabled = tick.Enabled = true;
+        }
+
+        private void LoadQuickMenu(int m)
+        {
+            QuickItems.Controls.Clear();
+            _currentQuickList = StrategyGame.QuickChat.QuickItems.Where(_ => _.MenuId == m).ToList();
+            foreach (var q in _currentQuickList)
+            {
+                QuickItems.Controls.Add(new Controls.QuickChatItem(q));
+            }
+        }
+
+        private void LoadQuickSubMenu(int m)
+        {
+            QuickItems2.Controls.Clear();
+            _currentQuickSubList = StrategyGame.QuickChat.QuickItems.Where(_ => _.MenuId == m).ToList();
+            foreach (var q in _currentQuickSubList)
+            {
+                QuickItems2.Controls.Add(new Controls.QuickChatItem(q));
+            }
         }
 
         private void SetupScreenSize()
@@ -195,10 +215,12 @@ namespace AllegianceForms.Forms
             else if (e == EGameEventType.SectorRightClicked)
             {
                 var s = sender as MapSector;
-                if (s == null) return;
+                if (s == null || _selectedUnits.Count == 0) return;
 
                 // Order selected units to navigate to the clicked sector
                 _selectedUnits.ForEach(_ => _.OrderShip(new NavigateOrder(StrategyGame, _, s.Id), _shiftDown));
+                PlayOrderSound();
+
                 ClearSelected();
                 Focus();
             }
@@ -309,19 +331,33 @@ namespace AllegianceForms.Forms
 
         private void GameOver(bool playerWon)
         {
+            var t1C = Color.FromArgb(StrategyGame.GameSettings.TeamColours[0]);
+            var t2C = Color.FromArgb(StrategyGame.GameSettings.TeamColours[1]);
+
             UpdateWinnersAndLoosers(playerWon);
             if (playerWon)
             {
+                WinLose.ForeColor = t1C;
                 WinLose.Text = "You Win!";
             }
             else
             {
+                WinLose.ForeColor = t2C;
                 WinLose.Text = "You Lose!";
             }            
 
             GameOverPanel.Left = Width / 2 - GameOverPanel.Width / 2;
             GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
+            SoundEffect.Play((_rnd.Next(2) == 0) ? ESounds.static1 : ESounds.static2);
             GameOverPanel.Visible = true;
+
+            Team1.ForeColor = TotalBases1.ForeColor = TotalBasesDestroyed1.ForeColor 
+                = TotalConstructors1.ForeColor = TotalConstructorsDestroyed1.ForeColor = TotalMined1.ForeColor 
+                = TotalMiners1.ForeColor = TotalMinersDestroyed1.ForeColor = t1C;
+
+            Team2.ForeColor = TotalBases2.ForeColor = TotalBasesDestroyed2.ForeColor
+                = TotalConstructors2.ForeColor = TotalConstructorsDestroyed2.ForeColor = TotalMined2.ForeColor
+                = TotalMiners2.ForeColor = TotalMinersDestroyed2.ForeColor = t2C;
 
             TotalBases1.Text = StrategyGame.GameStats.TotalBasesBuilt[0].ToString();
             TotalBases2.Text = StrategyGame.GameStats.TotalBasesBuilt[1].ToString();
@@ -385,12 +421,27 @@ namespace AllegianceForms.Forms
             }
         }
 
+        private void GetCurrentSectorBounds()
+        {
+            var maxWidth = StrategyGame.Map.Background.Width;
+            var maxHeight = StrategyGame.Map.Background.Height;
+            if (maxWidth <= Width || maxHeight <= Height) return;
+
+            var extraWidth = maxWidth - Width;
+            var extraHeight = maxHeight - Height;
+
+            var mapPosStep = new Point(extraWidth / RandomMap.MaxWidth, extraHeight / RandomMap.MaxHeight);
+
+            _currentSectorBounds = new Rectangle(_currentSector.MapPosition.X * mapPosStep.X, _currentSector.MapPosition.Y * mapPosStep.Y, Width, Height);
+        }
+
+        private Rectangle _currentSectorBounds;
         private void UpdateFrame()
         {
             var g = Graphics.FromImage(_frame);
             var currentSectorId = _currentSector.Id;
-            
-            g.FillRectangle(_bgBrush, 0, 0, Width, Height);
+
+            g.DrawImage(StrategyGame.Map.Background, 0, 0, _currentSectorBounds, GraphicsUnit.Pixel);
             StrategyGame.Map.DrawSector(g, currentSectorId);
 
             if (_shiftDown)
@@ -458,7 +509,10 @@ namespace AllegianceForms.Forms
                     u.Draw(g, currentSectorId);
                 }
             }
-            
+
+            StrategyGame.DrawMinefields(g, currentSectorId);
+            StrategyGame.DrawMissiles(g, currentSectorId);
+
             foreach (var a in _animations)
             {
                 a.Draw(g, a.SectorId == currentSectorId);
@@ -514,6 +568,7 @@ namespace AllegianceForms.Forms
                 if (_selectedUnits.Count > 0)
                 {
                     GiveMoveOrder(mousePos);
+                    PlayOrderSound();
                 }
                 if (_selectedBases.Count > 0)
                 {
@@ -656,13 +711,13 @@ namespace AllegianceForms.Forms
         {
             _shiftDown = e.Shift;
             _ctrlDown = e.Control;
-            
+
             if (e.KeyCode == Keys.F3)
             {
                 miniMapToolStripMenuItem_Click(sender, null);
                 return;
             }
-            else if(e.KeyCode == Keys.F5)
+            else if (e.KeyCode == Keys.F5)
             {
                 researchToolStripMenuItem_Click(sender, null);
                 return;
@@ -681,15 +736,39 @@ namespace AllegianceForms.Forms
             {
                 if (_researchForm.Visible) researchToolStripMenuItem_Click(sender, null);
                 if (_pilotList.Visible) pilotListToolStripMenuItem_Click(sender, null);
+                QuickItems.Visible = false;
+                QuickItems2.Visible = false;
             }
             else if (e.KeyCode == Keys.Space)
             {
                 if (_alertSectorId > -1)
                 {
                     var lastSectorId = _currentSector.Id;
-                    SwitchSector(_alertSectorId+1);
+                    SwitchSector(_alertSectorId + 1);
                     _alertSectorId = lastSectorId;
                     return;
+                }
+            }
+            else if (e.KeyCode == Keys.Oemtilde)
+            {
+                SoundEffect.Play(ESounds.text);
+                QuickItems.Visible = !QuickItems.Visible;
+                QuickItems2.Visible = false;
+            }
+            else if (QuickItems2.Visible)
+            {
+                if (ProcessQuickItem(_currentQuickSubList, e))
+                {
+                    QuickItems.Visible = false;
+                    QuickItems2.Visible = false;
+                }
+            }
+            else if (QuickItems.Visible)
+            {
+                if (ProcessQuickItem(_currentQuickList, e))
+                {
+                    QuickItems.Visible = false;
+                    QuickItems2.Visible = false;
                 }
             }
             else
@@ -707,7 +786,7 @@ namespace AllegianceForms.Forms
                     case Keys.D8:
                     case Keys.D9:
                         var i = Convert.ToInt32(e.KeyCode.ToString().Replace("D", string.Empty));
-                        
+
                         if (e.Control)
                         {
                             SoundEffect.Play(ESounds.mousedown);
@@ -719,7 +798,7 @@ namespace AllegianceForms.Forms
                             if (sectorId > -1)
                             {
                                 SoundEffect.Play(ESounds.text);
-                                SwitchSector(sectorId+1);
+                                SwitchSector(sectorId + 1);
                             }
                         }
                         return;
@@ -738,6 +817,40 @@ namespace AllegianceForms.Forms
             }
         }
 
+        private bool ProcessQuickItem(List<QuickChatItem> quickList, KeyEventArgs e)
+        {
+            var key = e.KeyCode.ToString();
+            if (key.Length > 1) key = key.Substring(1, 1);
+
+            var i = quickList.FirstOrDefault(_ => _.Key == key);
+            if (i == null) return false;
+
+            if (i.OpenMenuId == string.Empty)
+            {
+                if (i.Filename == string.Empty) return false;
+
+                ESounds s;
+                if (Enum.TryParse(i.Filename, out s))
+                {
+                    SoundEffect.Play(s);
+                }
+                return true;
+            }
+            else
+            {
+                int m;
+                if (int.TryParse(i.OpenMenuId, out m))
+                {
+                    // Load the other menu;
+                    SoundEffect.Play(ESounds.text);
+                    LoadQuickSubMenu(m);
+                    QuickItems2.Visible = true;
+                    QuickItems2.Left = QuickItems.Left + QuickItems.Width;
+                }
+                return false;
+            }
+        }
+
         private void SwitchSector(int i)
         {
             if (i < 1 || i > StrategyGame.Map.Sectors.Count) return;
@@ -747,8 +860,9 @@ namespace AllegianceForms.Forms
             var s = StrategyGame.Map.Sectors[i-1];
             _currentSector = s;
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
+            GetCurrentSectorBounds();
 
-            Text = "Allegiance Forms - Conquest: " + _currentSector.Name;
+            SectorLabel.Text = _currentSector.Name;
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);            
             Focus();
         }
@@ -820,7 +934,6 @@ namespace AllegianceForms.Forms
                     break;
                 case Keys.E:
                     GiveMineOrder(centerPos);
-                    playKey = true;
                     break;
                 case Keys.B:
                     GiveBuildOrder(centerPos);
@@ -828,7 +941,24 @@ namespace AllegianceForms.Forms
                     break;
             }
 
-            if (playKey) SoundEffect.Play(ESounds.text);
+            if (playKey) PlayOrderSound();
+        }
+
+        private const int AffirmativeSoundDelay = 12;
+        private int _afirmativeSoundNext = AffirmativeSoundDelay;
+
+        private ESounds[] _affirmativeSounds = { ESounds.vo_player_affirmative, ESounds.vo_player_roger, ESounds.vo_player_onmyway, ESounds.vo_player_acknowledged };
+        private void PlayOrderSound()
+        {
+            var sound = ESounds.text;
+
+            if (_afirmativeSoundNext <= 0)
+            {
+                sound = _affirmativeSounds[_rnd.Next(_affirmativeSounds.Length)];
+                _afirmativeSoundNext = AffirmativeSoundDelay;
+            }
+
+            SoundEffect.Play(sound);
         }
 
         private void GiveMoveOrder(Point orderPosition)
@@ -1011,6 +1141,11 @@ namespace AllegianceForms.Forms
             }
             else
             {
+                if (_researchForm.IsDisposed)
+                {
+                    _researchForm = new Research(StrategyGame);
+                }
+
                 _researchForm.RefreshItems();
                 _researchForm.Show(this);
 
@@ -1030,6 +1165,10 @@ namespace AllegianceForms.Forms
             }
             else
             {
+                if (_mapForm.IsDisposed)
+                {
+                    _mapForm = new Map(StrategyGame);
+                }
                 _mapForm.UpdateMap(_currentSector.Id);
                 _mapForm.Show(this);
 
@@ -1086,12 +1225,13 @@ namespace AllegianceForms.Forms
         {
             // The Game's slow update!
             StrategyGame.SlowTick();
+            _afirmativeSoundNext--;
 
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
             
             if (_debugForm != null && _debugForm.Visible) _debugForm.UpdateDebugInfo();
                         
-            if (_pilotList.Visible) _pilotList.RefreshPilotList();
+            //if (_pilotList.Visible) _pilotList.RefreshPilotList();
 
             if (AlertMessage.Visible && DateTime.Now >= _alertExpire) AlertMessage.Visible = false;
 
@@ -1109,6 +1249,11 @@ namespace AllegianceForms.Forms
             }
             else
             {
+                if (_pilotList.IsDisposed)
+                {
+                    _pilotList = new PilotList(StrategyGame);
+                }
+
                 _pilotList.RefreshPilotList();
                 _pilotList.Show(this);
 
@@ -1135,6 +1280,24 @@ namespace AllegianceForms.Forms
                 TopMost = false;
                 if (GameOverEvent != null) GameOverEvent(this);
             }
+        }
+
+        private void Done_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mouseover);
+            var b = sender as Button;
+            if (b != null) b.BackColor = Color.DarkGreen;
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b != null) b.BackColor = Color.Black;
         }
     }
 }

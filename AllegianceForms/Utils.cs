@@ -1,7 +1,11 @@
 ﻿using AllegianceForms.Engine;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AllegianceForms
@@ -39,7 +43,7 @@ namespace AllegianceForms
         public static Bitmap GetAvatarImage(string key)
         {
             var hash = key.GetHashCode();
-            var rnd = new System.Random(hash);
+            var rnd = new Random(hash);
             
             const string basePath = ".\\Art\\Avatars\\full";
 
@@ -48,6 +52,52 @@ namespace AllegianceForms
 
             var imgs = Directory.GetFiles(dirs[d]);
             return (Bitmap)Image.FromFile(imgs[rnd.Next(imgs.Length)]);
+        }
+
+        public static Bitmap ScaleColoursRandomly(Image img)
+        {
+            var rScale = (float)StrategyGame.Random.NextDouble();
+            var gScale = (float)StrategyGame.Random.NextDouble();
+            var bScale = (float)StrategyGame.Random.NextDouble();
+
+            var b = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppPArgb);
+            using (var g = Graphics.FromImage(b))
+            {
+                float[][] colorMatrixElements = {
+                   new float[] { rScale,  0,  0,  0, 0},
+                   new float[] {0, gScale,  0,  0, 0},
+                   new float[] {0,  0, bScale,  0, 0},
+                   new float[] {0,  0,  0,  1f, 0},
+                   new float[] {0, 0, 0, 0, 1f}
+                };
+                var colorMatrix = new ColorMatrix(colorMatrixElements);
+
+                var imageAttributes = new ImageAttributes();
+                imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                g.DrawImage(img,
+                    new Rectangle(0, 0, img.Width, img.Height),
+                    0, 0,
+                    img.Width,
+                    img.Height,
+                    GraphicsUnit.Pixel,
+                    imageAttributes);
+
+                return b;
+            }
+        }
+
+        public static void ReplaceColour(Bitmap bmp, Color newColour)
+        {
+            // Set the image's team color
+            for (var x = 0; x < bmp.Width; x++)
+            {
+                for (var y = 0; y < bmp.Height; y++)
+                {
+                    var c = bmp.GetPixel(x, y);
+                    if (c.A != 0) bmp.SetPixel(x, y, Color.FromArgb(c.A, newColour.R, newColour.G, newColour.B));
+                }
+            }
         }
 
         public static Bitmap CropImageToNonTransparent(Bitmap b)
@@ -80,6 +130,41 @@ namespace AllegianceForms
             var g = Graphics.FromImage(nb);
             g.DrawImage(b, -r.X, -r.Y);
             return nb;
+        }
+
+        public static bool IsPointOnLine(Point p, Point a, Point b, float t = 1E-03f)
+        {
+            // ensure points are collinear
+            var zero = (b.X - a.X) * (p.Y - a.Y) - (p.X - a.X) * (b.Y - a.Y);
+            if (zero > t || zero < -t) return false;
+
+            // check if x-coordinates are not equal
+            if (a.X - b.X > t || b.X - a.X > t)
+                // ensure x is between a.x & b.x (use tolerance)
+                return a.X > b.X
+                    ? p.X + t > b.X && p.X - t < a.X
+                    : p.X + t > a.X && p.X - t < b.X;
+
+            // ensure y is between a.y & b.y (use tolerance)
+            return a.Y > b.Y
+                ? p.Y + t > b.Y && p.Y - t < a.Y
+                : p.Y + t > a.Y && p.Y - t < b.Y;
+        }
+
+        public static IEnumerable<T> Shuffle<T>(IEnumerable<T> source, Random rnd)
+        {
+            T[] elements = source.ToArray();
+            for (int i = elements.Length - 1; i >= 0; i--)
+            {
+                var swapIndex = rnd.Next(i + 1);
+                yield return elements[swapIndex];
+                elements[swapIndex] = elements[i];
+            }
+        }
+
+        public static bool IsDefault<T, TU>(KeyValuePair<T, TU> pair)
+        {
+            return pair.Equals(new KeyValuePair<T, TU>());
         }
     }
 }

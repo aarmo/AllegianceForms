@@ -17,7 +17,7 @@ namespace AllegianceForms.Engine.Ships
         public ResourceAsteroid Target { get; set; }
 
         public const int MineDistance = 100;
-        public const int MineAmount = 10;
+        public const int MineAmount = 100;
 
         public int MaxResourceCapacity { get; set; }
 
@@ -25,8 +25,11 @@ namespace AllegianceForms.Engine.Ships
         private int _shootingNext = 0;
         private float _lastHealth = float.MinValue;
         private int _nextHealthCheck = 0;
-        private int _healthCheckDelay = 20;
         private int _callNext = 80;
+
+        private const int HealthCheckDelay = 160;
+        private const int CallForHelpDelay = 80;
+
 
         public MinerShip(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int sectorId)
             : base(game, imageFilename, width, height, teamColor, team, alliance, health, 0, sectorId)
@@ -39,23 +42,23 @@ namespace AllegianceForms.Engine.Ships
             ShootingDelayTicks = 5;
             Shooting = false;
 
-            MaxResourceCapacity = 100;
+            MaxResourceCapacity = 1000;
         }
 
         public override void Damage(float amount, int senderTeam)
         {
             base.Damage(amount, senderTeam);
 
-            if (!Docked && Type == EShipType.Miner && Health < 0.65f * MaxHealth && _callNext <= 0)
+            if (!Docked && Type == EShipType.Miner && Health < 0.75f * MaxHealth && _callNext <= 0)
             {
                 if (Team == 1) SoundEffect.Play(ESounds.vo_sal_minercritical, true);
                 OrderShip(new DockOrder(_game, this));
-                _callNext = 80;
+                _callNext = CallForHelpDelay;
             }
 
             if (!Docked && _callNext <= 0)
             {
-                _callNext = 80;
+                _callNext = CallForHelpDelay;
                 if (Team == 1)
                 {
                     _game.OnGameEvent(new GameAlert(SectorId, $"{Type} under attack in {_game.Map.Sectors[SectorId]}!"), EGameEventType.ImportantMessage);
@@ -97,14 +100,14 @@ namespace AllegianceForms.Engine.Ships
                 _shootingNext = ShootingDelayTicks;
             }
 
-            // If we are full, Dock then come back!
-            if (Mining && Resources >= MaxResourceCapacity)
+            // If we are full, or no resources left: dock then come back!
+            if (Mining && (Resources >= MaxResourceCapacity || Target == null || Target.AvailableResources < MineAmount / 2))
             {
                 Mining = false;
-                Target.BeingMined = false;
+                if (Target != null) Target.BeingMined = false;
                 Target = null;
                 var backToWork = new MineOrder(_game, CurrentOrder.OrderSectorId, CurrentOrder.OrderPosition, CurrentOrder.Offset);
-                var refinery = StrategyGame.ClosestDistance<Base>(CenterX, CenterY, _game.AllBases.Where(_ => _.Active && _.Team == Team && _.SectorId == SectorId));
+                var refinery = StrategyGame.ClosestDistance(CenterX, CenterY, _game.AllBases.Where(_ => _.Active && _.Team == Team && _.SectorId == SectorId));
 
                 if (refinery != null)
                 {
@@ -118,10 +121,10 @@ namespace AllegianceForms.Engine.Ships
                 }
             }
 
-            if (_lastHealth == int.MinValue)
+            if (_lastHealth == float.MinValue)
             {
                 _lastHealth = Health;
-                _nextHealthCheck = _healthCheckDelay;
+                _nextHealthCheck = HealthCheckDelay;
             }
             else if (_nextHealthCheck <= 0)
             {
@@ -132,14 +135,14 @@ namespace AllegianceForms.Engine.Ships
                     // Under attack - Dock now!
                     if (Team == 1 && _callNext <= 0)
                     {
-                        _callNext = 80;
+                        _callNext = HealthCheckDelay;
                         SoundEffect.Play(ESounds.vo_miner_dontgetpaid, true);
                     }
 
                     OrderShip(new DockOrder(_game, this));
                     return;
                 }
-                _nextHealthCheck = _healthCheckDelay;
+                _nextHealthCheck = HealthCheckDelay;
             }
         }
 
@@ -149,6 +152,15 @@ namespace AllegianceForms.Engine.Ships
             base.Draw(g, currentSectorId);
 
             if (Shooting && Target != null && VisibleToTeam[0]) g.DrawLine(MinePen, _centerX, _centerY, Target.CenterX, Target.CenterY);
+        }
+
+        protected override void DrawHealthBar(Graphics g, int t, Rectangle b)
+        {
+            base.DrawHealthBar(g, t, b);
+
+            var p = b.Width * (1f * Resources / MaxResourceCapacity);
+            g.FillRectangle(StrategyGame.ResourceBrush, b.Left, b.Bottom + 9, p, 3);
+            g.DrawRectangle(StrategyGame.HealthBorderPen, b.Left, b.Bottom + 9, b.Width, 3);
         }
 
         public override void Stop()
@@ -163,9 +175,9 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Dock()
+        public override void Dock(Base dockAt)
         {
-            base.Dock();
+            base.Dock(dockAt);
             Refine();
         }
 

@@ -37,9 +37,14 @@ namespace AllegianceForms.Engine
                 _soundCount = 1;
                 NextSoundCount = DateTime.Now.AddMilliseconds(SoundCountDelayMS);
             }
-            
-            var path = ".//Art//Sounds//" + sound.ToString() + ".ogg";
+
+            var path = GetSoundFile(sound);
             Task.Run(() => PlayCatch(path, important));
+        }
+
+        public static string GetSoundFile(ESounds sound)
+        {
+            return StrategyGame.SoundsDir + sound.ToString() + ".ogg";
         }
 
         private static void PlayCatch(string path, bool important)

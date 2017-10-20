@@ -14,8 +14,8 @@ namespace AllegianceForms.Engine.Map
         public string Name { get; set; }
         public List<MapSector> Sectors { get; set; }        
         public List<Wormhole> Wormholes { get; set; }
-        public Image GridImage { get; set; }
         public Rectangle MiniMapBounds { get; set; }
+        public Image Background { get; set; }
 
         private Pen _sectorPen = new Pen(Color.DarkBlue, 4);
         private Pen _currentSectorPen = new Pen(Color.DarkGreen, 4);
@@ -26,12 +26,14 @@ namespace AllegianceForms.Engine.Map
         private PathfindingGraph<MapSector> _pathfinding;
         private StrategyGame _game;
 
-        public GameMap(StrategyGame game)
+        internal GameMap(StrategyGame game)
         {
-            GridImage = Image.FromFile(".\\Art\\Backgrounds\\Grid.png");
             Sectors = new List<MapSector>();
             Wormholes = new List<Wormhole>();
             _game = game;
+            Background = Image.FromFile(".\\Art\\Backgrounds\\space.png");
+
+            Background = Utils.ScaleColoursRandomly(Background);
         }
 
         public void Draw(Graphics g, int sectorId)
@@ -88,14 +90,11 @@ namespace AllegianceForms.Engine.Map
                     maxY = ys + GameMaps.SectorDiameter;
             }
 
-            MiniMapBounds = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+            MiniMapBounds = new Rectangle(0, 0, maxX + GameMaps.MapPadding, maxY + GameMaps.MapPadding);
         }
-
 
         public void DrawSector(Graphics g, int sectorId)
         {
-            //g.DrawImage(GridImage, 0, 0, StrategyGame.ScreenWidth, StrategyGame.ScreenHeight);
-
             foreach (var u in _game.AllAsteroids)
             {
                 u.Draw(g, sectorId);

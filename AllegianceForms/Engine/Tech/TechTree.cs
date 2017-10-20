@@ -107,5 +107,10 @@ namespace AllegianceForms.Engine.Tech
                     return false;
             }
         }
+
+        public bool HasResearchedTech(string name)
+        {
+            return TechItems.Any(_ => _.Completed && _.Name == name);
+        }
     }
 }

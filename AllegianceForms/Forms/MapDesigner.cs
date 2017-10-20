@@ -1,4 +1,5 @@
 ﻿using AllegianceForms.Engine;
+using AllegianceForms.Engine.Generation;
 using AllegianceForms.Engine.Map;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace AllegianceForms.Forms
             _game = new StrategyGame();
             _selectedSector = SectorLabel;
             _frame = new Bitmap(MapPanel.Width, MapPanel.Height);
+            MapSize.SelectedIndex = 0;
 
             _game.SetupGame(GameSettings.Default());
         }
@@ -356,6 +358,17 @@ namespace AllegianceForms.Forms
             }
             openFileDialog.Multiselect = false;
         }
+
+        private SimpleGameMap _map;
+
+        private void RandomSmall_Click(object sender, EventArgs e)
+        {
+            var type = (EMapSize)MapSize.SelectedIndex;
+            _map = RandomMap.GenerateSimpleMap(type);
+
+            Clear_Click(sender, e);
+            LoadMap(_map);
+        }        
     }
 
     public class SectorPath
