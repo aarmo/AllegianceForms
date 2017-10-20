@@ -237,6 +237,84 @@ namespace AllegianceForms.Engine
             return StrategyGame.Random.NextDouble() <= v;
         }
 
+        public Base RandomEnemyBase(int team, out Base launchBase)
+        {
+            var t = team - 1;
+            var alliance = GameSettings.TeamAlliance[t];
+
+            // Check each sector for visible enemy bases & our team's bases
+            var sectorEnemyBases = new int[Map.Sectors.Count];
+            var sectorTeamBases = new int[Map.Sectors.Count];
+            var enemySectors = new List<int>();
+            var teamSectors = new List<int>();
+
+            foreach (var b in AllBases)
+            {
+                if (!b.Active || !b.VisibleToTeam[t]) continue;
+
+                if (b.Team == team)
+                {
+                    sectorTeamBases[b.SectorId]++;
+                }
+
+                if (b.Alliance != alliance)
+                {
+                    sectorEnemyBases[b.SectorId]++;
+                }
+            }
+
+            // If there are any sectors with both, start there
+            var possibleEnemySectors = new List<int>();
+            for (var i = 0; i < sectorEnemyBases.Length; i++)
+            {
+                if (sectorEnemyBases[i] > 0 && sectorTeamBases[i] > 0)
+                    possibleEnemySectors.Add(i);
+
+                if (sectorEnemyBases[i] > 0) enemySectors.Add(i);
+                if (sectorTeamBases[i] > 0) teamSectors.Add(i);
+            }
+
+            if (possibleEnemySectors.Count > 0)
+            {
+                var combatSector = possibleEnemySectors[Random.Next(possibleEnemySectors.Count - 1)];
+                var targetBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId == combatSector).ToList();
+                var launchBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == combatSector && _.CanLaunchShips()).ToList();
+                launchBase = launchBases[Random.Next(launchBases.Count - 1)];
+                return targetBases[Random.Next(targetBases.Count - 1)];
+            }
+
+            // Otherwise, find a random sector next to ours
+            var possibleTeamSectors = new List<int>();
+            for (var i = 0; i < teamSectors.Count; i++)
+            {
+                for (var j = 0; j < enemySectors.Count; j++)
+                {
+                    if (Map.AreSectorsWithinJumps(team, 2, i, j))
+                    {
+                        possibleEnemySectors.Add(j);
+                        possibleTeamSectors.Add(i);
+                    }
+                }
+            }
+
+            if (possibleEnemySectors.Count > 0)
+            {
+                var r = Random.Next(possibleEnemySectors.Count - 1);
+                var targetSector = possibleEnemySectors[r];
+                var launchSector = possibleTeamSectors[r];
+
+                var targetBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId == targetSector).ToList();
+                var launchBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == launchSector && _.CanLaunchShips()).ToList();
+
+                launchBase = launchBases[Random.Next(launchBases.Count - 1)];
+                return targetBases[Random.Next(targetBases.Count - 1)];
+            }
+
+            // Otherwise, launch from our last base, targeting their last base!
+            launchBase = AllBases.LastOrDefault(_ => _.Active && _.Team == team && _.CanLaunchShips());
+            return AllBases.LastOrDefault(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance);
+        }
+
         public Base ClosestEnemyBase(int team, out Base launchingBase)
         {
             var t = team - 1;

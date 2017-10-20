@@ -79,7 +79,7 @@ namespace AllegianceForms.Engine.AI.Missions
         public override bool AddMorePilots()
         {
             if (_launchBase == null || _targetBase == null || !_launchBase.Active || !_targetBase.Active || _targetBase.Alliance == AI.Alliance || _launchBase.Team != AI.Team)
-                _targetBase = _game.ClosestEnemyBase(AI.Team, out _launchBase);
+                _targetBase = _game.RandomEnemyBase(AI.Team, out _launchBase);
             if (_launchBase == null) return false;
             
             // send any cap ships for support
@@ -92,7 +92,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship = _game.Ships.CreateBomberShip(AI.Team, AI.TeamColour, _launchBase.SectorId);
             if (ship == null)
             {
-                if (StrategyGame.RandomChance(0.3f))
+                if (StrategyGame.RandomChance(0.5f))
                 {
                     ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, _launchBase.SectorId);
                 }
@@ -120,7 +120,7 @@ namespace AllegianceForms.Engine.AI.Missions
             // If we have no more visible bases to attack or launch from (we loose), abort!
             if (_targetBase == null || !_targetBase.Active || _targetBase.Alliance == AI.Alliance || _launchBase == null || !_launchBase.Active || _launchBase.Alliance != AI.Alliance)
             {
-                _targetBase = _game.ClosestEnemyBase(AI.Team, out _launchBase);
+                _targetBase = _game.RandomEnemyBase(AI.Team, out _launchBase);
 
                 if (_targetBase == null || _launchBase == null) return true;
             }

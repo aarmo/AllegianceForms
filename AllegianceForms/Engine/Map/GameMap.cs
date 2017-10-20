@@ -325,6 +325,14 @@ namespace AllegianceForms.Engine.Map
             }
         }
 
+        public bool AreSectorsWithinJumps(int team, int numJumps, int fromSectorId, int toSectorId)
+        {
+            var path = ShortestPath(team, fromSectorId, toSectorId);
+            if (path == null) return false;
+
+            return path.Count <= numJumps;
+        }
+
         public List<MapSector> ShortestPath(int team, int fromSectorId, int toSectorId)
         {
             if (_pathfinding == null) return null;
