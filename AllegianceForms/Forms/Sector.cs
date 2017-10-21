@@ -89,8 +89,8 @@ namespace AllegianceForms.Forms
             _frame = new Bitmap(Width, Height);
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
             _colourTeam1 = Color.FromArgb(settings.TeamColours[0]);
-            _sensorPen = new Pen(StrategyGame.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
-            _sensorBrush = new SolidBrush(StrategyGame.NewAlphaColour(5, _colourTeam1));
+            _sensorPen = new Pen(Utils.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
+            _sensorBrush = new SolidBrush(Utils.NewAlphaColour(5, _colourTeam1));
             _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
             _currentSector = startSectors[0];
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
@@ -947,7 +947,7 @@ namespace AllegianceForms.Forms
         private const int AffirmativeSoundDelay = 12;
         private int _afirmativeSoundNext = AffirmativeSoundDelay;
 
-        private ESounds[] _affirmativeSounds = { ESounds.vo_player_affirmative, ESounds.vo_player_roger, ESounds.vo_player_onmyway, ESounds.vo_player_acknowledged };
+        private ESounds[] _affirmativeSounds = { ESounds.vo_player_affirmative, ESounds.vo_player_roger, ESounds.vo_player_onmyway, ESounds.vo_player_acknowledged, ESounds.vo_miner_yougotit };
         private void PlayOrderSound()
         {
             var sound = ESounds.text;

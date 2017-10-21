@@ -142,7 +142,7 @@ namespace AllegianceForms.Engine.Ships
             //Building!
             g.DrawImage(BuildImage, new Rectangle((int)_centerX - _currentBuildingGlowHalfSize, (int)_centerY - _currentBuildingGlowHalfSize, _currentBuildingGlowHalfSize * 2, _currentBuildingGlowHalfSize * 2));
             
-            _currentBuildingGlowHalfSize = (int)(StrategyGame.Lerp(EndBuildingGlowSize, StartBuildingGlowSize, _buildingStart, BuildingDuration) / 2);
+            _currentBuildingGlowHalfSize = (int)(Utils.Lerp(EndBuildingGlowSize, StartBuildingGlowSize, _buildingStart, BuildingDuration) / 2);
         }
     }
 }

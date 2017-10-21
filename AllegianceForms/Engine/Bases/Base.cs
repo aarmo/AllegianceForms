@@ -127,7 +127,7 @@ namespace AllegianceForms.Engine.Bases
             var t = Team - 1;
             g.FillRectangle(_game.TeamBrushes[t], b);
             g.DrawRectangle(StrategyGame.BaseBorderPen, b);
-            StrategyGame.DrawCenteredText(g, _game.TextBrushes[t], Type.ToString(), b);
+            Utils.DrawCenteredText(g, _game.TextBrushes[t], Type.ToString(), b);
             
             DrawHealthBar(g, t, b);
 

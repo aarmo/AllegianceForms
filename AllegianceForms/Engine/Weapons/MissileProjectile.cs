@@ -67,7 +67,7 @@ namespace AllegianceForms.Engine.Weapons
 
             if (Tracking > 0 && Target != null && Target.Active)
             {
-                var newHeading = (float)StrategyGame.AngleBetweenPoints(Center, Target.CenterPoint);
+                var newHeading = (float)Utils.AngleBetweenPoints(Center, Target.CenterPoint);
 
                 // adjust heading to cover 180 to -180 (<-)
                 var adjustHeading = (Heading < -90);
@@ -91,7 +91,7 @@ namespace AllegianceForms.Engine.Weapons
             }
 
             // move towards the target
-            var newPoint = StrategyGame.GetNewPoint(Center, Speed, Heading);
+            var newPoint = Utils.GetNewPoint(Center, Speed, Heading);
             LastPoint = PreviousPoint;
             PreviousPoint = Center;
             Center = newPoint;

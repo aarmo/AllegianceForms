@@ -32,7 +32,7 @@ namespace AllegianceForms.Orders
             base.Update(ship);
             if (!BaseSpecs.IsTower(builder.BaseType) && _targetRock == null)
             {
-                _targetRock = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, _game.AllAsteroids.Where(_ => _.Active && _.SectorId == ship.SectorId && _.VisibleToTeam[ship.Team-1] && _.Type == builder.TargetRockType));
+                _targetRock = Utils.ClosestDistance(OrderPosition.X, OrderPosition.Y, _game.AllAsteroids.Where(_ => _.Active && _.SectorId == ship.SectorId && _.VisibleToTeam[ship.Team-1] && _.Type == builder.TargetRockType));
 
                 if (_targetRock != null)
                 {

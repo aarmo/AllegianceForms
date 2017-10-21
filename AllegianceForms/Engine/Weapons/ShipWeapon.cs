@@ -26,7 +26,7 @@ namespace AllegianceForms.Engine.Weapons
             if (Shooter == null || !Shooter.Active || Shooting) return;
 
             var t = Target as Ship;
-            if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Alliance == Shooter.Alliance || !t.VisibleToTeam[Shooter.Team - 1] || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
+            if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Alliance == Shooter.Alliance || !t.VisibleToTeam[Shooter.Team - 1] || !Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
                 Target = _game.GetRandomEnemyInRange(Shooter.Team, Shooter.Alliance, Shooter.SectorId, Shooter.CenterPoint, WeaponRange);
                 Firing = Target != null;

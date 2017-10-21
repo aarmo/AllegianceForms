@@ -63,7 +63,7 @@ namespace AllegianceForms.Orders
         protected void FindClosestFriendlyShip(Ship ship, bool append)
         {
             // Find the closest Friendly ship we can dock at
-            _dockPodTarget = StrategyGame.ClosestDistance(ship.CenterX, ship.CenterY, _game.AllUnits.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.Type != EShipType.Lifepod && _.Type != EShipType.Constructor && _.Type != EShipType.Miner));
+            _dockPodTarget = Utils.ClosestDistance(ship.CenterX, ship.CenterY, _game.AllUnits.Where(_ => _.Active && _.Team == ship.Team && _.SectorId == ship.SectorId && _.Type != EShipType.Lifepod && _.Type != EShipType.Constructor && _.Type != EShipType.Miner));
 
             if (_dockPodTarget != null)
             {

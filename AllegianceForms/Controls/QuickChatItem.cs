@@ -13,7 +13,7 @@ namespace AllegianceForms.Controls
 
             if (Item == null) return;
 
-            Text.Text = Item.QuickComms;
+            CommandText.Text = Item.QuickComms;
             Key.Text = Item.Key;
             OpenMenu.Visible = Item.OpenMenuId != string.Empty;
         }

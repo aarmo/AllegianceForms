@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickChatItem));
-            this.Text = new System.Windows.Forms.Label();
+            this.CommandText = new System.Windows.Forms.Label();
             this.Key = new System.Windows.Forms.Label();
             this.OpenMenu = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.OpenMenu)).BeginInit();
             this.SuspendLayout();
             // 
-            // Text
+            // CommandText
             // 
-            this.Text.Location = new System.Drawing.Point(3, 3);
-            this.Text.Name = "Text";
-            this.Text.Size = new System.Drawing.Size(254, 15);
-            this.Text.TabIndex = 1;
-            this.Text.Text = "[Quick Chat Text]";
-            this.Text.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CommandText.Location = new System.Drawing.Point(3, 3);
+            this.CommandText.Name = "CommandText";
+            this.CommandText.Size = new System.Drawing.Size(254, 15);
+            this.CommandText.TabIndex = 1;
+            this.CommandText.Text = "[Quick Chat Text]";
+            this.CommandText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Key
             // 
@@ -69,7 +69,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.OpenMenu);
             this.Controls.Add(this.Key);
-            this.Controls.Add(this.Text);
+            this.Controls.Add(this.CommandText);
             this.ForeColor = System.Drawing.Color.Silver;
             this.Name = "QuickChatItem";
             this.Size = new System.Drawing.Size(308, 20);
@@ -79,7 +79,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label Text;
+        private System.Windows.Forms.Label CommandText;
         private System.Windows.Forms.Label Key;
         private System.Windows.Forms.PictureBox OpenMenu;
     }

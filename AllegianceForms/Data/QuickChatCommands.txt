@@ -79,7 +79,7 @@ MenuId,QuickComms,Key,Filename,OpenMenuId
 3,Defend towers.,V,vo_player_defendtower,
 3,Need nanites on the constructor!,W,vo_ma_neednanonconst,
 3,Defend special mines!,A,vo_ma_defendspecial,
-3,"Defenders, stay close to base!",E,vo_ma_cloaked,
+3,"Defenders, stay close to base!",E,vo_player_defend,
 3,"Don't defend, it's dead.",J,vo_ma_dontdefend,
 3,Inbound enemy bomber!,1,vo_player_inboundenemybomb,
 3,Inbound enemy cap ship!,2,vo_player_inboundenemycap,

@@ -104,7 +104,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 else
                 {
                     // Then find the closest random miner/con/bomber here to attack!
-                    var m = StrategyGame.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
+                    var m = Utils.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
                     if (m != null)
                     {
                         i.OrderShip(new MoveOrder(_game, m.SectorId, m.CenterPoint));

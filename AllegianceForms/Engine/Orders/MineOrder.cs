@@ -21,7 +21,7 @@ namespace AllegianceForms.Orders
 
         private void SearchForAnotherRock(MinerShip miner)
         {
-            _targetAsteroid = StrategyGame.ClosestDistance(OrderPosition.X, OrderPosition.Y, _game.ResourceAsteroids.Where(_ => _.Active && !_.BeingMined && _.SectorId == miner.SectorId && _.VisibleToTeam[miner.Team - 1] && _.AvailableResources >= 50 ));
+            _targetAsteroid = Utils.ClosestDistance(OrderPosition.X, OrderPosition.Y, _game.ResourceAsteroids.Where(_ => _.Active && !_.BeingMined && _.SectorId == miner.SectorId && _.VisibleToTeam[miner.Team - 1] && _.AvailableResources >= 50 ));
 
             if (_targetAsteroid != null)
             {
@@ -56,7 +56,7 @@ namespace AllegianceForms.Orders
             }
             else
             {
-                if (StrategyGame.WithinDistance(_targetAsteroid.CenterX, _targetAsteroid.CenterY, ship.CenterX, ship.CenterY, MinerShip.MineDistance))
+                if (Utils.WithinDistance(_targetAsteroid.CenterX, _targetAsteroid.CenterY, ship.CenterX, ship.CenterY, MinerShip.MineDistance))
                 {
                     miner.StopMoving();
                     miner.Mining = true;

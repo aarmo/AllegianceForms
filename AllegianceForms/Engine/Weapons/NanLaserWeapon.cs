@@ -18,9 +18,9 @@ namespace AllegianceForms.Engine.Weapons
             if (Shooter == null || !Shooter.Active || Shooting) return;
 
             var t = Target as Ship;
-            if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Health == t.MaxHealth || t.Alliance != Shooter.Alliance || !StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
+            if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Health == t.MaxHealth || t.Alliance != Shooter.Alliance || !Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var friendsInRange = _game.AllUnits.Where(_ => _.Active && _.Alliance == Shooter.Alliance && !_.Docked && Shooter.SectorId == _.SectorId && _.Health < _.MaxHealth && _ != Shooter && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange)).ToList();
+                var friendsInRange = _game.AllUnits.Where(_ => _.Active && _.Alliance == Shooter.Alliance && !_.Docked && Shooter.SectorId == _.SectorId && _.Health < _.MaxHealth && _ != Shooter && _.Type != EShipType.Lifepod && Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange)).ToList();
                 if (friendsInRange.Count > 1)
                 {
                     Target = friendsInRange[StrategyGame.Random.Next(friendsInRange.Count)];
@@ -33,7 +33,7 @@ namespace AllegianceForms.Engine.Weapons
                 }
                 else
                 {
-                    Target = _game.AllBases.FirstOrDefault(_ => _.Active && _.Alliance == Shooter.Alliance && _.SectorId == Shooter.SectorId && _.Health < _.MaxHealth && StrategyGame.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
+                    Target = _game.AllBases.FirstOrDefault(_ => _.Active && _.Alliance == Shooter.Alliance && _.SectorId == Shooter.SectorId && _.Health < _.MaxHealth && Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
                     Firing = Target != null;
                 }
             }

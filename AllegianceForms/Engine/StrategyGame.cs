@@ -54,7 +54,6 @@ namespace AllegianceForms.Engine
         public static Brush ShieldBrush = new SolidBrush(Color.CornflowerBlue);
         public static Brush ResourceBrush = new SolidBrush(Color.MintCream);
 
-        private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
         private static DateTime _nextBbrSoundAllowed = DateTime.MinValue;
         private static TimeSpan _nextBbrSoundDelay = new TimeSpan(0, 0, 3);
 
@@ -89,57 +88,7 @@ namespace AllegianceForms.Engine
         public Brush[] TextBrushes;
         public Pen[] SelectedPens;
         public Image[] MinefieldImages;
-
-        public static double AngleBetweenPoints(PointF from, PointF to)
-        {
-            var deltaX = to.X - from.X;
-            var deltaY = to.Y - from.Y;
-            
-            return Math.Atan2(deltaY, deltaX) * (180 / Math.PI);
-        }
         
-        public static int PerceivedBrightness(Color c)
-        {
-            return (int)Math.Sqrt(
-            c.R * c.R * .299 +
-            c.G * c.G * .587 +
-            c.B * c.B * .114);
-        }
-
-        public static bool WithinDistance(float x1, float y1, float x2, float y2, float d)
-        {
-            var dx = (x1 - x2);
-            var dy = (y1 - y2);
-
-            return (dx * dx + dy * dy) < d * d;
-        }
-
-        public static PointF GetNewPoint(PointF p, float d, float angle)
-        {
-            var rad = (Math.PI / 180) * angle;
-            return new PointF((float)(p.X + d * Math.Cos(rad)), (float)(p.Y + d * Math.Sin(rad)));
-        }
-
-        public static double DistanceBetween(Point p1, Point p2)
-        {
-            var dx = (p1.X - p2.X);
-            var dy = (p1.Y - p2.Y);
-
-            return Math.Sqrt(dx * dx + dy * dy);
-        }
-
-        public static T ClosestDistance<T>(float x, float y, IEnumerable<T> check) where T : GameEntity
-        {
-            return check.OrderBy(_ => ((x - _.CenterX) * (x - _.CenterX) + (y - _.CenterY) * (y - _.CenterY))).FirstOrDefault();
-        }
-
-        public static float Lerp(float firstFloat, float secondFloat, DateTime startTime, TimeSpan duration)
-        {
-            var by = (float)((DateTime.Now - startTime).TotalMilliseconds / duration.TotalMilliseconds);
-
-            return firstFloat * by + secondFloat * (1 - by);
-        }
-
         // Offset the order position evenly for these units...
         public static void SpreadOrderEvenly<T>(StrategyGame game, List<Ship> units, int currentSectorId, PointF centerPos, bool append = false) where T : ShipOrder
         {
@@ -176,17 +125,7 @@ namespace AllegianceForms.Engine
                 }
             }
         }
-
-        public static void DrawCenteredText(Graphics g, Brush brush, string text, Rectangle rect)
-        {
-            g.DrawString(text, SystemFonts.SmallCaptionFont, brush, rect, _centeredFormat);
-        }
-
-        public static Color NewAlphaColour(int A, Color color)
-        {
-            return Color.FromArgb(A, color.R, color.G, color.B);
-        }
-
+        
         public GameEntity NextWormholeEnd(int team, int fromSectorId, int toSectorId, out GameEntity _otherEnd)
         {
             var path = Map.ShortestPath(team, fromSectorId, toSectorId);
@@ -291,11 +230,11 @@ namespace AllegianceForms.Engine
 
             if (possibleEnemySectors.Count > 0)
             {
-                var combatSector = possibleEnemySectors[Random.Next(possibleEnemySectors.Count - 1)];
+                var combatSector = possibleEnemySectors[Random.Next(possibleEnemySectors.Count)];
                 var targetBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId == combatSector).ToList();
                 var launchBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == combatSector && _.CanLaunchShips()).ToList();
-                launchBase = launchBases[Random.Next(launchBases.Count - 1)];
-                return targetBases[Random.Next(targetBases.Count - 1)];
+                launchBase = launchBases[Random.Next(launchBases.Count)];
+                return targetBases[Random.Next(targetBases.Count)];
             }
 
             // Otherwise, find enemy sectors within 1 jumps from ours
@@ -315,15 +254,15 @@ namespace AllegianceForms.Engine
             if (possibleEnemySectors.Count > 0)
             {
                 // Choose a random target & launch site
-                var r = Random.Next(possibleEnemySectors.Count - 1);
+                var r = Random.Next(possibleEnemySectors.Count);
                 var targetSector = possibleEnemySectors[r];
                 var launchSector = possibleTeamSectors[r];
 
                 var targetBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId == targetSector).ToList();
                 var launchBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == launchSector && _.CanLaunchShips()).ToList();
 
-                launchBase = launchBases[Random.Next(launchBases.Count - 1)];
-                return targetBases[Random.Next(targetBases.Count - 1)];
+                launchBase = launchBases[Random.Next(launchBases.Count)];
+                return targetBases[Random.Next(targetBases.Count)];
             }
 
             // Fall back to targeting their last base!
@@ -929,22 +868,22 @@ namespace AllegianceForms.Engine
         private bool IsVisibleToTeam(GameEntity s, int team)
         {
             var teamBases = AllBases.Where(_ => _.Active && _.Team == team && s.SectorId == _.SectorId).ToList();
-            var closestBase = ClosestDistance(s.CenterX, s.CenterY, teamBases);
+            var closestBase = Utils.ClosestDistance(s.CenterX, s.CenterY, teamBases);
             if (closestBase != null)
             {
                 var requiredD = (int)(closestBase.ScanRange * s.Signature);
-                if (WithinDistance(s.CenterX, s.CenterY, closestBase.CenterX, closestBase.CenterY, requiredD))
+                if (Utils.WithinDistance(s.CenterX, s.CenterY, closestBase.CenterX, closestBase.CenterY, requiredD))
                 {
                     return true;
                 }
             }
 
             var teamShips = AllUnits.Where(_ => _.Active && _.Team == team && s.SectorId == _.SectorId).ToList();
-            var closestShip = ClosestDistance(s.CenterX, s.CenterY, teamShips);
+            var closestShip = Utils.ClosestDistance(s.CenterX, s.CenterY, teamShips);
             if (closestShip != null)
             {
                 var requiredD = (int)(closestShip.ScanRange * s.Signature);
-                if (WithinDistance(s.CenterX, s.CenterY, closestShip.CenterX, closestShip.CenterY, requiredD))
+                if (Utils.WithinDistance(s.CenterX, s.CenterY, closestShip.CenterX, closestShip.CenterY, requiredD))
                 {
                     return true;
                 }
@@ -956,22 +895,22 @@ namespace AllegianceForms.Engine
         private bool IsVisibleToAlliance(GameEntity s, int alliance)
         {
             var teamBases = AllBases.Where(_ => _.Active && _.Alliance == alliance && s.SectorId == _.SectorId).ToList();
-            var closestBase = ClosestDistance(s.CenterX, s.CenterY, teamBases);
+            var closestBase = Utils.ClosestDistance(s.CenterX, s.CenterY, teamBases);
             if (closestBase != null)
             {
                 var requiredD = (int)(closestBase.ScanRange * s.Signature);
-                if (WithinDistance(s.CenterX, s.CenterY, closestBase.CenterX, closestBase.CenterY, requiredD))
+                if (Utils.WithinDistance(s.CenterX, s.CenterY, closestBase.CenterX, closestBase.CenterY, requiredD))
                 {
                     return true;
                 }
             }
 
             var teamShips = AllUnits.Where(_ => _.Active && _.Alliance == alliance && s.SectorId == _.SectorId).ToList();
-            var closestShip = ClosestDistance(s.CenterX, s.CenterY, teamShips);
+            var closestShip = Utils.ClosestDistance(s.CenterX, s.CenterY, teamShips);
             if (closestShip != null)
             {
                 var requiredD = (int)(closestShip.ScanRange * s.Signature);
-                if (WithinDistance(s.CenterX, s.CenterY, closestShip.CenterX, closestShip.CenterY, requiredD))
+                if (Utils.WithinDistance(s.CenterX, s.CenterY, closestShip.CenterX, closestShip.CenterY, requiredD))
                 {
                     return true;
                 }
@@ -1022,7 +961,7 @@ namespace AllegianceForms.Engine
                 var c = Color.FromArgb(settings.TeamColours[i]);
                 TeamBrushes[i] = new SolidBrush(c);
                 SelectedPens[i] = new Pen(c, 1) { DashStyle = DashStyle.Dot };
-                TextBrushes[i] = new SolidBrush(PerceivedBrightness(c) > 130 ? Color.Black : Color.White);
+                TextBrushes[i] = new SolidBrush(Utils.PerceivedBrightness(c) > 130 ? Color.Black : Color.White);
                 
                 MinefieldImages[i] = Image.FromFile(MineWeapon.MinefieldImage);
 
@@ -1205,11 +1144,11 @@ namespace AllegianceForms.Engine
             _constructorCheckNext--;
             if (_constructorCheckNext <= 0)
             {
-                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.CurrentOrder == null && _.Orders.Count == 0).ToArray();
-                if (constructorsWaiting.Length > 0)
+                var constructorsWaiting = AllUnits.Where(_ => _.Team == 1 && _.Type == EShipType.Constructor && _.CurrentOrder == null && _.Orders.Count == 0).ToList();
+                if (constructorsWaiting.Count > 0)
                 {
-                    var con = constructorsWaiting[Random.Next(constructorsWaiting.Length)] as BuilderShip;
-                    PlayConstructorRequestSound(con);
+                    var con = constructorsWaiting[Random.Next(constructorsWaiting.Count)] as BuilderShip;
+                    if (!con.Building) PlayConstructorRequestSound(con);
                 }
             }            
 
@@ -1248,7 +1187,7 @@ namespace AllegianceForms.Engine
 
         public Ship GetRandomEnemyInRange(int team, int alliance, int sectorId, PointF pos, float range)
         {
-            var enemysInRange = AllUnits.Where(_ => _.Active && _.Alliance != alliance && !_.Docked && _.SectorId == sectorId && _.VisibleToTeam[team - 1] && _.Type != EShipType.Lifepod && StrategyGame.WithinDistance(pos.X, pos.Y, _.CenterX, _.CenterY, range)).ToList();
+            var enemysInRange = AllUnits.Where(_ => _.Active && _.Alliance != alliance && !_.Docked && _.SectorId == sectorId && _.VisibleToTeam[team - 1] && _.Type != EShipType.Lifepod && Utils.WithinDistance(pos.X, pos.Y, _.CenterX, _.CenterY, range)).ToList();
 
             if (enemysInRange.Count > 1)
             {

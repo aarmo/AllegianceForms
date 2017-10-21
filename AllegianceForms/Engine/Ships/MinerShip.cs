@@ -79,7 +79,7 @@ namespace AllegianceForms.Engine.Ships
 
             if (!(CurrentOrder is MineOrder)) Mining = false;
 
-            if (Target != null && !StrategyGame.WithinDistance(CenterX, CenterY, Target.CenterX, Target.CenterY, MineDistance))
+            if (Target != null && !Utils.WithinDistance(CenterX, CenterY, Target.CenterX, Target.CenterY, MineDistance))
             {
                 Mining = false;
             }
@@ -107,7 +107,7 @@ namespace AllegianceForms.Engine.Ships
                 if (Target != null) Target.BeingMined = false;
                 Target = null;
                 var backToWork = new MineOrder(_game, CurrentOrder.OrderSectorId, CurrentOrder.OrderPosition, CurrentOrder.Offset);
-                var refinery = StrategyGame.ClosestDistance(CenterX, CenterY, _game.AllBases.Where(_ => _.Active && _.Team == Team && _.SectorId == SectorId));
+                var refinery = Utils.ClosestDistance(CenterX, CenterY, _game.AllBases.Where(_ => _.Active && _.Team == Team && _.SectorId == SectorId));
 
                 if (refinery != null)
                 {

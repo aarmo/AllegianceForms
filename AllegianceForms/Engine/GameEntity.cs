@@ -97,8 +97,8 @@ namespace AllegianceForms.Engine
             {
                 var rect = BoundsI;
                 rect.Width += 100;
-                rect.Offset(-50, TextOffsetY);                
-                StrategyGame.DrawCenteredText(g, TextBrush, Name, rect);
+                rect.Offset(-50, TextOffsetY);
+                Utils.DrawCenteredText(g, TextBrush, Name, rect);
             }
         }
     }

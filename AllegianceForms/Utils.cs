@@ -166,5 +166,67 @@ namespace AllegianceForms
         {
             return pair.Equals(new KeyValuePair<T, TU>());
         }
+
+
+        public static double AngleBetweenPoints(PointF from, PointF to)
+        {
+            var deltaX = to.X - from.X;
+            var deltaY = to.Y - from.Y;
+
+            return Math.Atan2(deltaY, deltaX) * (180 / Math.PI);
+        }
+
+        public static int PerceivedBrightness(Color c)
+        {
+            return (int)Math.Sqrt(
+            c.R * c.R * .299 +
+            c.G * c.G * .587 +
+            c.B * c.B * .114);
+        }
+
+        public static bool WithinDistance(float x1, float y1, float x2, float y2, float d)
+        {
+            var dx = (x1 - x2);
+            var dy = (y1 - y2);
+
+            return (dx * dx + dy * dy) < d * d;
+        }
+
+        public static PointF GetNewPoint(PointF p, float d, float angle)
+        {
+            var rad = (Math.PI / 180) * angle;
+            return new PointF((float)(p.X + d * Math.Cos(rad)), (float)(p.Y + d * Math.Sin(rad)));
+        }
+
+        public static double DistanceBetween(Point p1, Point p2)
+        {
+            var dx = (p1.X - p2.X);
+            var dy = (p1.Y - p2.Y);
+
+            return Math.Sqrt(dx * dx + dy * dy);
+        }
+
+        public static T ClosestDistance<T>(float x, float y, IEnumerable<T> check) where T : GameEntity
+        {
+            return check.OrderBy(_ => ((x - _.CenterX) * (x - _.CenterX) + (y - _.CenterY) * (y - _.CenterY))).FirstOrDefault();
+        }
+
+        public static float Lerp(float firstFloat, float secondFloat, DateTime startTime, TimeSpan duration)
+        {
+            var by = (float)((DateTime.Now - startTime).TotalMilliseconds / duration.TotalMilliseconds);
+
+            return firstFloat * by + secondFloat * (1 - by);
+        }
+        
+        private static StringFormat _centeredFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        public static void DrawCenteredText(Graphics g, Brush brush, string text, Rectangle rect)
+        {
+            g.DrawString(text, SystemFonts.SmallCaptionFont, brush, rect, _centeredFormat);
+        }
+
+        public static Color NewAlphaColour(int A, Color color)
+        {
+            return Color.FromArgb(A, color.R, color.G, color.B);
+        }
     }
 }

@@ -87,11 +87,9 @@ namespace AllegianceForms.Engine
         {
             if (!FinishedPlacement(commander)) return false;
 
-            var winPerc = 1f * commander.LadderGamesWon / commander.LadderGamesPlayed;
-            var numDivisions = NumDivisions * 3; // Bronze/Silver/Gold
-
-
-
+            //var winPerc = 1f * commander.LadderGamesWon / commander.LadderGamesPlayed;
+            //var numDivisions = NumDivisions * 3; // Bronze/Silver/Gold
+            
             return true;
         }
 
