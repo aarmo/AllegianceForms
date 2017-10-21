@@ -249,6 +249,8 @@ namespace AllegianceForms.Engine
 
         public Base RandomEnemyBase(int team, out Base launchBase)
         {
+            launchBase = null;
+
             var t = team - 1;
             var alliance = GameSettings.TeamAlliance[t];
 
@@ -257,23 +259,26 @@ namespace AllegianceForms.Engine
             var sectorTeamBases = new int[Map.Sectors.Count];
             var enemySectors = new List<int>();
             var teamSectors = new List<int>();
+            var enemiesFound = false;
 
             foreach (var b in AllBases)
             {
-                if (!b.Active || !b.VisibleToTeam[t]) continue;
+                if (!b.Active) continue;
 
-                if (b.Team == team)
+                if (b.Team == team && b.CanLaunchShips())
                 {
                     sectorTeamBases[b.SectorId]++;
                 }
 
-                if (b.Alliance != alliance)
+                if (b.Alliance != alliance && b.VisibleToTeam[t])
                 {
+                    enemiesFound = true;
                     sectorEnemyBases[b.SectorId]++;
                 }
             }
+            if (!enemiesFound) return null;
 
-            // If there are any sectors with both, start there
+            // If there are any sectors with both, battle there!
             var possibleEnemySectors = new List<int>();
             for (var i = 0; i < sectorEnemyBases.Length; i++)
             {
@@ -293,22 +298,23 @@ namespace AllegianceForms.Engine
                 return targetBases[Random.Next(targetBases.Count - 1)];
             }
 
-            // Otherwise, find a random sector next to ours
+            // Otherwise, find enemy sectors within 1 jumps from ours
             var possibleTeamSectors = new List<int>();
             for (var i = 0; i < teamSectors.Count; i++)
             {
                 for (var j = 0; j < enemySectors.Count; j++)
                 {
-                    if (Map.AreSectorsWithinJumps(team, 2, i, j))
+                    if (Map.AreSectorsWithinJumps(team, 1, teamSectors[i], enemySectors[j]))
                     {
-                        possibleEnemySectors.Add(j);
-                        possibleTeamSectors.Add(i);
+                        possibleEnemySectors.Add(enemySectors[j]);
+                        possibleTeamSectors.Add(teamSectors[i]);
                     }
                 }
             }
 
             if (possibleEnemySectors.Count > 0)
             {
+                // Choose a random target & launch site
                 var r = Random.Next(possibleEnemySectors.Count - 1);
                 var targetSector = possibleEnemySectors[r];
                 var launchSector = possibleTeamSectors[r];
@@ -320,7 +326,16 @@ namespace AllegianceForms.Engine
                 return targetBases[Random.Next(targetBases.Count - 1)];
             }
 
-            // Otherwise, launch from our last base, targeting their last base!
+            // Fall back to targeting their last base!
+            return LastEnemyBase(team, out launchBase);
+        }
+
+        public Base LastEnemyBase(int team, out Base launchBase)
+        {
+            var t = team - 1;
+            var alliance = GameSettings.TeamAlliance[t];
+
+            // Simply launch from our last base, targeting their last base!
             launchBase = AllBases.LastOrDefault(_ => _.Active && _.Team == team && _.CanLaunchShips());
             return AllBases.LastOrDefault(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance);
         }
@@ -1057,10 +1072,13 @@ namespace AllegianceForms.Engine
                     i.Active = false;
                 }
 
-                var allowedIds = GameSettings.RestrictTechToIds[t];
-                if (allowedIds != null)
-                {                    
-                    TechTree[t].TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
+                if (GameSettings.GameType == EGameType.Campaign)
+                {
+                    var allowedIds = GameSettings.RestrictTechToIds[t];
+                    if (allowedIds != null)
+                    {
+                        TechTree[t].TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
+                    }
                 }
             }            
         }
