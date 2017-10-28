@@ -228,5 +228,11 @@ namespace AllegianceForms
         {
             return Color.FromArgb(A, color.R, color.G, color.B);
         }
+        
+        public static T CloneObject<T>(T obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
     }
 }

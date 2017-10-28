@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Research));
             this.ConstructionButton = new System.Windows.Forms.Button();
             this.StarbaseButton = new System.Windows.Forms.Button();
             this.SupremacyButton = new System.Windows.Forms.Button();
             this.TacticalButton = new System.Windows.Forms.Button();
             this.ExpansionButton = new System.Windows.Forms.Button();
             this.BorderPanel = new System.Windows.Forms.Panel();
+            this.CurrencyTitle = new System.Windows.Forms.Label();
+            this.CurrencyPoints = new System.Windows.Forms.Label();
+            this.OkButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ResearchItems = new System.Windows.Forms.FlowLayoutPanel();
             this.ShipyardButton = new System.Windows.Forms.Button();
@@ -53,6 +58,7 @@
             this.ConstructionButton.UseVisualStyleBackColor = true;
             this.ConstructionButton.Click += new System.EventHandler(this.ConstructionButton_Click);
             this.ConstructionButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
+            this.ConstructionButton.MouseLeave += new System.EventHandler(this.ConstructionButton_MouseLeave);
             // 
             // StarbaseButton
             // 
@@ -65,6 +71,7 @@
             this.StarbaseButton.UseVisualStyleBackColor = true;
             this.StarbaseButton.Click += new System.EventHandler(this.StarbaseButton_Click);
             this.StarbaseButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
+            this.StarbaseButton.MouseLeave += new System.EventHandler(this.StarbaseButton_MouseLeave);
             // 
             // SupremacyButton
             // 
@@ -78,6 +85,7 @@
             this.SupremacyButton.UseVisualStyleBackColor = true;
             this.SupremacyButton.Click += new System.EventHandler(this.SupremacyButton_Click);
             this.SupremacyButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
+            this.SupremacyButton.MouseLeave += new System.EventHandler(this.SupremacyButton_MouseLeave);
             // 
             // TacticalButton
             // 
@@ -91,6 +99,7 @@
             this.TacticalButton.UseVisualStyleBackColor = true;
             this.TacticalButton.Click += new System.EventHandler(this.TacticalButton_Click);
             this.TacticalButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
+            this.TacticalButton.MouseLeave += new System.EventHandler(this.TacticalButton_MouseLeave);
             // 
             // ExpansionButton
             // 
@@ -104,11 +113,16 @@
             this.ExpansionButton.UseVisualStyleBackColor = true;
             this.ExpansionButton.Click += new System.EventHandler(this.ExpansionButton_Click);
             this.ExpansionButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
+            this.ExpansionButton.MouseLeave += new System.EventHandler(this.ExpansionButton_MouseLeave);
             // 
             // BorderPanel
             // 
             this.BorderPanel.BackColor = System.Drawing.Color.Black;
             this.BorderPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BorderPanel.Controls.Add(this.CurrencyTitle);
+            this.BorderPanel.Controls.Add(this.CurrencyPoints);
+            this.BorderPanel.Controls.Add(this.OkButton);
+            this.BorderPanel.Controls.Add(this.CancelButton);
             this.BorderPanel.Controls.Add(this.panel1);
             this.BorderPanel.Controls.Add(this.ConstructionButton);
             this.BorderPanel.Controls.Add(this.StarbaseButton);
@@ -122,6 +136,64 @@
             this.BorderPanel.Name = "BorderPanel";
             this.BorderPanel.Size = new System.Drawing.Size(458, 621);
             this.BorderPanel.TabIndex = 3;
+            // 
+            // CurrencyTitle
+            // 
+            this.CurrencyTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrencyTitle.ForeColor = System.Drawing.Color.White;
+            this.CurrencyTitle.Location = new System.Drawing.Point(3, 492);
+            this.CurrencyTitle.Name = "CurrencyTitle";
+            this.CurrencyTitle.Size = new System.Drawing.Size(175, 24);
+            this.CurrencyTitle.TabIndex = 59;
+            this.CurrencyTitle.Text = "Available Credits:";
+            this.CurrencyTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CurrencyTitle.Visible = false;
+            // 
+            // CurrencyPoints
+            // 
+            this.CurrencyPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrencyPoints.ForeColor = System.Drawing.Color.Lime;
+            this.CurrencyPoints.Location = new System.Drawing.Point(3, 516);
+            this.CurrencyPoints.Name = "CurrencyPoints";
+            this.CurrencyPoints.Size = new System.Drawing.Size(175, 39);
+            this.CurrencyPoints.TabIndex = 58;
+            this.CurrencyPoints.Text = "[Points]";
+            this.CurrencyPoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CurrencyPoints.Visible = false;
+            // 
+            // OkButton
+            // 
+            this.OkButton.BackColor = System.Drawing.Color.Black;
+            this.OkButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OkButton.ForeColor = System.Drawing.Color.White;
+            this.OkButton.Location = new System.Drawing.Point(31, 586);
+            this.OkButton.Name = "OkButton";
+            this.OkButton.Size = new System.Drawing.Size(55, 22);
+            this.OkButton.TabIndex = 56;
+            this.OkButton.Text = "OK";
+            this.OkButton.UseVisualStyleBackColor = false;
+            this.OkButton.Visible = false;
+            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
+            this.OkButton.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.OkButton.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.BackColor = System.Drawing.Color.Black;
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelButton.ForeColor = System.Drawing.Color.White;
+            this.CancelButton.Location = new System.Drawing.Point(92, 586);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(55, 22);
+            this.CancelButton.TabIndex = 57;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = false;
+            this.CancelButton.Visible = false;
+            this.CancelButton.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.CancelButton.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // panel1
             // 
@@ -154,6 +226,7 @@
             this.ShipyardButton.UseVisualStyleBackColor = true;
             this.ShipyardButton.Click += new System.EventHandler(this.ShipyardButton_Click);
             this.ShipyardButton.MouseEnter += new System.EventHandler(this.ConstructionButton_MouseEnter);
+            this.ShipyardButton.MouseLeave += new System.EventHandler(this.ShipyardButton_MouseLeave);
             // 
             // Research
             // 
@@ -165,6 +238,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Research";
@@ -190,5 +264,9 @@
         private System.Windows.Forms.FlowLayoutPanel ResearchItems;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ShipyardButton;
+        private System.Windows.Forms.Button OkButton;
+        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Label CurrencyPoints;
+        private System.Windows.Forms.Label CurrencyTitle;
     }
 }

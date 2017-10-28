@@ -9,6 +9,12 @@ namespace AllegianceForms.Engine.Tech
 {
     public class TechTree
     {
+        public TechTree()
+        {
+            TechItems = new List<TechItem>();
+            ResearchedUpgrades = new Dictionary<EGlobalUpgrade, float>();
+        }
+
         public List<TechItem> TechItems { get; set; }
         public Dictionary<EGlobalUpgrade, float> ResearchedUpgrades { get; set; }
 

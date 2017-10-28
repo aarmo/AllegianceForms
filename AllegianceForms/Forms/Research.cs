@@ -1,17 +1,19 @@
 ﻿using AllegianceForms.Engine;
-using AllegianceForms.Engine.Tech;
 using AllegianceForms.Controls;
 using System;
 using System.Windows.Forms;
 using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
+using AllegianceForms.Engine.Tech;
 
 namespace AllegianceForms.Forms
 {
     public partial class Research : Form
     {
-        private ETechType _type = ETechType.Starbase;
+        public int Currency { get; set; }
+
+        private ETechType _type = ETechType.Construction;
 
         private readonly Color _backColorType = Color.DimGray;
         private readonly Color _backColorNotType = Color.Black;
@@ -19,11 +21,32 @@ namespace AllegianceForms.Forms
         private readonly Color _foreColorInActive = Color.Gray;
 
         private StrategyGame _game;
+        private TechTree _tree;
+        private List<int> _unlockedIds;
 
         public Research(StrategyGame game)
         {
             InitializeComponent();
+
             _game = game;
+            _tree = game.TechTree[0];
+            _unlockedIds = null;
+            RefreshItems();
+        }
+
+        public Research(TechTree tree, int[] unlockedTechIds, int currency)
+        {
+            InitializeComponent();
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            OkButton.Visible = CancelButton.Visible = CurrencyPoints.Visible = CurrencyTitle.Visible = true;
+
+            _game = null;
+            _tree = tree;
+            _unlockedIds = new List<int>(unlockedTechIds);
+            Currency = currency;
+            CurrencyPoints.Text = $"{Currency}";
+            RefreshItems();
         }
 
         public void RefreshItems()
@@ -31,32 +54,43 @@ namespace AllegianceForms.Forms
             ResearchItems.Controls.Clear();
 
             ConstructionButton.BackColor = (_type == ETechType.Construction) ? _backColorType : _backColorNotType;
+            if (_game == null)
+            {
+                StarbaseButton.ForeColor = SupremacyButton.ForeColor = TacticalButton.ForeColor = ExpansionButton.ForeColor = ShipyardButton.ForeColor = _foreColorActive;
+            }
+            else
+            {
+                StarbaseButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Starbase)) ? _foreColorActive : _foreColorInActive;
+                SupremacyButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Supremacy)) ? _foreColorActive : _foreColorInActive;
+                TacticalButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Tactical)) ? _foreColorActive : _foreColorInActive;
+                ExpansionButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Expansion)) ? _foreColorActive : _foreColorInActive;
+                ShipyardButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Shipyard)) ? _foreColorActive : _foreColorInActive;
+            }
 
-            StarbaseButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Starbase)) ? _foreColorActive : _foreColorInActive;
             StarbaseButton.BackColor = (_type == ETechType.Starbase) ? _backColorType : _backColorNotType;
-
-            SupremacyButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Supremacy)) ? _foreColorActive : _foreColorInActive;
             SupremacyButton.BackColor = (_type == ETechType.Supremacy) ? _backColorType : _backColorNotType;
-
-            TacticalButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Tactical)) ? _foreColorActive : _foreColorInActive;
             TacticalButton.BackColor = (_type == ETechType.Tactical) ? _backColorType : _backColorNotType;
-
-            ExpansionButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Expansion)) ? _foreColorActive : _foreColorInActive;
             ExpansionButton.BackColor = (_type == ETechType.Expansion) ? _backColorType : _backColorNotType;
-
-            ShipyardButton.ForeColor = (_game.AllBases.Any(_ => _.Active && _.Team == 1 && _.Type == EBaseType.Shipyard)) ? _foreColorActive : _foreColorInActive;
             ShipyardButton.BackColor = (_type == ETechType.ShipyardConstruction) ? _backColorType : _backColorNotType;
 
-
-            var items = _game.TechTree[0].ResearchableItems(_type);
+            var items = _tree.ResearchableItems(_type);
             foreach (var i in items)
             {
-                var c = new TechTreeItem(_game);
+                var c = new TechTreeItem(_game, this);
                 c.SetInfo(i);
 
                 ResearchItems.Controls.Add(c);
             }
-    }
+        }
+
+        public int SpendCurrency(int amount)
+        {
+            var spentAmount = Math.Min(amount, Currency);
+            Currency -= spentAmount;
+            CurrencyPoints.Text = $"{Currency}";
+
+            return spentAmount;
+        }
 
         private void Research_KeyDown(object sender, KeyEventArgs e)
         {
@@ -69,7 +103,7 @@ namespace AllegianceForms.Forms
 
         public void UpdateItems()
         {
-            var activeItems = _game.TechTree[0].ResearchableItems(_type);
+            var activeItems = _tree.ResearchableItems(_type);
             var removeControls = new List<Control>();
 
             // Update
@@ -97,7 +131,7 @@ namespace AllegianceForms.Forms
             // Insert
             foreach (var i in activeItems)
             {
-                var ui = new TechTreeItem(_game);
+                var ui = new TechTreeItem(_game, this);
                 ui.SetInfo(i);
 
                 ResearchItems.Controls.Add(ui);
@@ -147,6 +181,7 @@ namespace AllegianceForms.Forms
         {
             var b = sender as Button;
             if (b == null || b.ForeColor != _foreColorActive) return;
+            b.BackColor = Color.DarkGreen;
             SoundEffect.Play(ESounds.mouseover);
         }
 
@@ -156,6 +191,73 @@ namespace AllegianceForms.Forms
             SoundEffect.Play(ESounds.mousedown);
             _type = ETechType.ShipyardConstruction;
             RefreshItems();
+        }
+
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mouseover);
+            var b = sender as Button;
+            if (b != null) b.BackColor = Color.DarkGreen;
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b != null) b.BackColor = Color.Black;
+        }
+
+        private void ConstructionButton_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b == null) return;
+
+            b.BackColor = _type == ETechType.Construction ? _backColorType : _backColorNotType;
+        }
+
+        private void StarbaseButton_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b == null) return;
+
+            b.BackColor = _type == ETechType.Starbase ? _backColorType : _backColorNotType;
+        }
+
+        private void SupremacyButton_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b == null) return;
+
+            b.BackColor = _type == ETechType.Supremacy ? _backColorType : _backColorNotType;
+        }
+
+        private void TacticalButton_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b == null) return;
+
+            b.BackColor = _type == ETechType.Tactical ? _backColorType : _backColorNotType;
+        }
+
+        private void ExpansionButton_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b == null) return;
+
+            b.BackColor = _type == ETechType.Expansion ? _backColorType : _backColorNotType;
+        }
+
+        private void ShipyardButton_MouseLeave(object sender, EventArgs e)
+        {
+            var b = sender as Button;
+            if (b == null) return;
+
+            b.BackColor = _type == ETechType.ShipyardConstruction ? _backColorType : _backColorNotType;
+        }
+
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mousedown);
+            DialogResult = DialogResult.OK;
         }
     }
 }

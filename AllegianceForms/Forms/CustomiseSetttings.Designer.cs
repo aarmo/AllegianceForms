@@ -1595,6 +1595,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(848, 526);
+            this.Controls.Add(this.MapList);
             this.Controls.Add(this.MapPreview);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Cancel);
@@ -1660,7 +1661,6 @@
             this.Controls.Add(this.MinersInitial);
             this.Controls.Add(this.ShipType);
             this.Controls.Add(this.CustomPresets);
-            this.Controls.Add(this.MapList);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label9);

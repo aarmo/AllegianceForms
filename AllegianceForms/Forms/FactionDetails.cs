@@ -28,14 +28,15 @@ namespace AllegianceForms.Forms
 
             if (locked)
             {
-                CustomPresets.Enabled = false;
-                LoadPreset.Enabled = false;
-                SavePreset.Enabled = false;
-                Random.Enabled = false;
-                RandomName.Enabled = false;
+                CustomPresets.Visible = false;
+                LoadPreset.Visible = false;
+                SavePreset.Visible = false;
+                Random.Visible = false;
+                RandomName.Visible = false;
                 FactionName.Enabled = false;
                 PlayerName.Enabled = false;
-                RandomCommanderName.Enabled = false;
+                RandomCommanderName.Visible = false;
+                Default.Visible = false;
             }
             else
             {

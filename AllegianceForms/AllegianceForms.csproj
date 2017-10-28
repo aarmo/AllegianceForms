@@ -158,6 +158,12 @@
     <Compile Include="Engine\StarField.cs" />
     <Compile Include="Engine\Weapons\Minefield.cs" />
     <Compile Include="Engine\Weapons\MineWeapon.cs" />
+    <Compile Include="Forms\CampaignStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CampaignStart.Designer.cs">
+      <DependentUpon>CampaignStart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ChanceGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -308,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TeamListItem.resx">
       <DependentUpon>TeamListItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CampaignStart.resx">
+      <DependentUpon>CampaignStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChanceGame.resx">
       <DependentUpon>ChanceGame.cs</DependentUpon>

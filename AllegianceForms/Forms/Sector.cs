@@ -61,14 +61,15 @@ namespace AllegianceForms.Forms
         {
             InitializeComponent();
             SetupScreenSize();
-
-            _researchForm = new Research(StrategyGame);
-            _pilotList = new PilotList(StrategyGame);
-
+            
             StrategyGame.SetupGame(settings);
             StrategyGame.LoadData();
             StrategyGame.Map = GameMaps.LoadMap(StrategyGame, settings.MapName);
+
             _mapForm = new Map(StrategyGame);
+            _researchForm = new Research(StrategyGame);
+            _pilotList = new PilotList(StrategyGame);
+
             UpdateWinnersAndLoosers(false);
 
             var startSectors = (from s in StrategyGame.Map.Sectors
@@ -249,9 +250,7 @@ namespace AllegianceForms.Forms
                 if (s == null) return;
 
                 _alertSectorId  = s.SectorId;
-                _alertExpire = DateTime.Now + _alertDuration;
-                AlertMessage.Text = s.Message;
-                AlertMessage.Visible = true;
+                DisplayAlert(s.Message);
             }
             else if (e == EGameEventType.GameLost)
             {
@@ -265,6 +264,13 @@ namespace AllegianceForms.Forms
             {
                 StrategyGame.ProcessGameEvent(sender, e, F_ShipEvent);
             }
+        }
+
+        private void DisplayAlert(string message)
+        {
+            _alertExpire = DateTime.Now + _alertDuration;
+            AlertMessage.Text = message;
+            AlertMessage.Visible = true;
         }
 
         private void B_BaseEvent(Base sender, EBaseEventType e, int senderTeam)
@@ -712,7 +718,14 @@ namespace AllegianceForms.Forms
             _shiftDown = e.Shift;
             _ctrlDown = e.Control;
 
-            if (e.KeyCode == Keys.F3)
+            if (e.KeyCode == Keys.Pause)
+            {
+                var enabled = !tick.Enabled;
+                tick.Enabled = timer.Enabled = enabled;
+
+                DisplayAlert(enabled ? string.Empty : "*** PAUSED ***");
+            }
+            else if (e.KeyCode == Keys.F3)
             {
                 miniMapToolStripMenuItem_Click(sender, null);
                 return;

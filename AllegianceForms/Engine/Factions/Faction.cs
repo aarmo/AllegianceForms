@@ -83,11 +83,5 @@ namespace AllegianceForms.Engine.Factions
 
             return f;
         }
-
-        public Faction Clone()
-        {
-            var json = JsonConvert.SerializeObject(this); 
-            return JsonConvert.DeserializeObject<Faction>(json);
-        }
     }
 }

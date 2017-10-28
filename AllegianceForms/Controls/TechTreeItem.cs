@@ -1,5 +1,6 @@
 ﻿using AllegianceForms.Engine;
 using AllegianceForms.Engine.Tech;
+using AllegianceForms.Forms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,20 +10,24 @@ namespace AllegianceForms.Controls
     public partial class TechTreeItem : UserControl
     {
         public TechItem Item { get; set; }
-        private readonly Color _normColour = Color.Black;
-        private readonly Color _buildColour = Color.DarkGreen;
-        private readonly Color _cantBuildColour = Color.DarkRed;
-        private StrategyGame _game;
 
-        public TechTreeItem(StrategyGame game)
+        private static readonly Color NormColour = Color.Black;
+        private static readonly Color BuildColour = Color.DarkGreen;
+        private static readonly Color UnlockedColour = Color.DarkGreen;
+        private static readonly Color CantBuildColour = Color.DarkRed;
+        private StrategyGame _game;
+        private Research _researchForm;
+
+        public TechTreeItem(StrategyGame game, Research ownerForm)
         {
             InitializeComponent();
             _game = game;
+            _researchForm = ownerForm;
         }
         
         private void Name_MouseLeave(object sender, EventArgs e)
         {
-            BackColor = _normColour;
+            BackColor = Item.Unlocked ? UnlockedColour : NormColour;
         }
 
         private void Name_MouseEnter(object sender, EventArgs e)
@@ -33,9 +38,9 @@ namespace AllegianceForms.Controls
 
         public void RefreshBackColour(bool mouseOver = false)
         {
-            if (!mouseOver && BackColor == _normColour) return;
+            if (!mouseOver && BackColor == NormColour) return;
 
-            BackColor = (Item.CanBuild()) ? _buildColour : _cantBuildColour;
+            BackColor = (Item.CanBuild()) ? BuildColour : CantBuildColour;
         }
 
         public void SetInfo(TechItem item)
@@ -46,13 +51,21 @@ namespace AllegianceForms.Controls
             TechAmount.Text = $"${item.Cost}";
             TechDuration.Text = $"({item.DurationTicks / 4}s)";
 
+            BackColor = NormColour;
+
             if (!string.IsNullOrWhiteSpace(item.Icon))
                 TechIcon.Image = Image.FromFile(StrategyGame.IconPicDir + item.Icon);
 
             InvestmentProgress.Maximum = item.Cost;
             TimeProgress.Maximum = item.DurationTicks;
-
             UpdateTime();
+
+            if (Item.Unlocked)
+            {
+                BackColor = UnlockedColour;
+                InvestmentProgress.Value = InvestmentProgress.Maximum;
+                TimeProgress.Value = TimeProgress.Maximum;
+            }
         }
 
         public void UpdateTime()
@@ -76,10 +89,15 @@ namespace AllegianceForms.Controls
                 perc = 1 - investedPerc;
             else if (investedPerc >= 0.8)
                 perc = 1 - investedPerc - 0.01;
-            
-            var amount = _game.SpendCredits(1, (int)Math.Round(Item.Cost * perc));
-            Item.AmountInvested += amount;
 
+            var amount = (int)Math.Round(Item.Cost * perc);
+
+            if (_game != null)
+                amount = _game.SpendCredits(1, amount);
+            else if (_researchForm != null)
+                amount = _researchForm.SpendCurrency(amount);
+
+            Item.AmountInvested += amount;
             InvestmentProgress.Value = Item.AmountInvested;
         }
 
@@ -93,9 +111,14 @@ namespace AllegianceForms.Controls
             SoundEffect.Play(ESounds.mousedown);
 
             // Double Click pays it out completely, or all you can afford
-            var amount = _game.SpendCredits(1, Item.Cost - Item.AmountInvested);
-            Item.AmountInvested += amount;
+            var amount = Item.Cost - Item.AmountInvested;
 
+            if (_game != null)
+                amount = _game.SpendCredits(1, amount);
+            else if (_researchForm != null)
+                amount = _researchForm.SpendCurrency(amount);
+
+            Item.AmountInvested += amount;
             InvestmentProgress.Value = Item.AmountInvested;
         }
     }

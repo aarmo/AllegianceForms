@@ -12,6 +12,7 @@ namespace AllegianceForms.Engine.Tech
         public int AmountInvested { get; set; }
         public bool Completed { get; set; }
         public bool Active { get; set; }
+        public bool Unlocked { get; set; }
         public string PreReqsIds { get; set; }
         public int[] DependsOnIds { get; set; }
         public int Team { get; set; }
@@ -58,10 +59,13 @@ namespace AllegianceForms.Engine.Tech
             ResearchedTicks = 0;
             Completed = false;
             Active = true;
+            Unlocked = false;
         }
 
         public bool CanBuild()
         {
+            if (_game == null) return true;
+
             return (Type != ETechType.Construction && Type != ETechType.ShipyardConstruction)
                 || (Type == ETechType.ShipyardConstruction && Name.Contains("Shipyard"))
                 || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && _game.NumberOfCapitalDrones(Team, Name) < _game.GameSettings.CapitalMaxDrones)
@@ -126,6 +130,5 @@ namespace AllegianceForms.Engine.Tech
         {
             return ShipTypes.Any(_ => Name.Contains(_));
         }
-
     }
 }

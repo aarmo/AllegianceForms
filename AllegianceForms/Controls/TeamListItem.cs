@@ -52,7 +52,7 @@ namespace AllegianceForms.Controls
 
         private void TeamFaction_Click(object sender, System.EventArgs e)
         {
-            var f = Faction.Clone();
+            var f = Utils.CloneObject(Faction);
 
             var form = new FactionDetails();
             form.LoadFaction(f, Color.FromArgb(ColourArgb));

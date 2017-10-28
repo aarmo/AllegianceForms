@@ -670,11 +670,8 @@ namespace AllegianceForms.Forms
 
         private void RefreshStartGame()
         {
-#if !DEBUG
             var allSame = Settings.TeamAlliance.Take(Settings.NumTeams).All(_ => _ == Settings.TeamAlliance[0]);
-
             StartGame.Enabled = !allSame;
-#endif
         }
 
         private void VariantAI_CheckedChanged(object sender, EventArgs e)

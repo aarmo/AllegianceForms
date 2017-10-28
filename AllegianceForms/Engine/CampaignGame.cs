@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AllegianceForms.Engine.Map;
+using AllegianceForms.Engine.Tech;
+using System;
 using System.Linq;
 
 namespace AllegianceForms.Engine
@@ -7,18 +9,36 @@ namespace AllegianceForms.Engine
     {
         public static string DefaultCampaignFile = ".\\Data\\CurrentCampaign.dat";
 
+        public bool Setup { get; set; }
         public int GamesPlayed { get; set; }
         public int GamesWon { get; set; }
         public int TotalPoints { get; set; }
         public int UnspentPoints { get; set; }
         public GameSettings CurrentSettings { get; set; }
+        public TechTree TechTree { get; set; }
+        public string[] RemainingMaps { get; set; }
+        public int TotalCampaignMaps { get; set; }
 
         public static CampaignGame NewGame()
         {
-            return new CampaignGame()
+            var c = new CampaignGame()
             {
-                CurrentSettings = GameSettings.CampaignStart()
+                CurrentSettings = GameSettings.CampaignStart(),
+                Setup = false,
+                UnspentPoints = 50,
             };
+
+            c.RemainingMaps = Utils.Shuffle(GameMaps.AvailableMaps(2, false), StrategyGame.Random).Take(10).ToArray();
+            c.TotalCampaignMaps = 10;
+
+            c.TechTree = TechTree.LoadTechTree(null, StrategyGame.TechDataFile, 1);
+            foreach (var i in c.TechTree.TechItems)
+            {
+                i.DurationTicks = 1;
+                i.Cost /= 100;
+                i.Unlocked = c.CurrentSettings.RestrictTechToIds[0].Contains(i.Id);
+            }
+            return c;
         }
 
         public static CampaignGame LoadOrDefault()
@@ -49,6 +69,16 @@ namespace AllegianceForms.Engine
             TotalPoints += p;
             UnspentPoints += p;
 
+            RemainingMaps = RemainingMaps.Skip(1).ToArray();
+
+            SaveGame();
+        }
+
+        public void SetupGame(string playerName, string factionName)
+        {
+            CurrentSettings.TeamFactions[0].CommanderName = playerName;
+            CurrentSettings.TeamFactions[0].Name = factionName;
+            Setup = true;
             SaveGame();
         }
     }
