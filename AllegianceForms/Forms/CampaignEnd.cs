@@ -33,7 +33,7 @@ namespace AllegianceForms.Forms
             var t = Settings.RestrictTechToIds[0].Length;
             var tMax = _game.TechTree.TechItems.Count;
             var m = _game.RemainingMaps.Length;
-            var mMax = _game.TotalCampaignMaps;
+            var mMax = CampaignGame.NumAvailableMaps;
 
             Points.Text = _game.UnspentPoints.ToString();
             CommanderName.Text = f.CommanderName;

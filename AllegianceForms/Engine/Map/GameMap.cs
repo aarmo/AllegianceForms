@@ -197,7 +197,7 @@ namespace AllegianceForms.Engine.Map
                               where w.Sector1 == s
                               || w.Sector2 == s
                               select w).ToList();
-                
+                if (allW.Count == 0) continue;
                 var angleInDegrees = 360 / allW.Count;
                 var currentAngle = StrategyGame.Random.Next(360);
 
