@@ -48,7 +48,7 @@ namespace AllegianceForms.Engine.Ships
         public CombatShip CreateShip(string name, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
-            var type = (EShipType)Enum.Parse(typeof(EShipType), name);
+            var type = (EShipType)Enum.Parse(typeof(EShipType), name.Replace(" ", string.Empty));
 
             var spec = (from s in Ships
                         where s.Type == type

@@ -98,6 +98,42 @@ namespace AllegianceForms.Forms
             {
                 SoundEffect.Play(ESounds.windowslides);
                 Hide();
+                return;
+            }
+
+            var ks = e.KeyCode.ToString();
+            foreach (var c in ResearchItems.Controls)
+            {
+                var t = c as TechTreeItem;
+                if (t == null) continue;
+
+                if (t.Item.ShortcutKey == ks)
+                {
+                    t.Invest();
+                    return;
+                }
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.D1:
+                    ConstructionButton_Click(sender, null);
+                    break;
+                case Keys.D2:
+                    StarbaseButton_Click(sender, null);
+                    break;
+                case Keys.D3:
+                    SupremacyButton_Click(sender, null);
+                    break;
+                case Keys.D4:
+                    TacticalButton_Click(sender, null);
+                    break;
+                case Keys.D5:
+                    ExpansionButton_Click(sender, null);
+                    break;
+                case Keys.D6:
+                    ShipyardButton_Click(sender, null);
+                    break;
             }
         }
 

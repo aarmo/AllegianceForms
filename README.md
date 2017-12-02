@@ -166,6 +166,9 @@ Pyrite2 | ![alt text][mappyrite2] | 2
 Schist2 | ![alt text][mapschist2] | 2
 Serpentine2 | ![alt text][mapserpentine2] | 2
 Xenon2 | ![alt text][mapxenon2] | 2
+BowTie2 | ![alt text][mapbowtie2] | 2
+Saber2 | ![alt text][mapsaber2] | 2
+Saber4 | ![alt text][mapsaber4] | 2 / 4
 
 [Overview](#overview)
 
@@ -199,6 +202,7 @@ Item | Source
 **Original Rocks** | Hansjörg Malthaner: http://opengameart.org/users/varkalandar
 **Bubble Explosion** | Tião Ferreira: http://opengameart.org/users/tiao-ferreira
 **Sounds** | Microsoft's Allegiance: http://www.freeallegiance.org
+**Background** | wwwtyro: http://wwwtyro.github.io/procedural.js/space
 
 [Overview](#overview)
 
@@ -274,3 +278,6 @@ Bonus Game
 [mapschist2]: /AllegianceForms/Data/Maps/Schist2.png "Schist2"
 [mapserpentine2]: /AllegianceForms/Data/Maps/Serpentine2.png "Serpentine2"
 [mapxenon2]: /AllegianceForms/Data/Maps/Xenon2.png "Xenon2"
+[mapbowtie2]: /AllegianceForms/Data/Maps/BowTie2.png "BowTie2"
+[mapsaber2]: /AllegianceForms/Data/Maps/Saber2.png "Saber2"
+[mapsaber4]: /AllegianceForms/Data/Maps/Saber4.png "Saber4"

@@ -310,7 +310,7 @@ namespace AllegianceForms.Engine
         
         public int NumberOfCapitalDrones(int team, string name)
         {
-            var type = (EShipType)Enum.Parse(typeof(EShipType), name);
+            var type = (EShipType)Enum.Parse(typeof(EShipType), name.Replace(" ", string.Empty));
             return (from c in AllUnits
                     where c.Active
                     && c.Team == team

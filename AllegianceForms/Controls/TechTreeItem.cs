@@ -50,6 +50,7 @@ namespace AllegianceForms.Controls
             TechName.Text = item.Name;
             TechAmount.Text = $"${item.Cost}";
             TechDuration.Text = $"({item.DurationTicks / 4}s)";
+            Shortcut.Text = item.ShortcutKey;
 
             BackColor = NormColour;
 
@@ -99,6 +100,11 @@ namespace AllegianceForms.Controls
 
             Item.AmountInvested += amount;
             InvestmentProgress.Value = Item.AmountInvested;
+        }
+
+        public void Invest()
+        {
+            Name_DoubleClick(null, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
         }
 
         private void Name_DoubleClick(object sender, EventArgs e)

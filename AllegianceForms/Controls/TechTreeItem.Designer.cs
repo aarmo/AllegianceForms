@@ -34,6 +34,7 @@
             this.TechAmount = new System.Windows.Forms.Label();
             this.TechDuration = new System.Windows.Forms.Label();
             this.TechIcon = new System.Windows.Forms.PictureBox();
+            this.Shortcut = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.TechIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,9 +51,9 @@
             // TechName
             // 
             this.TechName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TechName.Location = new System.Drawing.Point(2, 2);
+            this.TechName.Location = new System.Drawing.Point(21, 2);
             this.TechName.Name = "TechName";
-            this.TechName.Size = new System.Drawing.Size(199, 27);
+            this.TechName.Size = new System.Drawing.Size(180, 27);
             this.TechName.TabIndex = 5;
             this.TechName.Text = "[Description]";
             this.TechName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,6 +109,20 @@
             this.TechIcon.TabIndex = 7;
             this.TechIcon.TabStop = false;
             // 
+            // Shortcut
+            // 
+            this.Shortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Shortcut.Location = new System.Drawing.Point(2, 2);
+            this.Shortcut.Name = "Shortcut";
+            this.Shortcut.Size = new System.Drawing.Size(24, 27);
+            this.Shortcut.TabIndex = 5;
+            this.Shortcut.Text = "X";
+            this.Shortcut.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Shortcut.Click += new System.EventHandler(this.Name_Click);
+            this.Shortcut.DoubleClick += new System.EventHandler(this.Name_DoubleClick);
+            this.Shortcut.MouseEnter += new System.EventHandler(this.Name_MouseEnter);
+            this.Shortcut.MouseLeave += new System.EventHandler(this.Name_MouseLeave);
+            // 
             // TechTreeItem
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -117,6 +132,7 @@
             this.Controls.Add(this.TimeProgress);
             this.Controls.Add(this.TechDuration);
             this.Controls.Add(this.TechAmount);
+            this.Controls.Add(this.Shortcut);
             this.Controls.Add(this.TechName);
             this.Controls.Add(this.InvestmentProgress);
             this.ForeColor = System.Drawing.Color.White;
@@ -135,5 +151,6 @@
         private System.Windows.Forms.Label TechAmount;
         private System.Windows.Forms.Label TechDuration;
         private System.Windows.Forms.PictureBox TechIcon;
+        private System.Windows.Forms.Label Shortcut;
     }
 }

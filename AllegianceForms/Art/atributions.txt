@@ -13,4 +13,4 @@ Icons
 Free Allegiance: http://www.freeallegiance.org/FAW/index.php/DN_minimap_icons
 
 Background
-http://wwwtyro.github.io/procedural.js/space
+wwwtyro: http://wwwtyro.github.io/procedural.js/space

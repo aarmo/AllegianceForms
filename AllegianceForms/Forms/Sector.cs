@@ -1164,7 +1164,7 @@ namespace AllegianceForms.Forms
 
                 _researchForm.Top = Top + Height / 2 - _researchForm.Height / 2;
                 _researchForm.Left = Left + Width / 2 - _researchForm.Width / 2;
-                Focus();
+                //Focus();
             }
         }
 
@@ -1187,7 +1187,7 @@ namespace AllegianceForms.Forms
 
                 _mapForm.Top = Top;
                 _mapForm.Left = Left + Width - 5;
-                Focus();
+                //Focus();
             }
         }
 
@@ -1206,7 +1206,7 @@ namespace AllegianceForms.Forms
 
                 _debugForm.Top = Top + Height - _debugForm.Height - 10;
                 _debugForm.Left = Left + Width - 5;
-                Focus();
+                //Focus();
             }
         }
 

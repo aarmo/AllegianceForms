@@ -19,6 +19,7 @@ namespace AllegianceForms.Engine.Tech
         public int ResearchedTicks { get; set; }
         public int DurationTicks { get; set; }
         public string Icon { get; set; }
+        public string ShortcutKey { get; set; }
 
         private StrategyGame _game;
 

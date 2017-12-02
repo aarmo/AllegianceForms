@@ -153,6 +153,7 @@
     <Compile Include="Engine\Generation\RandomName.cs" />
     <Compile Include="Engine\HSBColour.cs" />
     <Compile Include="Engine\LadderGame.cs" />
+    <Compile Include="Engine\LogicFlow\Operation.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Engine\QuickChat\QuickComms.cs" />
     <Compile Include="Engine\StarField.cs" />
@@ -1549,6 +1550,18 @@
     <Content Include="Art\Sounds\vo_sal_recruitsarrived.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art\Trans\capsupport-adv.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Trans\capsupport-hvy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Trans\capsupport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\BowTie2.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Maps\Chopper2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1558,6 +1571,12 @@
     <None Include="Data\Maps\Chopper4.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\Maps\Saber2.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Saber4.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Maps\SmallSpiral2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1709,9 +1728,6 @@
     <Content Include="Art\Trans\capfrig.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Trans\capsupport.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Art\Trans\Dn_hibmbbmp.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1836,6 +1852,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Amber2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\BowTie2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Brawl2.map">
@@ -2011,6 +2030,12 @@
     </Content>
     <Content Include="Data\Maps\Random-Small2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Saber2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Saber4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Schist2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

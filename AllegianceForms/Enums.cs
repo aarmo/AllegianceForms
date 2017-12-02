@@ -79,7 +79,9 @@ namespace AllegianceForms
         Cruiser,
         Battleship,
         Battlecruiser,
-        Support
+        Support,
+        AdvancedSupport,
+        HeavySupport
     }
 
     public enum EBaseType

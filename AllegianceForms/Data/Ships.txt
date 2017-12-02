@@ -56,7 +56,7 @@ Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Si
 
 # Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Signature,WeaponData,BaseType
 # WeaponData: Type|Width|FireTicks|RefireTicks|Range|Damage|OffsetX|OffsetY>(next...)
-99,Support,C,100,capsupport.png,32,32,500,0,2,500,2,0|2|5|16|150|10|0|-12>2|1|5|10|200|-5|-6|0>2|1|5|10|200|-5|6|0,0
+99,Support,C,100,capsupport.png,32,32,500,0,2,500,2,0|2|5|16|150|10|0|-12>2|1|5|10|200|-5|-6|0>2|1|5|10|200|-5|6|0>4|100|70|80|200|1|0|0,0
 100,Corvette,C,100,capcorv.png,32,32,250,0,2,300,2,0|2|5|16|150|10|-6|0>0|2|5|16|150|10|6|0>3|4|5|25|400|8|0|0|8|5,0
 101,Destroyer,C,101,capdest.png,32,32,300,0,3,300,2,0|2|5|16|200|10|-6|0>0|2|5|16|200|10|6|0>3|4|5|25|400|8|-8|0|8|5>3|4|5|25|400|8|8|0|8|5,0
 102,Frigate,C,101,capfrig.png,32,32,300,0,2,300,2,0|2|5|20|200|10|4|0>1|2|10|20|200|20|0|-4,0
@@ -64,3 +64,7 @@ Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Si
 104,Cruiser,C,102,capcruise.png,32,32,400,0,3,300,2,0|2|3|20|200|15|4|0>1|2|10|20|200|25|0|-4,0
 105,Battleship,C,103,capbattle.png,32,32,500,0,3,300,2,0|2|5|16|200|20|-6|0>0|2|5|16|200|20|6|0>3|4|5|25|450|15|-8|0|8|5>3|4|5|25|450|15|8|0|8|5,0
 106,Battlecruiser,C,103,capbcruise.png,32,32,500,0,3,300,2,0|2|5|16|200|20|4|0>1|2|10|20|200|30|0|-4>3|4|5|25|450|15|8|0|8|5,0
+
+107,AdvancedSupport,C,101,capsupport-adv.png,32,32,600,0,2,500,2,0|2|5|16|150|15|0|-12>2|1|5|10|200|-8|-6|0>2|1|5|10|200|-8|6|0>4|100|70|80|200|1|0|0,0
+108,HeavySupport,C,102,capsupport-hvy.png,32,32,700,0,2,500,2,0|2|5|16|150|20|0|-12>2|1|5|10|200|-10|-6|0>2|1|5|10|200|-10|6|0>4|100|70|80|200|1|0|0,0
+
