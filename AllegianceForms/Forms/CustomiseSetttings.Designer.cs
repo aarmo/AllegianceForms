@@ -139,6 +139,11 @@
             this.label51 = new System.Windows.Forms.Label();
             this.VariantAI = new System.Windows.Forms.CheckBox();
             this.MapPreview = new System.Windows.Forms.PictureBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.AliensChance = new System.Windows.Forms.ComboBox();
+            this.AliensMax = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Teams)).BeginInit();
             this.panel1.SuspendLayout();
@@ -182,7 +187,7 @@
             // Pilots
             // 
             this.Pilots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Pilots.Location = new System.Drawing.Point(769, 131);
+            this.Pilots.Location = new System.Drawing.Point(771, 132);
             this.Pilots.Maximum = new decimal(new int[] {
             32,
             0,
@@ -1513,7 +1518,7 @@
             // Teams
             // 
             this.Teams.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Teams.Location = new System.Drawing.Point(769, 107);
+            this.Teams.Location = new System.Drawing.Point(771, 107);
             this.Teams.Maximum = new decimal(new int[] {
             4,
             0,
@@ -1587,6 +1592,74 @@
             this.MapPreview.TabIndex = 53;
             this.MapPreview.TabStop = false;
             // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.ForeColor = System.Drawing.Color.Lime;
+            this.label52.Location = new System.Drawing.Point(185, 237);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(55, 16);
+            this.label52.TabIndex = 0;
+            this.label52.Text = "Aliens:";
+            // 
+            // AliensChance
+            // 
+            this.AliensChance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AliensChance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AliensChance.FormattingEnabled = true;
+            this.AliensChance.Items.AddRange(new object[] {
+            "0%",
+            "10%",
+            "25%",
+            "50%",
+            "75%",
+            "100%"});
+            this.AliensChance.Location = new System.Drawing.Point(263, 253);
+            this.AliensChance.Name = "AliensChance";
+            this.AliensChance.Size = new System.Drawing.Size(69, 21);
+            this.AliensChance.TabIndex = 33;
+            this.AliensChance.SelectedIndexChanged += new System.EventHandler(this.AliensChance_SelectedIndexChanged);
+            // 
+            // AliensMax
+            // 
+            this.AliensMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AliensMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AliensMax.FormattingEnabled = true;
+            this.AliensMax.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.AliensMax.Location = new System.Drawing.Point(263, 279);
+            this.AliensMax.Name = "AliensMax";
+            this.AliensMax.Size = new System.Drawing.Size(42, 21);
+            this.AliensMax.TabIndex = 10;
+            this.AliensMax.SelectedIndexChanged += new System.EventHandler(this.AliensMax_SelectedIndexChanged);
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(196, 282);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(30, 13);
+            this.label57.TabIndex = 0;
+            this.label57.Text = "Max:";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(196, 256);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(47, 13);
+            this.label58.TabIndex = 0;
+            this.label58.Text = "Chance:";
+            // 
             // CustomiseSetttings
             // 
             this.AcceptButton = this.StartGame;
@@ -1647,12 +1720,14 @@
             this.Controls.Add(this.MissilesRange);
             this.Controls.Add(this.NanWeaponRange);
             this.Controls.Add(this.BaseWeaponRange);
+            this.Controls.Add(this.AliensChance);
             this.Controls.Add(this.ShipWeaponFireRate);
             this.Controls.Add(this.Difficulty);
             this.Controls.Add(this.ShipWeaponRange);
             this.Controls.Add(this.WormholeSig);
             this.Controls.Add(this.MaxTowerDrones);
             this.Controls.Add(this.ConstructorsMax);
+            this.Controls.Add(this.AliensMax);
             this.Controls.Add(this.MinersMax);
             this.Controls.Add(this.BaseType);
             this.Controls.Add(this.AsteroidGeneral);
@@ -1685,6 +1760,8 @@
             this.Controls.Add(this.label48);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label38);
+            this.Controls.Add(this.label58);
+            this.Controls.Add(this.label57);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label54);
             this.Controls.Add(this.label30);
@@ -1701,6 +1778,7 @@
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.label52);
             this.Controls.Add(this.label56);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -1835,5 +1913,10 @@
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.CheckBox VariantAI;
         private System.Windows.Forms.PictureBox MapPreview;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.ComboBox AliensChance;
+        private System.Windows.Forms.ComboBox AliensMax;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label58;
     }
 }

@@ -522,7 +522,7 @@ namespace AllegianceForms
         vo_player_attackdefender,
         vo_player_defenddefender,
         vo_player_needdefender,
-
+        squish_01
     }
 
     public enum EAiCreditPriorities

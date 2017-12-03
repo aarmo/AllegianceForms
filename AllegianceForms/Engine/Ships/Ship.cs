@@ -36,7 +36,7 @@ namespace AllegianceForms.Engine.Ships
             Alliance = alliance;
             Colour = teamColor;
             NumPilots = numPilots;
-            VisibleToTeam[team - 1] = true;
+            if (team > 0) VisibleToTeam[team - 1] = true;
             ScanRange = 100;
             MaxHealth = Health = health;
 

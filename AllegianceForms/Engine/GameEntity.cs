@@ -112,15 +112,25 @@ namespace AllegianceForms.Engine
         public float MaxShield { get; set; }
         public float ShieldRecharge { get; set; }
 
+        private Brush _healthBrush;
+
         public GameUnit(StrategyGame game, string imageFilename, int width, int height, float health, int sectorId, int team) : base(game, imageFilename, width, height, sectorId)
         {
             MaxHealth = Health = MaxShield = Shield = health;
             Team = team;
 
             var t = team - 1;
-            var research = game.TechTree[t].ResearchedUpgrades;
-            MaxShield *= research[EGlobalUpgrade.MaxShield];
-            ShieldRecharge = 0.1f * research[EGlobalUpgrade.ShieldRecharge];
+            if (t >= 0)
+            {
+                var research = game.TechTree[t].ResearchedUpgrades;
+                MaxShield *= research[EGlobalUpgrade.MaxShield];
+                ShieldRecharge = 0.1f * research[EGlobalUpgrade.ShieldRecharge];
+                _healthBrush = _game.TeamBrushes[t];
+            }
+            else
+            {
+                _healthBrush = Brushes.DarkGreen;
+            }
         }
 
         public virtual void Update()
@@ -135,7 +145,7 @@ namespace AllegianceForms.Engine
         protected virtual void DrawHealthBar(Graphics g, int t, Rectangle b)
         {
             g.FillRectangle(StrategyGame.ShieldBrush, b.Left, b.Bottom + 3, (Shield / MaxShield) * b.Width, 3);
-            g.FillRectangle(_game.TeamBrushes[t], b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);
+            g.FillRectangle(_healthBrush, b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);
             g.DrawRectangle(StrategyGame.HealthBorderPen, b.Left, b.Bottom + 3, b.Width, 6);
         }
 

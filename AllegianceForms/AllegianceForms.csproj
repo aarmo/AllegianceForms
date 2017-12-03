@@ -155,6 +155,7 @@
     <Compile Include="Engine\LadderGame.cs" />
     <Compile Include="Engine\LogicFlow\Operation.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
+    <Compile Include="Engine\Orders\WanderOrder.cs" />
     <Compile Include="Engine\QuickChat\QuickComms.cs" />
     <Compile Include="Engine\StarField.cs" />
     <Compile Include="Engine\Weapons\Minefield.cs" />
@@ -373,6 +374,42 @@
     <EmbeddedResource Include="Controls\TechTreeItem.resx">
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Art\Aliens\01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Aliens\12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Art\Avatars\**\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1561,6 +1598,9 @@
     </Content>
     <Content Include="Data\Maps\BowTie2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Sounds\squish_01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Data\Maps\Chopper2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

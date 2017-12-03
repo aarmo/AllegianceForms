@@ -86,6 +86,7 @@ namespace AllegianceForms.Forms
             }
 
             StrategyGame.InitialiseGame();
+            StrategyGame.SetupAliens(F_ShipEvent);
 
             _frame = new Bitmap(Width, Height);
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
@@ -398,6 +399,10 @@ namespace AllegianceForms.Forms
                     {
                         SoundEffect.Play(ESounds.final_explosion_medium);
                     }
+                    else if (sender.Team == StrategyGame.AlienTeam)
+                    {
+                        SoundEffect.Play(ESounds.squish_01, true);
+                    }
                     else
                     {
                         SoundEffect.Play(ESounds.final_explosion_small);
@@ -417,11 +422,9 @@ namespace AllegianceForms.Forms
             var exp = _explosions.FirstOrDefault(_ => !_.Enabled);
             if (exp != null)
             {
-                exp.Resize(b.Width, b.Height);
-
                 exp.SectorId = sectorId;
-                exp.TopLeft.X = b.Left;
-                exp.TopLeft.Y = b.Top;
+                exp.TopLeft.X = b.Left + b.Width / 2 - 8;
+                exp.TopLeft.Y = b.Top + b.Height / 2 - 8;
                 exp.Start();
                 _animations.Add(exp);
             }
@@ -1244,8 +1247,6 @@ namespace AllegianceForms.Forms
             
             if (_debugForm != null && _debugForm.Visible) _debugForm.UpdateDebugInfo();
                         
-            //if (_pilotList.Visible) _pilotList.RefreshPilotList();
-
             if (AlertMessage.Visible && DateTime.Now >= _alertExpire) AlertMessage.Visible = false;
 
             if (_researchForm.Visible) _researchForm.UpdateItems();

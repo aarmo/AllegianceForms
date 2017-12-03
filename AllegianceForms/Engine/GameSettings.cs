@@ -66,6 +66,9 @@ namespace AllegianceForms.Engine
         public bool VariantAi { get; set; }
         public float ResearchTimeMultiplier { get; set; }
         public float ResearchCostMultiplier { get; set; }
+        public float AlienChance { get; set; }
+        public int MinAliensPerSector { get; set; }
+        public int MaxAliensPerSector { get; set; }
 
         public static GameSettings LadderDefault(LadderGame ladder, Faction[] team1, Faction[] team2)
         {
@@ -90,16 +93,18 @@ namespace AllegianceForms.Engine
 
         public static GameSettings CampaignStart()
         {
-            var settings = Default();
-            settings.GameType = EGameType.Campaign;
+            var s = Default();
+            s.GameType = EGameType.Campaign;
 
             // Low power faction (-20% to all)
-            settings.TeamFactions[0] = Faction.CampaignStart(2);
+            s.TeamFactions[0] = Faction.CampaignStart(2);
 
             // Starting with garrison tech 
-            settings.RestrictTechToIds[0] = new[] { 1, 3, 4, 5, 18, 19, 20, 21, 22, 23, 24, 25 };
+            s.RestrictTechToIds[0] = new[] { 1, 3, 4, 5, 18, 19, 20, 21, 22, 23, 24, 25 };
 
-            return settings;
+            // No Aliens
+            s.AlienChance = 0f;
+            return s;
         }
 
         public static GameSettings Default()
@@ -166,7 +171,11 @@ namespace AllegianceForms.Engine
                 MissileWeaponFireRateMultiplier = 1,
                 MissileWeaponRangeMultiplier = 1,
                 MissileWeaponSpeedMultiplier = 1,
-                MissileWeaponTrackingMultiplier = 1
+                MissileWeaponTrackingMultiplier = 1,
+
+                AlienChance = 0.35f,
+                MinAliensPerSector = 2,
+                MaxAliensPerSector = 6
             };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))

@@ -29,8 +29,8 @@ namespace AllegianceForms.Engine
         public const int ScreenPositionOffset_Width = -230;
         public const int ScreenPositionOffset_Height = 0;
         
-        public static int ScreenWidth = 0;
-        public static int ScreenHeight = 0;
+        public static int ScreenWidth = 100;
+        public static int ScreenHeight = 100;
 
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 1;
@@ -45,6 +45,9 @@ namespace AllegianceForms.Engine
         public const string GamePresetFolder = ".\\Data\\GamePresets";
         public const string FactionPresetFolder = ".\\Data\\FactionPresets";
         public const string MapFolder = ".\\Data\\Maps";
+        public const int AlienBaseHealth = 200;
+        public const int AlienDamage = 2;
+
         public static double SqrtTwo = Math.Sqrt(2);
         public static Random Random = new Random();
         public static RandomName RandomName = new RandomName();
@@ -62,6 +65,7 @@ namespace AllegianceForms.Engine
         public GameSettings GameSettings;
         
         public int NumTeams = 2;
+        public int AlienTeam = -1;
         public int PlayerCurrentSectorId = 0;
 
         public ShipSpecs Ships;
@@ -77,6 +81,7 @@ namespace AllegianceForms.Engine
 
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
+        public List<Ship> Aliens = new List<Ship>();
 
         public List<Asteroid> AllAsteroids = new List<Asteroid>();
         public List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();        
@@ -181,9 +186,14 @@ namespace AllegianceForms.Engine
             return targetBase;
         }
 
-        internal static bool RandomChance(float v)
+        public static bool RandomChance(float v)
         {
-            return StrategyGame.Random.NextDouble() <= v;
+            return Random.NextDouble() <= v;
+        }
+
+        public static PointF RandomPosition()
+        {
+            return new PointF(Random.Next(ScreenWidth), Random.Next(ScreenHeight));
         }
 
         public Base RandomEnemyBase(int team, out Base launchBase)
@@ -368,11 +378,14 @@ namespace AllegianceForms.Engine
                             continue;
                         }
 
-                        var thatAi = AICommanders[s.Team - 1];
-                        if (thatAi != null && thatAi.ForceVisible)
+                        if (s.Team > 0)
                         {
-                            s.VisibleToTeam[t] = true;
-                            continue;
+                            var thatAi = AICommanders[s.Team - 1];
+                            if (thatAi != null && thatAi.ForceVisible)
+                            {
+                                s.VisibleToTeam[t] = true;
+                                continue;
+                            }
                         }
 
                         preVis = s.VisibleToTeam[t];
@@ -975,6 +988,7 @@ namespace AllegianceForms.Engine
             BuildableAsteroids.Clear();
             Missiles.Clear();
             Minefields.Clear();
+            Aliens.Clear();
         }
 
         public void InitialiseGame(bool sound = true)
@@ -991,6 +1005,44 @@ namespace AllegianceForms.Engine
                 {
                     tech.Cost = (int)(tech.Cost * GameSettings.ResearchCostMultiplier * faction.Bonuses.ResearchCost);
                     tech.DurationTicks = (int)(tech.DurationTicks * GameSettings.ResearchTimeMultiplier * faction.Bonuses.ResearchTime);
+                }
+            }
+        }
+
+        public void SetupAliens(ShipEventHandler f_shipEvent)
+        {
+            // Alien setup
+            if (GameSettings.AlienChance > 0f)
+            {
+                foreach (var s in Map.Sectors)
+                {
+                    if (RandomChance(GameSettings.AlienChance))
+                    {
+                        var sectorID = s.Id;
+                        var num = Random.Next(GameSettings.MinAliensPerSector, GameSettings.MaxAliensPerSector);
+
+                        for (var n = 0; n < num; n++)
+                        {
+                            var a = Random.Next(12) + 1;
+                            var size = (Random.Next(4) + 1);
+                            var scale = 40 * size;
+                            var image = $".\\Art\\Aliens\\{a:D2}.png";
+                            var startPos = RandomPosition();
+                            var alien = new CombatShip(this, image, scale, scale, Color.DarkGreen, AlienTeam, AlienTeam, size * AlienBaseHealth, 0, EShipType.None, sectorID)
+                            {
+                                Speed = 5 - size,
+                                MaxShield = 0,
+                                Shield = 0,
+                                Signature = 6,
+                                CenterX = startPos.X,
+                                CenterY = startPos.Y
+                            };
+                            alien.ShipEvent += f_shipEvent;
+                            alien.OrderShip(new WanderOrder(this, sectorID));
+                            AllUnits.Add(alien);
+                            Aliens.Add(alien);
+                        }
+                    }
                 }
             }
         }
@@ -1095,11 +1147,21 @@ namespace AllegianceForms.Engine
                 var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && m.SectorId == _.SectorId && _.Alliance != m.Alliance && m.Bounds.Contains(_.Bounds));
                 hits.ForEach(_ => _.Damage(m.Damage, m.Team));
             }
+            
+            // Apply damage to all ships touching the aliens
+            foreach (var a in Aliens)
+            {
+                a.Update();
+
+                var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && a.SectorId == _.SectorId && _.Alliance != a.Alliance && a.Bounds.Contains(_.Bounds));
+                hits.ForEach(_ => _.Damage(AlienDamage, a.Team));
+            }
 
             AllUnits.RemoveAll(_ => !_.Active);
             AllBases.RemoveAll(_ => !_.Active);
             Missiles.RemoveAll(_ => !_.Active);
             Minefields.RemoveAll(_ => !_.Active);
+            Aliens.RemoveAll(_ => !_.Active);
         }
 
         private const int ConstructorCheckDelay = 120;

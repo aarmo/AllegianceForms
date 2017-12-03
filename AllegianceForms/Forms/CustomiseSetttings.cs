@@ -97,6 +97,9 @@ namespace AllegianceForms.Forms
             MissilesSpeed.Text = s.MissileWeaponSpeedMultiplier.ToString("P0");
             MissilesTracking.Text = s.MissileWeaponTrackingMultiplier.ToString("P0");
 
+            AliensChance.Text = s.AlienChance.ToString("P0");
+            AliensMax.Text = s.MaxAliensPerSector.ToString();
+
             Teams.Value = Settings.NumTeams;
 
             TeamItems.Controls.Clear();
@@ -677,6 +680,26 @@ namespace AllegianceForms.Forms
         private void VariantAI_CheckedChanged(object sender, EventArgs e)
         {
             Settings.VariantAi = VariantAI.Checked;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void AliensChance_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.AlienChance = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
+
+        }
+
+        private void AliensMax_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+
+            Settings.MaxAliensPerSector = int.Parse(s.Text);
             CustomPresets.Text = string.Empty;
         }
     }
