@@ -8,17 +8,13 @@ using System.Windows.Forms;
 namespace AllegianceForms.Engine.AI.Missions
 {
     public class ScoutingMission : CommanderMission
-    {
-        private Dictionary<Ship, float> _lastHealth = new Dictionary<Ship, float>();
-        
+    {        
         public ScoutingMission(StrategyGame game, BaseAI ai, Ship.ShipEventHandler shipEvent) : base(game, ai, shipEvent)
         { }
         
         public override bool RequireMorePilots()
         {
-            var numScouts = _game.Map.Sectors.Count / 3 + 1;
-
-            return IncludedShips.Count < numScouts;
+            return IncludedShips.Count < 4;
         }
 
         public override bool AddMorePilots()
@@ -40,50 +36,28 @@ namespace AllegianceForms.Engine.AI.Missions
 
             IncludedShips.Add(ship);
             _game.LaunchShip(ship);
-            _lastHealth.Add(ship, ship.Health);
             return true;
         }
 
         public override void UpdateMission()
         {
-            var removeHealth = _lastHealth.Keys.Where(_ => !_.Active).ToList();
-            removeHealth.ForEach(_ => _lastHealth.Remove(_));
-
             base.UpdateMission();
             if (_completed) return;
             
             foreach (var i in IncludedShips)
             {
-                if (!_lastHealth.ContainsKey(i))
+                var visibleSectors = _game.Map.Sectors.Where(_ => _.VisibleToTeam[AI.Team - 1]).ToList();
+                if (visibleSectors.Count == 0) continue;
+                if (i.CurrentOrder == null)
                 {
-                    _lastHealth.Add(i, i.Health);
-                }
-                else
-                {
-                    var visibleSectors = _game.Map.Sectors.Where(_ => _.VisibleToTeam[AI.Team - 1]).ToList();
-                    if (visibleSectors.Count == 0) continue;
                     var randomSectorId = visibleSectors[StrategyGame.Random.Next(visibleSectors.Count)].Id;
-
-                    if (i.Health < _lastHealth[i])
+                    // If we have stopped, keep scouting
+                    if (randomSectorId != i.SectorId)
                     {
-                        // Taking fire! Dock and continue
-                        i.OrderShip(new DockOrder(_game, i));
-                        LogOrder();
-                        i.OrderShip(new NavigateOrder(_game, i, randomSectorId), true);
+                        i.OrderShip(new NavigateOrder(_game, i, randomSectorId));
                         LogOrder();
                         i.OrderShip(new MoveOrder(_game, randomSectorId, _centerPos, PointF.Empty), true);
                         LogOrder();
-                    }
-                    else if (i.CurrentOrder == null)
-                    {
-                        // If we have stopped, keep scouting
-                        if (randomSectorId != i.SectorId)
-                        {
-                            i.OrderShip(new NavigateOrder(_game, i, randomSectorId));
-                            LogOrder();
-                            i.OrderShip(new MoveOrder(_game, randomSectorId, _centerPos, PointF.Empty), true);
-                            LogOrder();
-                        }
                     }
                 }
             }

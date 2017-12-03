@@ -102,7 +102,7 @@ namespace AllegianceForms.Engine.AI
             
             if (_flagFoundEnemyBombers)
             {
-                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.5f);
+                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.75f);
                 if (idleShips.Count > 0)
                 {
                     _baseDefense.IncludedShips.AddRange(idleShips);
@@ -118,7 +118,7 @@ namespace AllegianceForms.Engine.AI
 
             if (_flagFoundEnemyBase)
             {
-                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.5f);
+                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.75f);
                 if (idleShips.Count > 0)
                 {
                     _minerOffense.IncludedShips.AddRange(idleShips);

@@ -12,6 +12,7 @@ namespace AllegianceForms.Engine.AI.Missions
     {
         Base _targetBase;
         Base _launchBase;
+
         private const int DistanceFromCenter = 100;
         private const int NewTargetCheckDelay = 200;
         private int _checkForNewTarget = NewTargetCheckDelay;
@@ -26,7 +27,6 @@ namespace AllegianceForms.Engine.AI.Missions
 
             _checkForNewTarget--;
             if (_checkForNewTarget < 0) CheckForNewTarget();
-
             if (_targetBase == null) return;
 
             var firstBomber = IncludedShips.FirstOrDefault(_ => _.Active && _.CanAttackBases());
@@ -36,8 +36,9 @@ namespace AllegianceForms.Engine.AI.Missions
                 if (i.CurrentOrder != null) continue;
                 var append = false;
 
-                if (i.Type == EShipType.Scout)
+                if (!i.CanAttackBases())
                 {
+                    // Other ships: Dock if no more bombers
                     if (firstBomber == null)
                     {
                         i.OrderShip(new DockOrder(_game, i));
@@ -45,6 +46,7 @@ namespace AllegianceForms.Engine.AI.Missions
                         continue;
                     }
 
+                    // Get to the bomber's sector
                     if (i.SectorId != firstBomber.SectorId)
                     {
                         i.OrderShip(new NavigateOrder(_game, i, _targetBase.SectorId));
@@ -52,12 +54,14 @@ namespace AllegianceForms.Engine.AI.Missions
                         append = true;
                     }
 
+                    // Follow the bomber
                     i.OrderShip(new MoveOrder(_game, firstBomber.SectorId, firstBomber.CenterPoint), append);
                     LogOrder();
                 }
                 else
                 {
                     // Bombers and escorts: Aim to surround the base!
+                    
                     if (i.SectorId != _targetBase.SectorId)
                     {
                         i.OrderShip(new NavigateOrder(_game, i, _targetBase.SectorId));
@@ -78,6 +82,11 @@ namespace AllegianceForms.Engine.AI.Missions
         
         private void CheckForNewTarget()
         {
+            _checkForNewTarget = NewTargetCheckDelay;
+
+            // Keep attacking an enemy base that has taken damage
+            if (_targetBase != null && _targetBase.Active && _targetBase.Health < _targetBase.MaxHealth && _targetBase.Alliance != AI.Alliance) return;
+
             _targetBase = _game.RandomEnemyBase(AI.Team, out _launchBase);
         }
 
@@ -102,7 +111,7 @@ namespace AllegianceForms.Engine.AI.Missions
             ship = _game.Ships.CreateBomberShip(AI.Team, AI.TeamColour, _launchBase.SectorId);
             if (ship == null)
             {
-                if (StrategyGame.RandomChance(0.5f))
+                if (StrategyGame.RandomChance(0.3f))
                 {
                     ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, _launchBase.SectorId);
                 }

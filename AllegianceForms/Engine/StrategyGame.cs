@@ -41,6 +41,7 @@ namespace AllegianceForms.Engine
         public const string QuickChatDataFile = ".\\Data\\QuickChatCommands.txt";
         public const string RockPicDir = ".\\Art\\Rocks\\";
         public const string IconPicDir = ".\\Art\\Trans\\";
+        public const string AlienPicDir = ".\\Art\\Aliens\\";
         public const string SoundsDir = ".\\Art\\Sounds\\";
         public const string GamePresetFolder = ".\\Data\\GamePresets";
         public const string FactionPresetFolder = ".\\Data\\FactionPresets";
@@ -1024,9 +1025,9 @@ namespace AllegianceForms.Engine
                         for (var n = 0; n < num; n++)
                         {
                             var a = Random.Next(12) + 1;
-                            var size = (Random.Next(4) + 1);
+                            var size = (Random.Next(3) + 1);
                             var scale = 40 * size;
-                            var image = $".\\Art\\Aliens\\{a:D2}.png";
+                            var image = $"{AlienPicDir}{a:D2}.png";
                             var startPos = RandomPosition();
                             var alien = new CombatShip(this, image, scale, scale, Color.DarkGreen, AlienTeam, AlienTeam, size * AlienBaseHealth, 0, EShipType.None, sectorID)
                             {

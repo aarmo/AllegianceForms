@@ -7,8 +7,6 @@ namespace AllegianceForms.Engine.AI.Missions
 {
     public class BaseDefenseMission : CommanderMission
     {
-        private const int LastTargetExpireSeconds = 30;
-        
         private int _lastTargetSectorId = -1;
         private PointF _lastPos;
 
@@ -47,14 +45,17 @@ namespace AllegianceForms.Engine.AI.Missions
         {
             CheckForNextTargetSector();
 
-            // If we haven't anything to defend, abort!
-            return (_lastTargetSectorId == -1);
+            return false;
         }
 
         private void CheckForNextTargetSector()
         {
             var bs = _game.AllUnits.Where(_ => _.Active && _.Alliance != AI.Alliance && _.VisibleToTeam[AI.Team-1] && (_.CanAttackBases() || _.Type == EShipType.Miner || _.Type == EShipType.Constructor)).ToList();
-            if (bs.Count == 0) return;
+            if (bs.Count == 0) 
+            {
+                _lastTargetSectorId = -1;
+                return;
+            }
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
             _lastTargetSectorId = s.SectorId;
@@ -64,7 +65,7 @@ namespace AllegianceForms.Engine.AI.Missions
         public override void UpdateMission()
         {
             base.UpdateMission();
-            if (_completed) return;
+            if (_completed || _lastTargetSectorId == -1) return;
 
             foreach (var i in IncludedShips)
             {
