@@ -11,11 +11,13 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 10,0,Advanced Repair Towers,1,5000,120,False,Dn_hipdnbbmp.png,R
 11,0,Advanced Missile Towers,1,5000,120,False,Dn_hipdchbmp.png,M
 12,0,Advanced Minefield,1,5000,120,False,Dn_hicsmmnlbmp.png,N
+13,0,Advanced Shield Tower,1,5000,120,False,Dn_hipdnbbmp_s.png,A
 
-18,-1,Miner,,1000,30,False,Dn_himnrbmp.png,M
-19,-1,Resource Constructor,,3000,30,False,Dn_hiconbmp.png,C
-20,-1,Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png,T
-21,-1,Repair Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png,R
+17,-1,Miner,,1000,30,False,Dn_himnrbmp.png,M
+18,-1,Resource Constructor,,3000,30,False,Dn_hiconbmp.png,C
+19,-1,Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png,T
+20,-1,Repair Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png,R
+21,-1,Shield Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png,A
 22,-1,Missile Tower Constructor,,1000,60,False,Dn_hicsmtwrbmp.png,I
 23,-1,Minefield Constructor,,1000,60,False,Dn_hicsmmnlbmp.png,N
 24,-1,Starbase Constructor,,10000,120,False,Dn_hiconbmp.png,B

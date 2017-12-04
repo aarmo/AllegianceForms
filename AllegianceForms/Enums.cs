@@ -81,7 +81,8 @@ namespace AllegianceForms
         Battlecruiser,
         Support,
         AdvancedSupport,
-        HeavySupport
+        HeavySupport,
+        ShieldTower,
     }
 
     public enum EBaseType
@@ -98,6 +99,7 @@ namespace AllegianceForms
         RepairTower,
         Resource,
         Minefield,
+        ShieldTower,
     }
 
     public enum EOrderType
@@ -522,7 +524,8 @@ namespace AllegianceForms
         vo_player_attackdefender,
         vo_player_defenddefender,
         vo_player_needdefender,
-        squish_01
+        squish_01,
+        shieldcharge1
     }
 
     public enum EAiCreditPriorities

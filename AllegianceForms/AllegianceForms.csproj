@@ -160,6 +160,7 @@
     <Compile Include="Engine\StarField.cs" />
     <Compile Include="Engine\Weapons\Minefield.cs" />
     <Compile Include="Engine\Weapons\MineWeapon.cs" />
+    <Compile Include="Engine\Weapons\ShieldChargeWeapon.cs" />
     <Compile Include="Forms\CampaignStart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1596,10 +1597,19 @@
     <Content Include="Art\Trans\capsupport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Art\Trans\Dn_hipdehbmp_s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Trans\Dn_hipdnbbmp_s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Maps\BowTie2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\Sounds\squish_01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Sounds\shieldcharge1.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Data\Maps\Chopper2.map">

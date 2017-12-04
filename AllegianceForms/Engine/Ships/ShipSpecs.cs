@@ -157,6 +157,19 @@ namespace AllegianceForms.Engine.Ships
                         continue;
                     }
 
+                    var cl = w as ShieldChargeWeapon;
+                    if (cl != null)
+                    {
+                        var clone = new ShieldChargeWeapon(_game, cl.LaserPen.Width
+                            , cl.ShootingTicks
+                            , (int)(cl.ShootingDelayTicks / (settings.NanWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , cl.WeaponRange * settings.NanWeaponRangeMultiplier
+                            , cl.WeaponDamage * settings.NanWeaponHealingMultiplier * research[EGlobalUpgrade.RepairHealing]
+                            , ship, cl.FireOffset);
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+
                     var sl = w as ShipLaserWeapon;
                     if (sl != null)
                     {
@@ -352,6 +365,11 @@ namespace AllegianceForms.Engine.Ships
                     case "4":
                     case "mine":
                         Weapons.Add(new MineWeapon(game, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7])), Color.Empty));
+                        break;
+
+                    case "5":
+                    case "shield":
+                        Weapons.Add(new ShieldChargeWeapon(game, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
                 }
             }
