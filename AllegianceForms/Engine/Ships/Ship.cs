@@ -3,6 +3,7 @@ using AllegianceForms.Orders;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System;
 
 namespace AllegianceForms.Engine.Ships
 {
@@ -84,9 +85,9 @@ namespace AllegianceForms.Engine.Ships
 
             var t = Team - 1;
             var b = BoundsI;
-            DrawHealthBar(g, t, b);
+            DrawHealthBar(g, b);
 
-            if (Selected) g.DrawRectangle(_game.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
+            if (t == 0 && Selected) g.DrawRectangle(_game.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
         }
 
         public void StopMoving()

@@ -34,8 +34,9 @@ namespace AllegianceForms.Engine.AI
         {
             Team = team;
             _t = team - 1;
+            Alliance = (team < 0) ? -1 : game.GameSettings.TeamAlliance[_t];
+
             _game = game;
-            Alliance = game.GameSettings.TeamAlliance[_t];
             TeamColour = teamColour;
             _shipHandler = shipHandler;
             Enabled = true;

@@ -40,7 +40,7 @@ namespace AllegianceForms.Engine.Map
         {
             foreach(var w in Wormholes)
             {
-                if (!w.End1.VisibleToTeam[0] || !w.End2.VisibleToTeam[0]) continue;
+                if (!w.End1.IsVisibleToTeam(0) || !w.End2.IsVisibleToTeam(0)) continue;
 
                 var x1 = w.Sector1.MapPosition.X * GameMaps.SectorSpacing + GameMaps.SectorRadius + GameMaps.MapPadding;
                 var y1 = w.Sector1.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.SectorRadius + GameMaps.MapPadding;
@@ -52,7 +52,7 @@ namespace AllegianceForms.Engine.Map
 
             foreach(var s in Sectors)
             {
-                if (!s.VisibleToTeam[0]) continue;
+                if (!s.IsVisibleToTeam(0)) continue;
                 var xs = s.MapPosition.X * GameMaps.SectorSpacing + GameMaps.MapPadding;
                 var ys = s.MapPosition.Y * GameMaps.SectorSpacing + GameMaps.MapPadding;
                 var pen = sectorId == s.Id ? _currentSectorPen : _sectorPen;
@@ -145,7 +145,7 @@ namespace AllegianceForms.Engine.Map
             {
                 foreach(var s in m.Sectors)
                 {
-                    s.VisibleToTeam[0] = true;
+                    s.SetVisibleToTeam(0, true);
                     if (s.StartingSector > 0)
                     {
                         s.Colour1 = new SolidBrush(Color.FromArgb(GameSettings.DefaultTeamColours[s.StartingSector - 1]));
@@ -246,7 +246,7 @@ namespace AllegianceForms.Engine.Map
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
                     for (var t = 0; t < _game.NumTeams; t++)
                     {
-                        a.VisibleToTeam[t] = settings.RocksVisible;
+                        a.SetVisibleToTeam(t, settings.RocksVisible);
                     }
                     asteroids.Add(a);
                     _game.BuildableAsteroids.Add(a);
@@ -272,7 +272,7 @@ namespace AllegianceForms.Engine.Map
                     asteroids.Add(a);
                     for (var t = 0; t < _game.NumTeams; t++)
                     {
-                        a.VisibleToTeam[t] = settings.RocksVisible;
+                        a.SetVisibleToTeam(t, settings.RocksVisible);
                     }
                     _game.BuildableAsteroids.Add(a);
                     rockOptions.Remove(a);
@@ -289,7 +289,7 @@ namespace AllegianceForms.Engine.Map
                     a.CenterY = rnd.Next(centerPos.Y - radiusY, centerPos.Y + radiusY);
                     for (var t = 0; t < _game.NumTeams; t++)
                     {
-                        a.VisibleToTeam[t] = settings.RocksVisible;
+                        a.SetVisibleToTeam(t, settings.RocksVisible);
                     }
                     _game.ResourceAsteroids.Add(a);
                     asteroids.Add(a);

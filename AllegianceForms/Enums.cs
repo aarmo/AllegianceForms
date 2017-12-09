@@ -100,6 +100,7 @@ namespace AllegianceForms
         Resource,
         Minefield,
         ShieldTower,
+        Aliens
     }
 
     public enum EOrderType

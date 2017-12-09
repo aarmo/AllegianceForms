@@ -47,11 +47,11 @@ namespace AllegianceForms.Test.Engine
             LoadSettings();
             foreach (var w in _game.Map.Wormholes)
             {
-                w.Sector1.VisibleToTeam[0].ShouldBe(true);
-                w.Sector1.VisibleToTeam[1].ShouldBe(true);
+                w.Sector1.IsVisibleToTeam(0).ShouldBe(true);
+                w.Sector1.IsVisibleToTeam(1).ShouldBe(true);
 
-                w.Sector2.VisibleToTeam[0].ShouldBe(true);
-                w.Sector2.VisibleToTeam[1].ShouldBe(true);
+                w.Sector2.IsVisibleToTeam(0).ShouldBe(true);
+                w.Sector2.IsVisibleToTeam(1).ShouldBe(true);
             }
         }
 
@@ -207,7 +207,7 @@ namespace AllegianceForms.Test.Engine
             _settings.RocksVisible = true;
             LoadSettings();
 
-            _game.AllAsteroids.ShouldAllBe(_ => _.VisibleToTeam[0] && _.VisibleToTeam[1]);
+            _game.AllAsteroids.ShouldAllBe(_ => _.IsVisibleToTeam(0) && _.IsVisibleToTeam(1));
         }
 
         [TestMethod]

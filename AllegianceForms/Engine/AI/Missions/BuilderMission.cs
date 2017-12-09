@@ -32,7 +32,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 if (b.CurrentOrder != null || b.Target != null) continue;
 
                 // Order this builder somewhere smart...
-                var possibleRocks = _game.AllAsteroids.Where(_ => _.Active && _.VisibleToTeam[t] && _.Type == b.TargetRockType && !_chosenRocks.Contains(_)).ToList();
+                var possibleRocks = _game.AllAsteroids.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Type == b.TargetRockType && !_chosenRocks.Contains(_)).ToList();
 
                 // Score one rock per sector: close to our home, without an enemy or friendly base
                 var sectorChecked = new List<int>();
@@ -43,7 +43,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     if (sectorChecked.Contains(r.SectorId)) continue;
                     sectorChecked.Add(r.SectorId);
 
-                    var hasEnemyBase = _game.AllBases.Any(_ => _.Active && _.VisibleToTeam[t] && _.SectorId == r.SectorId && _.Alliance != AI.Alliance);
+                    var hasEnemyBase = _game.AllBases.Any(_ => _.Active && _.IsVisibleToTeam(t) && _.SectorId == r.SectorId && _.Alliance != AI.Alliance);
                     var hasFriendlyBase = _game.AllBases.Any(_ => _.Active && _.SectorId == r.SectorId && _.Alliance == AI.Alliance && _.CanLaunchShips());
 
                     var path = _game.Map.ShortestPath(AI.Team, r.SectorId, b.SectorId);

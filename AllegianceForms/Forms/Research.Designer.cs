@@ -44,7 +44,7 @@
             this.CurrencyTitle = new System.Windows.Forms.Label();
             this.CurrencyPoints = new System.Windows.Forms.Label();
             this.OkButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelSetButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ResearchItems = new System.Windows.Forms.FlowLayoutPanel();
             this.ShipyardButton = new System.Windows.Forms.Button();
@@ -134,7 +134,7 @@
             this.BorderPanel.Controls.Add(this.CurrencyTitle);
             this.BorderPanel.Controls.Add(this.CurrencyPoints);
             this.BorderPanel.Controls.Add(this.OkButton);
-            this.BorderPanel.Controls.Add(this.CancelButton);
+            this.BorderPanel.Controls.Add(this.CancelSetButton);
             this.BorderPanel.Controls.Add(this.panel1);
             this.BorderPanel.Controls.Add(this.ConstructionButton);
             this.BorderPanel.Controls.Add(this.StarbaseButton);
@@ -256,22 +256,23 @@
             this.OkButton.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.OkButton.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
-            // CancelButton
+            // CancelSetButton
             // 
-            this.CancelButton.BackColor = System.Drawing.Color.Black;
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CancelButton.ForeColor = System.Drawing.Color.White;
-            this.CancelButton.Location = new System.Drawing.Point(92, 586);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(55, 22);
-            this.CancelButton.TabIndex = 57;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = false;
-            this.CancelButton.Visible = false;
-            this.CancelButton.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
-            this.CancelButton.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            this.CancelSetButton.BackColor = System.Drawing.Color.Black;
+            this.CancelSetButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelSetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelSetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelSetButton.ForeColor = System.Drawing.Color.White;
+            this.CancelSetButton.Location = new System.Drawing.Point(92, 586);
+            this.CancelSetButton.Name = "CancelSetButton";
+            this.CancelSetButton.Size = new System.Drawing.Size(55, 22);
+            this.CancelSetButton.TabIndex = 57;
+            this.CancelSetButton.Text = "Cancel";
+            this.CancelSetButton.UseVisualStyleBackColor = false;
+            this.CancelSetButton.Visible = false;
+            this.CancelSetButton.Click += new System.EventHandler(this.CancelSetButton_Click);
+            this.CancelSetButton.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.CancelSetButton.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // panel1
             // 
@@ -343,7 +344,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ShipyardButton;
         private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelSetButton;
         private System.Windows.Forms.Label CurrencyPoints;
         private System.Windows.Forms.Label CurrencyTitle;
         private System.Windows.Forms.Label KeyShipyard;

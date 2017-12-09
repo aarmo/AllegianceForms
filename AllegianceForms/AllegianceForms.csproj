@@ -155,6 +155,7 @@
     <Compile Include="Engine\LadderGame.cs" />
     <Compile Include="Engine\LogicFlow\Operation.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
+    <Compile Include="Engine\Orders\SurroundOrder.cs" />
     <Compile Include="Engine\Orders\WanderOrder.cs" />
     <Compile Include="Engine\QuickChat\QuickComms.cs" />
     <Compile Include="Engine\StarField.cs" />

@@ -69,6 +69,11 @@ namespace AllegianceForms.Engine
         public float AlienChance { get; set; }
         public int MinAliensPerSector { get; set; }
         public int MaxAliensPerSector { get; set; }
+        public int MinAlienBasesPerSector { get; set; }
+        public int MaxAlienBasesPerSector { get; set; }
+        public int WaveShipsPerBase { get; set; }
+        public int InitialWaveDelay { get; set; }
+        public int DecreaseWaveDelay { get; set; }
 
         public static GameSettings LadderDefault(LadderGame ladder, Faction[] team1, Faction[] team2)
         {
@@ -175,7 +180,12 @@ namespace AllegianceForms.Engine
 
                 AlienChance = 0.35f,
                 MinAliensPerSector = 2,
-                MaxAliensPerSector = 6
+                MaxAliensPerSector = 6,
+                MinAlienBasesPerSector = 1,
+                MaxAlienBasesPerSector = 3,
+                WaveShipsPerBase = 1,
+                InitialWaveDelay = 120,
+                DecreaseWaveDelay = 4
             };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))

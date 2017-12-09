@@ -131,7 +131,7 @@ namespace AllegianceForms.Engine.Ships
             var faction = _game.Faction[t];
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
-            var alliance = settings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
 
             var ship = new CombatShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                     , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, spec.NumPilots, spec.Type, sectorId);
@@ -243,7 +243,7 @@ namespace AllegianceForms.Engine.Ships
             var faction = _game.Faction[t];
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
-            var alliance = settings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
 
             var ship = new BuilderShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, baseType, sectorId);
@@ -270,7 +270,7 @@ namespace AllegianceForms.Engine.Ships
             var faction = _game.Faction[t];
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
-            var alliance = settings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
 
             var ship = new MinerShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
@@ -295,7 +295,7 @@ namespace AllegianceForms.Engine.Ships
             var faction = _game.Faction[t];
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
-            var alliance = settings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
 
             var ship = new Ship(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                 , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, 1, sectorId);

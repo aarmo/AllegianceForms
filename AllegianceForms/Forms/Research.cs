@@ -39,7 +39,7 @@ namespace AllegianceForms.Forms
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-            OkButton.Visible = CancelButton.Visible = CurrencyPoints.Visible = CurrencyTitle.Visible = true;
+            OkButton.Visible = CancelSetButton.Visible = CurrencyPoints.Visible = CurrencyTitle.Visible = true;
 
             _game = null;
             _tree = tree;
@@ -294,6 +294,12 @@ namespace AllegianceForms.Forms
         {
             SoundEffect.Play(ESounds.mousedown);
             DialogResult = DialogResult.OK;
+        }
+
+        private void CancelSetButton_Click(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mousedown);
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

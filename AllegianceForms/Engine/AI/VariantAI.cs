@@ -78,10 +78,10 @@ namespace AllegianceForms.Engine.AI
 
             if (!_flagHaveBombers || !_flagFoundEnemyBase || !_flagBuiltTech || !_flagFoundEnemyBombers)
             {
-                _flagFoundEnemyBase = _flagFoundEnemyBase || _game.AllBases.Exists(_ => _.VisibleToTeam[_t] && _.Active && _.Alliance != Alliance);
+                _flagFoundEnemyBase = _flagFoundEnemyBase || _game.AllBases.Exists(_ => _.IsVisibleToTeam(_t) && _.Active && _.Alliance != Alliance);
                 _flagHaveBombers = _flagHaveBombers || _game.TechTree[_t].HasResearchedShipType(EShipType.Bomber);
                 _flagBuiltTech = _flagBuiltTech || _game.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase());
-                _flagFoundEnemyBombers = _flagFoundEnemyBombers || _game.AllUnits.Exists(_ => _.Active && _.VisibleToTeam[_t] && _.Alliance != Alliance && _.CanAttackBases());
+                _flagFoundEnemyBombers = _flagFoundEnemyBombers || _game.AllUnits.Exists(_ => _.Active && _.IsVisibleToTeam(_t) && _.Alliance != Alliance && _.CanAttackBases());
             }
 
             var addedPilots = true;
@@ -264,7 +264,7 @@ namespace AllegianceForms.Engine.AI
             var con = consCanBuild.FirstOrDefault(_ => _.Name.Contains("Resource") || _.Name.Contains("Miner"));
             if (con == null) return;
 
-            var numResourceRocks = _game.ResourceAsteroids.Count(_ => _.Active && _.VisibleToTeam[_t] && ourSectors.Contains(_.SectorId));
+            var numResourceRocks = _game.ResourceAsteroids.Count(_ => _.Active && _.IsVisibleToTeam(_t) && ourSectors.Contains(_.SectorId));
             if (numResourceRocks == 0) return;
             
             // Build a refinery!

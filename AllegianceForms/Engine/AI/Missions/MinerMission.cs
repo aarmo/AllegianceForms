@@ -17,7 +17,7 @@ namespace AllegianceForms.Engine.AI.Missions
             base.UpdateMission();
 
             var t = AI.Team - 1;
-            var possibleRocks = _game.ResourceAsteroids.Where(_ => _.Active && _.VisibleToTeam[t] && _.AvailableResources > 0 && !_.BeingMined).ToList();
+            var possibleRocks = _game.ResourceAsteroids.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.AvailableResources > 0 && !_.BeingMined).ToList();
             var ships = _game.AllUnits.Where(_ => _.Active && _.Team == AI.Team && _.Type == EShipType.Miner && _.CurrentOrder == null).ToList();
             if (possibleRocks.Count == 0 || ships.Count == 0) return;
 
@@ -33,7 +33,7 @@ namespace AllegianceForms.Engine.AI.Missions
             for (var i = 0; i < totalResourcesInSector.Length; i++)
             {
                 if (totalResourcesInSector[i] == 0) continue;
-                enemiesInSector[i] = _game.AllUnits.Count(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != AI.Alliance && _.CanAttackShips());
+                enemiesInSector[i] = _game.AllUnits.Count(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != AI.Alliance && _.CanAttackShips());
                 friendliesInSector[i] = _game.AllUnits.Count(_ => _.Active && _.Alliance == AI.Alliance && _.CanAttackShips());
             }
             

@@ -6,3 +6,4 @@ Id,Type,Width,Height,Health,Signature,ScanRange,Pilots
 5,Expansion,65,65,200,2,800,0
 6,Shipyard,80,80,200,2,800,0
 7,Resource,65,30,50,2,400,0
+8,Aliens,55,50,100,2,500,5

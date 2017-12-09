@@ -46,7 +46,7 @@ namespace AllegianceForms.Engine.AI.Missions
             
             foreach (var i in IncludedShips)
             {
-                var visibleSectors = _game.Map.Sectors.Where(_ => _.VisibleToTeam[AI.Team - 1]).ToList();
+                var visibleSectors = _game.Map.Sectors.Where(_ => _.IsVisibleToTeam(AI.Team - 1)).ToList();
                 if (visibleSectors.Count == 0) continue;
                 if (i.CurrentOrder == null)
                 {

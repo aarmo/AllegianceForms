@@ -41,7 +41,7 @@ namespace AllegianceForms.Engine.Map
                 if (checkVisibility)
                 {
                     var m = vertex.Key as MapSector;
-                    if (m == null || m.VisibleToTeam[t])
+                    if (m == null || m.IsVisibleToTeam(t))
                     {
                         nodes.Add(vertex.Key);
                     }

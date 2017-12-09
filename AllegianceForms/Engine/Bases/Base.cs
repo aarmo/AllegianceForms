@@ -31,7 +31,7 @@ namespace AllegianceForms.Engine.Bases
         {
             Type = type;
             Alliance = alliance;
-            VisibleToTeam[team - 1] = true;
+            if (team > 0) VisibleToTeam[team - 1] = true;
             ScanRange = 500;
         }
 
@@ -125,13 +125,16 @@ namespace AllegianceForms.Engine.Bases
 
             var b = BoundsI;
             var t = Team - 1;
-            g.FillRectangle(_game.TeamBrushes[t], b);
-            g.DrawRectangle(StrategyGame.BaseBorderPen, b);
-            Utils.DrawCenteredText(g, _game.TextBrushes[t], Type.ToString(), b);
-            
-            DrawHealthBar(g, t, b);
+            var br = (Team > 0) ? _game.TeamBrushes[t] : StrategyGame.AlienBrush;
+            var tbr = (Team > 0) ? _game.TextBrushes[t] : Brushes.Black;
 
-            if (Selected)
+            g.FillRectangle(br, b);
+            g.DrawRectangle(StrategyGame.BaseBorderPen, b);
+            Utils.DrawCenteredText(g, tbr, Type.ToString(), b);
+            
+            DrawHealthBar(g, b);
+
+            if (t == 0 && Selected)
             {
                 g.DrawRectangle(_game.SelectedPens[t], b.Left - 1, b.Top - 1, b.Width + 2, b.Height + 2);
                 if (CanLaunchShips()) g.DrawLine(_game.SelectedPens[t], CenterX, CenterY, BuildPosition.X, BuildPosition.Y);

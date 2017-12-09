@@ -86,7 +86,6 @@ namespace AllegianceForms.Forms
             }
 
             StrategyGame.InitialiseGame();
-            StrategyGame.SetupAliens(F_ShipEvent);
 
             _frame = new Bitmap(Width, Height);
             _selectionPen = new Pen(Color.LightGray, 1F) {DashStyle = DashStyle.Dot};
@@ -109,9 +108,11 @@ namespace AllegianceForms.Forms
                 var teamColour = Color.FromArgb(StrategyGame.GameSettings.TeamColours[t]);
                 var aiPlayer = t != 0;
 
+                var b1Offset = (aiPlayer ? 1 : -1) * (StrategyGame.Map.Name == "Brawl"  ? 300 : 1);
                 var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, team, teamColour, startingSector.Id, false);
-                b1.CenterX = Width / 2 + (aiPlayer ?  300 : -300);
-                b1.CenterY = Height / 2 + (aiPlayer ? 300 : -300);
+
+                b1.CenterX = Width / 2 + b1Offset;
+                b1.CenterY = Height / 2 + b1Offset;
                 b1.BaseEvent += B_BaseEvent;
                 StrategyGame.AddBase(b1);
                 StrategyGame.GameStats.TotalBasesBuilt[t] = 1;
@@ -154,6 +155,8 @@ namespace AllegianceForms.Forms
                 }
             }
 
+            StrategyGame.SetupAliens(F_ShipEvent, B_BaseEvent);
+
             // Explosions!
             var explosionFrames = StrategyGame.GetExplosionFrames();
 
@@ -164,7 +167,7 @@ namespace AllegianceForms.Forms
             }
 
             // Final setup:
-            _currentSector.VisibleToTeam[0] = true;
+            _currentSector.SetVisibleToTeam(0, true);
             StrategyGame.UpdateVisibility(true);
             StrategyGame.GameEvent += StrategyGame_GameEvent;
 
@@ -356,7 +359,9 @@ namespace AllegianceForms.Forms
             GameOverPanel.Left = Width / 2 - GameOverPanel.Width / 2;
             GameOverPanel.Top = Height / 2 - GameOverPanel.Height / 2;
             SoundEffect.Play((_rnd.Next(2) == 0) ? ESounds.static1 : ESounds.static2);
-            GameOverPanel.Visible = true;
+
+            tick.Enabled = false;
+            timer.Enabled = false;
 
             Team1.ForeColor = TotalBases1.ForeColor = TotalBasesDestroyed1.ForeColor 
                 = TotalConstructors1.ForeColor = TotalConstructorsDestroyed1.ForeColor = TotalMined1.ForeColor 
@@ -381,8 +386,7 @@ namespace AllegianceForms.Forms
             TotalMinersDestroyed1.Text = StrategyGame.GameStats.TotalMinersDestroyed[0].ToString();
             TotalMinersDestroyed2.Text = StrategyGame.GameStats.TotalMinersDestroyed[1].ToString();
 
-            tick.Enabled = false;
-            timer.Enabled = false;
+            GameOverPanel.Visible = true;
         }
 
         internal void F_ShipEvent(Ship sender, EShipEventType e)
@@ -547,6 +551,7 @@ namespace AllegianceForms.Forms
             Invalidate();
         }
         
+        // 20/sec
         private void tick_Tick(object sender, EventArgs e)
         {
             StrategyGame.Tick();
@@ -1239,8 +1244,8 @@ namespace AllegianceForms.Forms
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            // The Game's slow update!
-            StrategyGame.SlowTick();
+            // The Game's slow update! 4/sec
+            StrategyGame.SlowTick(F_ShipEvent);
             _afirmativeSoundNext--;
 
             if (_mapForm.Visible) _mapForm.UpdateMap(_currentSector.Id);
@@ -1312,6 +1317,14 @@ namespace AllegianceForms.Forms
         {
             var b = sender as Button;
             if (b != null) b.BackColor = Color.Black;
+        }
+
+        private void Continue_Click(object sender, EventArgs e)
+        {
+            GameOverPanel.Visible = false;
+
+            tick.Enabled = true;
+            timer.Enabled = true;
         }
     }
 }

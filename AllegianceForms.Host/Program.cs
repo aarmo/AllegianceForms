@@ -133,7 +133,7 @@ namespace AllegianceForms.Host
             // TODO: Perform a game's slow step
             foreach (var g in _games)
             {
-                g.SlowTick();
+                g.SlowTick(null);
             }
         }
     }

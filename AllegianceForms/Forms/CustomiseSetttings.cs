@@ -98,7 +98,14 @@ namespace AllegianceForms.Forms
             MissilesTracking.Text = s.MissileWeaponTrackingMultiplier.ToString("P0");
 
             AliensChance.Text = s.AlienChance.ToString("P0");
-            AliensMax.Text = s.MaxAliensPerSector.ToString();
+            AliensMin.Value = s.MinAliensPerSector;
+            AliensMax.Value = s.MaxAliensPerSector;
+            AlienBasesMin.Value = s.MinAlienBasesPerSector;
+            AlienBasesMax.Value = s.MaxAlienBasesPerSector;
+            AlienShipsPerWave.Value = s.WaveShipsPerBase;
+
+            AlienWaveDelay.Value = s.InitialWaveDelay / 4;
+            AlienWaveReduce.Value = s.DecreaseWaveDelay / 4;
 
             Teams.Value = Settings.NumTeams;
 
@@ -691,15 +698,80 @@ namespace AllegianceForms.Forms
 
             Settings.AlienChance = float.Parse(p) / 100f;
             CustomPresets.Text = string.Empty;
-
         }
 
-        private void AliensMax_SelectedIndexChanged(object sender, EventArgs e)
+        private void AliensMin_ValueChanged(object sender, EventArgs e)
         {
-            var s = sender as ComboBox;
+            var s = sender as NumericUpDown;
             if (s == null) return;
 
-            Settings.MaxAliensPerSector = int.Parse(s.Text);
+            Settings.MinAliensPerSector = (int)s.Value;
+            CustomPresets.Text = string.Empty;
+            
+            if (Settings.MaxAliensPerSector < Settings.MinAliensPerSector)
+                AliensMax.Value = (int)s.Value;
+        }
+
+        private void AliensMax_ValueChanged(object sender, EventArgs e)
+        {
+            var s = sender as NumericUpDown;
+            if (s == null) return;
+
+            Settings.MaxAliensPerSector = (int)s.Value;
+            CustomPresets.Text = string.Empty;
+
+            if (Settings.MinAliensPerSector > Settings.MaxAliensPerSector)
+                AliensMin.Value = (int)s.Value;
+        }
+
+        private void AlienBasesMin_ValueChanged(object sender, EventArgs e)
+        {
+            var s = sender as NumericUpDown;
+            if (s == null) return;
+
+            Settings.MinAlienBasesPerSector = (int)s.Value;
+            CustomPresets.Text = string.Empty;
+
+            if (Settings.MaxAlienBasesPerSector < Settings.MinAlienBasesPerSector)
+                AlienBasesMax.Value = (int)s.Value;
+        }
+
+        private void AlienBasesMax_ValueChanged(object sender, EventArgs e)
+        {
+            var s = sender as NumericUpDown;
+            if (s == null) return;
+
+            Settings.MaxAlienBasesPerSector = (int)s.Value;
+            CustomPresets.Text = string.Empty;
+
+            if (Settings.MinAlienBasesPerSector > Settings.MaxAlienBasesPerSector)
+                AlienBasesMin.Value = (int)s.Value;
+        }
+
+        private void AlienShipsPerWave_ValueChanged(object sender, EventArgs e)
+        {
+            var s = sender as NumericUpDown;
+            if (s == null) return;
+
+            Settings.WaveShipsPerBase = (int)s.Value;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void AlienWaveReduce_ValueChanged(object sender, EventArgs e)
+        {
+            var s = sender as NumericUpDown;
+            if (s == null) return;
+
+            Settings.DecreaseWaveDelay = (int)s.Value * 4;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void AlienWaveDelay_ValueChanged(object sender, EventArgs e)
+        {
+            var s = sender as NumericUpDown;
+            if (s == null) return;
+
+            Settings.InitialWaveDelay = (int)s.Value * 4;
             CustomPresets.Text = string.Empty;
         }
     }

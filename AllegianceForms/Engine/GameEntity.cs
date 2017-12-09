@@ -4,7 +4,7 @@ namespace AllegianceForms.Engine
 {
     public class GameEntity
     {
-        public bool[] VisibleToTeam { get; set; }
+        protected bool[] VisibleToTeam { get; set; }
         public float Signature { get; set; } 
         public int SectorId { get; set; }
         public string Name { get; set; }
@@ -88,6 +88,19 @@ namespace AllegianceForms.Engine
             Left = 0;
         }
 
+        public bool IsVisibleToTeam(int t)
+        {
+            if (t < 0 || t >= _game.NumTeams) return true;
+
+            return VisibleToTeam[t];
+        }
+
+        public void SetVisibleToTeam(int t, bool v)
+        {
+            if (t < 0 || t >= _game.NumTeams) return;
+            VisibleToTeam[t] = v;
+        }
+
         public virtual void Draw(Graphics g, int currentSectorId)
         {
             if (!Active || !VisibleToTeam[0] || SectorId != currentSectorId) return;
@@ -120,16 +133,16 @@ namespace AllegianceForms.Engine
             Team = team;
 
             var t = team - 1;
-            if (t >= 0)
+            if (t < 0)
+            {
+                _healthBrush = Brushes.DarkGreen;                
+            }
+            else
             {
                 var research = game.TechTree[t].ResearchedUpgrades;
                 MaxShield *= research[EGlobalUpgrade.MaxShield];
                 ShieldRecharge = 0.1f * research[EGlobalUpgrade.ShieldRecharge];
                 _healthBrush = _game.TeamBrushes[t];
-            }
-            else
-            {
-                _healthBrush = Brushes.DarkGreen;
             }
         }
 
@@ -142,7 +155,7 @@ namespace AllegianceForms.Engine
             }
         }
 
-        protected virtual void DrawHealthBar(Graphics g, int t, Rectangle b)
+        protected virtual void DrawHealthBar(Graphics g, Rectangle b)
         {
             g.FillRectangle(StrategyGame.ShieldBrush, b.Left, b.Bottom + 3, (Shield / MaxShield) * b.Width, 3);
             g.FillRectangle(_healthBrush, b.Left, b.Bottom + 6, (Health / MaxHealth) * b.Width, 3);

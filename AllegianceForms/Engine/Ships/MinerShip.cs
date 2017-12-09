@@ -154,9 +154,9 @@ namespace AllegianceForms.Engine.Ships
             if (Shooting && Target != null && VisibleToTeam[0]) g.DrawLine(MinePen, _centerX, _centerY, Target.CenterX, Target.CenterY);
         }
 
-        protected override void DrawHealthBar(Graphics g, int t, Rectangle b)
+        protected override void DrawHealthBar(Graphics g, Rectangle b)
         {
-            base.DrawHealthBar(g, t, b);
+            base.DrawHealthBar(g, b);
 
             var p = b.Width * (1f * Resources / MaxResourceCapacity);
             g.FillRectangle(StrategyGame.ResourceBrush, b.Left, b.Bottom + 9, p, 3);

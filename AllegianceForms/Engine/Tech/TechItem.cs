@@ -73,7 +73,7 @@ namespace AllegianceForms.Engine.Tech
                 || (Name.Contains("Miner") && _game.NumberOfMinerDrones(Team) < _game.GameSettings.MinersMaxDrones)
                 || (Name.Contains("Tower") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxTowerDrones)
                 || (Name.Contains("Constructor") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxDrones
-                    && _game.AllAsteroids.Count(_ => _.VisibleToTeam[Team - 1] && _.Type == GetAsteroidType(Name)) > 0);
+                    && _game.AllAsteroids.Count(_ => _.IsVisibleToTeam(Team - 1) && _.Type == GetAsteroidType(Name)) > 0);
         }
 
         public static EBaseType GetBaseType(string name)

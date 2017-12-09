@@ -72,6 +72,7 @@
             this.SectorLabel = new System.Windows.Forms.Label();
             this.QuickItems = new System.Windows.Forms.FlowLayoutPanel();
             this.QuickItems2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.Continue = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -185,6 +186,7 @@
             // GameOverPanel
             // 
             this.GameOverPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GameOverPanel.Controls.Add(this.Continue);
             this.GameOverPanel.Controls.Add(this.Done);
             this.GameOverPanel.Controls.Add(this.TotalBases2);
             this.GameOverPanel.Controls.Add(this.TotalBases1);
@@ -222,11 +224,11 @@
             this.Done.BackColor = System.Drawing.Color.Black;
             this.Done.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Done.ForeColor = System.Drawing.Color.White;
-            this.Done.Location = new System.Drawing.Point(70, 345);
+            this.Done.Location = new System.Drawing.Point(18, 351);
             this.Done.Name = "Done";
-            this.Done.Size = new System.Drawing.Size(260, 45);
+            this.Done.Size = new System.Drawing.Size(163, 45);
             this.Done.TabIndex = 2;
-            this.Done.Text = "Done";
+            this.Done.Text = "Close";
             this.Done.UseVisualStyleBackColor = false;
             this.Done.Click += new System.EventHandler(this.Done_Click);
             this.Done.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
@@ -561,6 +563,21 @@
             this.QuickItems2.Visible = false;
             this.QuickItems2.WrapContents = false;
             // 
+            // Continue
+            // 
+            this.Continue.BackColor = System.Drawing.Color.Black;
+            this.Continue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Continue.ForeColor = System.Drawing.Color.White;
+            this.Continue.Location = new System.Drawing.Point(228, 351);
+            this.Continue.Name = "Continue";
+            this.Continue.Size = new System.Drawing.Size(163, 45);
+            this.Continue.TabIndex = 2;
+            this.Continue.Text = "Continue";
+            this.Continue.UseVisualStyleBackColor = false;
+            this.Continue.Click += new System.EventHandler(this.Continue_Click);
+            this.Continue.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Continue.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            // 
             // Sector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -643,6 +660,7 @@
         private System.Windows.Forms.FlowLayoutPanel QuickItems;
         private System.Windows.Forms.FlowLayoutPanel QuickItems2;
         private System.Windows.Forms.Button Done;
+        private System.Windows.Forms.Button Continue;
     }
 }
 

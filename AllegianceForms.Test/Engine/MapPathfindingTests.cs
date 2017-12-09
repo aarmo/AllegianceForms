@@ -314,9 +314,9 @@ namespace AllegianceForms.Test.Engine
         public void TestNextWormholesWhenSomeVisible()
         {
             _game.Map = GameMaps.LoadMap(_game, "Star2");
-            _game.Map.Sectors[0].VisibleToTeam[0] = true;
-            _game.Map.Sectors[1].VisibleToTeam[0] = true;
-            _game.Map.Sectors[2].VisibleToTeam[0] = true;
+            _game.Map.Sectors[0].SetVisibleToTeam(0, true);
+            _game.Map.Sectors[1].SetVisibleToTeam(0, true);
+            _game.Map.Sectors[2].SetVisibleToTeam(0, true);
 
             GameEntity otherEnd;
             var next = _game.NextWormholeEnd(1, 0, 2, out otherEnd);

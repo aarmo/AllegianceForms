@@ -46,7 +46,7 @@ namespace AllegianceForms.Engine
         public const string GamePresetFolder = ".\\Data\\GamePresets";
         public const string FactionPresetFolder = ".\\Data\\FactionPresets";
         public const string MapFolder = ".\\Data\\Maps";
-        public const int AlienBaseHealth = 200;
+        public const int AlienBaseHealth = 100;
         public const int AlienDamage = 2;
 
         public static double SqrtTwo = Math.Sqrt(2);
@@ -57,9 +57,14 @@ namespace AllegianceForms.Engine
         public static Pen BaseBorderPen = new Pen(Color.Gray, 2);
         public static Brush ShieldBrush = new SolidBrush(Color.CornflowerBlue);
         public static Brush ResourceBrush = new SolidBrush(Color.MintCream);
+        public static Color AlienColour = Color.DarkGreen;
+        public static Brush AlienBrush = new SolidBrush(AlienColour);
 
         private static DateTime _nextBbrSoundAllowed = DateTime.MinValue;
         private static TimeSpan _nextBbrSoundDelay = new TimeSpan(0, 0, 3);
+        private int _currentWaveDelay;
+        private int _waveDelayDecrease;
+        private int _waveSpawnNext;
 
         public GameMap Map;
         public GameStats GameStats;
@@ -68,6 +73,7 @@ namespace AllegianceForms.Engine
         public int NumTeams = 2;
         public int AlienTeam = -1;
         public int PlayerCurrentSectorId = 0;
+
 
         public ShipSpecs Ships;
         public BaseSpecs Bases;
@@ -83,6 +89,7 @@ namespace AllegianceForms.Engine
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
         public List<Ship> Aliens = new List<Ship>();
+        public List<Base> AlienBases = new List<Base>();
 
         public List<Asteroid> AllAsteroids = new List<Asteroid>();
         public List<ResourceAsteroid> ResourceAsteroids = new List<ResourceAsteroid>();        
@@ -202,7 +209,7 @@ namespace AllegianceForms.Engine
             launchBase = null;
 
             var t = team - 1;
-            var alliance = GameSettings.TeamAlliance[t];
+            var alliance = (team < 0) ? -1 : GameSettings.TeamAlliance[t];
 
             // Check each sector for visible enemy bases & our team's bases
             var sectorEnemyBases = new int[Map.Sectors.Count];
@@ -220,7 +227,7 @@ namespace AllegianceForms.Engine
                     sectorTeamBases[b.SectorId]++;
                 }
 
-                if (b.Alliance != alliance && b.VisibleToTeam[t])
+                if (b.Alliance != alliance && b.IsVisibleToTeam(t))
                 {
                     enemiesFound = true;
                     sectorEnemyBases[b.SectorId]++;
@@ -242,7 +249,7 @@ namespace AllegianceForms.Engine
             if (possibleEnemySectors.Count > 0)
             {
                 var combatSector = possibleEnemySectors[Random.Next(possibleEnemySectors.Count)];
-                var targetBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId == combatSector).ToList();
+                var targetBases = AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance && _.SectorId == combatSector).ToList();
                 var launchBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == combatSector && _.CanLaunchShips()).ToList();
                 launchBase = launchBases[Random.Next(launchBases.Count)];
                 return targetBases[Random.Next(targetBases.Count)];
@@ -269,7 +276,7 @@ namespace AllegianceForms.Engine
                 var targetSector = possibleEnemySectors[r];
                 var launchSector = possibleTeamSectors[r];
 
-                var targetBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId == targetSector).ToList();
+                var targetBases = AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance && _.SectorId == targetSector).ToList();
                 var launchBases = AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == launchSector && _.CanLaunchShips()).ToList();
 
                 launchBase = launchBases[Random.Next(launchBases.Count)];
@@ -283,17 +290,17 @@ namespace AllegianceForms.Engine
         public Base LastEnemyBase(int team, out Base launchBase)
         {
             var t = team - 1;
-            var alliance = GameSettings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : GameSettings.TeamAlliance[t];
 
             // Simply launch from our last base, targeting their last base!
             launchBase = AllBases.LastOrDefault(_ => _.Active && _.Team == team && _.CanLaunchShips());
-            return AllBases.LastOrDefault(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance);
+            return AllBases.LastOrDefault(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance);
         }
 
         public Base ClosestEnemyBase(int team, out Base launchingBase)
         {
             var t = team - 1;
-            var alliance = GameSettings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : GameSettings.TeamAlliance[t];
             var maxHops = Map.Wormholes.Count + 4;
             var minHops = int.MaxValue;
             Base targetBase = null;
@@ -303,7 +310,7 @@ namespace AllegianceForms.Engine
 
             var launchingSector = launchingBase.SectorId;
 
-            var otherSectorBases = AllBases.Where(_ => _.Active && _.VisibleToTeam[t] && _.Alliance != alliance && _.SectorId != launchingSector).ToList();
+            var otherSectorBases = AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance && _.SectorId != launchingSector).ToList();
             foreach (var b in otherSectorBases)
             {
                 var path = Map.ShortestPath(team, launchingSector, b.SectorId);
@@ -368,14 +375,14 @@ namespace AllegianceForms.Engine
 
                         if (alliance == s.Alliance)
                         {
-                            s.VisibleToTeam[t] = true;
+                            s.SetVisibleToTeam(t, true);
                             continue;
                         }
 
                         var thisAi = AICommanders[t];
                         if (thisAi != null && thisAi.CheatVisibility)
                         {
-                            s.VisibleToTeam[t] = true;
+                            s.SetVisibleToTeam(t, true);
                             continue;
                         }
 
@@ -384,16 +391,16 @@ namespace AllegianceForms.Engine
                             var thatAi = AICommanders[s.Team - 1];
                             if (thatAi != null && thatAi.ForceVisible)
                             {
-                                s.VisibleToTeam[t] = true;
+                                s.SetVisibleToTeam(t, true);
                                 continue;
                             }
                         }
 
-                        preVis = s.VisibleToTeam[t];
-                        s.VisibleToTeam[t] = false;
+                        preVis = s.IsVisibleToTeam(t);
+                        s.SetVisibleToTeam(t, false);
                         if (IsVisibleToAlliance(s, alliance))
                         {
-                            s.VisibleToTeam[t] = true;
+                            s.SetVisibleToTeam(t, true);
 
                             if (!preVis && !soundPlayed && t == 0 && s.SectorId == currentSectorId)
                             {
@@ -437,27 +444,30 @@ namespace AllegianceForms.Engine
                     for (var t = 0; t < NumTeams; t++)
                     {
                         // Once visible, bases are always visible!
-                        if (s.Team == t + 1 || s.VisibleToTeam[t]) continue;
+                        if (s.Team == t + 1 || s.IsVisibleToTeam(t)) continue;
                         var alliance = GameSettings.TeamAlliance[t];
 
                         if (alliance == s.Alliance)
                         {
-                            s.VisibleToTeam[t] = true;
+                            s.SetVisibleToTeam(t, true);
                             continue;
                         }
 
                         var thisAi = AICommanders[t];
                         if (thisAi != null && thisAi.CheatVisibility)
                         {
-                            s.VisibleToTeam[t] = true;
+                            s.SetVisibleToTeam(t, true);
                             continue;
                         }
 
-                        var thatAi = AICommanders[s.Team - 1];
-                        if (thatAi != null && thatAi.ForceVisible)
+                        if (s.Team > 0)
                         {
-                            s.VisibleToTeam[t] = true;
-                            continue;
+                            var thatAi = AICommanders[s.Team - 1];
+                            if (thatAi != null && thatAi.ForceVisible)
+                            {
+                                s.SetVisibleToTeam(t, true);
+                                continue;
+                            }
                         }
 
                         if (IsVisibleToAlliance(s, alliance))
@@ -467,7 +477,7 @@ namespace AllegianceForms.Engine
                                 SoundEffect.Play(ESounds.newtargetenemy);
                                 soundPlayed = true;
                             }
-                            s.VisibleToTeam[t] = true;
+                            s.SetVisibleToTeam(t, true);
                         }
                     }
                 }
@@ -478,14 +488,14 @@ namespace AllegianceForms.Engine
                 for (var t = 0; t < NumTeams; t++)
                 {
                     // Once visible, asteroids are always visible!
-                    if (s.VisibleToTeam[t]) continue;
+                    if (s.IsVisibleToTeam(t)) continue;
 
                     var alliance = GameSettings.TeamAlliance[t];
                     
                     var thisAi = AICommanders[t];
                     if (thisAi != null && thisAi.CheatVisibility)
                     {
-                        s.VisibleToTeam[t] = true;
+                        s.SetVisibleToTeam(t, true);
                         continue;
                     }
 
@@ -496,7 +506,7 @@ namespace AllegianceForms.Engine
                             if (!init) SoundEffect.Play(ESounds.noncriticalmessage);
                             soundPlayed = true;
                         }
-                        s.VisibleToTeam[t] = true;
+                        s.SetVisibleToTeam(t, true);
                     }
                 }
             }
@@ -509,7 +519,7 @@ namespace AllegianceForms.Engine
                     // Once visible, wormholes are always visible!
                     var s1 = w.End1;
                     var s2 = w.End2;
-                    if (s1.VisibleToTeam[t] || s2.VisibleToTeam[t]) continue;
+                    if (s1.IsVisibleToTeam(t) || s2.IsVisibleToTeam(t)) continue;
 
                     var thisAi = AICommanders[t];
                     if (thisAi != null && thisAi.CheatVisibility)
@@ -756,14 +766,12 @@ namespace AllegianceForms.Engine
         {
             if (e == EBaseEventType.BaseDestroyed)
             {
+                if (sender.Team > 0) GameStats.TotalBasesDestroyed[sender.Team - 1]++;
+                
                 if (sender.Team == 1 && !AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
-                {
                     SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
-                }
 
-                GameStats.TotalBasesDestroyed[sender.Team - 1]++;
-
-                if (senderTeam == 1)
+                if (senderTeam == 1 || sender.Team == 1)
                 {
                     switch (sender.Type)
                     {
@@ -969,6 +977,10 @@ namespace AllegianceForms.Engine
             AICommanders = new BaseAI[NumTeams];
             MinefieldImages = new Image[NumTeams];
 
+            _currentWaveDelay = settings.InitialWaveDelay;
+            _waveSpawnNext = settings.InitialWaveDelay;
+            _waveDelayDecrease = settings.DecreaseWaveDelay;
+
             for (var i = 0; i < NumTeams; i++)
             {
                 Faction[i] = settings.TeamFactions[i];
@@ -1010,42 +1022,101 @@ namespace AllegianceForms.Engine
             }
         }
 
-        public void SetupAliens(ShipEventHandler f_shipEvent)
+        public void SetupAliens(ShipEventHandler f_shipEvent, BaseEventHandler b_baseEvent)
         {
             // Alien setup
+            const int edgeBuffer = 300;
+
             if (GameSettings.AlienChance > 0f)
             {
                 foreach (var s in Map.Sectors)
                 {
+                    if (s.StartingSector > 0 && Map.Name != "Brawl") continue;
                     if (RandomChance(GameSettings.AlienChance))
                     {
-                        var sectorID = s.Id;
-                        var num = Random.Next(GameSettings.MinAliensPerSector, GameSettings.MaxAliensPerSector);
-
-                        for (var n = 0; n < num; n++)
+                        var numWander = Random.Next(GameSettings.MinAliensPerSector, GameSettings.MaxAliensPerSector);
+                        var numBases = Random.Next(GameSettings.MinAlienBasesPerSector, GameSettings.MaxAlienBasesPerSector);
+                        for (var n = 0; n < numWander; n++)
                         {
-                            var a = Random.Next(12) + 1;
-                            var size = (Random.Next(3) + 1);
-                            var scale = 40 * size;
-                            var image = $"{AlienPicDir}{a:D2}.png";
                             var startPos = RandomPosition();
-                            var alien = new CombatShip(this, image, scale, scale, Color.DarkGreen, AlienTeam, AlienTeam, size * AlienBaseHealth, 0, EShipType.None, sectorID)
-                            {
-                                Speed = 5 - size,
-                                MaxShield = 0,
-                                Shield = 0,
-                                Signature = 6,
-                                CenterX = startPos.X,
-                                CenterY = startPos.Y
-                            };
-                            alien.ShipEvent += f_shipEvent;
-                            alien.OrderShip(new WanderOrder(this, sectorID));
-                            AllUnits.Add(alien);
-                            Aliens.Add(alien);
+                            var alien = CreateAlien(s.Id, startPos, f_shipEvent);
+
+                            alien.OrderShip(new WanderOrder(this, s.Id));
+                        }
+
+                        var spec = Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Aliens);
+                        for (var n = 0; n < numBases; n++)
+                        {
+                            var bse = new Base(this, spec.Type, spec.Width, spec.Height, AlienColour, AlienTeam, AlienTeam, spec.Health, s.Id);
+
+                            bse.ScanRange = spec.ScanRange;
+                            bse.Signature = spec.Signature;
+                            bse.CenterX = Random.Next(edgeBuffer, ScreenWidth - edgeBuffer);
+                            bse.CenterY = Random.Next(edgeBuffer, ScreenHeight - edgeBuffer);
+                            bse.BaseEvent += b_baseEvent;
+                            AllBases.Add(bse);
+                            AlienBases.Add(bse);
                         }
                     }
                 }
             }
+        }
+
+        private CombatShip CreateAlien(int sectorId, PointF pos, ShipEventHandler f_shipEvent)
+        {
+            var alienNum = Random.Next(12) + 1;
+            var image = $"{AlienPicDir}{alienNum:D2}.png";
+            var size = alienNum / 3 + 1;
+            var scale = 20 * size;
+            var alien = new CombatShip(this, image, scale, scale, AlienColour, AlienTeam, AlienTeam, size * AlienBaseHealth, 0, EShipType.None, sectorId)
+            {
+                MaxShield = 0,
+                Shield = 0,
+                Signature = 6,
+                CenterX = pos.X,
+                CenterY = pos.Y
+            };
+            alien.ShipEvent += f_shipEvent;
+            
+            switch (size)
+            {
+                case 1:
+                    alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, PointF.Empty));
+                    alien.Type = EShipType.Interceptor;
+                    alien.Speed = 4;
+                    break;
+                case 2:
+                    alien.Weapons.Add(new NanLaserWeapon(this, 2, 5, 10, 150, -5, alien, PointF.Empty));
+                    alien.Type = EShipType.Scout;
+                    alien.Speed = 3;
+                    break;
+                case 3:
+                    alien.Weapons.Add(new BaseLaserWeapon(this, AlienColour, 2, 15, 30, 175, 10, alien, PointF.Empty));
+                    alien.Type = EShipType.Bomber;
+                    alien.Speed = 3;
+                    break;
+                case 4:
+                    alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, new PointF(0, 8)));
+                    alien.Weapons.Add(new BaseLaserWeapon(this, AlienColour, 2, 15, 30, 175, 10, alien, new PointF(0, -8)));
+                    alien.Type = EShipType.Bomber;
+                    alien.Speed = 2;
+                    break;
+                case 5:
+                    alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, new PointF(-8, 0)));
+                    alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, new PointF(8, 0)));
+                    alien.Weapons.Add(new BaseLaserWeapon(this, AlienColour, 2, 15, 30, 175, 10, alien, new PointF(0, -8)));
+                    alien.Type = EShipType.Bomber;
+                    alien.Speed = 1;
+                    break;
+            }
+
+            AddUnit(alien);
+            lock (Aliens)
+            {
+                Aliens.Add(alien);
+            }
+
+            return alien;
         }
 
         public void LoadData()
@@ -1163,12 +1234,13 @@ namespace AllegianceForms.Engine
             Missiles.RemoveAll(_ => !_.Active);
             Minefields.RemoveAll(_ => !_.Active);
             Aliens.RemoveAll(_ => !_.Active);
+            AlienBases.RemoveAll(_ => !_.Active);
         }
 
         private const int ConstructorCheckDelay = 120;
         private int _constructorCheckNext = ConstructorCheckDelay;
-        
-        public void SlowTick()
+
+        public void SlowTick(ShipEventHandler f_shipEvent)
         {
             UpdateVisibility(false);
 
@@ -1180,7 +1252,7 @@ namespace AllegianceForms.Engine
                              where !i.Completed
                              && i.AmountInvested > 0
                              select i).ToList();
-                
+
                 items.ForEach(_ => _.Update());
 
                 var completedTech = TechTree[t].TechItems.Where(_ => _.Completed && _.Active).ToList();
@@ -1213,8 +1285,43 @@ namespace AllegianceForms.Engine
                     var con = constructorsWaiting[Random.Next(constructorsWaiting.Count)] as BuilderShip;
                     if (!con.Building) PlayConstructorRequestSound(con);
                 }
-            }            
+            }
 
+            // Spawn a lot of little aliens in waves, for each team, targeting a random base
+            if (_currentWaveDelay > 0 && AlienBases.Count > 0)
+            {
+                _waveSpawnNext--;
+                if (_waveSpawnNext <= 0)
+                {
+                    _waveSpawnNext = _currentWaveDelay;
+
+                    var targetTeam = 1;
+
+                    var targetBases = AllBases.Where(_ => _.Active && _.Team == targetTeam && _.CanLaunchShips()).ToList();
+                    if (targetBases.Count == 0) return;
+
+                    var target = targetBases[Random.Next(targetBases.Count)];
+                                                    
+                    foreach (var b in AlienBases)
+                    {
+                        for (var n = 0; n < GameSettings.WaveShipsPerBase; n++)
+                        {
+                            var alien = CreateAlien(b.SectorId, b.CenterPoint, f_shipEvent);
+                                
+                            var append = false;
+                            if (b.SectorId != target.SectorId)
+                            {
+                                alien.OrderShip(new NavigateOrder(this, alien, target.SectorId));
+                                append = true;
+                            }
+
+                            alien.OrderShip(new SurroundOrder(this, target.SectorId, target, PointF.Empty), append);
+                        }
+                    }
+
+                    if (_currentWaveDelay > _waveDelayDecrease) _currentWaveDelay -= _waveDelayDecrease;
+                }
+            }
         }
 
         public static string[] GetExplosionFrames()
@@ -1250,7 +1357,8 @@ namespace AllegianceForms.Engine
 
         public Ship GetRandomEnemyInRange(int team, int alliance, int sectorId, PointF pos, float range)
         {
-            var enemysInRange = AllUnits.Where(_ => _.Active && _.Alliance != alliance && !_.Docked && _.SectorId == sectorId && _.VisibleToTeam[team - 1] && _.Type != EShipType.Lifepod && Utils.WithinDistance(pos.X, pos.Y, _.CenterX, _.CenterY, range)).ToList();
+            var skipVis = team < 0;
+            var enemysInRange = AllUnits.Where(_ => _.Active && _.Alliance != alliance && !_.Docked && _.SectorId == sectorId && (skipVis || _.IsVisibleToTeam(team - 1)) && _.Type != EShipType.Lifepod && Utils.WithinDistance(pos.X, pos.Y, _.CenterX, _.CenterY, range)).ToList();
 
             if (enemysInRange.Count > 1)
             {

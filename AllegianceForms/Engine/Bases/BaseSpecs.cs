@@ -51,7 +51,7 @@ namespace AllegianceForms.Engine.Bases
             var faction = _game.Faction[t];
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
-            var alliance = settings.TeamAlliance[t];
+            var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
             if (addPilots) _game.DockedPilots[t] += spec.Pilots;
 
             var bse = new Base(_game, baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);

@@ -9,7 +9,7 @@ namespace AllegianceForms.Engine.Map
         public int Id { get; set; }
         public string Name { get; set; }
         public Point MapPosition { get; set; }
-        public bool[] VisibleToTeam { get; set; }
+        protected bool[] VisibleToTeam { get; set; }
         public int StartingSector { get; set; }
         public Rectangle Bounds => new Rectangle(MapPosition.X * GameMaps.SectorSpacing + GameMaps.MapPadding, MapPosition.Y * GameMaps.SectorSpacing + GameMaps.MapPadding, GameMaps.SectorDiameter, GameMaps.SectorDiameter);
         public bool Conflict { get; set; }
@@ -33,6 +33,18 @@ namespace AllegianceForms.Engine.Map
             Colour1Set = Colour2Set = false;
             Colour1 = Colour2 = _originalColour = new SolidBrush(Color.DimGray);
         }
+        
+        public void SetVisibleToTeam(int t, bool v)
+        {
+            if (t < 0 || t >= _game.NumTeams) return;
+            VisibleToTeam[t] = v;
+        }
+
+        public bool IsVisibleToTeam(int t)
+        {
+            if (t < 0 || t >= _game.NumTeams) return true;
+            return VisibleToTeam[t];
+        }
 
         public override string ToString()
         {
@@ -48,12 +60,14 @@ namespace AllegianceForms.Engine.Map
 
         public void UpdateColours()
         {
-            var visibleBases = _game.AllBases.Where(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.CanLaunchShips());
+            var visibleBases = _game.AllBases.Where(_ => _.SectorId == Id && _.IsVisibleToTeam(0) && _.CanLaunchShips());
             Colour1Set = Colour2Set = false;
 
             foreach (var b in visibleBases)
             {
-                var t = b.Team - 1;
+                if (b.Team < 0) continue;
+
+                var t = b.Team - 1;                
                 if (!Colour1Set)
                 {
                     Colour1 = _game.TeamBrushes[t];
@@ -73,8 +87,8 @@ namespace AllegianceForms.Engine.Map
             if (!Colour1Set) Colour1 = _originalColour;
             if (!Colour2Set) Colour2 = _originalColour;
 
-            CriticalAlert = _game.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Alliance != _game.GameSettings.TeamAlliance[0] && _.CanAttackBases());
-            Conflict = _game.AllUnits.Any(_ => _.SectorId == Id && _.VisibleToTeam[0] && _.Alliance != _game.GameSettings.TeamAlliance[0] && _.Type != EShipType.Lifepod);
+            CriticalAlert = _game.AllUnits.Any(_ => _.SectorId == Id && _.IsVisibleToTeam(0) && _.Alliance != _game.GameSettings.TeamAlliance[0] && _.CanAttackBases());
+            Conflict = _game.AllUnits.Any(_ => _.SectorId == Id && _.IsVisibleToTeam(0) && _.Alliance != _game.GameSettings.TeamAlliance[0] && _.Type != EShipType.Lifepod);
         }
     }
 }

@@ -239,7 +239,7 @@ namespace AllegianceForms.Engine.AI
             if (Scouting && PilotPriorities[EAiPilotPriorities.Scout] < MaxPriorityValue)
                 PilotPriorities[EAiPilotPriorities.Scout] += _scoutFocus;
 
-            var enemyShips = _game.AllUnits.Where(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]).ToList();
+            var enemyShips = _game.AllUnits.Where(_ => _.Active && _.Alliance != Alliance && _.IsVisibleToTeam(_t)).ToList();
             Miners = _game.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Miner).ToList();
             Builders = _game.AllUnits.Where(_ => _.Active && _.Alliance == Alliance && _.Type == EShipType.Constructor).ToList();
 
@@ -277,7 +277,7 @@ namespace AllegianceForms.Engine.AI
 
             //TODO: Ineffiencient to do each second!
             Bases = _game.AllBases.Where(_ => _.Active && _.Team == Team).ToList();
-            var enemyBases = _game.AllBases.Count(_ => _.Active && _.Alliance != Alliance && _.VisibleToTeam[_t]);
+            var enemyBases = _game.AllBases.Count(_ => _.Active && _.Alliance != Alliance && _.IsVisibleToTeam(_t));
             var numOwnedSectors = _game.Map.Sectors.Count(s => Bases.Any(b => b.SectorId == s.Id));
 
             if (_game.TechTree[_t].HasResearchedShipType(EShipType.Bomber))

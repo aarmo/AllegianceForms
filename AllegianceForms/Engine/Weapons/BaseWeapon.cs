@@ -30,7 +30,7 @@ namespace AllegianceForms.Engine.Weapons
             // Always be checking for targets in range and FIRE!
             if (t == null || !t.Active || t.SectorId != t.SectorId || t.Alliance == Shooter.Alliance || !Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
-                var enemyInRange = _game.AllBases.FirstOrDefault(_ => _.Active && _.Alliance != Shooter.Alliance && _.SectorId == Shooter.SectorId && _.VisibleToTeam[Shooter.Team - 1] && Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
+                var enemyInRange = _game.AllBases.FirstOrDefault(_ => _.Active && _.Alliance != Shooter.Alliance && _.SectorId == Shooter.SectorId && _.IsVisibleToTeam(Shooter.Team - 1) && Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, _.CenterX, _.CenterY, WeaponRange));
                 if (enemyInRange != null)
                 {
                     Target = enemyInRange;

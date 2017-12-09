@@ -21,7 +21,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         private void CheckForNextTargetSector()
         {
-            var bs = _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.VisibleToTeam[AI.Team - 1] && !_.Docked && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
+            var bs = _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.IsVisibleToTeam(AI.Team - 1) && !_.Docked && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner)).ToList();
             if (bs.Count == 0) return;
 
             var s = bs[StrategyGame.Random.Next(bs.Count)];
@@ -104,7 +104,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 else
                 {
                     // Then find the closest random miner/con/bomber here to attack!
-                    var m = Utils.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.VisibleToTeam[AI.Team - 1] && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
+                    var m = Utils.ClosestDistance(i.CenterX, i.CenterY, _game.AllUnits.Where(_ => _.Alliance != AI.Alliance && _.Active && _.SectorId == i.SectorId && !_.Docked && _.IsVisibleToTeam(AI.Team - 1) && (_.Type == EShipType.Constructor || _.Type == EShipType.Miner || _.CanAttackBases())));
                     if (m != null)
                     {
                         i.OrderShip(new MoveOrder(_game, m.SectorId, m.CenterPoint));
@@ -113,7 +113,7 @@ namespace AllegianceForms.Engine.AI.Missions
                     else
                     {
                         // Otherwise, attack anything!
-                        var ens = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Alliance != AI.Alliance && _.SectorId == i.SectorId && _.VisibleToTeam[AI.Team - 1] && _.Type != EShipType.Lifepod).ToList();
+                        var ens = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Alliance != AI.Alliance && _.SectorId == i.SectorId && _.IsVisibleToTeam(AI.Team - 1) && _.Type != EShipType.Lifepod).ToList();
                         if (ens.Count > 0)
                         {
                             var tar = ens[StrategyGame.Random.Next(ens.Count)];

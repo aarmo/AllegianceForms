@@ -10,8 +10,11 @@ namespace AllegianceForms.Engine.Map
         public GameEntity End1 { get; set; }
         public GameEntity End2 { get; set; }
 
+        private StrategyGame _game;
+
         public Wormhole(StrategyGame game, MapSector s1, MapSector s2)
         {
+            _game = game;
             Sector1 = s1;
             Sector2 = s2;
             End1 = new GameEntity(game, ".\\Art\\wormhole.png", 50, 50, s1.Id) { Name = s2.Name, TextBrush = Brushes.CornflowerBlue };
@@ -21,7 +24,12 @@ namespace AllegianceForms.Engine.Map
         public void SetVisibleToTeam(int team, bool visible)
         {
             var t = team - 1;
-            Sector1.VisibleToTeam[t] = Sector2.VisibleToTeam[t] = End1.VisibleToTeam[t] = End2.VisibleToTeam[t] = visible;
+            if (t < 0 || t >= _game.NumTeams) return;
+
+            Sector1.SetVisibleToTeam(t, visible);
+            Sector2.SetVisibleToTeam(t, visible);
+            End1.SetVisibleToTeam(t, visible);
+            End2.SetVisibleToTeam(t, visible);
         }
 
         public virtual void Draw(Graphics g, int sectorId)
