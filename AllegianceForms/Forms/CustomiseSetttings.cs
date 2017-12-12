@@ -107,6 +107,7 @@ namespace AllegianceForms.Forms
             AlienWaveDelay.Value = s.InitialWaveDelay / 4;
             AlienWaveReduce.Value = s.DecreaseWaveDelay / 4;
 
+            AlienWaveTarget.Text = s.AlientWaveTargetType.ToString();
             Teams.Value = Settings.NumTeams;
 
             TeamItems.Controls.Clear();
@@ -772,6 +773,15 @@ namespace AllegianceForms.Forms
             if (s == null) return;
 
             Settings.InitialWaveDelay = (int)s.Value * 4;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void AlienWaveTarget_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+
+            Settings.AlientWaveTargetType = (EWaveTargetType) Enum.Parse(typeof(EWaveTargetType), s.Text);
             CustomPresets.Text = string.Empty;
         }
     }

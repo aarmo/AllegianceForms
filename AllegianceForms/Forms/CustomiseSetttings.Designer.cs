@@ -158,6 +158,8 @@
             this.label65 = new System.Windows.Forms.Label();
             this.label66 = new System.Windows.Forms.Label();
             this.AlienWaveReduce = new System.Windows.Forms.NumericUpDown();
+            this.AlienWaveTarget = new System.Windows.Forms.ComboBox();
+            this.label67 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Pilots)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Teams)).BeginInit();
             this.panel1.SuspendLayout();
@@ -1690,7 +1692,7 @@
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(532, 255);
+            this.label62.Location = new System.Drawing.Point(532, 284);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(82, 13);
             this.label62.TabIndex = 0;
@@ -1775,7 +1777,7 @@
             // AlienShipsPerWave
             // 
             this.AlienShipsPerWave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AlienShipsPerWave.Location = new System.Drawing.Point(619, 254);
+            this.AlienShipsPerWave.Location = new System.Drawing.Point(619, 283);
             this.AlienShipsPerWave.Maximum = new decimal(new int[] {
             10,
             0,
@@ -1831,7 +1833,7 @@
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(532, 229);
+            this.label65.Location = new System.Drawing.Point(532, 258);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(63, 13);
             this.label65.TabIndex = 0;
@@ -1840,7 +1842,7 @@
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(667, 230);
+            this.label66.Location = new System.Drawing.Point(667, 259);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(12, 13);
             this.label66.TabIndex = 0;
@@ -1849,7 +1851,7 @@
             // AlienWaveReduce
             // 
             this.AlienWaveReduce.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.AlienWaveReduce.Location = new System.Drawing.Point(619, 228);
+            this.AlienWaveReduce.Location = new System.Drawing.Point(619, 257);
             this.AlienWaveReduce.Maximum = new decimal(new int[] {
             60,
             0,
@@ -1864,6 +1866,31 @@
             0,
             0});
             this.AlienWaveReduce.ValueChanged += new System.EventHandler(this.AlienWaveReduce_ValueChanged);
+            // 
+            // AlienWaveTarget
+            // 
+            this.AlienWaveTarget.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AlienWaveTarget.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AlienWaveTarget.FormattingEnabled = true;
+            this.AlienWaveTarget.Items.AddRange(new object[] {
+            "None",
+            "Player",
+            "AI",
+            "Everyone"});
+            this.AlienWaveTarget.Location = new System.Drawing.Point(619, 227);
+            this.AlienWaveTarget.Name = "AlienWaveTarget";
+            this.AlienWaveTarget.Size = new System.Drawing.Size(68, 21);
+            this.AlienWaveTarget.TabIndex = 33;
+            this.AlienWaveTarget.SelectedIndexChanged += new System.EventHandler(this.AlienWaveTarget_SelectedIndexChanged);
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(532, 230);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(78, 13);
+            this.label67.TabIndex = 0;
+            this.label67.Text = "Wave Targets:";
             // 
             // CustomiseSetttings
             // 
@@ -1932,6 +1959,7 @@
             this.Controls.Add(this.MissilesRange);
             this.Controls.Add(this.NanWeaponRange);
             this.Controls.Add(this.BaseWeaponRange);
+            this.Controls.Add(this.AlienWaveTarget);
             this.Controls.Add(this.AliensChance);
             this.Controls.Add(this.ShipWeaponFireRate);
             this.Controls.Add(this.Difficulty);
@@ -1977,6 +2005,7 @@
             this.Controls.Add(this.label58);
             this.Controls.Add(this.label65);
             this.Controls.Add(this.label64);
+            this.Controls.Add(this.label67);
             this.Controls.Add(this.label63);
             this.Controls.Add(this.label62);
             this.Controls.Add(this.label60);
@@ -2158,5 +2187,7 @@
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.NumericUpDown AlienWaveReduce;
+        private System.Windows.Forms.ComboBox AlienWaveTarget;
+        private System.Windows.Forms.Label label67;
     }
 }

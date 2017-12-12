@@ -1288,38 +1288,43 @@ namespace AllegianceForms.Engine
             }
 
             // Spawn a lot of little aliens in waves, for each team, targeting a random base
-            if (_currentWaveDelay > 0 && AlienBases.Count > 0)
+            if (_currentWaveDelay > 0 && AlienBases.Count > 0 && GameSettings.AlientWaveTargetType != EWaveTargetType.None)
             {
                 _waveSpawnNext--;
                 if (_waveSpawnNext <= 0)
                 {
                     _waveSpawnNext = _currentWaveDelay;
 
-                    var targetTeam = 1;
-
-                    var targetBases = AllBases.Where(_ => _.Active && _.Team == targetTeam && _.CanLaunchShips()).ToList();
-                    if (targetBases.Count == 0) return;
-
-                    var target = targetBases[Random.Next(targetBases.Count)];
-                                                    
-                    foreach (var b in AlienBases)
+                    for (var t = 0; t < NumTeams; t++)
                     {
-                        for (var n = 0; n < GameSettings.WaveShipsPerBase; n++)
+                        if (GameSettings.AlientWaveTargetType == EWaveTargetType.Player && t != 0) continue;
+                        if (GameSettings.AlientWaveTargetType == EWaveTargetType.AI && t == 0) continue;
+                        var targetTeam = t + 1;
+
+                        var targetBases = AllBases.Where(_ => _.Active && _.Team == targetTeam && _.CanLaunchShips()).ToList();
+                        if (targetBases.Count == 0) continue;
+
+                        var target = targetBases[Random.Next(targetBases.Count)];
+
+                        foreach (var b in AlienBases)
                         {
-                            var alien = CreateAlien(b.SectorId, b.CenterPoint, f_shipEvent);
-                                
-                            var append = false;
-                            if (b.SectorId != target.SectorId)
+                            for (var n = 0; n < GameSettings.WaveShipsPerBase; n++)
                             {
-                                alien.OrderShip(new NavigateOrder(this, alien, target.SectorId));
-                                append = true;
+                                var alien = CreateAlien(b.SectorId, b.CenterPoint, f_shipEvent);
+
+                                var append = false;
+                                if (b.SectorId != target.SectorId)
+                                {
+                                    alien.OrderShip(new NavigateOrder(this, alien, target.SectorId));
+                                    append = true;
+                                }
+
+                                alien.OrderShip(new SurroundOrder(this, target.SectorId, target, PointF.Empty), append);
                             }
-
-                            alien.OrderShip(new SurroundOrder(this, target.SectorId, target, PointF.Empty), append);
                         }
-                    }
 
-                    if (_currentWaveDelay > _waveDelayDecrease) _currentWaveDelay -= _waveDelayDecrease;
+                        if (_currentWaveDelay > _waveDelayDecrease) _currentWaveDelay -= _waveDelayDecrease;
+                    }
                 }
             }
         }

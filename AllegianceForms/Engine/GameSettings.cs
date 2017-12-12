@@ -1,6 +1,5 @@
 ﻿using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.Map;
-using AllegianceForms.Engine.Tech;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -74,6 +73,7 @@ namespace AllegianceForms.Engine
         public int WaveShipsPerBase { get; set; }
         public int InitialWaveDelay { get; set; }
         public int DecreaseWaveDelay { get; set; }
+        public EWaveTargetType AlientWaveTargetType { get; set; }
 
         public static GameSettings LadderDefault(LadderGame ladder, Faction[] team1, Faction[] team2)
         {
@@ -109,6 +109,7 @@ namespace AllegianceForms.Engine
 
             // No Aliens
             s.AlienChance = 0f;
+            s.AlientWaveTargetType = EWaveTargetType.None;
             return s;
         }
 
@@ -185,8 +186,10 @@ namespace AllegianceForms.Engine
                 MaxAlienBasesPerSector = 3,
                 WaveShipsPerBase = 1,
                 InitialWaveDelay = 120,
-                DecreaseWaveDelay = 4
-            };
+                DecreaseWaveDelay = 4,
+
+                AlientWaveTargetType = EWaveTargetType.Player,
+        };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))
             {

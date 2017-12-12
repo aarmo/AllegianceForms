@@ -592,4 +592,12 @@ namespace AllegianceForms
     {
         Skirmish, Campaign
     }
+
+    public enum EWaveTargetType
+    {
+        None,
+        Player,
+        AI,
+        Everyone
+    }
 }
