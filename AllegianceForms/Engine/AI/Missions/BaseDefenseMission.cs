@@ -16,7 +16,7 @@ namespace AllegianceForms.Engine.AI.Missions
 
         public override bool RequireMorePilots()
         {
-            return true;
+            return (StrategyGame.RandomChance(0.75f));
         }
 
         public override bool AddMorePilots()

@@ -181,15 +181,15 @@ namespace AllegianceForms.Engine
 
                 AlienChance = 0.35f,
                 MinAliensPerSector = 2,
-                MaxAliensPerSector = 6,
+                MaxAliensPerSector = 4,
                 MinAlienBasesPerSector = 1,
-                MaxAlienBasesPerSector = 3,
+                MaxAlienBasesPerSector = 2,
                 WaveShipsPerBase = 1,
-                InitialWaveDelay = 120,
-                DecreaseWaveDelay = 4,
+                InitialWaveDelay = 45 * 4,
+                DecreaseWaveDelay = 1 * 4,
 
-                AlientWaveTargetType = EWaveTargetType.Player,
-        };
+                AlientWaveTargetType = EWaveTargetType.Everyone,
+            };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))
             {

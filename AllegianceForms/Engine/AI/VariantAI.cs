@@ -73,6 +73,7 @@ namespace AllegianceForms.Engine.AI
             _minerDefense.UpdateMission();
             _baseDefense.UpdateMission();
 
+            var stillAddingPilots = true;
             var idleShips = _game.AllUnits.Where(_ => _.Active && !_.Docked && _.Team == Team && _.CurrentOrder == null && _.Type != EShipType.Constructor && _.Type != EShipType.Miner && _.Type != EShipType.Lifepod).ToList();
             if (_game.DockedPilots[_t] == 0 && idleShips.Count == 0) return;
 
@@ -80,11 +81,31 @@ namespace AllegianceForms.Engine.AI
             {
                 _flagFoundEnemyBase = _flagFoundEnemyBase || _game.AllBases.Exists(_ => _.IsVisibleToTeam(_t) && _.Active && _.Alliance != Alliance);
                 _flagHaveBombers = _flagHaveBombers || _game.TechTree[_t].HasResearchedShipType(EShipType.Bomber);
-                _flagBuiltTech = _flagBuiltTech || _game.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase());
-                _flagFoundEnemyBombers = _flagFoundEnemyBombers || _game.AllUnits.Exists(_ => _.Active && _.IsVisibleToTeam(_t) && _.Alliance != Alliance && _.CanAttackBases());
+                _flagBuiltTech = _flagBuiltTech || _game.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase());                
             }
 
-            var addedPilots = true;
+            _flagFoundEnemyBombers = _game.AllUnits.Exists(_ => _.Active && _.IsVisibleToTeam(_t) && _.Alliance != Alliance && _.CanAttackBases());
+
+            if (_flagFoundEnemyBombers)
+            {
+                if (_game.DockedPilots[_t] == 0)
+                {
+                    _minerDefense.ReducePilots(0.75f);
+                    _baseOffense.ReducePilots(0.25f);
+                }
+
+                if (idleShips.Count > 0)
+                {
+                    _baseDefense.IncludedShips.AddRange(idleShips);
+                    idleShips.Clear();
+                }
+
+                stillAddingPilots = true;
+                while (stillAddingPilots && _game.DockedPilots[_t] > 0 && _baseDefense.RequireMorePilots())
+                {
+                    stillAddingPilots = _baseDefense.AddMorePilots();
+                }
+            }
 
             if (_flagHaveBombers && _flagFoundEnemyBase)
             {
@@ -94,25 +115,9 @@ namespace AllegianceForms.Engine.AI
                     idleShips.Clear();
                 }
 
-                while (addedPilots && _game.DockedPilots[_t] > 0 && _baseOffense.RequireMorePilots())
+                while (stillAddingPilots && _game.DockedPilots[_t] > 0 && _baseOffense.RequireMorePilots())
                 {
-                    addedPilots = _baseOffense.AddMorePilots();
-                }
-            }
-            
-            if (_flagFoundEnemyBombers)
-            {
-                if (_game.DockedPilots[_t] == 0) _minerDefense.ReducePilots(0.75f);
-                if (idleShips.Count > 0)
-                {
-                    _baseDefense.IncludedShips.AddRange(idleShips);
-                    idleShips.Clear();
-                }
-
-                addedPilots = true;
-                while (addedPilots && _game.DockedPilots[_t] > 0 && _baseDefense.RequireMorePilots())
-                {
-                    addedPilots = _baseDefense.AddMorePilots();
+                    stillAddingPilots = _baseOffense.AddMorePilots();
                 }
             }
 
@@ -125,25 +130,25 @@ namespace AllegianceForms.Engine.AI
                     idleShips.Clear();
                 }
 
-                addedPilots = true;
-                while (addedPilots && _game.DockedPilots[_t] > 0 && _minerOffense.RequireMorePilots())
+                stillAddingPilots = true;
+                while (stillAddingPilots && _game.DockedPilots[_t] > 0 && _minerOffense.RequireMorePilots())
                 {
-                    addedPilots = _minerOffense.AddMorePilots();
+                    stillAddingPilots = _minerOffense.AddMorePilots();
                 }
             }
 
-            addedPilots = true;
-            while (addedPilots && _game.DockedPilots[_t] > 0 && _scouting.RequireMorePilots())
+            stillAddingPilots = true;
+            while (stillAddingPilots && _game.DockedPilots[_t] > 0 && _scouting.RequireMorePilots())
             {
-                addedPilots = _scouting.AddMorePilots();
+                stillAddingPilots = _scouting.AddMorePilots();
             }
 
             if (_building.IncludedShips.Count > 0 || _mining.IncludedShips.Count > 0)
             {
-                addedPilots = true;
-                while (addedPilots && _game.DockedPilots[_t] > 0 && _minerDefense.RequireMorePilots())
+                stillAddingPilots = true;
+                while (stillAddingPilots && _game.DockedPilots[_t] > 0 && _minerDefense.RequireMorePilots())
                 {
-                    addedPilots = _minerDefense.AddMorePilots();
+                    stillAddingPilots = _minerDefense.AddMorePilots();
                 }
             }
         }
