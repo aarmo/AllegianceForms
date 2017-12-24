@@ -853,6 +853,7 @@ namespace AllegianceForms.Forms
                 ESounds s;
                 if (Enum.TryParse(i.Filename, out s))
                 {
+                    QuickComms.ProcessOrder(StrategyGame, i, _currentSector);
                     SoundEffect.Play(s);
                 }
                 return true;

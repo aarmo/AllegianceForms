@@ -1,317 +1,317 @@
-MenuId,QuickComms,Key,Filename,OpenMenuId
-0,Affirmative,1,vo_player_affirmative,
-0,Negative,2,vo_player_negative,
-0,Shhhooot!,3,vo_player_shoot,
-0,Yee-haaaaaw!,4,vo_player_yeeehaa,
-0,Attack my target,5,vo_player_attacktarget,
-0,I need help!,6,vo_player_needhelp,
-0,Donate your money to the investor!,7,vo_player_donateinvestor,
-0,I need turrent gunners NOW!,8,vo_player_needturret,
-0,I'll be on your turret in a few seconds.,9,vo_player_joiningturret,
-0,"Oops, wrong voice chat...",0,vo_player_oops,
-0,Attack...,A,,1
-0,Commands...,C,,2
-0,Defend...,D,,3
-0,Find...,F,,4
-0,General...,G,,5
-0,Need...,N,,6
-0,Respond...,R,,7
-0,Taunts...,T,,8
-0,Yell...,Y,,9
-0,Info...,I,,10
-0,Tactical...,L,,11
-0,Other...,Q,,12
-1,Need more pilots on offense!,A,vo_ma_needoffense,
-1,Attack base.,B,vo_player_attackbase,
-1,Attack constructor.,C,vo_player_attackconstuctor,
-1,Attack fighters.,F,vo_player_attackfighter,
-1,Attack interceptors.,I,vo_player_attackinterceptor,
-1,Attack capital ship.,L,vo_player_attackcapital,
-1,Attack miners.,M,vo_player_attackminer,
-1,Attack bombers.,O,vo_player_attackbomber,
-1,Attack teleport (ripcord).,R,vo_player_attackripcord,
-1,Attack stealths.,S,vo_player_attackstealth,
-1,Attack transports.,T,vo_player_attacktransport,
-1,Attack scouts.,U,vo_player_attackscout,
-1,Attack towers.,V,vo_player_attacktower,
-1,Attack minefield!,N,vo_ma_attackminefield,
-1,Attack nanites!,E,vo_ma_attacknanite,
-1,Attack rescue probe!,G,vo_ma_attackrescue,
-1,Attack special mines!,H,vo_ma_attackspecial,
-1,Attack their probes!,P,vo_ma_attackprobe,
-2,We need a scout to find the alephs.,A,vo_player_scoutaleph,
-2,Found enemy constructor. Request assistance.,B,vo_player_foundenemyconstruct,
-2,Constructor launching now.,C,vo_player_constructorlaunching,
-2,"Yo, go find their crib.",F,vo_player_findfreakinbase,
-2,Go Go Go!,G,vo_player_gogogo,
-2,Go miner hunting.,H,vo_player_minerhunt,
-2,Stay together.,I,vo_player_staytogether,
-2,Ripcord home.,J,vo_player_ripcordhome,
-2,Lay low and go for the contructors.,L,vo_player_laylow,
-2,Found enemy miners. Request assistance.,M,vo_player_foundenemyminer,
-2,Our base is under attack. Request assistance.,O,vo_player_baseunderattack,
-2,Deploy probes.,P,vo_player_deployprobes,
-2,Wait for signal.,Q,vo_player_wait4signal,
-2,Retreat!,R,vo_player_retreat,
-2,Deploy mines.,T,vo_player_deploymines,
-2,Repair the station.,U,vo_player_repairstation,
-2,Follow me.,X,vo_player_follow,
-2,Stay on target.,Y,vo_player_stayontarget,
-2,"I gotcha, hold still.",S,vo_player_gotcha,
-2,"Capturing base, get ready to launch!",E,vo_ma_capturingbase,
-2,Don't forget to take along your rescue probes!,K,vo_ma_deployrescue,
-2,Don't kill pods!,N,vo_ma_dontkillpods,
-2,Get off my turrets man!,V,vo_ma_offturret,
-2,Stay out of the middle aleph!,W,vo_ma_stayoutofmiddle,
-2,Pickup tech!,Z,vo_ma_pickuptech,
-3,Need more help on defense!,D,vo_ma_needdefense,
-3,Defend base.,B,vo_player_defendbase,
-3,Defend constructor.,C,vo_player_defendconstuctor,
-3,Defend fighters.,F,vo_player_defendfighter,
-3,Defend interceptors.,I,vo_player_defendinterceptor,
-3,Defend capital ship.,L,vo_player_defendcapital,
-3,Defend miners.,M,vo_player_defendminer,
-3,Defend bombers,O,vo_player_defendbomber,
-3,Defend teleport (ripcord).,R,vo_player_defendripcord,
-3,Defend stealths.,S,vo_player_defendstealth,
-3,Defend transports.,T,vo_player_defendtransport,
-3,Defend scouts.,U,vo_player_defendscout,
-3,Defend towers.,V,vo_player_defendtower,
-3,Need nanites on the constructor!,W,vo_ma_neednanonconst,
-3,Defend special mines!,A,vo_ma_defendspecial,
-3,"Defenders, stay close to base!",E,vo_player_defend,
-3,"Don't defend, it's dead.",J,vo_ma_dontdefend,
-3,Inbound enemy bomber!,1,vo_player_inboundenemybomb,
-3,Inbound enemy cap ship!,2,vo_player_inboundenemycap,
-3,Inbound enemy fighters!,3,vo_player_inboundenemyfight,
-3,Inbound enemy transport!,4,vo_player_inboundenemytrans,
-4,Find alephs.,A,vo_player_findalephs,
-4,Find carbonaceous asteroid.,C,vo_player_findcarbonacous,
-4,Find enemy.,E,vo_player_findenemy,
-4,Find helium asteroid.,H,vo_player_findhelium,
-4,Find their miners.,M,vo_player_findminer,
-4,Find silicon asteroid.,S,vo_player_findsilicon,
-4,Find uranium asteroid.,U,vo_player_finduranium,
-4,Find their probes.,P,vo_player_findprobes,
-4,Find cash.,B,vo_ma_findcash,
-4,Find enemy scout.,D,vo_ma_findscout,
-4,Find their assault ship!,G,vo_ma_findass,
-4,Find their constructors!,F,vo_ma_findconst,
-5,Make me commander.,C,vo_player_makeme,
-5,"Sorry ya'll, my ISP dropped me.",D,vo_player_ISPdrop,
-5,Everybody ready?,E,vo_player_everyoneready,
-5,What are you saving up for?,F,vo_player_savingup,
-5,Start the game already?,G,vo_player_startthegame,
-5,Did you copy?,H,vo_player_didyoucopy,
-5,It'll be a couple of minutes.,I,vo_player_coupleminutes,
-5,Just a sec... waiting for a couple more people.,J,vo_player_justasec,
-5,"So, nice weather... how's the youngens? Let's play this thing!",K,vo_player_niceweather,
-5,Who wants to be commander?,L,vo_player_whocommander,
-5,Change the map!,M,vo_player_changethemap,
-5,"I'm new, and I'm clueless.",N,vo_player_imclueless,
-5,It's late... gotta go. Night ya'll.,O,vo_player_itslate,
-5,Gota take a pitstop... hold up.,P,vo_player_pitstop,
-5,Great game. How about a rematch?,R,vo_player_rematch,
-5,Settings have changed.,S,vo_player_changedsettings,
-5,Go to team-only comms.,T,vo_player_gototeamonly,
-5,Shall we begin?,V,vo_player_shallwebegin,
-5,Check your wing assignment.,W,vo_player_checkwing,
-5,It's all good.,X,vo_player_misc17,
-5,Ya'll come back now.,Y,vo_player_misc25,
-5,Danger.,Z,vo_player_misc3,
-5,I quit!,Q,vo_player_iquit,
-5,"Heh, heh, heh...",U,vo_player_heeheehee,
-5,Can we pick teams?,1,vo_ma_pickteams,
-5,"Even up, or I'll even it up.",2,vo_ma_evenup,
-5,Hello?,3,vo_ma_hello,
-5,Settings suck!,4,vo_ma_settingssuck,
-5,Please stop spamming.,5,vo_ma_stopspam,
-5,Yo! Wake up! You there?,6,vo_ma_wakeup,
-5,We have a clueless commander... mutiny!,7,vo_ma_mutiny,
-5,Donate me your credits!,8,vo_player_donatecredits,
-6,Need Ammo!,A,vo_player_needammo,
-6,Need base.,B,vo_player_needbase,
-6,Need constructor.,C,vo_player_needconstructor,
-6,Need better fighters.,E,vo_player_needbetterfighters,
-6,Need fighters.,F,vo_player_needfighter,
-6,Need fuel.,G,vo_player_needfuel,
-6,Need fighter support.,H,vo_player_needfightersupport,
-6,Need interceptors.,I,vo_player_needinterceptor,
-6,Need objective.,J,vo_player_needobjective,
-6,Need capital ship.,L,vo_player_needcapital,
-6,Need miners.,M,vo_player_needminer,
-6,Need pickup.,P,vo_player_needpickup,
-6,Need bombers.,O,vo_player_needbomber,
-6,Need ripcord.,R,vo_player_needripcord,
-6,Need stealths.,S,vo_player_needstealth,
-6,Need transport.,T,vo_player_needtransport,
-6,Need scouts.,U,vo_player_needscout,
-6,Need towers.,V,vo_player_needtower,
-6,Need better weapons.,W,vo_player_needbetterwep,
-6,Need repairs.,X,vo_player_needrepairs,
-6,Need money.,Y,vo_player_needmoney,
-6,Need rescue probe.,K,vo_ma_needrescue,
-6,Need someone to pickup pods.,N,vo_ma_pickuppods,
-6,Need some mines.,Q,vo_ma_needmines,
-6,Need a teleport scout!,Z,vo_ma_needtpscout,
-7,Acknowledged!,A,vo_player_acknowledged,
-7,Cool.,C,vo_player_cool,
-7,Feisty!,F,vo_player_fiesty,
-7,I don't have enough money.,D,vo_player_nomoney,
-7,I'm on it.,I,vo_player_imonit,
-7,On my way.,M,vo_player_onmyway,
-7,Taking it to them!,2,vo_player_takingittothem,
-7,Objective complete.,O,vo_player_objectivecomplete,
-7,Surely you're joking.,S,vo_player_surelyjoking,
-7,Hell yeah!,Y,vo_player_hellyeah,
-7,You're crazy!,Z,vo_player_yourecrazy,
-7,Ain't no thang.,T,vo_player_aintnothin,
-7,Hold your horses...,H,vo_player_holdurehorses,
-7,Roger.,R,vo_player_roger,
-7,Excuse me?,E,vo_player_scuseme,
-7,What now?,W,vo_player_whatnow,
-7,I'm busy!!,B,vo_player_imbusy,
-7,Givin' is all she's got.,G,vo_player_misc9,
-7,What?!,X,vo_player_what,
-7,Ready.,V,vo_ma_ready,
-7,"I'd love to, but I'm podded.",J,vo_ma_cantpodded,
-7,I don't think so!,K,vo_ma_dontthinkso,
-7,"I said no, and I mean it!",L,vo_ma_noImeanit,
-7,"Let's just bug out and call it even, ok?",N,vo_ma_bugout,
-7,"Look, I don't have time for this.",Q,vo_ma_notime,
-7,"Hey, maybe you haven't been keeping up...",U,vo_ma_asseskicked,
-7,What are we supposed to use man?,1,vo_ma_harshlanguage,
-8,Almost had you.,A,vo_player_almosthadyou,
-8,Come back and fight!,C,vo_player_comebackandfight,
-8,Death becomes you.,D,vo_player_deathbecomesyou,
-8,How did that feel?,F,vo_player_howdthatfeel,
-8,Oooh... looked like that hurt!,H,vo_player_thathurt,
-8,Someone slap the investor!,I,vo_player_slapinvestor,
-8,Like lambs to the slaughter.,L,vo_player_likelambs,
-8,You have no honour!,N,vo_player_uhavenohonor,
-8,Oooh... sorry about that one.,O,vo_player_ooohsorry,
-8,You want a piece of me?,P,vo_player_wantapiece,
-8,Ripcord... last resort for the desperate.,R,vo_player_ripcordlastresort,
-8,Someone shoot the commander.,S,vo_player_shootcommander,
-8,You died with dignity.,T,vo_player_udiedwithdignity,
-8,You'll be sorry you did that.,V,vo_player_ullbesorry,
-8,Yessssss!,Y,vo_player_yes,
-8,Come on down!,M,vo_player_comeondown,
-8,How was zat?,Z,vo_player_howwasthat,
-8,Kiss my asteroid!,K,vo_player_misc2,
-8,Sending you to death row!,X,vo_player_misc20,
-8,How ya like me now?,W,vo_player_misc21,
-8,That's the bomb baby!,B,vo_player_misc27,
-8,Easier than shooting fish in a barrel!,E,vo_player_shootingfish,
-8,Ohh... Yeah! Yeah!,J,vo_player_yowie,
-8,Payload delivered!,Q,vo_player_payloaddelivered,
-8,"You're good, but not that good!",1,vo_player_urgoodbut,
-8,"You're dogmeat, pal!",2,vo_ma_dogmeat,
-8,Did IQs just drop sharply while I was away?,3,vo_ma_iqs,
-8,"Now you see me, now you don't.",4,vo_ma_nowyouseeme,
-8,"Oww, that's gonna leave a mark!",5,vo_ma_leavemark,
-8,Stop your grinnin' and drop your linen!,6,vo_ma_stopgrin,
-8,We will not tolerate this behaviour.,7,vo_ma_wonttolerate,
-9,"Deeg, dag, dog!",A,vo_player_argh,
-9,Ba-bye.,B,vo_player_bye,
-9,Inbound enemy bomber!,C,vo_player_inboundenemybomb,
-9,Dang!,D,vo_player_dang,
-9,I've found their base.,F,vo_player_foundenemybase,
-9,Gunner ready.,G,vo_player_gunnerready,
-9,"Hey, wassup?",H,vo_player_hi,
-9,I need rescue help!,I,vo_player_needrescue,
-9,I'm the king of the hill!,K,vo_player_kinguniverse,
-9,Inbound enemy cap ship!,L,vo_player_inboundenemycap,
-9,Nice work.,M,vo_player_nicework,
-9,Noooooo!,N,vo_player_nooo,
-9,Ahhh yeah!,O,vo_player_ohyeah,
-9,Phewwww.,P,vo_player_pheww,
+MenuId,QuickComms,Key,Filename,OpenMenuId,OrderAction
+0,Affirmative,1,vo_player_affirmative,,
+0,Negative,2,vo_player_negative,,
+0,Shhhooot!,3,vo_player_shoot,,
+0,Yee-haaaaaw!,4,vo_player_yeeehaa,,
+0,Attack my target,5,vo_player_attacktarget,,
+0,I need help!,6,vo_player_needhelp,,
+0,Donate your money to the investor!,7,vo_player_donateinvestor,,
+0,I need turrent gunners NOW!,8,vo_player_needturret,,
+0,I'll be on your turret in a few seconds.,9,vo_player_joiningturret,,
+0,"Oops, wrong voice chat...",0,vo_player_oops,,
+0,Attack...,A,,1,
+0,Commands...,C,,2,
+0,Defend...,D,,3,
+0,Find...,F,,4,
+0,General...,G,,5,
+0,Need...,N,,6,
+0,Respond...,R,,7,
+0,Taunts...,T,,8,
+0,Yell...,Y,,9,
+0,Info...,I,,10,
+0,Tactical...,L,,11,
+0,Other...,Q,,12,
+1,Need more pilots on offense!,A,vo_ma_needoffense,,Hunt_Miner
+1,Attack base.,B,vo_player_attackbase,,Attack_Base
+1,Attack constructor.,C,vo_player_attackconstuctor,,Attack_Builder
+1,Attack fighters.,F,vo_player_attackfighter,,Attack_Fighter
+1,Attack interceptors.,I,vo_player_attackinterceptor,,Attack_Fighter
+1,Attack capital ship.,L,vo_player_attackcapital,,Attack_Bomber
+1,Attack miners.,M,vo_player_attackminer,,Attack_Miner
+1,Attack bombers.,O,vo_player_attackbomber,,Attack_Bomber
+1,Attack teleport (ripcord).,R,vo_player_attackripcord,,Attack_Base
+1,Attack stealths.,S,vo_player_attackstealth,,Attack_Fighter
+1,Attack transports.,T,vo_player_attacktransport,,Attack_Bomber
+1,Attack scouts.,U,vo_player_attackscout,,Attack_Scout
+1,Attack towers.,V,vo_player_attacktower,,Attack_Tower
+1,Attack minefield!,N,vo_ma_attackminefield,,
+1,Attack nanites!,E,vo_ma_attacknanite,,Attack_Scout
+1,Attack rescue probe!,G,vo_ma_attackrescue,,Attack_Tower
+1,Attack special mines!,H,vo_ma_attackspecial,,
+1,Attack their probes!,P,vo_ma_attackprobe,,Attack_Tower
+2,We need a scout to find the alephs.,A,vo_player_scoutaleph,,Scout
+2,Found enemy constructor. Request assistance.,B,vo_player_foundenemyconstruct,,Attack_Builder
+2,Constructor launching now.,C,vo_player_constructorlaunching,,Defend_Builder
+2,"Yo, go find their crib.",F,vo_player_findfreakinbase,,Scout
+2,Go Go Go!,G,vo_player_gogogo,,Resume
+2,Go miner hunting.,H,vo_player_minerhunt,,Hunt_Miner
+2,Stay together.,I,vo_player_staytogether,,
+2,Ripcord home.,J,vo_player_ripcordhome,,Dock
+2,Lay low and go for the contructors.,L,vo_player_laylow,,Hunt_Builder
+2,Found enemy miners. Request assistance.,M,vo_player_foundenemyminer,,Attack_Miner
+2,Our base is under attack. Request assistance.,O,vo_player_baseunderattack,,Defend_Base
+2,Deploy probes.,P,vo_player_deployprobes,,Scout
+2,Wait for signal.,Q,vo_player_wait4signal,,Pause
+2,Retreat!,R,vo_player_retreat,,Dock
+2,Deploy mines.,T,vo_player_deploymines,,Launch_Scout
+2,Repair the station.,U,vo_player_repairstation,,Launch_Scout
+2,Follow me.,X,vo_player_follow,,Resume
+2,Stay on target.,Y,vo_player_stayontarget,,Resume
+2,"I gotcha, hold still.",S,vo_player_gotcha,,
+2,"Capturing base, get ready to launch!",E,vo_ma_capturingbase,,
+2,Don't forget to take along your rescue probes!,K,vo_ma_deployrescue,,
+2,Don't kill pods!,N,vo_ma_dontkillpods,,
+2,Get off my turrets man!,V,vo_ma_offturret,,
+2,Stay out of the middle aleph!,W,vo_ma_stayoutofmiddle,,
+2,Pickup tech!,Z,vo_ma_pickuptech,,
+3,Need more help on defense!,D,vo_ma_needdefense,,Defend_Base
+3,Defend base.,B,vo_player_defendbase,,Defend_Base
+3,Defend constructor.,C,vo_player_defendconstuctor,,Defend_Builder
+3,Defend fighters.,F,vo_player_defendfighter,,Defend_Fighter
+3,Defend interceptors.,I,vo_player_defendinterceptor,,Defend_Fighter
+3,Defend capital ship.,L,vo_player_defendcapital,,Defend_Bomber
+3,Defend miners.,M,vo_player_defendminer,,Defend_Miner
+3,Defend bombers,O,vo_player_defendbomber,,Defend_Bomber
+3,Defend teleport (ripcord).,R,vo_player_defendripcord,,
+3,Defend stealths.,S,vo_player_defendstealth,,Defend_Fighter
+3,Defend transports.,T,vo_player_defendtransport,,Defend_Bomber
+3,Defend scouts.,U,vo_player_defendscout,,Defend_Scout
+3,Defend towers.,V,vo_player_defendtower,,Defend_Tower
+3,Need nanites on the constructor!,W,vo_ma_neednanonconst,,Defend_Builder
+3,Defend special mines!,A,vo_ma_defendspecial,,Defend_Base
+3,"Defenders, stay close to base!",E,vo_player_defend,,Defend_Base
+3,"Don't defend, it's dead.",J,vo_ma_dontdefend,,Dock
+3,Inbound enemy bomber!,1,vo_player_inboundenemybomb,,Launch_Fighter
+3,Inbound enemy cap ship!,2,vo_player_inboundenemycap,,Launch_Fighter
+3,Inbound enemy fighters!,3,vo_player_inboundenemyfight,,Launch_Fighter
+3,Inbound enemy transport!,4,vo_player_inboundenemytrans,,Launch_Fighter
+4,Find alephs.,A,vo_player_findalephs,,Scout
+4,Find carbonaceous asteroid.,C,vo_player_findcarbonacous,,Scout
+4,Find enemy.,E,vo_player_findenemy,,Scout
+4,Find helium asteroid.,H,vo_player_findhelium,,Scout
+4,Find their miners.,M,vo_player_findminer,,Hunt_Miner
+4,Find silicon asteroid.,S,vo_player_findsilicon,,Scout
+4,Find uranium asteroid.,U,vo_player_finduranium,,Scout
+4,Find their probes.,P,vo_player_findprobes,,Scout
+4,Find cash.,B,vo_ma_findcash,,Scout
+4,Find enemy scout.,D,vo_ma_findscout,,Scout
+4,Find their assault ship!,G,vo_ma_findass,,Scout
+4,Find their constructors!,F,vo_ma_findconst,,Hunt_Builder
+5,Make me commander.,C,vo_player_makeme,,
+5,"Sorry ya'll, my ISP dropped me.",D,vo_player_ISPdrop,,
+5,Everybody ready?,E,vo_player_everyoneready,,
+5,What are you saving up for?,F,vo_player_savingup,,
+5,Start the game already?,G,vo_player_startthegame,,
+5,Did you copy?,H,vo_player_didyoucopy,,
+5,It'll be a couple of minutes.,I,vo_player_coupleminutes,,
+5,Just a sec... waiting for a couple more people.,J,vo_player_justasec,,
+5,"So, nice weather... how's the youngens? Let's play this thing!",K,vo_player_niceweather,,
+5,Who wants to be commander?,L,vo_player_whocommander,,
+5,Change the map!,M,vo_player_changethemap,,
+5,"I'm new, and I'm clueless.",N,vo_player_imclueless,,
+5,It's late... gotta go. Night ya'll.,O,vo_player_itslate,,
+5,Gota take a pitstop... hold up.,P,vo_player_pitstop,,
+5,Great game. How about a rematch?,R,vo_player_rematch,,
+5,Settings have changed.,S,vo_player_changedsettings,,
+5,Go to team-only comms.,T,vo_player_gototeamonly,,
+5,Shall we begin?,V,vo_player_shallwebegin,,
+5,Check your wing assignment.,W,vo_player_checkwing,,
+5,It's all good.,X,vo_player_misc17,,
+5,Ya'll come back now.,Y,vo_player_misc25,,
+5,Danger.,Z,vo_player_misc3,,
+5,I quit!,Q,vo_player_iquit,,
+5,"Heh, heh, heh...",U,vo_player_heeheehee,,
+5,Can we pick teams?,1,vo_ma_pickteams,,
+5,"Even up, or I'll even it up.",2,vo_ma_evenup,,
+5,Hello?,3,vo_ma_hello,,
+5,Settings suck!,4,vo_ma_settingssuck,,
+5,Please stop spamming.,5,vo_ma_stopspam,,
+5,Yo! Wake up! You there?,6,vo_ma_wakeup,,
+5,We have a clueless commander... mutiny!,7,vo_ma_mutiny,,
+5,Donate me your credits!,8,vo_player_donatecredits,,
+6,Need Ammo!,A,vo_player_needammo,,
+6,Need base.,B,vo_player_needbase,,
+6,Need constructor.,C,vo_player_needconstructor,,
+6,Need better fighters.,E,vo_player_needbetterfighters,,Launch_Fighter
+6,Need fighters.,F,vo_player_needfighter,,Launch_Fighter
+6,Need fuel.,G,vo_player_needfuel,,
+6,Need fighter support.,H,vo_player_needfightersupport,,Launch_Fighter
+6,Need interceptors.,I,vo_player_needinterceptor,,Launch_Fighter
+6,Need objective.,J,vo_player_needobjective,,
+6,Need capital ship.,L,vo_player_needcapital,,
+6,Need miners.,M,vo_player_needminer,,
+6,Need pickup.,P,vo_player_needpickup,,
+6,Need bombers.,O,vo_player_needbomber,,Launch_Bomber
+6,Need ripcord.,R,vo_player_needripcord,,
+6,Need stealths.,S,vo_player_needstealth,,Launch_Fighter
+6,Need transport.,T,vo_player_needtransport,,Launch_Bomber
+6,Need scouts.,U,vo_player_needscout,,Launch_Scout
+6,Need towers.,V,vo_player_needtower,,
+6,Need better weapons.,W,vo_player_needbetterwep,,
+6,Need repairs.,X,vo_player_needrepairs,,Launch_Scout
+6,Need money.,Y,vo_player_needmoney,,
+6,Need rescue probe.,K,vo_ma_needrescue,,
+6,Need someone to pickup pods.,N,vo_ma_pickuppods,,Launch_Fighter
+6,Need some mines.,Q,vo_ma_needmines,,
+6,Need a teleport scout!,Z,vo_ma_needtpscout,,Launch_Scout
+7,Acknowledged!,A,vo_player_acknowledged,,
+7,Cool.,C,vo_player_cool,,
+7,Feisty!,F,vo_player_fiesty,,
+7,I don't have enough money.,D,vo_player_nomoney,,
+7,I'm on it.,I,vo_player_imonit,,
+7,On my way.,M,vo_player_onmyway,,
+7,Taking it to them!,2,vo_player_takingittothem,,
+7,Objective complete.,O,vo_player_objectivecomplete,,
+7,Surely you're joking.,S,vo_player_surelyjoking,,
+7,Hell yeah!,Y,vo_player_hellyeah,,
+7,You're crazy!,Z,vo_player_yourecrazy,,
+7,Ain't no thang.,T,vo_player_aintnothin,,
+7,Hold your horses...,H,vo_player_holdurehorses,,
+7,Roger.,R,vo_player_roger,,
+7,Excuse me?,E,vo_player_scuseme,,
+7,What now?,W,vo_player_whatnow,,
+7,I'm busy!!,B,vo_player_imbusy,,
+7,Givin' is all she's got.,G,vo_player_misc9,,
+7,What?!,X,vo_player_what,,
+7,Ready.,V,vo_ma_ready,,Resume
+7,"I'd love to, but I'm podded.",J,vo_ma_cantpodded,,
+7,I don't think so!,K,vo_ma_dontthinkso,,
+7,"I said no, and I mean it!",L,vo_ma_noImeanit,,
+7,"Let's just bug out and call it even, ok?",N,vo_ma_bugout,,
+7,"Look, I don't have time for this.",Q,vo_ma_notime,,
+7,"Hey, maybe you haven't been keeping up...",U,vo_ma_asseskicked,,
+7,What are we supposed to use man?,1,vo_ma_harshlanguage,,
+8,Almost had you.,A,vo_player_almosthadyou,,
+8,Come back and fight!,C,vo_player_comebackandfight,,
+8,Death becomes you.,D,vo_player_deathbecomesyou,,
+8,How did that feel?,F,vo_player_howdthatfeel,,
+8,Oooh... looked like that hurt!,H,vo_player_thathurt,,
+8,Someone slap the investor!,I,vo_player_slapinvestor,,
+8,Like lambs to the slaughter.,L,vo_player_likelambs,,
+8,You have no honour!,N,vo_player_uhavenohonor,,
+8,Oooh... sorry about that one.,O,vo_player_ooohsorry,,
+8,You want a piece of me?,P,vo_player_wantapiece,,
+8,Ripcord... last resort for the desperate.,R,vo_player_ripcordlastresort,,
+8,Someone shoot the commander.,S,vo_player_shootcommander,,
+8,You died with dignity.,T,vo_player_udiedwithdignity,,
+8,You'll be sorry you did that.,V,vo_player_ullbesorry,,
+8,Yessssss!,Y,vo_player_yes,,
+8,Come on down!,M,vo_player_comeondown,,
+8,How was zat?,Z,vo_player_howwasthat,,
+8,Kiss my asteroid!,K,vo_player_misc2,,
+8,Sending you to death row!,X,vo_player_misc20,,
+8,How ya like me now?,W,vo_player_misc21,,
+8,That's the bomb baby!,B,vo_player_misc27,,
+8,Easier than shooting fish in a barrel!,E,vo_player_shootingfish,,
+8,Ohh... Yeah! Yeah!,J,vo_player_yowie,,
+8,Payload delivered!,Q,vo_player_payloaddelivered,,
+8,"You're good, but not that good!",1,vo_player_urgoodbut,,
+8,"You're dogmeat, pal!",2,vo_ma_dogmeat,,
+8,Did IQs just drop sharply while I was away?,3,vo_ma_iqs,,
+8,"Now you see me, now you don't.",4,vo_ma_nowyouseeme,,
+8,"Oww, that's gonna leave a mark!",5,vo_ma_leavemark,,
+8,Stop your grinnin' and drop your linen!,6,vo_ma_stopgrin,,
+8,We will not tolerate this behaviour.,7,vo_ma_wonttolerate,,
+9,"Deeg, dag, dog!",A,vo_player_argh,,
+9,Ba-bye.,B,vo_player_bye,,
+9,Inbound enemy bomber!,C,vo_player_inboundenemybomb,,Launch_Fighter
+9,Dang!,D,vo_player_dang,,
+9,I've found their base.,F,vo_player_foundenemybase,,Launch_Bomber
+9,Gunner ready.,G,vo_player_gunnerready,,
+9,"Hey, wassup?",H,vo_player_hi,,
+9,I need rescue help!,I,vo_player_needrescue,,
+9,I'm the king of the hill!,K,vo_player_kinguniverse,,
+9,Inbound enemy cap ship!,L,vo_player_inboundenemycap,,Launch_Fighter
+9,Nice work.,M,vo_player_nicework,,
+9,Noooooo!,N,vo_player_nooo,,
+9,Ahhh yeah!,O,vo_player_ohyeah,,
+9,Phewwww.,P,vo_player_pheww,,
 9,Ripcording!,R,vo_player_ripcording,
-9,Sweet!,S,vo_player_sweet,
-9,Thanks.,T,vo_player_thanks,
-9,"Turrets, attack my target!",U,vo_player_turretsattack,
-9,Thanks for the lift!,V,vo_player_thankslift,
-9,Watch your fire.,W,vo_player_watchfire,
-9,Doah!,X,vo_player_doah,
-9,Awesome!,Z,vo_player_awesome,
-9,I missed!,J,vo_player_imissed,
-9,Ooooooooaaaah!,Q,vo_player_ooooaaaa,
-9,Aaaaaaaaahhhh!,E,vo_player_aaaaoooo,
-9,Read the chat!,V,vo_player_readchat,
-9,That's it man... Game over!,1,vo_ma_gameover,
-9,It's game time.,2,vo_ma_gametime,
-9,"Let's go people, they ain't paying us by the hour...",3,vo_ma_letsgo,
-9,They ain't paying us enough for this...,4,vo_ma_notenough,
-10,Is the aleph mined?,A,vo_ma_isalephmined,
-10,The aleph is mined!,M,vo_player_alephmined,
-10,The aleph is mined and droned!,D,vo_ma_alephmineddroned,
-10,How far is their base from the aleph?,H,vo_ma_howfar,
-10,It'll be a couple more minutes.,I,vo_player_coupleminutes,
-10,They are pursuing expansion.,E,vo_ma_theyexp,
+9,Sweet!,S,vo_player_sweet,,
+9,Thanks.,T,vo_player_thanks,,
+9,"Turrets, attack my target!",U,vo_player_turretsattack,,
+9,Thanks for the lift!,V,vo_player_thankslift,,
+9,Watch your fire.,W,vo_player_watchfire,,
+9,Doah!,X,vo_player_doah,,
+9,Awesome!,Z,vo_player_awesome,,
+9,I missed!,J,vo_player_imissed,,
+9,Ooooooooaaaah!,Q,vo_player_ooooaaaa,,
+9,Aaaaaaaaahhhh!,E,vo_player_aaaaoooo,,
+9,Read the chat!,V,vo_player_readchat,,
+9,That's it man... Game over!,1,vo_ma_gameover,,Dock
+9,It's game time.,2,vo_ma_gametime,,
+9,"Let's go people, they ain't paying us by the hour...",3,vo_ma_letsgo,,
+9,They ain't paying us enough for this...,4,vo_ma_notenough,,
+10,Is the aleph mined?,A,vo_ma_isalephmined,,
+10,The aleph is mined!,M,vo_player_alephmined,,
+10,The aleph is mined and droned!,D,vo_ma_alephmineddroned,,
+10,How far is their base from the aleph?,H,vo_ma_howfar,,
+10,It'll be a couple more minutes.,I,vo_player_coupleminutes,,
+10,They are pursuing expansion.,E,vo_ma_theyexp,,
 10,They are pursuing supremacy.,S,vo_ma_theysup,
-10,They are pursuing tactical.,T,vo_ma_theytac,
-10,They have a shipyard!,V,vo_player_haveshipyard,
-10,They're pushing their op con!,O,vo_ma_pushop,
-10,"Damn, I got podded.",P,vo_ma_podded,
-10,Danger.,Z,vo_player_misc3,
-10,He cloaked!,C,vo_ma_cloaked,
-10,He ripped!,R,vo_ma_ripped,
-10,Oh they see me... I've been spotted.,1,vo_ma_spotted,
-10,They don't see me.,2,vo_ma_notseen,
-11,Meet me at the jump point.,M,vo_player_meetatjump,
-11,Form on my wing!,W,vo_player_formonmywing,
-11,Follow me!,F,vo_player_follow,
-11,Hold up.,U,vo_player_holdup,
-11,Wait for signal.,I,vo_player_wait4signal,
-11,Go Go Go!,G,vo_player_gogogo,
-11,Rush 'em!,R,vo_ma_rush,
-11,Stay together.,T,vo_player_staytogether,
-11,Stay on target.,O,vo_player_stayontarget,
-11,Head back to base.,B,vo_player_headback,
-11,Scout ahead for threats!,S,vo_ma_scoutahead,
-11,Get them off me!,H,vo_player_getoffme,
-11,"I gotcha, hold still.",Q,vo_player_gotcha,
-11,"Nanites, launch and wait for the bomber.",1,vo_ma_naniteslaunch,
-11,"Nanites, ripcord in!",2,vo_ma_nanitesrip,
-11,Camp the aleph!,3,vo_ma_campaleph,
-11,Camp their base!,4,vo_ma_campbase,
-11,Camp their teleport!,5,vo_ma_campteleport,
-11,Found enemy miners. Request assistance.,6,vo_player_foundenemyminer,
-11,Found enemy constructor. Request assistence.,7,vo_player_foundenemyconstruct,
-11,Retreat!,8,vo_player_retreat,
-11,Ripcording!,9,vo_player_ripcording,
-11,I'm busy!,0,vo_player_imbusy,
-12,Capship waiting for turrets.,A,vo_player_capshipwaiting,
-12,Bomber waiting for turrets.,B,vo_player_bomberwaiting,
-12,Is our base clear?,C,vo_player_isourbaseclear,
-12,Our miners are dead!,D,vo_player_minersaredead,
-12,Escort miners!,E,vo_player_escortminer,
-12,Found enemy ships.,F,vo_player_foundenemyships,
-12,Enemy has a flag.,H,vo_player_enemyhasflag,
-12,Inbound.,I,vo_player_inbound,
-12,Target needed!,J,vo_player_targetneeded,
-12,Complete!,K,vo_player_complete,
-12,Come along.,L,vo_player_follow,
-12,Escort builder.,M,vo_player_escortbuilder,
-12,Need cruiser support!,N,vo_player_needcruiser,
-12,"Defend our miners, they're getting hammered!",O,vo_player_minershammered,
-12,Base captured!,P,vo_player_basecaptured,
-12,They have capitals!,R,vo_player_havecapitols,
-12,Gimme something to shoot at!,Q,vo_player_gimmesomething,
-12,Their shields are down!,T,vo_player_shieldsaredown,
-12,You're mad.,U,vo_player_yourmad,
-12,Cover me!,V,vo_player_coverme,
-12,We have a traitor in our midst.,W,vo_player_traitor,
-12,I'm out of ammo. Interesting!,X,vo_player_outofammohmmm,
-12,"Transport outbound, please escort.",Y,vo_player_transportoutbound,
-12,Formate!,Z,vo_player_formate,
-12,Regroup!,1,vo_player_regroup,
-12,I can't hold 'em!!,2,vo_player_cantholdem,
-12,Found aleph.,3,vo_player_foundaleph,
-12,Found enemy ships!,4,vo_player_foundenemyships,
-12,Found helium.,5,vo_player_foundhelium,
-12,Defend!,6,vo_player_defend,
-12,Attack!,7,vo_player_attack,
-12,Attack defenders.,8,vo_player_attackdefender,
-12,Defend defenders.,9,vo_player_defenddefender,
-12,Need defenders.,0,vo_player_needdefender,
+10,They are pursuing tactical.,T,vo_ma_theytac,,
+10,They have a shipyard!,V,vo_player_haveshipyard,,
+10,They're pushing their op con!,O,vo_ma_pushop,,Launch_Fighter
+10,"Damn, I got podded.",P,vo_ma_podded,,
+10,Danger.,Z,vo_player_misc3,,Pause
+10,He cloaked!,C,vo_ma_cloaked,,
+10,He ripped!,R,vo_ma_ripped,,
+10,Oh they see me... I've been spotted.,1,vo_ma_spotted,,
+10,They don't see me.,2,vo_ma_notseen,,
+11,Meet me at the jump point.,M,vo_player_meetatjump,,
+11,Form on my wing!,W,vo_player_formonmywing,,
+11,Follow me!,F,vo_player_follow,,
+11,Hold up.,U,vo_player_holdup,,Pause
+11,Wait for signal.,I,vo_player_wait4signal,Pause
+11,Go Go Go!,G,vo_player_gogogo,,Resume
+11,Rush 'em!,R,vo_ma_rush,,Resume
+11,Stay together.,T,vo_player_staytogether,,
+11,Stay on target.,O,vo_player_stayontarget,,Resume
+11,Head back to base.,B,vo_player_headback,,Dock
+11,Scout ahead for threats!,S,vo_ma_scoutahead,,Scout
+11,Get them off me!,H,vo_player_getoffme,,
+11,"I gotcha, hold still.",Q,vo_player_gotcha,,
+11,"Nanites, launch and wait for the bomber.",1,vo_ma_naniteslaunch,,Launch_Scout
+11,"Nanites, ripcord in!",2,vo_ma_nanitesrip,,Launch_Scout
+11,Camp the aleph!,3,vo_ma_campaleph,,Launch_Fighter
+11,Camp their base!,4,vo_ma_campbase,,Attack_Base
+11,Camp their teleport!,5,vo_ma_campteleport,,Attack_Base
+11,Found enemy miners. Request assistance.,6,vo_player_foundenemyminer,,Attack_Miner
+11,Found enemy constructor. Request assistence.,7,vo_player_foundenemyconstruct,,Attack_Builder
+11,Retreat!,8,vo_player_retreat,,Dock
+11,Ripcording!,9,vo_player_ripcording,,
+11,I'm busy!,0,vo_player_imbusy,,
+12,Capship waiting for turrets.,A,vo_player_capshipwaiting,,
+12,Bomber waiting for turrets.,B,vo_player_bomberwaiting,,
+12,Is our base clear?,C,vo_player_isourbaseclear,,
+12,Our miners are dead!,D,vo_player_minersaredead,,
+12,Escort miners!,E,vo_player_escortminer,,Defend_Miner
+12,Found enemy ships.,F,vo_player_foundenemyships,,Attack_Fighter
+12,Enemy has a flag.,H,vo_player_enemyhasflag,,
+12,Inbound.,I,vo_player_inbound,,Resume
+12,Target needed!,J,vo_player_targetneeded,,
+12,Complete!,K,vo_player_complete,,
+12,Come along.,L,vo_player_follow,,Resume
+12,Escort builder.,M,vo_player_escortbuilder,,Defend_Builder
+12,Need cruiser support!,N,vo_player_needcruiser,,
+12,"Defend our miners, they're getting hammered!",O,vo_player_minershammered,,Defend_Miner
+12,Base captured!,P,vo_player_basecaptured,,
+12,They have capitals!,R,vo_player_havecapitols,,Launch_Fighter
+12,Gimme something to shoot at!,Q,vo_player_gimmesomething,,
+12,Their shields are down!,T,vo_player_shieldsaredown,,
+12,You're mad.,U,vo_player_yourmad,,
+12,Cover me!,V,vo_player_coverme,,
+12,We have a traitor in our midst.,W,vo_player_traitor,,
+12,I'm out of ammo. Interesting!,X,vo_player_outofammohmmm,,
+12,"Transport outbound, please escort.",Y,vo_player_transportoutbound,,Defend_Bomber
+12,Formate!,Z,vo_player_formate,,
+12,Regroup!,1,vo_player_regroup,,Dock
+12,I can't hold 'em!!,2,vo_player_cantholdem,,
+12,Found aleph.,3,vo_player_foundaleph,,
+12,Found enemy ships!,4,vo_player_foundenemyships,,
+12,Found helium.,5,vo_player_foundhelium,,
+12,Defend!,6,vo_player_defend,,Defend_Fighter
+12,Attack!,7,vo_player_attack,,Attack_Fighter
+12,Attack defenders.,8,vo_player_attackdefender,,Attack_Fighter
+12,Defend defenders.,9,vo_player_defenddefender,,Defend_Fighter
+12,Need defenders.,0,vo_player_needdefender,,Launch_Fighter

@@ -204,6 +204,13 @@ namespace AllegianceForms.Engine
             return new PointF(Random.Next(ScreenWidth), Random.Next(ScreenHeight));
         }
 
+        public static T RandomItem<T>(List<T> items)
+        {
+            if (items.Count == 0) return default(T);
+
+            return items[Random.Next(items.Count)];
+        }
+
         public Base RandomEnemyBase(int team, out Base launchBase)
         {
             launchBase = null;
