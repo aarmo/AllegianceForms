@@ -66,8 +66,7 @@ namespace AllegianceForms.Engine.Ships
             {
                 CurrentOrder.Update(this);                
             }
-
-            if (CurrentOrder == null) StopMoving();
+            else if (CurrentOrder == null) StopMoving();
 
             if (Docked && DockedAtBase != null && (!DockedAtBase.Active || DockedAtBase.Team != Team))
             {

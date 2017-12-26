@@ -1,7 +1,37 @@
-Allegiance Forms: Future?
+Allegiance Forms: Plans
+
+Quick Commands organising units - Practise! 
+ Does it feel more like the original? 
+ Is it quicker & less precise?
+ How about across sectors?
+ Squadrons/Wings group?
+ Setup Missions? No - just order, switch sectors and repeat
+ 
+ 
+Multiplayer!!
+ Server: Listen & Accept connections
+ Client: Connect & send commands
+ Server: Send commands & Updates
+
+Optimise!!
+ 30fps minimum
+ Enable CPU profiling & check what is poor
+ 
+Campaign!!
+ Flesh out the colony ship idea - Story points for each, important characters, backgrounds, sub cultures. How would they evolve during the journey?
+ Faction presets - setup differences & faction names for each. How would the flag evolve?
+ Scrolling text scenes initially, animations later?
+ Gameplay within the colony ship? (Management sim? Clicker? Match3? Typing game? Tower defence? Card battle game? Rummy-style card game? Board game? Tetris? Breakout? Pong? Space invaders? Racing?, Frogger? Trading game? Stock Market sim?)
+ Gameplay on the planet? (Alpha Centuri? Mushroom wars?)
+ Discover worm holes >> Gameplay in space (Allegiance)
+ Branching decisions & game results leading to at least 2 endings. You can retry if you loose, or choose to progress with limited choices.
+ 
+ 
+ 
+ 
+
 	
 Ideas:
-Neutral ships/bases/space monsters?
 Destroyed bases leave salvage?
 Multiple resources (ala Gass in SC2)
 
@@ -30,3 +60,7 @@ bombers first, then focus on next tech.
 Redo sound effects
 http://www.oddcast.com/home/demos/tts/tts_example.php
 http://cache-a.oddcast.com/tts/gen.php?EID=3&LID=1&VID=1&TXT=Constructor%20requesting%20Uranium%20Rock&IS_UTF8=1&EXT=mp3&FX_TYPE=R&FX_LEVEL=3&FNAME=&ACC=5883747&API=&SESSION=&CS=26b9348145cb4252f1ab8c217bad840a
+
+
+
+

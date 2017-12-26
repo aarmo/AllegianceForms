@@ -849,11 +849,11 @@ namespace AllegianceForms.Forms
             if (i.OpenMenuId == string.Empty)
             {
                 if (i.Filename == string.Empty) return false;
+                QuickComms.ProcessOrder(StrategyGame, i, _currentSector, F_ShipEvent);
 
                 ESounds s;
                 if (Enum.TryParse(i.Filename, out s))
                 {
-                    QuickComms.ProcessOrder(StrategyGame, i, _currentSector);
                     SoundEffect.Play(s);
                 }
                 return true;

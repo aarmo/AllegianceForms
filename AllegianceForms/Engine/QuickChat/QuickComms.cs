@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AllegianceForms.Engine.Map;
-using System;
 using AllegianceForms.Orders;
 using AllegianceForms.Engine.Ships;
+using AllegianceForms.Engine.Bases;
+using System.Drawing;
 
 namespace AllegianceForms.Engine.QuickChat
 {
@@ -33,26 +34,38 @@ namespace AllegianceForms.Engine.QuickChat
             }
         }
 
-        public static void ProcessOrder(StrategyGame game, QuickChatItem cmd, MapSector sector)
+        public static void ProcessOrder(StrategyGame game, QuickChatItem cmd, MapSector sector, Ship.ShipEventHandler f_ShipEvent)
         {
-            // TODO: Complete!
+            // TODO: Test!
             return;
-
+            
             if (cmd == null || game == null || cmd.OrderAction == string.Empty) return;
 
             var order = cmd.OrderAction;
             var team = 1;
-            var alliance = game.GameSettings.TeamAlliance[0];
-            
+            var t = team - 1;
+            var alliance = game.GameSettings.TeamAlliance[t];
+            var pilotCount = game.DockedPilots[t];
+
             if (order.StartsWith("Attack"))
             {
                 // All friendly combat ships in sector
-                var ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.CanAttackShips()).ToList();
+                var ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.CanAttackShips()).ToList();
                 if (ships.Count == 0) return;
+
+                if (order.EndsWith("Base"))
+                {
+                    var targetBases = game.AllBases.Where(_ => _.Active && _.SectorId != sector.Id && _.Alliance != alliance).ToList();
+                    if (targetBases.Count == 0) return;
+
+                    var targetBase = StrategyGame.RandomItem(targetBases);
+                    ships.ForEach(_ => _.OrderShip(new SurroundOrder(game, sector.Id, targetBase, PointF.Empty)));
+                    return;
+                }
 
                 // if type in sector, attack it (rnd)
                 var targetTypes = GetOrderTypes(order);
-                var targets = game.AllUnits.Where(_ => _.Active && _.IsVisibleToTeam(team) && _.Alliance != alliance && _.SectorId == sector.Id && targetTypes.Contains(_.Type)).ToList();
+                var targets = game.AllUnits.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance && _.SectorId == sector.Id && targetTypes.Contains(_.Type)).ToList();
 
                 var append = false;
                 Ship target = null;
@@ -60,7 +73,7 @@ namespace AllegianceForms.Engine.QuickChat
                 // if type spotted, navigate to it (rnd)
                 if (targets.Count == 0)
                 {
-                    targets = game.AllUnits.Where(_ => _.Active && _.IsVisibleToTeam(team) && _.Alliance != alliance && targetTypes.Contains(_.Type)).ToList();
+                    targets = game.AllUnits.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance && targetTypes.Contains(_.Type)).ToList();
                     if (targets.Count == 0) return;
 
                     append = true;
@@ -77,9 +90,19 @@ namespace AllegianceForms.Engine.QuickChat
                 var ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.CanAttackShips()).ToList();
                 if (ships.Count == 0) return;
 
+                if (order.EndsWith("Base"))
+                {
+                    var targetBases = game.AllBases.Where(_ => _.Active && _.SectorId != sector.Id && _.Alliance == alliance).ToList();
+                    if (targetBases.Count == 0) return;
+
+                    var targetBase = StrategyGame.RandomItem(targetBases);
+                    ships.ForEach(_ => _.OrderShip(new SurroundOrder(game, sector.Id, targetBase, PointF.Empty)));
+                    return;
+                }
+
                 // if type in sector, defend it (rnd)
                 var targetTypes = GetOrderTypes(order);
-                var targets = game.AllUnits.Where(_ => _.Active && _.IsVisibleToTeam(team) && _.Alliance == alliance && _.SectorId == sector.Id && targetTypes.Contains(_.Type)).ToList();
+                var targets = game.AllUnits.Where(_ => _.Active && _.Alliance == alliance && _.SectorId == sector.Id && targetTypes.Contains(_.Type)).ToList();
 
                 if (targets.Count == 0) return;
                 var target = StrategyGame.RandomItem(targets);
@@ -87,34 +110,94 @@ namespace AllegianceForms.Engine.QuickChat
             }
             else if (order.StartsWith("Launch"))
             {
+                if (pilotCount == 0) return;
+
                 // Get a base in sector (rnd)
                 var bases = game.AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.CanLaunchShips()).ToList();
-                if (bases.Count == 0) return;
-                
-                // Get a base close to this sector (rnd)
+                Base launchBase = null;
+                if (bases.Count == 0)
+                {
+                    // Get a base close to this sector (rnd)
+                    launchBase = game.ClosestSectorWithBase(team, sector.Id);                    
+                }
+                else
+                {
+                    launchBase = StrategyGame.RandomItem(bases);
+                }
+                if (launchBase == null) return;
+
                 // Launch this ship type
-                
+                var types = GetOrderTypes(order);
+                do
+                {
+                    var s = LaunchShipType(game, types, launchBase, f_ShipEvent);
+                    if (s == null) break;
+                } while (game.DockedPilots[t] > pilotCount / 2);
+
             }
             else if (order.StartsWith("Hunt"))
             {
                 // Get a base in sector (rnd)
                 var bases = game.AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.CanLaunchShips()).ToList();
-                if (bases.Count == 0) return;
+                Base launchBase = null;
+
+                if (bases.Count == 0)
+                {
+                    // Get a base close to this sector (rnd)
+                    launchBase = game.ClosestSectorWithBase(team, sector.Id);
+                }
+                else
+                {
+                    launchBase = StrategyGame.RandomItem(bases);
+                }
 
                 var targetTypes = GetOrderTypes(order);
                 var targets = game.AllUnits.Where(_ => _.Active && _.IsVisibleToTeam(team) && _.Alliance != alliance && targetTypes.Contains(_.Type)).ToList();
-                
-                // Get a base close to this sector (rnd)
+                var target = StrategyGame.RandomItem(targets);
+
                 // Launch fighter ship type
+                var types = GetOrderTypes("Fighter");
+                var ships = new List<CombatShip>();
+                do
+                {
+                    var s = LaunchShipType(game, types, launchBase, f_ShipEvent);
+                    if (s == null) break;
+                    ships.Add(s);
+                } while (game.DockedPilots[t] > pilotCount / 2);
 
                 // If type spotted, navigate & attack it (rnd)
-                // Otherwise patrol randomly until spotted
+                if (target != null)
+                {
+                    if (launchBase.SectorId != target.SectorId)
+                    {
+                        ships.ForEach(_ => _.OrderShip(new NavigateOrder(game, _, target.SectorId), true));
+                    }
+
+                    ships.ForEach(_ => _.OrderShip(new InterceptOrder(game, target, _.SectorId, true), true));
+                }
+                else
+                {
+                    // Otherwise patrol randomly until spotted
+                    ships.ForEach(_ => _.OrderShip(new HuntControlOrder(game, targetTypes), true));
+                }
             }
             else if (order == "Scout")
             {
-                // Launch up to min(50%, 3) scouts to patrol randomly
+                // Launch up to 3 scouts to patrol randomly
                 var bases = game.AllBases.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.CanLaunchShips()).ToList();
+                if (bases.Count == 0) return;
+                var launchBase = StrategyGame.RandomItem(bases);
 
+                var types = GetOrderTypes("Scout");
+                var ships = new List<CombatShip>();
+                do
+                {
+                    var s = LaunchShipType(game, types, launchBase, f_ShipEvent);
+                    if (s == null) break;
+                    ships.Add(s);
+                } while (game.DockedPilots[t] > 0 && ships.Count < 3);
+                
+                ships.ForEach(_ => _.OrderShip(new ScoutControlOrder(game), true));
             }
             else if (order == "Dock")
             {
@@ -142,6 +225,24 @@ namespace AllegianceForms.Engine.QuickChat
                 // Unpause order
             }
 
+        }
+
+        private static CombatShip LaunchShipType(StrategyGame game, EShipType[] types, Base launchBase, Ship.ShipEventHandler f_ShipEvent)
+        {
+            var team = launchBase.Team;
+            var colour = Color.FromArgb(game.GameSettings.TeamColours[team - 1]);
+            var ship = game.Ships.CreateCombatShip(types, team, colour, launchBase.SectorId);
+            if (ship == null) return null;
+
+            var pos = launchBase.GetNextBuildPosition();
+            ship.CenterX = launchBase.CenterX;
+            ship.CenterY = launchBase.CenterY;
+            ship.ShipEvent += f_ShipEvent;
+            ship.OrderShip(new MoveOrder(game, launchBase.SectorId, pos, Point.Empty));
+
+            game.LaunchShip(ship);
+
+            return ship;
         }
 
         private static EShipType[] GetOrderTypes(string order)

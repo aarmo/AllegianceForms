@@ -27,7 +27,7 @@ namespace AllegianceForms.Orders
             }
             else if (_changeTarget)
             {
-                var targets = _game.AllUnits.Where(_ => _.Active && _.SectorId == ship.SectorId && _.Alliance != ship.Alliance && _.Type == _target.Type).ToList();
+                var targets = _game.AllUnits.Where(_ => _.Active && _.SectorId == ship.SectorId && _.Alliance == _target.Alliance && _.Type == _target.Type).ToList();
                 if (targets.Count == 0)
                 {
                     OrderComplete = true;
@@ -47,6 +47,10 @@ namespace AllegianceForms.Orders
             if (OrderComplete && ship.Type == EShipType.Lifepod)
             {
                 ship.Dock(null);
+            }
+            else if (OrderComplete && _target != null && _target.Active && _target.SectorId == ship.SectorId)
+            {
+                OrderComplete = false;
             }
         }
 

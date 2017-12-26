@@ -1,6 +1,7 @@
 ﻿using AllegianceForms.Engine;
 using AllegianceForms.Engine.Ships;
 using System.Drawing;
+using System.Linq;
 
 namespace AllegianceForms.Orders
 {
@@ -49,6 +50,12 @@ namespace AllegianceForms.Orders
 
         private void FindNextWormhole(int team, int sectorId)
         {
+            if (_targetSectorId == sectorId)
+            {
+                OrderComplete = true;
+                return;
+            }
+
             _nextStep = _game.NextWormholeEnd(team, sectorId, _targetSectorId, out _otherEnd);
 
             if (_nextStep != null && _otherEnd != null)

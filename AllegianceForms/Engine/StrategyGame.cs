@@ -31,6 +31,7 @@ namespace AllegianceForms.Engine
         
         public static int ScreenWidth = 100;
         public static int ScreenHeight = 100;
+        public static Point ScreenCenter => new Point(ScreenWidth / 2, ScreenHeight / 2);
 
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 1;
