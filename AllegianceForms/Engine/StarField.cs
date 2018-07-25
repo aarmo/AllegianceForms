@@ -1,5 +1,4 @@
-﻿using IrrKlang;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace AllegianceForms.Engine
 {
@@ -7,7 +6,7 @@ namespace AllegianceForms.Engine
     {
         public Image Frame;
         private const int MaxDepth = 32;
-        private Vector3D[] _stars = new Vector3D[256];
+        private readonly Vector3D[] _stars = new Vector3D[256];
 
         private int _width;
         private int _height;
@@ -69,5 +68,19 @@ namespace AllegianceForms.Engine
                 }
             }
         }
+    }
+
+    internal class Vector3D
+    {
+        public Vector3D(float v1, float v2, float v3)
+        {
+            X = v1;
+            Y = v2;
+            Z = v3;
+        }
+
+        public float Z { get; set; }
+        public float Y { get; set; }
+        public float X { get; set; }
     }
 }

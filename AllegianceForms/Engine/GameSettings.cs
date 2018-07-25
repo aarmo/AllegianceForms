@@ -179,7 +179,7 @@ namespace AllegianceForms.Engine
                 MissileWeaponSpeedMultiplier = 1,
                 MissileWeaponTrackingMultiplier = 1,
 
-                AlienChance = 0.35f,
+                AlienChance = 0f,
                 MinAliensPerSector = 2,
                 MaxAliensPerSector = 4,
                 MinAlienBasesPerSector = 1,

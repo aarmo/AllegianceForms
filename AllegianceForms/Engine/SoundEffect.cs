@@ -1,79 +1,68 @@
-﻿using IrrKlang;
-using System;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Media;
 
 namespace AllegianceForms.Engine
 {
     public class SoundEffect
     {
-        private static ISoundEngine _engine = new ISoundEngine(SoundOutputDriver.AutoDetect, SoundEngineOptionFlag.MultiThreaded);
-        private static ISoundEngine _importantEngine = new ISoundEngine(SoundOutputDriver.AutoDetect, SoundEngineOptionFlag.MultiThreaded);
+        private const int MaxSoundCount = 1;
 
-        private const int SoundCountDelayMS = 400;
-        private const int MaxSoundCount = 2;
-
-        private static float _volume = 0.5f;
-        private static int _soundCount = 0;
-        private static DateTime NextSoundCount = DateTime.MinValue;
+        private static List<SoundPlayer> _available;
 
         public static void Init()
         {
-            _volume = Convert.ToSingle(ConfigurationManager.AppSettings["SoundEffects.Volume"]);
+            //var volume = Convert.ToSingle(ConfigurationManager.AppSettings["SoundEffects.Volume"]);
+            _available = new List<SoundPlayer>();
 
-            _engine.SoundVolume = _volume;
-            _importantEngine.SoundVolume = _volume;
+            for (var i = 0; i < MaxSoundCount; i++)
+            {
+                var m = new SoundPlayer();
+                _available.Add(m);
+            }
         }
 
         public static void Play(ESounds sound, bool important = false)
         {
-            if (NextSoundCount > DateTime.Now)
+            lock (_available)
             {
-                if (_soundCount > MaxSoundCount && !important) return;
-                _soundCount++;
-            }
-            else
-            {
-                _soundCount = 1;
-                NextSoundCount = DateTime.Now.AddMilliseconds(SoundCountDelayMS);
+                if (_available.Count < 1) return;
             }
 
             var path = GetSoundFile(sound);
-            Task.Run(() => PlayCatch(path, important));
+            Task.Run(() => PlayCatch(path));
         }
 
         public static string GetSoundFile(ESounds sound)
         {
-            return StrategyGame.SoundsDir + sound.ToString() + ".ogg";
+            return StrategyGame.SoundsDir + sound + ".wav";
         }
 
-        private static void PlayCatch(string path, bool important)
+        private static void PlayCatch(string path)
         {
-            if (important)
+            SoundPlayer s = null;
+            try
             {
-                try
+                lock (_available)
                 {
-                    _importantEngine.Play2D(path);
-                }
-                catch
-                {
-                    _importantEngine = new ISoundEngine(SoundOutputDriver.AutoDetect, SoundEngineOptionFlag.MultiThreaded);
-                    _importantEngine.SoundVolume = _volume;
-                }
-            }
-            else
-            {
-                try
-                {
-                    _engine.Play2D(path);
-                }
-                catch
-                {
-                    _engine = new ISoundEngine(SoundOutputDriver.AutoDetect, SoundEngineOptionFlag.MultiThreaded);
-                    _engine.SoundVolume = _volume;
-                }
-            }
+                    if (_available.Count < 1) return;
 
+                    s = _available[0];
+                    _available.RemoveAt(0);
+                }
+
+                s.SoundLocation = path;
+                s.PlaySync();
+            }
+            finally 
+            {
+                lock (_available)
+                {
+                    if (s != null) _available.Add(s);
+                }
+                
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms", "AllegianceForms\AllegianceForms.csproj", "{D298D545-6434-4A5C-89CF-752E0F041F0B}"
 EndProject
@@ -16,13 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{E94CC59B-EA3D-4F95-AFEB-D31300223779}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{6BEC8F37-6205-4CE9-B546-A3196EDDFBBF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IrrKlang.1.5", "IrrKlang.1.5", "{4CAB038F-7EFF-48AF-83CB-F5EB0BDD22BC}"
-	ProjectSection(SolutionItems) = preProject
-		packages\build\IrrKlang.1.5\ikpFlac.dll = packages\build\IrrKlang.1.5\ikpFlac.dll
-		packages\build\IrrKlang.1.5\ikpMP3.dll = packages\build\IrrKlang.1.5\ikpMP3.dll
-		packages\build\IrrKlang.1.5\irrKlang.NET4.dll = packages\build\IrrKlang.1.5\irrKlang.NET4.dll
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +48,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E94CC59B-EA3D-4F95-AFEB-D31300223779} = {0B37C591-5FAF-4142-B9F7-535C410D30A5}
 		{6BEC8F37-6205-4CE9-B546-A3196EDDFBBF} = {E94CC59B-EA3D-4F95-AFEB-D31300223779}
-		{4CAB038F-7EFF-48AF-83CB-F5EB0BDD22BC} = {6BEC8F37-6205-4CE9-B546-A3196EDDFBBF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E1243FA-B7BB-48C0-AB7D-869F2045A406}
 	EndGlobalSection
 EndGlobal

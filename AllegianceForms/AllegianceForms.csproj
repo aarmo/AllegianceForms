@@ -97,9 +97,8 @@
       <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="irrKlang.NET4, Version=1.0.5235.21387, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\build\IrrKlang.1.5\irrKlang.NET4.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -112,9 +111,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -448,1147 +445,1153 @@
     <Content Include="Art\SolapReadme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\criticalmessage.ogg">
+    <Content Include="Art\Sounds\accept.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\mousedown.ogg">
+    <Content Include="Art\Sounds\big_explosion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\mouseover.ogg">
+    <Content Include="Art\Sounds\criticalmessage.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\newtargetneutral.ogg">
+    <Content Include="Art\Sounds\dropmine.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\text.ogg">
+    <Content Include="Art\Sounds\explosion_tiny.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_attack_miner.ogg">
+    <Content Include="Art\Sounds\final_explosion_large.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_expansion.ogg">
+    <Content Include="Art\Sounds\final_explosion_medium.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_garrison.ogg">
+    <Content Include="Art\Sounds\final_explosion_small.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_outpost.ogg">
+    <Content Include="Art\Sounds\missilelock.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_refinery.ogg">
+    <Content Include="Art\Sounds\missilelockonme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_supremecy.ogg">
+    <Content Include="Art\Sounds\mousedown.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_tactical.ogg">
+    <Content Include="Art\Sounds\mouseover.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_teleport.ogg">
+    <Content Include="Art\Sounds\newtarget.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemyexpansion.ogg">
+    <Content Include="Art\Sounds\newtargetenemy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemygarrison.ogg">
+    <Content Include="Art\Sounds\newtargetneutral.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemyoutpost.ogg">
+    <Content Include="Art\Sounds\noncriticalmessage.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemyrefinery.ogg">
+    <Content Include="Art\Sounds\outofammo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemysupremecy.ogg">
+    <Content Include="Art\Sounds\payday.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemytactical.ogg">
+    <Content Include="Art\Sounds\plasmaac1.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemyteleport.ogg">
+    <Content Include="Art\Sounds\plasmamini1.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_expansion.ogg">
+    <Content Include="Art\Sounds\shieldcharge1.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_garrison.ogg">
+    <Content Include="Art\Sounds\sidewinder.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_miner.ogg">
+    <Content Include="Art\Sounds\small_explosion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_outpost.ogg">
+    <Content Include="Art\Sounds\sniperlaser1pwrup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_refinery.ogg">
+    <Content Include="Art\Sounds\squish_01.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_supremecy.ogg">
+    <Content Include="Art\Sounds\sshipint.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_tactical.ogg">
+    <Content Include="Art\Sounds\static1.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_teleport.ogg">
+    <Content Include="Art\Sounds\static2.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_miner_dontgetpaid.ogg">
+    <Content Include="Art\Sounds\text.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_miner_enemyonscope.ogg">
+    <Content Include="Art\Sounds\vo_attack_miner.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_miner_intransit.ogg">
+    <Content Include="Art\Sounds\vo_builder_expansion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_miner_report4duty.ogg">
+    <Content Include="Art\Sounds\vo_builder_garrison.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_miner_underattack.ogg">
+    <Content Include="Art\Sounds\vo_builder_outpost.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_miner_yougotit.ogg">
+    <Content Include="Art\Sounds\vo_builder_refinery.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_miner.ogg">
+    <Content Include="Art\Sounds\vo_builder_shipyard.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_bombersighted.ogg">
+    <Content Include="Art\Sounds\vo_builder_supremecy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_minercritical.ogg">
+    <Content Include="Art\Sounds\vo_builder_tactical.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_minerpartial.ogg">
+    <Content Include="Art\Sounds\vo_builder_teleport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_newequip.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemyexpansion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_noripcord.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemygarrison.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_researchcomplete.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemymine.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_sectorlost.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemyoutpost.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_sectorsecured.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemyshipyard.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_shipcantripcord.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemysupremecy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_shiptech.ogg">
+    <Content Include="Art\Sounds\vo_capture_enemytactical.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_stationrisk.ogg">
+    <Content Include="Art\Sounds\vo_capture_expansion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\windowslides.ogg">
+    <Content Include="Art\Sounds\vo_capture_garrison.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\accept.ogg">
+    <Content Include="Art\Sounds\vo_capture_mine.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\newtarget.ogg">
+    <Content Include="Art\Sounds\vo_capture_outpost.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\newtargetenemy.ogg">
+    <Content Include="Art\Sounds\vo_capture_shipyard.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\noncriticalmessage.ogg">
+    <Content Include="Art\Sounds\vo_capture_supremecy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\sshipint.ogg">
+    <Content Include="Art\Sounds\vo_capture_tactical.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\static1.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemyexpansion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\static2.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemygarrison.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemyexpansion.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemyoutpost.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemygarrison.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemyrefinery.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemymine.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemyshipyard.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemyoutpost.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemysupremecy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemysupremecy.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemytactical.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemytactical.ogg">
+    <Content Include="Art\Sounds\vo_destroy_enemyteleport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_expansion.ogg">
+    <Content Include="Art\Sounds\vo_destroy_expansion.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_garrison.ogg">
+    <Content Include="Art\Sounds\vo_destroy_garrison.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_mine.ogg">
+    <Content Include="Art\Sounds\vo_destroy_miner.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_outpost.ogg">
+    <Content Include="Art\Sounds\vo_destroy_outpost.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_supremecy.ogg">
+    <Content Include="Art\Sounds\vo_destroy_refinery.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_tactical.ogg">
+    <Content Include="Art\Sounds\vo_destroy_shipyard.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_buildercarbon.ogg">
+    <Content Include="Art\Sounds\vo_destroy_supremecy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_buildergeneric.ogg">
+    <Content Include="Art\Sounds\vo_destroy_tactical.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_builderhelium.ogg">
+    <Content Include="Art\Sounds\vo_destroy_teleport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_buildersilicon.ogg">
+    <Content Include="Art\Sounds\vo_ma_alephmineddroned.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_builderuranium.ogg">
+    <Content Include="Art\Sounds\vo_ma_asseskicked.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_tower.ogg">
+    <Content Include="Art\Sounds\vo_ma_attackminefield.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\big_explosion.ogg">
+    <Content Include="Art\Sounds\vo_ma_attacknanite.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\missilelockonme.ogg">
+    <Content Include="Art\Sounds\vo_ma_attackprobe.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\outofammo.ogg">
+    <Content Include="Art\Sounds\vo_ma_attackrescue.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\plasmaac1.ogg">
+    <Content Include="Art\Sounds\vo_ma_attackspecial.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\small_explosion.ogg">
+    <Content Include="Art\Sounds\vo_ma_bugout.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\payday.ogg">
+    <Content Include="Art\Sounds\vo_ma_campaleph.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\plasmamini1.ogg">
+    <Content Include="Art\Sounds\vo_ma_campbase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\missilelock.ogg">
+    <Content Include="Art\Sounds\vo_ma_campteleport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\sniperlaser1pwrup.ogg">
+    <Content Include="Art\Sounds\vo_ma_cantpodded.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_builder_shipyard.ogg">
+    <Content Include="Art\Sounds\vo_ma_capturingbase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_enemyshipyard.ogg">
+    <Content Include="Art\Sounds\vo_ma_cloaked.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_capture_shipyard.ogg">
+    <Content Include="Art\Sounds\vo_ma_defendspecial.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_enemyshipyard.ogg">
+    <Content Include="Art\Sounds\vo_ma_deployrescue.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_destroy_shipyard.ogg">
+    <Content Include="Art\Sounds\vo_ma_dogmeat.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_capitalsighted.ogg">
+    <Content Include="Art\Sounds\vo_ma_dontdefend.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\explosion_tiny.ogg">
+    <Content Include="Art\Sounds\vo_ma_dontkillpods.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\final_explosion_large.ogg">
+    <Content Include="Art\Sounds\vo_ma_dontthinkso.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\final_explosion_medium.ogg">
+    <Content Include="Art\Sounds\vo_ma_evenup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\final_explosion_small.ogg">
+    <Content Include="Art\Sounds\vo_ma_findass.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\sidewinder.ogg">
+    <Content Include="Art\Sounds\vo_ma_findcash.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\dropmine.ogg">
+    <Content Include="Art\Sounds\vo_ma_findconst.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_alephmineddroned.ogg">
+    <Content Include="Art\Sounds\vo_ma_findscout.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_asseskicked.ogg">
+    <Content Include="Art\Sounds\vo_ma_gameover.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_attackminefield.ogg">
+    <Content Include="Art\Sounds\vo_ma_gametime.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_attacknanite.ogg">
+    <Content Include="Art\Sounds\vo_ma_harshlanguage.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_attackprobe.ogg">
+    <Content Include="Art\Sounds\vo_ma_hello.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_attackrescue.ogg">
+    <Content Include="Art\Sounds\vo_ma_howfar.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_attackspecial.ogg">
+    <Content Include="Art\Sounds\vo_ma_iqs.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_bugout.ogg">
+    <Content Include="Art\Sounds\vo_ma_isalephmined.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_campaleph.ogg">
+    <Content Include="Art\Sounds\vo_ma_leavemark.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_campbase.ogg">
+    <Content Include="Art\Sounds\vo_ma_letsgo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_campteleport.ogg">
+    <Content Include="Art\Sounds\vo_ma_mutiny.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_cantpodded.ogg">
+    <Content Include="Art\Sounds\vo_ma_naniteslaunch.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_capturingbase.ogg">
+    <Content Include="Art\Sounds\vo_ma_nanitesrip.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_cloaked.ogg">
+    <Content Include="Art\Sounds\vo_ma_needdefense.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_defendspecial.ogg">
+    <Content Include="Art\Sounds\vo_ma_needmines.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_deployrescue.ogg">
+    <Content Include="Art\Sounds\vo_ma_neednanonconst.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_dogmeat.ogg">
+    <Content Include="Art\Sounds\vo_ma_needoffense.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_dontdefend.ogg">
+    <Content Include="Art\Sounds\vo_ma_needrescue.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_dontkillpods.ogg">
+    <Content Include="Art\Sounds\vo_ma_needtpscout.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_dontthinkso.ogg">
+    <Content Include="Art\Sounds\vo_ma_noImeanit.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_evenup.ogg">
+    <Content Include="Art\Sounds\vo_ma_notenough.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_findass.ogg">
+    <Content Include="Art\Sounds\vo_ma_notime.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_findcash.ogg">
+    <Content Include="Art\Sounds\vo_ma_notseen.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_findconst.ogg">
+    <Content Include="Art\Sounds\vo_ma_nowyouseeme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_findscout.ogg">
+    <Content Include="Art\Sounds\vo_ma_offturret.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_gameover.ogg">
+    <Content Include="Art\Sounds\vo_ma_pickteams.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_gametime.ogg">
+    <Content Include="Art\Sounds\vo_ma_pickuppods.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_harshlanguage.ogg">
+    <Content Include="Art\Sounds\vo_ma_pickuptech.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_hello.ogg">
+    <Content Include="Art\Sounds\vo_ma_podded.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_howfar.ogg">
+    <Content Include="Art\Sounds\vo_ma_pushop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_iqs.ogg">
+    <Content Include="Art\Sounds\vo_ma_ready.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_isalephmined.ogg">
+    <Content Include="Art\Sounds\vo_ma_ripped.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_leavemark.ogg">
+    <Content Include="Art\Sounds\vo_ma_rush.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_letsgo.ogg">
+    <Content Include="Art\Sounds\vo_ma_scoutahead.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_mutiny.ogg">
+    <Content Include="Art\Sounds\vo_ma_settingssuck.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_naniteslaunch.ogg">
+    <Content Include="Art\Sounds\vo_ma_spotted.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_nanitesrip.ogg">
+    <Content Include="Art\Sounds\vo_ma_stayoutofmiddle.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_needdefense.ogg">
+    <Content Include="Art\Sounds\vo_ma_stopgrin.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_needmines.ogg">
+    <Content Include="Art\Sounds\vo_ma_stopspam.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_neednanonconst.ogg">
+    <Content Include="Art\Sounds\vo_ma_theyexp.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_needoffense.ogg">
+    <Content Include="Art\Sounds\vo_ma_theysup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_needrescue.ogg">
+    <Content Include="Art\Sounds\vo_ma_theytac.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_needtpscout.ogg">
+    <Content Include="Art\Sounds\vo_ma_wakeup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_noImeanit.ogg">
+    <Content Include="Art\Sounds\vo_ma_wonttolerate.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_notenough.ogg">
+    <Content Include="Art\Sounds\vo_miner_dontgetpaid.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_notime.ogg">
+    <Content Include="Art\Sounds\vo_miner_enemyonscope.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_notseen.ogg">
+    <Content Include="Art\Sounds\vo_miner_intransit.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_nowyouseeme.ogg">
+    <Content Include="Art\Sounds\vo_miner_report4duty.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_offturret.ogg">
+    <Content Include="Art\Sounds\vo_miner_underattack.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_pickteams.ogg">
+    <Content Include="Art\Sounds\vo_miner_yougotit.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_pickuppods.ogg">
+    <Content Include="Art\Sounds\vo_player_aaaaoooo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_pickuptech.ogg">
+    <Content Include="Art\Sounds\vo_player_acknowledged.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_podded.ogg">
+    <Content Include="Art\Sounds\vo_player_affirmative.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_pushop.ogg">
+    <Content Include="Art\Sounds\vo_player_aintnothin.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_ready.ogg">
+    <Content Include="Art\Sounds\vo_player_alephmined.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_ripped.ogg">
+    <Content Include="Art\Sounds\vo_player_almosthadyou.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_rush.ogg">
+    <Content Include="Art\Sounds\vo_player_argh.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_scoutahead.ogg">
+    <Content Include="Art\Sounds\vo_player_attack.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_settingssuck.ogg">
+    <Content Include="Art\Sounds\vo_player_attackbase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_spotted.ogg">
+    <Content Include="Art\Sounds\vo_player_attackbomber.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_stayoutofmiddle.ogg">
+    <Content Include="Art\Sounds\vo_player_attackcapital.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_stopgrin.ogg">
+    <Content Include="Art\Sounds\vo_player_attackconstuctor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_stopspam.ogg">
+    <Content Include="Art\Sounds\vo_player_attackdefender.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_theyexp.ogg">
+    <Content Include="Art\Sounds\vo_player_attackfighter.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_theysup.ogg">
+    <Content Include="Art\Sounds\vo_player_attackinterceptor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_theytac.ogg">
+    <Content Include="Art\Sounds\vo_player_attackminer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_wakeup.ogg">
+    <Content Include="Art\Sounds\vo_player_attackripcord.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_ma_wonttolerate.ogg">
+    <Content Include="Art\Sounds\vo_player_attackscout.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_aaaaoooo.ogg">
+    <Content Include="Art\Sounds\vo_player_attackstealth.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_acknowledged.ogg">
+    <Content Include="Art\Sounds\vo_player_attacktarget.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_affirmative.ogg">
+    <Content Include="Art\Sounds\vo_player_attacktower.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_aintnothin.ogg">
+    <Content Include="Art\Sounds\vo_player_attacktransport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_alephmined.ogg">
+    <Content Include="Art\Sounds\vo_player_awesome.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_almosthadyou.ogg">
+    <Content Include="Art\Sounds\vo_player_basecaptured.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_argh.ogg">
+    <Content Include="Art\Sounds\vo_player_baseunderattack.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attack.ogg">
+    <Content Include="Art\Sounds\vo_player_bomberwaiting.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackbase.ogg">
+    <Content Include="Art\Sounds\vo_player_bye.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackbomber.ogg">
+    <Content Include="Art\Sounds\vo_player_cantholdem.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackcapital.ogg">
+    <Content Include="Art\Sounds\vo_player_capshipwaiting.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackconstuctor.ogg">
+    <Content Include="Art\Sounds\vo_player_changedsettings.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackdefender.ogg">
+    <Content Include="Art\Sounds\vo_player_changethemap.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackfighter.ogg">
+    <Content Include="Art\Sounds\vo_player_checkwing.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackinterceptor.ogg">
+    <Content Include="Art\Sounds\vo_player_comebackandfight.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackminer.ogg">
+    <Content Include="Art\Sounds\vo_player_comeondown.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackripcord.ogg">
+    <Content Include="Art\Sounds\vo_player_complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackscout.ogg">
+    <Content Include="Art\Sounds\vo_player_constructorlaunching.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attackstealth.ogg">
+    <Content Include="Art\Sounds\vo_player_cool.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attacktarget.ogg">
+    <Content Include="Art\Sounds\vo_player_coupleminutes.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attacktower.ogg">
+    <Content Include="Art\Sounds\vo_player_coverme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_attacktransport.ogg">
+    <Content Include="Art\Sounds\vo_player_dang.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_awesome.ogg">
+    <Content Include="Art\Sounds\vo_player_deathbecomesyou.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_basecaptured.ogg">
+    <Content Include="Art\Sounds\vo_player_defend.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_baseunderattack.ogg">
+    <Content Include="Art\Sounds\vo_player_defendbase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_bomberwaiting.ogg">
+    <Content Include="Art\Sounds\vo_player_defendbomber.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_bye.ogg">
+    <Content Include="Art\Sounds\vo_player_defendcapital.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_cantholdem.ogg">
+    <Content Include="Art\Sounds\vo_player_defendconstuctor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_capshipwaiting.ogg">
+    <Content Include="Art\Sounds\vo_player_defenddefender.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_changedsettings.ogg">
+    <Content Include="Art\Sounds\vo_player_defendfighter.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_changethemap.ogg">
+    <Content Include="Art\Sounds\vo_player_defendinterceptor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_checkwing.ogg">
+    <Content Include="Art\Sounds\vo_player_defendminer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_comebackandfight.ogg">
+    <Content Include="Art\Sounds\vo_player_defendripcord.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_comeondown.ogg">
+    <Content Include="Art\Sounds\vo_player_defendscout.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_complete.ogg">
+    <Content Include="Art\Sounds\vo_player_defendstealth.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_constructorlaunching.ogg">
+    <Content Include="Art\Sounds\vo_player_defendtower.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_cool.ogg">
+    <Content Include="Art\Sounds\vo_player_defendtransport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_coupleminutes.ogg">
+    <Content Include="Art\Sounds\vo_player_deploymines.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_coverme.ogg">
+    <Content Include="Art\Sounds\vo_player_deployprobes.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_dang.ogg">
+    <Content Include="Art\Sounds\vo_player_didyoucopy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_deathbecomesyou.ogg">
+    <Content Include="Art\Sounds\vo_player_doah.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defend.ogg">
+    <Content Include="Art\Sounds\vo_player_donatecredits.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendbase.ogg">
+    <Content Include="Art\Sounds\vo_player_donateinvestor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendbomber.ogg">
+    <Content Include="Art\Sounds\vo_player_enemyhasflag.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendcapital.ogg">
+    <Content Include="Art\Sounds\vo_player_escortbuilder.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendconstuctor.ogg">
+    <Content Include="Art\Sounds\vo_player_escortminer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defenddefender.ogg">
+    <Content Include="Art\Sounds\vo_player_everyoneready.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendfighter.ogg">
+    <Content Include="Art\Sounds\vo_player_fiesty.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendinterceptor.ogg">
+    <Content Include="Art\Sounds\vo_player_findalephs.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendminer.ogg">
+    <Content Include="Art\Sounds\vo_player_findcarbonacous.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendripcord.ogg">
+    <Content Include="Art\Sounds\vo_player_findenemy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendscout.ogg">
+    <Content Include="Art\Sounds\vo_player_findfreakinbase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendstealth.ogg">
+    <Content Include="Art\Sounds\vo_player_findhelium.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendtower.ogg">
+    <Content Include="Art\Sounds\vo_player_findminer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_defendtransport.ogg">
+    <Content Include="Art\Sounds\vo_player_findprobes.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_deploymines.ogg">
+    <Content Include="Art\Sounds\vo_player_findsilicon.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_deployprobes.ogg">
+    <Content Include="Art\Sounds\vo_player_finduranium.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_didyoucopy.ogg">
+    <Content Include="Art\Sounds\vo_player_follow.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_doah.ogg">
+    <Content Include="Art\Sounds\vo_player_formate.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_donatecredits.ogg">
+    <Content Include="Art\Sounds\vo_player_formonmywing.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_donateinvestor.ogg">
+    <Content Include="Art\Sounds\vo_player_foundaleph.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_enemyhasflag.ogg">
+    <Content Include="Art\Sounds\vo_player_foundenemybase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_escortbuilder.ogg">
+    <Content Include="Art\Sounds\vo_player_foundenemyconstruct.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_escortminer.ogg">
+    <Content Include="Art\Sounds\vo_player_foundenemyminer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_everyoneready.ogg">
+    <Content Include="Art\Sounds\vo_player_foundenemyships.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_fiesty.ogg">
+    <Content Include="Art\Sounds\vo_player_foundhelium.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findalephs.ogg">
+    <Content Include="Art\Sounds\vo_player_getoffme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findcarbonacous.ogg">
+    <Content Include="Art\Sounds\vo_player_gimmesomething.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findenemy.ogg">
+    <Content Include="Art\Sounds\vo_player_gogogo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findfreakinbase.ogg">
+    <Content Include="Art\Sounds\vo_player_gotcha.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findhelium.ogg">
+    <Content Include="Art\Sounds\vo_player_gototeamonly.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findminer.ogg">
+    <Content Include="Art\Sounds\vo_player_gunnerready.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findprobes.ogg">
+    <Content Include="Art\Sounds\vo_player_havecapitols.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_findsilicon.ogg">
+    <Content Include="Art\Sounds\vo_player_haveshipyard.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_finduranium.ogg">
+    <Content Include="Art\Sounds\vo_player_headback.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_follow.ogg">
+    <Content Include="Art\Sounds\vo_player_heeheehee.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_formate.ogg">
+    <Content Include="Art\Sounds\vo_player_hellyeah.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_formonmywing.ogg">
+    <Content Include="Art\Sounds\vo_player_hi.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_foundaleph.ogg">
+    <Content Include="Art\Sounds\vo_player_holdup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_foundenemybase.ogg">
+    <Content Include="Art\Sounds\vo_player_holdurehorses.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_foundenemyconstruct.ogg">
+    <Content Include="Art\Sounds\vo_player_howdthatfeel.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_foundenemyminer.ogg">
+    <Content Include="Art\Sounds\vo_player_howwasthat.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_foundenemyships.ogg">
+    <Content Include="Art\Sounds\vo_player_imbusy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_foundhelium.ogg">
+    <Content Include="Art\Sounds\vo_player_imclueless.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_getoffme.ogg">
+    <Content Include="Art\Sounds\vo_player_imissed.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_gimmesomething.ogg">
+    <Content Include="Art\Sounds\vo_player_imonit.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_gogogo.ogg">
+    <Content Include="Art\Sounds\vo_player_inbound.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_gotcha.ogg">
+    <Content Include="Art\Sounds\vo_player_inboundenemybomb.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_gototeamonly.ogg">
+    <Content Include="Art\Sounds\vo_player_inboundenemycap.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_gunnerready.ogg">
+    <Content Include="Art\Sounds\vo_player_inboundenemyfight.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_havecapitols.ogg">
+    <Content Include="Art\Sounds\vo_player_inboundenemytrans.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_haveshipyard.ogg">
+    <Content Include="Art\Sounds\vo_player_iquit.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_headback.ogg">
+    <Content Include="Art\Sounds\vo_player_isourbaseclear.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_heeheehee.ogg">
+    <Content Include="Art\Sounds\vo_player_ispdrop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_hellyeah.ogg">
+    <Content Include="Art\Sounds\vo_player_itslate.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_hi.ogg">
+    <Content Include="Art\Sounds\vo_player_joiningturret.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_holdup.ogg">
+    <Content Include="Art\Sounds\vo_player_justasec.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_holdurehorses.ogg">
+    <Content Include="Art\Sounds\vo_player_kinguniverse.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_howdthatfeel.ogg">
+    <Content Include="Art\Sounds\vo_player_laylow.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_howwasthat.ogg">
+    <Content Include="Art\Sounds\vo_player_likelambs.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_imbusy.ogg">
+    <Content Include="Art\Sounds\vo_player_makeme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_imclueless.ogg">
+    <Content Include="Art\Sounds\vo_player_meetatjump.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_imissed.ogg">
+    <Content Include="Art\Sounds\vo_player_minerhunt.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_imonit.ogg">
+    <Content Include="Art\Sounds\vo_player_minersaredead.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_inbound.ogg">
+    <Content Include="Art\Sounds\vo_player_minershammered.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_inboundenemybomb.ogg">
+    <Content Include="Art\Sounds\vo_player_misc17.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_inboundenemycap.ogg">
+    <Content Include="Art\Sounds\vo_player_misc2.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_inboundenemyfight.ogg">
+    <Content Include="Art\Sounds\vo_player_misc20.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_inboundenemytrans.ogg">
+    <Content Include="Art\Sounds\vo_player_misc21.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_iquit.ogg">
+    <Content Include="Art\Sounds\vo_player_misc25.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_isourbaseclear.ogg">
+    <Content Include="Art\Sounds\vo_player_misc27.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ispdrop.ogg">
+    <Content Include="Art\Sounds\vo_player_misc3.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_itslate.ogg">
+    <Content Include="Art\Sounds\vo_player_misc9.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_joiningturret.ogg">
+    <Content Include="Art\Sounds\vo_player_needammo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_justasec.ogg">
+    <Content Include="Art\Sounds\vo_player_needbase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_kinguniverse.ogg">
+    <Content Include="Art\Sounds\vo_player_needbetterfighters.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_laylow.ogg">
+    <Content Include="Art\Sounds\vo_player_needbetterwep.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_likelambs.ogg">
+    <Content Include="Art\Sounds\vo_player_needbomber.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_makeme.ogg">
+    <Content Include="Art\Sounds\vo_player_needcapital.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_meetatjump.ogg">
+    <Content Include="Art\Sounds\vo_player_needconstructor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_minerhunt.ogg">
+    <Content Include="Art\Sounds\vo_player_needcruiser.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_minersaredead.ogg">
+    <Content Include="Art\Sounds\vo_player_needdefender.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_minershammered.ogg">
+    <Content Include="Art\Sounds\vo_player_needfighter.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc17.ogg">
+    <Content Include="Art\Sounds\vo_player_needfightersupport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc2.ogg">
+    <Content Include="Art\Sounds\vo_player_needfuel.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc20.ogg">
+    <Content Include="Art\Sounds\vo_player_needhelp.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc21.ogg">
+    <Content Include="Art\Sounds\vo_player_needinterceptor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc25.ogg">
+    <Content Include="Art\Sounds\vo_player_needminer.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc27.ogg">
+    <Content Include="Art\Sounds\vo_player_needmoney.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc3.ogg">
+    <Content Include="Art\Sounds\vo_player_needobjective.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_misc9.ogg">
+    <Content Include="Art\Sounds\vo_player_needpickup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needammo.ogg">
+    <Content Include="Art\Sounds\vo_player_needrepairs.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needbase.ogg">
+    <Content Include="Art\Sounds\vo_player_needrescue.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needbetterfighters.ogg">
+    <Content Include="Art\Sounds\vo_player_needripcord.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needbetterwep.ogg">
+    <Content Include="Art\Sounds\vo_player_needscout.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needbomber.ogg">
+    <Content Include="Art\Sounds\vo_player_needstealth.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needcapital.ogg">
+    <Content Include="Art\Sounds\vo_player_needtower.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needconstructor.ogg">
+    <Content Include="Art\Sounds\vo_player_needtransport.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needcruiser.ogg">
+    <Content Include="Art\Sounds\vo_player_needturret.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needdefender.ogg">
+    <Content Include="Art\Sounds\vo_player_negative.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needfighter.ogg">
+    <Content Include="Art\Sounds\vo_player_niceweather.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needfightersupport.ogg">
+    <Content Include="Art\Sounds\vo_player_nicework.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needfuel.ogg">
+    <Content Include="Art\Sounds\vo_player_nomoney.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needhelp.ogg">
+    <Content Include="Art\Sounds\vo_player_nooo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needinterceptor.ogg">
+    <Content Include="Art\Sounds\vo_player_objectivecomplete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needminer.ogg">
+    <Content Include="Art\Sounds\vo_player_ohyeah.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needmoney.ogg">
+    <Content Include="Art\Sounds\vo_player_onmyway.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needobjective.ogg">
+    <Content Include="Art\Sounds\vo_player_ooohsorry.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needpickup.ogg">
+    <Content Include="Art\Sounds\vo_player_ooooaaaa.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needrepairs.ogg">
+    <Content Include="Art\Sounds\vo_player_oops.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needrescue.ogg">
+    <Content Include="Art\Sounds\vo_player_outofammohmmm.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needripcord.ogg">
+    <Content Include="Art\Sounds\vo_player_payloaddelivered.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needscout.ogg">
+    <Content Include="Art\Sounds\vo_player_pheww.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needstealth.ogg">
+    <Content Include="Art\Sounds\vo_player_pitstop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needtower.ogg">
+    <Content Include="Art\Sounds\vo_player_readchat.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needtransport.ogg">
+    <Content Include="Art\Sounds\vo_player_regroup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_needturret.ogg">
+    <Content Include="Art\Sounds\vo_player_rematch.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_negative.ogg">
+    <Content Include="Art\Sounds\vo_player_repairstation.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_niceweather.ogg">
+    <Content Include="Art\Sounds\vo_player_retreat.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_nicework.ogg">
+    <Content Include="Art\Sounds\vo_player_ripcordhome.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_nomoney.ogg">
+    <Content Include="Art\Sounds\vo_player_ripcording.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_nooo.ogg">
+    <Content Include="Art\Sounds\vo_player_ripcordlastresort.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_objectivecomplete.ogg">
+    <Content Include="Art\Sounds\vo_player_roger.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ohyeah.ogg">
+    <Content Include="Art\Sounds\vo_player_savingup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_onmyway.ogg">
+    <Content Include="Art\Sounds\vo_player_scoutaleph.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ooohsorry.ogg">
+    <Content Include="Art\Sounds\vo_player_scuseme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ooooaaaa.ogg">
+    <Content Include="Art\Sounds\vo_player_shallwebegin.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_oops.ogg">
+    <Content Include="Art\Sounds\vo_player_shieldsaredown.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_outofammohmmm.ogg">
+    <Content Include="Art\Sounds\vo_player_shoot.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_payloaddelivered.ogg">
+    <Content Include="Art\Sounds\vo_player_shootcommander.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_pheww.ogg">
+    <Content Include="Art\Sounds\vo_player_shootingfish.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_pitstop.ogg">
+    <Content Include="Art\Sounds\vo_player_slapinvestor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_readchat.ogg">
+    <Content Include="Art\Sounds\vo_player_startthegame.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_regroup.ogg">
+    <Content Include="Art\Sounds\vo_player_stayontarget.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_rematch.ogg">
+    <Content Include="Art\Sounds\vo_player_staytogether.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_repairstation.ogg">
+    <Content Include="Art\Sounds\vo_player_surelyjoking.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_retreat.ogg">
+    <Content Include="Art\Sounds\vo_player_sweet.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ripcordhome.ogg">
+    <Content Include="Art\Sounds\vo_player_takingittothem.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ripcording.ogg">
+    <Content Include="Art\Sounds\vo_player_targetneeded.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ripcordlastresort.ogg">
+    <Content Include="Art\Sounds\vo_player_thanks.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_roger.ogg">
+    <Content Include="Art\Sounds\vo_player_thankslift.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_savingup.ogg">
+    <Content Include="Art\Sounds\vo_player_thathurt.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_scoutaleph.ogg">
+    <Content Include="Art\Sounds\vo_player_traitor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_scuseme.ogg">
+    <Content Include="Art\Sounds\vo_player_transportoutbound.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_shallwebegin.ogg">
+    <Content Include="Art\Sounds\vo_player_turretsattack.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_shieldsaredown.ogg">
+    <Content Include="Art\Sounds\vo_player_udiedwithdignity.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_shoot.ogg">
+    <Content Include="Art\Sounds\vo_player_uhavenohonor.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_shootcommander.ogg">
+    <Content Include="Art\Sounds\vo_player_ullbesorry.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_shootingfish.ogg">
+    <Content Include="Art\Sounds\vo_player_urgoodbut.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_slapinvestor.ogg">
+    <Content Include="Art\Sounds\vo_player_wait4signal.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_startthegame.ogg">
+    <Content Include="Art\Sounds\vo_player_wantapiece.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_stayontarget.ogg">
+    <Content Include="Art\Sounds\vo_player_watchfire.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_staytogether.ogg">
+    <Content Include="Art\Sounds\vo_player_what.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_surelyjoking.ogg">
+    <Content Include="Art\Sounds\vo_player_whatnow.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_sweet.ogg">
+    <Content Include="Art\Sounds\vo_player_whocommander.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_takingittothem.ogg">
+    <Content Include="Art\Sounds\vo_player_yeeehaa.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_targetneeded.ogg">
+    <Content Include="Art\Sounds\vo_player_yes.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_thanks.ogg">
+    <Content Include="Art\Sounds\vo_player_yourecrazy.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_thankslift.ogg">
+    <Content Include="Art\Sounds\vo_player_yourmad.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_thathurt.ogg">
+    <Content Include="Art\Sounds\vo_player_yowie.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_traitor.ogg">
+    <Content Include="Art\Sounds\vo_request_buildercarbon.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_transportoutbound.ogg">
+    <Content Include="Art\Sounds\vo_request_buildergeneric.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_turretsattack.ogg">
+    <Content Include="Art\Sounds\vo_request_builderhelium.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_udiedwithdignity.ogg">
+    <Content Include="Art\Sounds\vo_request_buildersilicon.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_uhavenohonor.ogg">
+    <Content Include="Art\Sounds\vo_request_builderuranium.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_ullbesorry.ogg">
+    <Content Include="Art\Sounds\vo_request_minefield.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_urgoodbut.ogg">
+    <Content Include="Art\Sounds\vo_request_miner.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_wait4signal.ogg">
+    <Content Include="Art\Sounds\vo_request_tower.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_wantapiece.ogg">
+    <Content Include="Art\Sounds\vo_sal_bombersighted.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_watchfire.ogg">
+    <Content Include="Art\Sounds\vo_sal_capitalsighted.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_what.ogg">
+    <Content Include="Art\Sounds\vo_sal_minercritical.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_whatnow.ogg">
+    <Content Include="Art\Sounds\vo_sal_minerpartial.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_whocommander.ogg">
+    <Content Include="Art\Sounds\vo_sal_newequip.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_yeeehaa.ogg">
+    <Content Include="Art\Sounds\vo_sal_noripcord.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_yes.ogg">
+    <Content Include="Art\Sounds\vo_sal_recruitsarrived.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_yourecrazy.ogg">
+    <Content Include="Art\Sounds\vo_sal_researchcomplete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_yourmad.ogg">
+    <Content Include="Art\Sounds\vo_sal_sectorlost.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_player_yowie.ogg">
+    <Content Include="Art\Sounds\vo_sal_sectorsecured.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_request_minefield.ogg">
+    <Content Include="Art\Sounds\vo_sal_shipcantripcord.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\vo_sal_recruitsarrived.ogg">
+    <Content Include="Art\Sounds\vo_sal_shiptech.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Sounds\vo_sal_stationrisk.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Sounds\windowslides.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\Trans\capsupport-adv.png">
@@ -1609,12 +1612,6 @@
     <Content Include="Data\Maps\BowTie2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Art\Sounds\squish_01.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Art\Sounds\shieldcharge1.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Data\Maps\Chopper2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1624,12 +1621,14 @@
     <None Include="Data\Maps\Chopper4.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\Maps\Lanes4.png" />
     <Content Include="Data\Maps\Saber2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Saber4.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Data\Maps\Lanes4.map" />
     <None Include="Data\Maps\SmallSpiral2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

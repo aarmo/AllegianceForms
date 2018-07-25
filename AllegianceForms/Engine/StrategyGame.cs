@@ -562,8 +562,12 @@ namespace AllegianceForms.Engine
                 var tech = sender as TechItem;
                 if (tech == null) return;
 
-                var b1 = AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Starbase).LastOrDefault();
-                if (b1 == null) return;
+                var b1 = AllBases.LastOrDefault(_ => _.Team == tech.Team && _.Type == EBaseType.Starbase);
+                if (b1 == null)
+                {
+                    b1 = AllBases.LastOrDefault(_ => _.Team == tech.Team && _.CanLaunchShips());
+                    if (b1 == null) return;
+                }
                 Ship drone;
 
                 var colour = Color.FromArgb(GameSettings.TeamColours[tech.Team - 1]);
@@ -580,7 +584,7 @@ namespace AllegianceForms.Engine
                 }
                 else if (tech.Type == ETechType.ShipyardConstruction)
                 {
-                    b1 = AllBases.Where(_ => _.Team == tech.Team && _.Type == EBaseType.Shipyard).LastOrDefault();
+                    b1 = AllBases.LastOrDefault(_ => _.Team == tech.Team && _.Type == EBaseType.Shipyard);
                     if (b1 == null) return;
 
                     drone = Ships.CreateShip(tech.Name, tech.Team, colour, b1.SectorId);
