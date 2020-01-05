@@ -3,7 +3,6 @@ using AllegianceForms.Engine.Map;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace AllegianceForms.Engine
 {
@@ -74,44 +73,6 @@ namespace AllegianceForms.Engine
         public int InitialWaveDelay { get; set; }
         public int DecreaseWaveDelay { get; set; }
         public EWaveTargetType AlientWaveTargetType { get; set; }
-
-        public static GameSettings LadderDefault(LadderGame ladder, Faction[] team1, Faction[] team2)
-        {
-            var s = Default();
-
-            // Override map, ai
-            s.MapName = ladder.MapPool[StrategyGame.Random.Next(ladder.MapPool.Length)];
-            s.AiDifficulty = ladder.AiDifficulty;
-
-            // Setup commanders
-            var numPlayers = team1.Length + team2.Length;
-            s.TeamFactions = team1.Union(team2).ToArray();
-            if (numPlayers > s.NumTeams)
-            {
-                s.NumTeams = numPlayers;
-                s.TeamAlliance = new[] { 1, 1, 2, 2 };
-                s.TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1], DefaultTeamColours[2], DefaultTeamColours[3] };
-            }
-
-            return s;
-        }
-
-        public static GameSettings CampaignStart()
-        {
-            var s = Default();
-            s.GameType = EGameType.Campaign;
-
-            // Low power faction (-20% to all)
-            s.TeamFactions[0] = Faction.CampaignStart(2);
-
-            // Starting with garrison tech 
-            s.RestrictTechToIds[0] = new[] { 1, 3, 4, 5, 18, 19, 20, 21, 22, 23, 24, 25 };
-
-            // No Aliens
-            s.AlienChance = 0f;
-            s.AlientWaveTargetType = EWaveTargetType.None;
-            return s;
-        }
 
         public static GameSettings Default()
         {

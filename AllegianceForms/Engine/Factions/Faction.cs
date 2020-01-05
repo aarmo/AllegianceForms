@@ -8,14 +8,7 @@ namespace AllegianceForms.Engine.Factions
         public string Name { get; set; }
         public string PictureCode { get; set; }
         public string CommanderName { get; set; }
-
-        public int CommanderRankPoints { get; set; }
-        public ELadderTier LeagueTier { get; set; }
-        public int LadderGamesPlayed { get; set; }
-        public int LadderGamesWon { get; set; }
-        public int LadderGamesLost { get; set; }
-        public int LeagueDivision { get; set; }
-
+        
         public FactionBonus Bonuses { get; set; }
         public bool PromotionGamesRunning { get; set; }
         public bool DemotionGamesRunning { get; set; }
@@ -27,9 +20,6 @@ namespace AllegianceForms.Engine.Factions
             PictureCode = Name = name;
             CommanderName = commanderName;
             Bonuses = new FactionBonus();
-            CommanderRankPoints = LadderGame.MaxRankPointsPerDivision / 2;
-            LeagueTier = ELadderTier.Unranked;
-            LeagueDivision = 5;
         }
 
         public override string ToString()

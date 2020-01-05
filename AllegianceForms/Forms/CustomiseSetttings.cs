@@ -18,13 +18,14 @@ namespace AllegianceForms.Forms
         {
             InitializeComponent();
 
-            if (!Directory.Exists(StrategyGame.GamePresetFolder)) return;
+            if (Directory.Exists(StrategyGame.GamePresetFolder))
+            { 
+                var presetFiles = Directory.GetFiles(StrategyGame.GamePresetFolder);
+                var filenames = (from f in presetFiles
+                                 select f.Substring(f.LastIndexOf("\\") + 1)).ToArray();
 
-            var presetFiles = Directory.GetFiles(StrategyGame.GamePresetFolder);
-            var filenames = (from f in presetFiles
-                             select f.Substring(f.LastIndexOf("\\") + 1)).ToArray();
-
-            CustomPresets.Items.AddRange(filenames);
+                CustomPresets.Items.AddRange(filenames);
+            }
 
             foreach (EShipType e in Enum.GetValues(typeof(EShipType)))
             {
@@ -783,6 +784,11 @@ namespace AllegianceForms.Forms
 
             Settings.AlientWaveTargetType = (EWaveTargetType) Enum.Parse(typeof(EWaveTargetType), s.Text);
             CustomPresets.Text = string.Empty;
+        }
+
+        private void RandomMap_Click(object sender, EventArgs e)
+        {
+            MapList.SelectedItem = GameMaps.RandomName((int)Teams.Value, false);
         }
     }
 }

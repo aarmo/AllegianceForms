@@ -1146,15 +1146,6 @@ namespace AllegianceForms.Engine
                 {
                     i.Active = false;
                 }
-
-                if (GameSettings.GameType == EGameType.Campaign)
-                {
-                    var allowedIds = GameSettings.RestrictTechToIds[t];
-                    if (allowedIds != null)
-                    {
-                        TechTree[t].TechItems.RemoveAll(_ => !allowedIds.Contains(_.Id));
-                    }
-                }
             }            
         }
 

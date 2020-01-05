@@ -215,6 +215,21 @@ namespace AllegianceForms.Engine.Ships
                 || type == EShipType.AdvancedSupport || type == EShipType.HeavySupport);
         }
 
+        public static bool IsNonCapitalShip(EShipType type)
+        {
+            return (type == EShipType.Bomber || type == EShipType.Scout
+                || type == EShipType.Fighter || type == EShipType.FighterBomber
+                || type == EShipType.StealthBomber || type == EShipType.StealthFighter
+                || type == EShipType.Interceptor || type == EShipType.Gunship
+                || type == EShipType.TroopTransport);
+        }
+
+        public static bool IsTower(EShipType type)
+        {
+            return (type == EShipType.Tower || type == EShipType.ShieldTower
+                || type == EShipType.MissileTower || type == EShipType.RepairTower);
+        }
+
         protected void OnShipEvent(EShipEventType e)
         {
             if (ShipEvent != null) ShipEvent(this, e);

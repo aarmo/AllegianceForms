@@ -116,12 +116,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\LadderCommander.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\LadderCommander.Designer.cs">
-      <DependentUpon>LadderCommander.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\QuickChatItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,11 +139,9 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
-    <Compile Include="Engine\CampaignGame.cs" />
     <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Generation\RandomName.cs" />
     <Compile Include="Engine\HSBColour.cs" />
-    <Compile Include="Engine\LadderGame.cs" />
     <Compile Include="Engine\LogicFlow\Operation.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Engine\Orders\HuntControlOrder.cs" />
@@ -161,18 +153,6 @@
     <Compile Include="Engine\Weapons\Minefield.cs" />
     <Compile Include="Engine\Weapons\MineWeapon.cs" />
     <Compile Include="Engine\Weapons\ShieldChargeWeapon.cs" />
-    <Compile Include="Forms\CampaignStart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CampaignStart.Designer.cs">
-      <DependentUpon>CampaignStart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ChanceGame.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ChanceGame.Designer.cs">
-      <DependentUpon>ChanceGame.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\CustomiseSetttings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,18 +212,6 @@
     </Compile>
     <Compile Include="Forms\GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\CampaignEnd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CampaignEnd.Designer.cs">
-      <DependentUpon>CampaignEnd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Ladder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Ladder.Designer.cs">
-      <DependentUpon>Ladder.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MapDesigner.cs">
       <SubType>Form</SubType>
@@ -309,20 +277,11 @@
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <EmbeddedResource Include="Controls\LadderCommander.resx">
-      <DependentUpon>LadderCommander.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\QuickChatItem.resx">
       <DependentUpon>QuickChatItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TeamListItem.resx">
       <DependentUpon>TeamListItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CampaignStart.resx">
-      <DependentUpon>CampaignStart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ChanceGame.resx">
-      <DependentUpon>ChanceGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CustomiseSetttings.resx">
       <DependentUpon>CustomiseSetttings.cs</DependentUpon>
@@ -335,12 +294,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CampaignEnd.resx">
-      <DependentUpon>CampaignEnd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Ladder.resx">
-      <DependentUpon>Ladder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>

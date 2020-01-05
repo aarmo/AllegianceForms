@@ -590,7 +590,7 @@ namespace AllegianceForms
 
     public enum EGameType
     {
-        Skirmish, Campaign
+        Skirmish
     }
 
     public enum EWaveTargetType

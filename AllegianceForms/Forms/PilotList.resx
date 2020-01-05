@@ -117,4 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="FilterCap.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAC0SURBVFhH7dFB
+        DsMwCATA/P/TrWSNONSyUgL2KXNqFrMcer0qPvg8y+0gPsPNifFebi15tocbQXzu79A/iIJ4EPXTP4iC
+        eBD10z+IgngQ9dMfxMu8nf5bnu/hxpJne7k1Me6nP816nb406/30T4z3c29i3EdvFPu85fm0n2Z/FPj5
+        t9/9R+yXqcuzX6Yuz36Zujz7Zery7Jepy7Nfpu4ZHY+pqdGVZr2X7iXP9nJrYvxKuK4vK4+rjZrA5w0A
+        AAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="FilterCons.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAG9JREFUOE+t
+        zEEOwzAIAEH//9NtoCPqKEThkDmZNfZ6xWcjJaltQeqjscizDxwvj/ZzyMtgTvuclwfj/INgLPL8gyC1
+        LUj3H3SsJekcg3zhusg/WpGLXOQ/fcyzM3ePrPfs3LL2zH6R57wr8tvW+gLJP85AKQCg+AAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
+  <data name="FilterSmall.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAABZSURBVDhPtczRCsAgDEPR/v9PO9BryaC6Vtl5Mya1XzXwrGN/doCtI85j54jz2DniPB2VDsyy
+        jqJsSctK/7Z6G0RhFqLzifobf2nMBrKyq/HUj6zQ2ZfumD1XRl6w0d1EyAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="FilterMiners.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAEpJREFUOE/l
+        zMEKgCAURcH3/z9tBEOIccWkVs3yea71mTZwXtePtj/oOT9juzc+2f/uA5tIlukiWaaLZJkuks1pbzyv
+        sbk4v63qAOb19wnFdz6/AAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

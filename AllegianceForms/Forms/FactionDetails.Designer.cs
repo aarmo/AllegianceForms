@@ -879,7 +879,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.Cancel;
-            this.ClientSize = new System.Drawing.Size(596, 483);
+            this.ClientSize = new System.Drawing.Size(604, 479);
             this.Controls.Add(this.PlayerName);
             this.Controls.Add(this.BalancedLabel);
             this.Controls.Add(this.label10);
