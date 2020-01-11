@@ -72,6 +72,7 @@ namespace AllegianceForms.Test.Engine
         public void CheckSettingsShipSpeed_Scout()
         {
             var value = 0.5f;
+            var gameSpeed = 0.5f;
             _settings.ShipSpeedMultiplier[EShipType.Scout] = value;
             LoadSettings();
             
@@ -79,7 +80,7 @@ namespace AllegianceForms.Test.Engine
             if (tech == null) return;
             var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
-            scout.Speed.ShouldBe(tech.Speed * value);
+            scout.Speed.ShouldBe(tech.Speed * value * gameSpeed);
         }
 
         [TestMethod]
@@ -401,6 +402,7 @@ namespace AllegianceForms.Test.Engine
         public void CheckSettingsResearchTime()
         {
             var value = 0.5f;
+            var gameSpeed = 1.5f;
             _settings.ResearchTimeMultiplier = value;
             LoadSettings();
             var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, StrategyGame.TechDataFile, 0);
@@ -412,7 +414,7 @@ namespace AllegianceForms.Test.Engine
                     var item = _game.TechTree[t].TechItems[i];
                     var original = techData.TechItems[i];
 
-                    item.DurationTicks.ShouldBe((int)(original.DurationTicks * value));
+                    item.DurationTicks.ShouldBe((int)(original.DurationTicks * value * gameSpeed));
                 }
             }
         }
