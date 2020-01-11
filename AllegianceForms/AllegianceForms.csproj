@@ -143,7 +143,6 @@
     <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Generation\RandomName.cs" />
     <Compile Include="Engine\HSBColour.cs" />
-    <Compile Include="Engine\LogicFlow\Operation.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Engine\Orders\HuntControlOrder.cs" />
     <Compile Include="Engine\Orders\ScoutControlOrder.cs" />
@@ -378,9 +377,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\atributions.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Art\Backgrounds\Rps5way.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\Backgrounds\space.png">
