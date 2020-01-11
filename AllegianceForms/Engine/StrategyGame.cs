@@ -1029,7 +1029,7 @@ namespace AllegianceForms.Engine
                 foreach (var tech in TechTree[t].TechItems)
                 {
                     tech.Cost = (int)(tech.Cost * GameSettings.ResearchCostMultiplier * faction.Bonuses.ResearchCost);
-                    tech.DurationTicks = (int)(tech.DurationTicks * GameSettings.ResearchTimeMultiplier * faction.Bonuses.ResearchTime);
+                    tech.DurationTicks = (int)(tech.DurationTicks * GameSettings.ResearchTimeMultiplier * faction.Bonuses.ResearchTime * (2-GameSettings.GameSpeed));
                 }
             }
         }
@@ -1095,30 +1095,30 @@ namespace AllegianceForms.Engine
                 case 1:
                     alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, PointF.Empty));
                     alien.Type = EShipType.Interceptor;
-                    alien.Speed = 4;
+                    alien.Speed = 4 * GameSettings.GameSpeed;
                     break;
                 case 2:
                     alien.Weapons.Add(new NanLaserWeapon(this, 2, 5, 10, 150, -5, alien, PointF.Empty));
                     alien.Type = EShipType.Scout;
-                    alien.Speed = 3;
+                    alien.Speed = 3 * GameSettings.GameSpeed;
                     break;
                 case 3:
                     alien.Weapons.Add(new BaseLaserWeapon(this, AlienColour, 2, 15, 30, 175, 10, alien, PointF.Empty));
                     alien.Type = EShipType.Bomber;
-                    alien.Speed = 3;
+                    alien.Speed = 3 * GameSettings.GameSpeed;
                     break;
                 case 4:
                     alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, new PointF(0, 8)));
                     alien.Weapons.Add(new BaseLaserWeapon(this, AlienColour, 2, 15, 30, 175, 10, alien, new PointF(0, -8)));
                     alien.Type = EShipType.Bomber;
-                    alien.Speed = 2;
+                    alien.Speed = 2 * GameSettings.GameSpeed;
                     break;
                 case 5:
                     alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, new PointF(-8, 0)));
                     alien.Weapons.Add(new ShipLaserWeapon(this, AlienColour, 2, 5, 10, 150, 5, alien, new PointF(8, 0)));
                     alien.Weapons.Add(new BaseLaserWeapon(this, AlienColour, 2, 15, 30, 175, 10, alien, new PointF(0, -8)));
                     alien.Type = EShipType.Bomber;
-                    alien.Speed = 1;
+                    alien.Speed = 1 * GameSettings.GameSpeed;
                     break;
             }
 

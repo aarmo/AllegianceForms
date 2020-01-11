@@ -171,6 +171,7 @@ namespace AllegianceForms.Forms
             StrategyGame.UpdateVisibility(true);
             StrategyGame.GameEvent += StrategyGame_GameEvent;
 
+            // Show the map
             miniMapToolStripMenuItem_Click(null, null);
 
             timer.Enabled = tick.Enabled = true;
@@ -726,7 +727,7 @@ namespace AllegianceForms.Forms
             _shiftDown = e.Shift;
             _ctrlDown = e.Control;
 
-            if (e.KeyCode == Keys.Pause)
+            if (e.KeyCode == Keys.Pause || e.KeyCode == Keys.Escape)
             {
                 var enabled = !tick.Enabled;
                 tick.Enabled = timer.Enabled = enabled;

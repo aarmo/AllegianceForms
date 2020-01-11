@@ -40,7 +40,7 @@ namespace AllegianceForms.Forms
 
         public void RefreshPilotList()
         {
-            var ships = _game.AllUnits.Where(_ => _.Active && _.Team == 1 && !Ship.IsTower(_.Type)).ToList();
+            var ships = _game.AllUnits.Where(_ => _.Active && _.Team == 1 && !Ship.IsTower(_.Type) && _.Type != EShipType.Lifepod).ToList();
 
             if (!_showCaps) ships.RemoveAll(_ => Ship.IsCapitalShip(_.Type));
             if (!_showCons) ships.RemoveAll(_ => _.Type == EShipType.Constructor);

@@ -139,6 +139,7 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
+    <Compile Include="Engine\Generation\RandomPartString.cs" />
     <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Generation\RandomName.cs" />
     <Compile Include="Engine\HSBColour.cs" />
@@ -1565,6 +1566,9 @@
     <Content Include="Data\Maps\BowTie2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\FactionNameParts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Maps\Chopper2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -2128,9 +2132,6 @@
     </Content>
     <Content Include="Data\Maps\Xenon2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Names-Faction.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Names-Sector.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

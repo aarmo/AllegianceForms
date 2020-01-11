@@ -111,6 +111,8 @@ namespace AllegianceForms.Forms
             AlienWaveTarget.Text = s.AlientWaveTargetType.ToString();
             Teams.Value = Settings.NumTeams;
 
+            Speed.Text = s.GameSpeed.ToString("P0");
+
             TeamItems.Controls.Clear();
             for (var i = 0; i < Settings.NumTeams; i++)
             {
@@ -789,6 +791,16 @@ namespace AllegianceForms.Forms
         private void RandomMap_Click(object sender, EventArgs e)
         {
             MapList.SelectedItem = GameMaps.RandomName((int)Teams.Value, false);
+        }
+
+        private void Speed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.GameSpeed = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
         }
     }
 }

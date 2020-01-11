@@ -154,7 +154,7 @@ namespace AllegianceForms.Engine.Ships
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed;
 
             if (spec.Weapons != null)
             {
@@ -295,7 +295,7 @@ namespace AllegianceForms.Engine.Ships
             ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
             ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
 
-            ship.MaxResourceCapacity = (int)(ship.MaxResourceCapacity * research[EGlobalUpgrade.MinerCapacity] * settings.MinersCapacityMultiplier * faction.Bonuses.MiningCapacity);
+            ship.MaxResourceCapacity = (int)(ship.MaxResourceCapacity * research[EGlobalUpgrade.MinerCapacity] * settings.MinersCapacityMultiplier * faction.Bonuses.MiningCapacity * settings.GameSpeed);
 
             _game.GameStats.TotalMinersBuilt[t]++;
 

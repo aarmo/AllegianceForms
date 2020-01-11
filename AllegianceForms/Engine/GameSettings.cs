@@ -73,6 +73,7 @@ namespace AllegianceForms.Engine
         public int InitialWaveDelay { get; set; }
         public int DecreaseWaveDelay { get; set; }
         public EWaveTargetType AlientWaveTargetType { get; set; }
+        public float GameSpeed { get; set; }
 
         public static GameSettings Default()
         {
@@ -150,6 +151,8 @@ namespace AllegianceForms.Engine
                 DecreaseWaveDelay = 1 * 4,
 
                 AlientWaveTargetType = EWaveTargetType.Everyone,
+
+                GameSpeed = 0.5f
             };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))

@@ -1,5 +1,4 @@
 ﻿using AllegianceForms.Engine.Generation;
-using Newtonsoft.Json;
 
 namespace AllegianceForms.Engine.Factions
 {
@@ -27,7 +26,7 @@ namespace AllegianceForms.Engine.Factions
             return Name;
         }
 
-        public static RandomString FactionNames = new RandomString(".\\Data\\Names-Faction.txt");
+        public static RandomPartString FactionNames = new RandomPartString(".\\Data\\FactionNameParts.json");
 
         public static Faction Default()
         {

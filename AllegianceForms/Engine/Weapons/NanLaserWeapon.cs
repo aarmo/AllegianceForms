@@ -1,4 +1,5 @@
-﻿using AllegianceForms.Engine.Ships;
+﻿using AllegianceForms.Engine.Bases;
+using AllegianceForms.Engine.Ships;
 using System.Drawing;
 using System.Linq;
 
@@ -10,6 +11,20 @@ namespace AllegianceForms.Engine.Weapons
             : base(game, Color.Aqua, laserWidth, fireTicks, refireTicks, range, healing, shooter, offset)
         {
             WeaponSound = ESounds.sniperlaser1pwrup;
+        }
+
+
+        public override void DamageTarget()
+        {
+            base.DamageTarget();
+
+            // Nanites can also heal bases
+            var baseTarget = Target as Base;
+            if (baseTarget != null && Shooter.SectorId == Target.SectorId)
+            {
+                baseTarget.Damage(WeaponDamage, Shooter.Team);
+                if (!baseTarget.Active) Target = null;
+            }
         }
 
         public override void CheckForANewTarget()
