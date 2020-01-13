@@ -2129,7 +2129,7 @@
     <Content Include="Data\Maps\Xenon2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Names-Sector.txt">
+    <Content Include="Data\SectorNames.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\QuickChatCommands.txt">

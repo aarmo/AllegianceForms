@@ -8,7 +8,7 @@ namespace AllegianceForms.Engine.Map
 {
     public static class GameMaps
     {
-        public static RandomString SectorNames = new RandomString(".\\Data\\Names-Sector.txt");
+        public static RandomString SectorNames = new RandomString(".\\Data\\SectorNames.txt");
         private static string[][] _allAvailableMaps = GetMapFiles(true);
         private static string[][] _availableMaps = GetMapFiles(false);
 

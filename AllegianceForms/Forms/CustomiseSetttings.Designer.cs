@@ -430,7 +430,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Lime;
-            this.label12.Location = new System.Drawing.Point(694, 317);
+            this.label12.Location = new System.Drawing.Point(694, 327);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 16);
             this.label12.TabIndex = 4;
@@ -442,7 +442,7 @@
             this.ShipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ShipType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShipType.FormattingEnabled = true;
-            this.ShipType.Location = new System.Drawing.Point(751, 316);
+            this.ShipType.Location = new System.Drawing.Point(751, 326);
             this.ShipType.Name = "ShipType";
             this.ShipType.Size = new System.Drawing.Size(91, 21);
             this.ShipType.TabIndex = 28;
@@ -451,7 +451,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(704, 373);
+            this.label13.Location = new System.Drawing.Point(704, 383);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 0;
@@ -468,7 +468,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipSig.Location = new System.Drawing.Point(773, 370);
+            this.ShipSig.Location = new System.Drawing.Point(773, 380);
             this.ShipSig.Name = "ShipSig";
             this.ShipSig.Size = new System.Drawing.Size(69, 21);
             this.ShipSig.TabIndex = 30;
@@ -477,7 +477,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(704, 346);
+            this.label14.Location = new System.Drawing.Point(704, 356);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(41, 13);
             this.label14.TabIndex = 0;
@@ -494,7 +494,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipHealth.Location = new System.Drawing.Point(773, 343);
+            this.ShipHealth.Location = new System.Drawing.Point(773, 353);
             this.ShipHealth.Name = "ShipHealth";
             this.ShipHealth.Size = new System.Drawing.Size(69, 21);
             this.ShipHealth.TabIndex = 29;
@@ -511,7 +511,7 @@
             "100%",
             "150%",
             "200%"});
-            this.ShipSpeed.Location = new System.Drawing.Point(773, 397);
+            this.ShipSpeed.Location = new System.Drawing.Point(773, 407);
             this.ShipSpeed.Name = "ShipSpeed";
             this.ShipSpeed.Size = new System.Drawing.Size(69, 21);
             this.ShipSpeed.TabIndex = 31;
@@ -520,7 +520,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(704, 400);
+            this.label15.Location = new System.Drawing.Point(704, 410);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 13);
             this.label15.TabIndex = 0;
@@ -1142,7 +1142,7 @@
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label41.ForeColor = System.Drawing.Color.Lime;
-            this.label41.Location = new System.Drawing.Point(696, 105);
+            this.label41.Location = new System.Drawing.Point(694, 103);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(71, 16);
             this.label41.TabIndex = 0;
@@ -1160,8 +1160,9 @@
             "Normal",
             "Hard",
             "Very Hard",
+            "Extremely Hard",
             "Insane"});
-            this.Difficulty.Location = new System.Drawing.Point(773, 104);
+            this.Difficulty.Location = new System.Drawing.Point(771, 102);
             this.Difficulty.Name = "Difficulty";
             this.Difficulty.Size = new System.Drawing.Size(69, 21);
             this.Difficulty.TabIndex = 2;
@@ -1603,7 +1604,7 @@
             this.VariantAI.AutoSize = true;
             this.VariantAI.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.VariantAI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VariantAI.Location = new System.Drawing.Point(712, 124);
+            this.VariantAI.Location = new System.Drawing.Point(710, 122);
             this.VariantAI.Name = "VariantAI";
             this.VariantAI.Size = new System.Drawing.Size(72, 17);
             this.VariantAI.TabIndex = 13;

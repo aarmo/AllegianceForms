@@ -22,7 +22,6 @@ namespace AllegianceForms.Forms
 
         private StrategyGame _game;
         private TechTree _tree;
-        private List<int> _unlockedIds;
 
         public Research(StrategyGame game)
         {
@@ -30,7 +29,6 @@ namespace AllegianceForms.Forms
 
             _game = game;
             _tree = game.TechTree[0];
-            _unlockedIds = null;
             RefreshItems();
         }
 
@@ -43,7 +41,6 @@ namespace AllegianceForms.Forms
 
             _game = null;
             _tree = tree;
-            _unlockedIds = new List<int>(unlockedTechIds);
             Currency = currency;
             CurrencyPoints.Text = $"{Currency}";
             RefreshItems();

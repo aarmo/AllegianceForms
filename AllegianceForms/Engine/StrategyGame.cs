@@ -40,6 +40,7 @@ namespace AllegianceForms.Engine
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
         public const string QuickChatDataFile = ".\\Data\\QuickChatCommands.txt";
+        
         public const string RockPicDir = ".\\Art\\Rocks\\";
         public const string IconPicDir = ".\\Art\\Trans\\";
         public const string AlienPicDir = ".\\Art\\Aliens\\";
@@ -1393,6 +1394,12 @@ namespace AllegianceForms.Engine
                 + GameStats.TotalMinersDestroyed[t]
                 + GameStats.TotalConstructorsBuilt[t]
                 + GameStats.TotalConstructorsDestroyed[t]));
+        }
+
+        internal static T RandomEnumValue<T>()
+        {
+            var values = Enum.GetValues(typeof(T));
+            return (T)values.GetValue(Random.Next(0, values.Length));
         }
     }
 }
