@@ -116,6 +116,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CommandBarButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CommandBarButton.Designer.cs">
+      <DependentUpon>CommandBarButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\QuickChatItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -153,6 +159,12 @@
     <Compile Include="Engine\Weapons\Minefield.cs" />
     <Compile Include="Engine\Weapons\MineWeapon.cs" />
     <Compile Include="Engine\Weapons\ShieldChargeWeapon.cs" />
+    <Compile Include="Forms\CommandBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommandBar.Designer.cs">
+      <DependentUpon>CommandBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CustomiseSetttings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,11 +289,17 @@
       <DependentUpon>TechTreeItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="Controls\CommandBarButton.resx">
+      <DependentUpon>CommandBarButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\QuickChatItem.resx">
       <DependentUpon>QuickChatItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TeamListItem.resx">
       <DependentUpon>TeamListItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CommandBar.resx">
+      <DependentUpon>CommandBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CustomiseSetttings.resx">
       <DependentUpon>CustomiseSetttings.cs</DependentUpon>

@@ -91,7 +91,7 @@ namespace AllegianceForms.Forms
 
         private void Research_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F5 || e.KeyCode == Keys.Escape)
+            if ((e.KeyCode == Keys.F4 && e.Alt) || e.KeyCode == Keys.F5 || e.KeyCode == Keys.Escape)
             {
                 SoundEffect.Play(ESounds.windowslides);
                 Hide();

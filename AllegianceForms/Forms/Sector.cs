@@ -31,6 +31,7 @@ namespace AllegianceForms.Forms
         private Research _researchForm;
         private PilotList _pilotList;
         private Map _mapForm;
+        private CommandBar _commandBar;
         private DebugAI _debugForm;
         private MapSector _currentSector;
         private List<QuickChatItem> _currentQuickList;
@@ -69,6 +70,7 @@ namespace AllegianceForms.Forms
             _mapForm = new Map(StrategyGame);
             _researchForm = new Research(StrategyGame);
             _pilotList = new PilotList(StrategyGame);
+            _commandBar = new CommandBar(StrategyGame, this);
 
             UpdateWinnersAndLoosers(false);
 
@@ -173,6 +175,7 @@ namespace AllegianceForms.Forms
 
             // Show the map
             miniMapToolStripMenuItem_Click(null, null);
+            f4CommandBarToolStripMenuItem_Click(null, null);
 
             timer.Enabled = tick.Enabled = true;
         }
@@ -541,12 +544,14 @@ namespace AllegianceForms.Forms
             {
                 _lastCredits = StrategyGame.Credits[0];
                 CreditsLabel.Text = "Credits: $" + _lastCredits;
+                _commandBar.SetCreditsLabel(_lastCredits);
             }
 
             if (StrategyGame.DockedPilots[0] != _lastPilots)
             {
                 _lastPilots = StrategyGame.DockedPilots[0];
                 PilotsLabel.Text = "Docked Pilots: " + _lastPilots;
+                _commandBar.SetPilotsLabel(_lastPilots);
             }
 
             Invalidate();
@@ -694,11 +699,13 @@ namespace AllegianceForms.Forms
                 if (StrategyGame.TechTree[0].HasResearchedShipType(EShipType.TroopTransport))
                     CommandsLabel.Text += "  Troop Transport:[P]";
             }
-            else if (_selectedUnits.Count == 0 && _selectedBases.Count == 0)
+            else
             {
                 _orderType = EOrderType.None;
                 CommandsLabel.Text = string.Empty;
             }
+
+            _commandBar.RefreshCommandText(_selectedUnits, _selectedBases);
         }
 
         private void Sector_MouseMove(object sender, MouseEventArgs e)
@@ -722,7 +729,7 @@ namespace AllegianceForms.Forms
 
         private int[] _mappedSectors = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 
-        private void Sector_KeyDown(object sender, KeyEventArgs e)
+        public void Sector_KeyDown(object sender, KeyEventArgs e)
         {
             _shiftDown = e.Shift;
             _ctrlDown = e.Control;
@@ -737,6 +744,11 @@ namespace AllegianceForms.Forms
             else if (e.KeyCode == Keys.F3)
             {
                 miniMapToolStripMenuItem_Click(sender, null);
+                return;
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                f4CommandBarToolStripMenuItem_Click(sender, null);
                 return;
             }
             else if (e.KeyCode == Keys.F5)
@@ -826,16 +838,21 @@ namespace AllegianceForms.Forms
                         return;
                 }
 
-                switch (_orderType)
-                {
-                    case EOrderType.Ship:
-                        GiveShipOrders(e);
-                        break;
+                ProcessOrderKey(e.KeyCode, sender == _commandBar);
+            }
+        }
 
-                    case EOrderType.Base:
-                        GiveBaseOrders(e);
-                        break;
-                }
+        internal void ProcessOrderKey(Keys k, bool centerMousePos)
+        {
+            switch (_orderType)
+            {
+                case EOrderType.Ship:
+                    GiveShipOrders(k, centerMousePos);
+                    break;
+
+                case EOrderType.Base:
+                    GiveBaseOrders(k);
+                    break;
             }
         }
 
@@ -890,17 +907,17 @@ namespace AllegianceForms.Forms
             Focus();
         }
 
-        private void GiveBaseOrders(KeyEventArgs e)
+        private void GiveBaseOrders(Keys k)
         {
-            if (_selectedBases.Count == 0 || e.KeyCode == Keys.C) return;
+            if (_selectedBases.Count == 0 || k == Keys.C) return;
 
             var b = _selectedBases.FirstOrDefault(_ => _.CanLaunchShips());
             if (b == null) return;
 
-            var ship = StrategyGame.Ships.CreateCombatShip(e.KeyCode, 1, _colourTeam1, b.SectorId);
+            var ship = StrategyGame.Ships.CreateCombatShip(k, 1, _colourTeam1, b.SectorId);
             if (ship == null)
             { 
-                if (_shipKeys.Contains(e.KeyCode.ToString())) SoundEffect.Play(ESounds.outofammo);
+                if (_shipKeys.Contains(k.ToString())) SoundEffect.Play(ESounds.outofammo);
                 return;
             }
 
@@ -914,10 +931,11 @@ namespace AllegianceForms.Forms
             SoundEffect.Play(ESounds.text);
         }
 
-        private void GiveShipOrders(KeyEventArgs e)
+        private void GiveShipOrders(Keys k, bool centerMousePos)
         {
             if (_selectedUnits.Count == 0) return;
-            var centerPos = PointToClient(MousePosition);
+            
+            var centerPos = centerMousePos ? new Point(Width/2, Height/2) : PointToClient(MousePosition);
 
             var s = StrategyGame.AllUnits.FirstOrDefault(_ => _.Active && _.Team == 1 && _.SectorId == _currentSector.Id && _.Type != EShipType.Lifepod && _.Bounds.Contains(centerPos));
             var lifepods = _selectedUnits.Where(_ => _.Active && _.Type == EShipType.Lifepod && _.SectorId == _currentSector.Id).ToList();
@@ -933,7 +951,7 @@ namespace AllegianceForms.Forms
 
             var playKey = false;
 
-            switch (e.KeyCode)
+            switch (k)
             {
                 case Keys.S:
                     _selectedUnits.ForEach(_ => _.OrderShip(new StopOrder(StrategyGame), _shiftDown));
@@ -1197,6 +1215,30 @@ namespace AllegianceForms.Forms
 
                 _mapForm.Top = Top;
                 _mapForm.Left = Left + Width - 5;
+                //Focus();
+            }
+        }
+
+        private void f4CommandBarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.windowslides);
+
+            if (_commandBar.Visible)
+            {
+                _commandBar.Hide();
+            }
+            else
+            {
+                if (_commandBar.IsDisposed)
+                {
+                    _commandBar = new CommandBar(StrategyGame, this);
+                }
+                _commandBar.Show(this);
+
+                _commandBar.Top = Top + _mapForm.Height + 5;
+                _commandBar.Width = _mapForm.Width;
+                _commandBar.Height = Height - _commandBar.Top;
+                _commandBar.Left = _mapForm.Left;
                 //Focus();
             }
         }

@@ -31,7 +31,7 @@ namespace AllegianceForms.Forms
 
         private void PilotList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F6 || e.KeyCode == Keys.Escape)
+            if ((e.KeyCode == Keys.F4 && e.Alt) || e.KeyCode == Keys.F6 || e.KeyCode == Keys.Escape)
             {
                 SoundEffect.Play(ESounds.windowslides);
                 Hide();

@@ -42,6 +42,7 @@
             this.enemyAIDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.GameOverPanel = new System.Windows.Forms.Panel();
+            this.Continue = new System.Windows.Forms.Button();
             this.Done = new System.Windows.Forms.Button();
             this.TotalBases2 = new System.Windows.Forms.Label();
             this.TotalBases1 = new System.Windows.Forms.Label();
@@ -72,7 +73,7 @@
             this.SectorLabel = new System.Windows.Forms.Label();
             this.QuickItems = new System.Windows.Forms.FlowLayoutPanel();
             this.QuickItems2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Continue = new System.Windows.Forms.Button();
+            this.f4CommandBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.GameOverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -131,7 +132,7 @@
             this.CommandsLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
             this.CommandsLabel.ForeColor = System.Drawing.Color.Black;
             this.CommandsLabel.Name = "CommandsLabel";
-            this.CommandsLabel.Size = new System.Drawing.Size(843, 25);
+            this.CommandsLabel.Size = new System.Drawing.Size(812, 25);
             this.CommandsLabel.Spring = true;
             // 
             // toolStripDropDownButton1
@@ -140,6 +141,7 @@
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miniMapToolStripMenuItem,
+            this.f4CommandBarToolStripMenuItem,
             this.researchToolStripMenuItem,
             this.pilotListToolStripMenuItem,
             this.enemyAIDebugToolStripMenuItem});
@@ -154,7 +156,7 @@
             // 
             this.miniMapToolStripMenuItem.Name = "miniMapToolStripMenuItem";
             this.miniMapToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
-            this.miniMapToolStripMenuItem.Text = "[F3] Mini M&ap";
+            this.miniMapToolStripMenuItem.Text = "[F3] &Mini Map";
             this.miniMapToolStripMenuItem.Click += new System.EventHandler(this.miniMapToolStripMenuItem_Click);
             // 
             // researchToolStripMenuItem
@@ -175,7 +177,7 @@
             // 
             this.enemyAIDebugToolStripMenuItem.Name = "enemyAIDebugToolStripMenuItem";
             this.enemyAIDebugToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
-            this.enemyAIDebugToolStripMenuItem.Text = "[F12] Enemy AI &Testing";
+            this.enemyAIDebugToolStripMenuItem.Text = "[F12] Enemy &AI Testing";
             this.enemyAIDebugToolStripMenuItem.Click += new System.EventHandler(this.enemyAIDebugToolStripMenuItem_Click);
             // 
             // timer
@@ -218,6 +220,21 @@
             this.GameOverPanel.Size = new System.Drawing.Size(403, 422);
             this.GameOverPanel.TabIndex = 11;
             this.GameOverPanel.Visible = false;
+            // 
+            // Continue
+            // 
+            this.Continue.BackColor = System.Drawing.Color.Black;
+            this.Continue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Continue.ForeColor = System.Drawing.Color.White;
+            this.Continue.Location = new System.Drawing.Point(228, 351);
+            this.Continue.Name = "Continue";
+            this.Continue.Size = new System.Drawing.Size(163, 45);
+            this.Continue.TabIndex = 2;
+            this.Continue.Text = "Continue";
+            this.Continue.UseVisualStyleBackColor = false;
+            this.Continue.Click += new System.EventHandler(this.Continue_Click);
+            this.Continue.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
+            this.Continue.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
             // Done
             // 
@@ -563,20 +580,12 @@
             this.QuickItems2.Visible = false;
             this.QuickItems2.WrapContents = false;
             // 
-            // Continue
+            // f4CommandBarToolStripMenuItem
             // 
-            this.Continue.BackColor = System.Drawing.Color.Black;
-            this.Continue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Continue.ForeColor = System.Drawing.Color.White;
-            this.Continue.Location = new System.Drawing.Point(228, 351);
-            this.Continue.Name = "Continue";
-            this.Continue.Size = new System.Drawing.Size(163, 45);
-            this.Continue.TabIndex = 2;
-            this.Continue.Text = "Continue";
-            this.Continue.UseVisualStyleBackColor = false;
-            this.Continue.Click += new System.EventHandler(this.Continue_Click);
-            this.Continue.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
-            this.Continue.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
+            this.f4CommandBarToolStripMenuItem.Name = "f4CommandBarToolStripMenuItem";
+            this.f4CommandBarToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.f4CommandBarToolStripMenuItem.Text = "[F4] &Command Bar";
+            this.f4CommandBarToolStripMenuItem.Click += new System.EventHandler(this.f4CommandBarToolStripMenuItem_Click);
             // 
             // Sector
             // 
@@ -661,6 +670,7 @@
         private System.Windows.Forms.FlowLayoutPanel QuickItems2;
         private System.Windows.Forms.Button Done;
         private System.Windows.Forms.Button Continue;
+        private System.Windows.Forms.ToolStripMenuItem f4CommandBarToolStripMenuItem;
     }
 }
 
