@@ -43,18 +43,15 @@ namespace AllegianceForms.Engine.AI
             _minerDefense = new MinerDefenseMission(game, this, shipHandler);
             _baseDefense = new BaseDefenseMission(game, this, shipHandler);
 
-            switch (StrategyGame.Random.Next(3))
+            if (StrategyGame.RandomChance(0.5f))
             {
-                case 0:
-                    _initTech = EInitialTargetTech.ChooseInSector;
-                    break;
-                case 1:
-                    _initTech = EInitialTargetTech.Starbase;
-                    break;
-                case 2:
-                    _initTech = EInitialTargetTech.Shipyard;
-                    break;
+                _initTech = EInitialTargetTech.ChooseInSector;
             }
+            else
+            {
+                _initTech = (StrategyGame.RandomChance(0.75f)) ? EInitialTargetTech.Starbase : EInitialTargetTech.Shipyard;
+            }
+            
             _focusBuildOrder = StrategyGame.RandomChance(0.95f);
 
             // Play test a specific focus:
@@ -67,8 +64,10 @@ namespace AllegianceForms.Engine.AI
         public override void Update()
         {
             if (!Enabled) return;
+            
             _nextActionAllowed--;
             if (_nextActionAllowed > 0) return;
+            
             _nextActionAllowed = _limitActionsTickDelay;
 
             UpdateCheats();
@@ -132,24 +131,32 @@ namespace AllegianceForms.Engine.AI
 
                 _initTechName = Enum.GetName(typeof(EInitialTargetTech), _initTech);
             }
+            
+            var ourSectors = (from b in _game.AllBases
+                              where b.Active && b.Team == Team && b.CanLaunchShips()
+                              select b.SectorId).Distinct().ToList();
+
+            // If we have money, build resources
+            if (_game.Credits[_t] > 1000)
+            {
+                var resourcesToBuild = (from c in _game.TechTree[_t].ResearchableItems(ETechType.Construction)
+                                        where c.CanBuild() && c.AmountInvested < c.Cost
+                                        && (c.Name.Contains("Miner")
+                                            || c.Name.Contains("Resource"))
+                                        select c).ToList();
+                TryToInvestInResources(resourcesToBuild, ourSectors);
+            }
 
             // Expand & Build Randomly our focus tech:
-            var consCanBuild = (from c in _game.TechTree[_t].ResearchableItems(ETechType.Construction)
+            var basesToBuild = (from c in _game.TechTree[_t].ResearchableItems(ETechType.Construction)
                                 where c.CanBuild() && c.AmountInvested < c.Cost
-                                && (c.Name.Contains("Miner") 
-                                    || c.Name.Contains("Outpost") 
+                                && (c.Name.Contains("Outpost") 
                                     || c.Name.Contains("Starbase") 
                                     || c.Name.Contains(_initTechName))
                                 orderby c.Id descending
                                 select c).ToList();
 
-            var ourSectors = (from b in _game.AllBases
-                              where b.Active && b.Team == Team && b.CanLaunchShips()
-                              select b.SectorId).Distinct().ToList();
-            TryToInvestInBases(consCanBuild, ourSectors);
-
-            // If we have money, build more bases!
-            if (_game.Credits[_t] > 5000 && !_flagBuiltTech) UpdateBuild();
+            TryToInvestInBases(basesToBuild, ourSectors);                       
 
             // Once we have built our tech, research it randomly along with bombers
             if (!_flagBuiltFocusTech) return;
@@ -170,7 +177,7 @@ namespace AllegianceForms.Engine.AI
 
             InvestInRandomTech(tech);
 
-            // Once we are done with our focus, branch out :)
+            // Once we are done with our focus, branch out!
             if (tech.Count() < 2) _focusBuildOrder = false;
         }
 
