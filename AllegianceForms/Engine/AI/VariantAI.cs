@@ -10,7 +10,7 @@ namespace AllegianceForms.Engine.AI
 {
     public enum EInitialTargetTech
     {
-        Starbase=0, Expansion=3, Supremacy=1, Tactical=2, Shipyard=-2
+        Starbase=0, Expansion=3, Supremacy=1, Tactical=2, Shipyard=-2, ChooseInSector=-1
     }
 
     public class VariantAI : BaseAI
@@ -27,6 +27,7 @@ namespace AllegianceForms.Engine.AI
         private bool _flagFoundEnemyBase;
         private bool _flagFoundEnemyBombers;
         private bool _flagHaveBombers;
+        private bool _flagBuiltFocusTech;
 
         private EInitialTargetTech _initTech;
         private string _initTechName;
@@ -42,9 +43,25 @@ namespace AllegianceForms.Engine.AI
             _minerDefense = new MinerDefenseMission(game, this, shipHandler);
             _baseDefense = new BaseDefenseMission(game, this, shipHandler);
 
-            _initTech = StrategyGame.RandomEnumValue<EInitialTargetTech>();
+            switch (StrategyGame.Random.Next(3))
+            {
+                case 0:
+                    _initTech = EInitialTargetTech.ChooseInSector;
+                    break;
+                case 1:
+                    _initTech = EInitialTargetTech.Starbase;
+                    break;
+                case 2:
+                    _initTech = EInitialTargetTech.Shipyard;
+                    break;
+            }
+            _focusBuildOrder = StrategyGame.RandomChance(0.95f);
+
+            // Play test a specific focus:
+            //_initTech = EInitialTargetTech.Shipyard;
+            //_focusBuildOrder = true;
+
             _initTechName = Enum.GetName(typeof(EInitialTargetTech), _initTech);
-            _focusBuildOrder = StrategyGame.RandomChance(0.85f);
         }
         
         public override void Update()
@@ -91,15 +108,39 @@ namespace AllegianceForms.Engine.AI
             // Focus on miners, outpost, random tech, garrison, refinery. Then main tech upgrades and bombers, then other random building and research.
             if (_game.Credits[_t] <= 100) return;
 
+            if (_initTech == EInitialTargetTech.ChooseInSector)
+            {
+                var startingSector = _game.AllBases.First(_ => _.Team == Team && _.Type == EBaseType.Starbase).SectorId;
+                var techRocks = _game.AllAsteroids.Where(_ => _.SectorId == startingSector && _.Active && !(_.Type== EAsteroidType.Generic || _.Type == EAsteroidType.Resource)).ToList();
+                var choice = StrategyGame.RandomItem(techRocks);
+
+                switch (choice.Type)
+                {
+                    case EAsteroidType.Carbon:
+                        _initTech = EInitialTargetTech.Supremacy;
+                        break;
+                    case EAsteroidType.Silicon:
+                        _initTech = EInitialTargetTech.Tactical;
+                        break;
+                    case EAsteroidType.Uranium:
+                        _initTech = EInitialTargetTech.Expansion;
+                        break;
+                    default:
+                        _initTech = EInitialTargetTech.Starbase;
+                        break;
+                }
+
+                _initTechName = Enum.GetName(typeof(EInitialTargetTech), _initTech);
+            }
+
             // Expand & Build Randomly our focus tech:
             var consCanBuild = (from c in _game.TechTree[_t].ResearchableItems(ETechType.Construction)
                                 where c.CanBuild() && c.AmountInvested < c.Cost
                                 && (c.Name.Contains("Miner") 
                                     || c.Name.Contains("Outpost") 
                                     || c.Name.Contains("Starbase") 
-                                    || c.Name.Contains(_initTechName) 
-                                    || c.Name.Contains("Resource"))
-                                orderby c.Cost - c.AmountInvested, c.Id descending
+                                    || c.Name.Contains(_initTechName))
+                                orderby c.Id descending
                                 select c).ToList();
 
             var ourSectors = (from b in _game.AllBases
@@ -107,24 +148,30 @@ namespace AllegianceForms.Engine.AI
                               select b.SectorId).Distinct().ToList();
             TryToInvestInBases(consCanBuild, ourSectors);
 
-            // Research randomly focussing on our tech and bombers
+            // If we have money, build more bases!
+            if (_game.Credits[_t] > 5000 && !_flagBuiltTech) UpdateBuild();
+
+            // Once we have built our tech, research it randomly along with bombers
+            if (!_flagBuiltFocusTech) return;
+
             var tech = (from t in _game.TechTree[_t].ResearchableItemsNot(ETechType.Construction)
-                        where t.CanBuild()
-                        && (int)t.Type == (int)_initTech
-                        orderby t.Cost - t.AmountInvested, t.Id descending
-                        select t).Take(3).ToList();
+                    where t.CanBuild()
+                    && (int)t.Type == (int)_initTech
+                    &&  t.AmountInvested < t.Cost
+                    orderby t.Cost - t.AmountInvested, t.Id descending
+                    select t).Take(3).ToList();
 
             var bbr = (from t in _game.TechTree[_t].TechItems
                        where t.Active
                        && !t.Completed
-                       && t.Name.Contains("Bombers")
+                       && t.Name.Contains("Bomber")
                        select t).FirstOrDefault();
             if (bbr != null) tech.Add(bbr);
 
-            // Once we are done with our focus, branch out :)
-            if (tech.Count < 1) _focusBuildOrder = false;
-
             InvestInRandomTech(tech);
+
+            // Once we are done with our focus, branch out :)
+            if (tech.Count() < 2) _focusBuildOrder = false;
         }
 
         private void UpdateMissions()
@@ -144,6 +191,7 @@ namespace AllegianceForms.Engine.AI
             if (!_flagHaveBombers) _flagHaveBombers = _flagHaveBombers || _game.TechTree[_t].HasResearchedShipType(EShipType.Bomber);
             if (!_flagFoundEnemyBase) _flagFoundEnemyBase = _flagFoundEnemyBase || _game.AllBases.Exists(_ => _.IsVisibleToTeam(_t) && _.Active && _.Alliance != Alliance);                
             if (!_flagBuiltTech) _flagBuiltTech = _flagBuiltTech || _game.AllBases.Exists(_ => _.Active && _.Team == Team && _.IsTechBase());
+            if (!_flagBuiltFocusTech) _flagBuiltFocusTech = _flagBuiltFocusTech || _game.AllBases.Exists(_ => _.Active && _.Team == Team && _.Type.ToString() == _initTechName);
 
             _flagFoundEnemyBombers = _game.AllUnits.Exists(_ => _.Active && _.IsVisibleToTeam(_t) && _.Alliance != Alliance && _.CanAttackBases());
 
