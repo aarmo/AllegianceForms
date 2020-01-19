@@ -140,6 +140,7 @@ namespace AllegianceForms.Forms
         {
             RemoveButtonIfShown(ScoutButton);
             RemoveButtonIfShown(FigButton);
+            RemoveButtonIfShown(BbrButton);
             RemoveButtonIfShown(GsButton);
             RemoveButtonIfShown(IntButton);
             RemoveButtonIfShown(SfButton);
