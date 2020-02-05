@@ -44,24 +44,28 @@ namespace AllegianceForms.Forms
         {
             Faction.FactionNames.Reset();
             SoundEffect.Play(ESounds.mousedown);
-            var f = new CustomiseSetttings();
-            f.LoadSettings(_customSettings);
+            using (var f = new CustomiseSetttings())
+            { 
+                f.LoadSettings(_customSettings);
 
-            if (f.ShowDialog(this) == DialogResult.OK)
-            {
-                _customSettings = f.Settings;
-                _gamescreen = new Sector(_customSettings);
-                _gamescreen.FormClosed += Game_FormClosed;
-                if (!_gamescreen.IsDisposed) _gamescreen.Show();
-                animateStars.Enabled = false;
+                if (f.ShowDialog(this) == DialogResult.OK)
+                {
+                    _customSettings = f.Settings;
+                    _gamescreen = new Sector(_customSettings);
+                    _gamescreen.FormClosed += Game_FormClosed;
+                    if (!_gamescreen.IsDisposed) _gamescreen.Show();
+                    animateStars.Enabled = false;
+                }
             }
         }
 
         private void MapDesigner_Click(object sender, EventArgs e)
         {
             SoundEffect.Play(ESounds.mousedown);
-            var f = new MapDesigner();
-            f.ShowDialog(this);
+            using (var f = new MapDesigner())
+            {
+                f.ShowDialog(this);
+            }
         }
 
         private void Game_FormClosed(object sender, FormClosedEventArgs e)

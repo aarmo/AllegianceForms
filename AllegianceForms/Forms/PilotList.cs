@@ -56,7 +56,8 @@ namespace AllegianceForms.Forms
 
                 if (!ships.Contains(item.Pilot))
                 {
-                    PilotItems.Controls.RemoveAt(i);
+                    item.Dispose();
+                    PilotItems.Controls.Remove(item);
                     i--;
                 }
                 else

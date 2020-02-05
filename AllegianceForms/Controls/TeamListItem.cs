@@ -54,14 +54,16 @@ namespace AllegianceForms.Controls
         {
             var f = Utils.CloneObject(Faction);
 
-            var form = new FactionDetails();
-            form.LoadFaction(f, Color.FromArgb(ColourArgb));
+            using (var form = new FactionDetails())
+            { 
+                form.LoadFaction(f, Color.FromArgb(ColourArgb));
 
-            if (form.ShowDialog(this) == DialogResult.OK)
-            {
-                Faction = form.Faction;
-                TeamFaction.Text = Faction.Name;
-                OnTeamChanged();
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Faction = form.Faction;
+                    TeamFaction.Text = Faction.Name;
+                    OnTeamChanged();
+                }
             }
         }
 

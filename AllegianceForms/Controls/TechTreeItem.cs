@@ -71,8 +71,8 @@ namespace AllegianceForms.Controls
 
         public void UpdateTime()
         {
-            TimeProgress.Value = Item.ResearchedTicks;
-            InvestmentProgress.Value = Item.AmountInvested;
+            TimeProgress.Value = Math.Min(Item.ResearchedTicks, TimeProgress.Maximum);
+            InvestmentProgress.Value = Math.Min(Item.AmountInvested, InvestmentProgress.Maximum);
         }
 
         private void Name_Click(object sender, EventArgs e)

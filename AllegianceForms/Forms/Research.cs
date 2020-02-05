@@ -20,6 +20,8 @@ namespace AllegianceForms.Forms
         private readonly Color _foreColorActive = Color.White;
         private readonly Color _foreColorInActive = Color.Gray;
 
+        private Dictionary<string, TechTreeItem> _techTreeItems = new Dictionary<string, TechTreeItem>();
+
         private StrategyGame _game;
         private TechTree _tree;
 
@@ -73,8 +75,20 @@ namespace AllegianceForms.Forms
             var items = _tree.ResearchableItems(_type);
             foreach (var i in items)
             {
-                var c = new TechTreeItem(_game, this);
-                c.SetInfo(i);
+                TechTreeItem c;
+
+                // Reuse the Tech Tree control if it is still researchable
+                if (_techTreeItems.ContainsKey(i.Name))
+                {
+                    c = _techTreeItems[i.Name];
+                    c.SetInfo(i);
+                }
+                else
+                {
+                    c = new TechTreeItem(_game, this);
+                    c.SetInfo(i);
+                    _techTreeItems.Add(i.Name, c);
+                }                
 
                 ResearchItems.Controls.Add(c);
             }
@@ -95,6 +109,7 @@ namespace AllegianceForms.Forms
             {
                 SoundEffect.Play(ESounds.windowslides);
                 Hide();
+                GC.Collect();
                 return;
             }
 

@@ -65,48 +65,57 @@ namespace AllegianceForms.Forms
 
         public void RefreshCommandText(List<Ship> selectedShips, List<Base> selectedBases)
         {
-            if (selectedShips.Count > 0)
-            {
-                ClearBaseButtons();
+            try { 
+                lock (_game)
+                {
+                    if (selectedShips.Count > 0)
+                    {
+                        ClearBaseButtons();
 
-                AddButtonIfNotShown(AttackButton);
-                AddButtonIfNotShown(StopButton);
-                AddButtonIfNotShown(DockButton);
-                AddButtonIfNotShown(PatrolButton);
+                        AddButtonIfNotShown(AttackButton);
+                        AddButtonIfNotShown(StopButton);
+                        AddButtonIfNotShown(DockButton);
+                        AddButtonIfNotShown(PatrolButton);
                 
-                if (selectedShips.Any(_ => _.Type == EShipType.Miner))
-                {
-                    AddButtonIfNotShown(MineButton);
-                }
+                        if (selectedShips.Any(_ => _.Type == EShipType.Miner))
+                        {
+                            AddButtonIfNotShown(MineButton);
+                        }
 
-                if (selectedShips.Any(_ => _.Type == EShipType.Constructor))
-                {
-                    AddButtonIfNotShown(BuildButton);
-                }
+                        if (selectedShips.Any(_ => _.Type == EShipType.Constructor))
+                        {
+                            AddButtonIfNotShown(BuildButton);
+                        }
 
-                if (selectedShips.Any(_ => _.Type == EShipType.TroopTransport))
-                {
-                    AddButtonIfNotShown(CaptureButton);
+                        if (selectedShips.Any(_ => _.Type == EShipType.TroopTransport))
+                        {
+                            AddButtonIfNotShown(CaptureButton);
+                        }
+                    }
+                    else if (selectedBases.Any(_ => _.CanLaunchShips()))
+                    {
+                        ClearShipButtons();
+
+                        AddButtonIfNotShown(ScoutButton);
+                        AddButtonIfNotShown(FigButton);
+
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.Bomber)) AddButtonIfNotShown(BbrButton);
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.Gunship)) AddButtonIfNotShown(GsButton);
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.Interceptor)) AddButtonIfNotShown(IntButton);
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.StealthFighter)) AddButtonIfNotShown(SfButton);
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.StealthBomber)) AddButtonIfNotShown(SbButton);
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.FighterBomber)) AddButtonIfNotShown(FbButton);
+                        if (_game.TechTree[0].HasResearchedShipType(EShipType.TroopTransport)) AddButtonIfNotShown(TtButton);
+                    }
+                    else 
+                    {
+                        ClearAllButtons();
+                    }
                 }
             }
-            else if (selectedBases.Any(_ => _.CanLaunchShips()))
+            catch (Exception ex)
             {
-                ClearShipButtons();
-
-                AddButtonIfNotShown(ScoutButton);
-                AddButtonIfNotShown(FigButton);
-
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.Bomber)) AddButtonIfNotShown(BbrButton);
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.Gunship)) AddButtonIfNotShown(GsButton);
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.Interceptor)) AddButtonIfNotShown(IntButton);
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.StealthFighter)) AddButtonIfNotShown(SfButton);
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.StealthBomber)) AddButtonIfNotShown(SbButton);
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.FighterBomber)) AddButtonIfNotShown(FbButton);
-                if (_game.TechTree[0].HasResearchedShipType(EShipType.TroopTransport)) AddButtonIfNotShown(TtButton);
-            }
-            else 
-            {
-                ClearAllButtons();
+                Program.Log.Error(ex);
             }
         }
 
