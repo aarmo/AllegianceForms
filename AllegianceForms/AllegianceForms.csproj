@@ -1592,6 +1592,12 @@
     <None Include="Data\Maps\Chopper4.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\Maps\Compass4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Flower4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Maps\Lanes4.png" />
     <Content Include="Data\Maps\Saber2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1599,7 +1605,16 @@
     <Content Include="Data\Maps\Saber4.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Maps\Compass4.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Flower4.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Maps\Lanes4.map" />
+    <Content Include="Data\Maps\Simple4.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\Maps\SmallSpiral2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1609,6 +1624,12 @@
     <None Include="Data\Maps\SmallSpiral4.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\Maps\Stacks2.map" />
+    <Content Include="Data\Maps\Stacks3.map" />
+    <Content Include="Data\Maps\Stacks4.map" />
+    <Content Include="Data\Maps\Web4.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -2072,6 +2093,9 @@
     <Content Include="Data\Maps\Serpentine2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Maps\Simple4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Maps\SingleRing2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2117,6 +2141,9 @@
     <Content Include="Data\Maps\Spine4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Maps\Stacks2.png" />
+    <Content Include="Data\Maps\Stacks3.png" />
+    <Content Include="Data\Maps\Stacks4.png" />
     <Content Include="Data\Maps\Star2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2139,6 +2166,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\TriClose4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Maps\Web4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Xenon2.map">

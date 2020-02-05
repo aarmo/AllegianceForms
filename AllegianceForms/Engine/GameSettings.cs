@@ -19,6 +19,7 @@ namespace AllegianceForms.Engine
         public EGameType GameType { get; set; }
         public int NumTeams { get; set; }
         public int NumPilots { get; set; }
+        public int MaximumPilots { get; set; }
         public string MapName { get; set; }
         public int[] TeamColours { get; set; }
         public Faction[] TeamFactions { get; set; }
@@ -74,6 +75,7 @@ namespace AllegianceForms.Engine
         public int DecreaseWaveDelay { get; set; }
         public EWaveTargetType AlientWaveTargetType { get; set; }
         public float GameSpeed { get; set; }
+        public float NormalShipCostMultiplier { get; set; }
 
         public static GameSettings Default()
         {
@@ -90,6 +92,7 @@ namespace AllegianceForms.Engine
                 TeamAlliance = new[] { 1, 2 },
                 RestrictTechToIds = new int[2][],
                 NumPilots = 16,
+                MaximumPilots = int.MaxValue,
                 AiDifficulty = 3,
                 VariantAi = true,
 
@@ -152,7 +155,8 @@ namespace AllegianceForms.Engine
 
                 AlientWaveTargetType = EWaveTargetType.Everyone,
 
-                GameSpeed = 0.5f
+                GameSpeed = 0.5f,
+                NormalShipCostMultiplier = 0.5f,
             };
 
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))

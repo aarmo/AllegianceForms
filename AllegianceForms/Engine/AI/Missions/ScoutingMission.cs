@@ -26,6 +26,7 @@ namespace AllegianceForms.Engine.AI.Missions
             // launch a scout if possible
             var ship = _game.Ships.CreateCombatShip(Keys.S, AI.Team, AI.TeamColour, b.SectorId);
             if (ship == null) return false;
+            if (!_game.LaunchShip(ship)) return false;
 
             ship.CenterX = b.CenterX;
             ship.CenterY = b.CenterY;
@@ -35,7 +36,6 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.OrderShip(new MoveOrder(_game, b.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
-            _game.LaunchShip(ship);
             return true;
         }
 

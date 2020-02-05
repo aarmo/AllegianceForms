@@ -90,8 +90,10 @@ namespace AllegianceForms.Engine.Bases
 
         public void Capture(Ship capturedBy)
         {
+            _game.Bases.CaptureBase(Type, Team, capturedBy.Team);
+
             Team = capturedBy.Team;
-            Alliance = capturedBy.Alliance;
+            Alliance = capturedBy.Alliance;            
             OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);
         } 
 

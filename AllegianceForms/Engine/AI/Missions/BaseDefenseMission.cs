@@ -28,7 +28,8 @@ namespace AllegianceForms.Engine.AI.Missions
             // Create our best combat ship
             Ship ship = _game.Ships.CreateCombatShip(AI.Team, AI.TeamColour, launchBase.SectorId);
             if (ship == null) return false;
-            
+            if (!_game.LaunchShip(ship)) return false;
+
             ship.CenterX = launchBase.CenterX;
             ship.CenterY = launchBase.CenterY;
 
@@ -37,7 +38,6 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.OrderShip(new MoveOrder(_game, launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
-            _game.LaunchShip(ship);
             return true;
         }
         

@@ -92,27 +92,43 @@ namespace AllegianceForms.Test.Engine
         public void LaunchWithoutAllPilots()
         {
             _game.DockedPilots[1] = 1;
+            _game.Credits[1] = 5;
             var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 2, 0);
             _game.LaunchShip(ship);
             _game.DockedPilots[1].ShouldBe(1);
         }
 
         [TestMethod]
+        public void LaunchWithoutAllCredits()
+        {
+            _game.DockedPilots[1] = 2;
+            _game.Credits[1] = 1;
+            var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 2, 0);
+            _game.LaunchShip(ship);
+            _game.DockedPilots[1].ShouldBe(2);
+            _game.Credits[1].ShouldBe(1);
+        }
+
+        [TestMethod]
         public void LaunchWithEnoughPilots()
         {
             _game.DockedPilots[1] = 1;
+            _game.Credits[1] = 5;
             var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 1, 0);
             _game.LaunchShip(ship);
             _game.DockedPilots[1].ShouldBe(0);
+            _game.Credits[1].ShouldBe(0);
         }
 
         [TestMethod]
         public void LaunchWithMorePilots()
         {
             _game.DockedPilots[1] = 4;
+            _game.Credits[1] = 6;
             var ship = new Ship(_game, string.Empty, 10, 10, System.Drawing.Color.DimGray, 2, 1, 10, 3, 0);
             _game.LaunchShip(ship);
             _game.DockedPilots[1].ShouldBe(1);
+            _game.Credits[1].ShouldBe(1);
         }
     }
 }

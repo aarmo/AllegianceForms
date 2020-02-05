@@ -80,6 +80,7 @@ namespace AllegianceForms.Engine
         public ShipSpecs Ships;
         public BaseSpecs Bases;
         public int[] DockedPilots;
+        public int[] TotalPilots;
         public int[] Credits;
         public BaseAI[] AICommanders;
         public TechTree[] TechTree;
@@ -779,8 +780,9 @@ namespace AllegianceForms.Engine
         {
             if (e == EBaseEventType.BaseDestroyed)
             {
-                if (sender.Team > 0) GameStats.TotalBasesDestroyed[sender.Team - 1]++;
-                
+                Bases.DestroyBase(sender.Type, sender.Team);
+                if (sender.Team > 0) GameStats.TotalBasesDestroyed[sender.Team - 1]++;                
+
                 if (sender.Team == 1 && !AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))
                     SoundEffect.Play(ESounds.vo_sal_sectorlost, true);
 
@@ -981,6 +983,7 @@ namespace AllegianceForms.Engine
             GameStats = new GameStats(NumTeams);
 
             DockedPilots = new int[NumTeams];
+            TotalPilots = new int[NumTeams];
             Credits = new int[NumTeams];
             Faction = new Faction[NumTeams];
             TechTree = new TechTree[NumTeams];
@@ -1022,7 +1025,7 @@ namespace AllegianceForms.Engine
             for (var t = 0; t < NumTeams; t++)
             {
                 Credits[t] = 0;
-                DockedPilots[t] = GameSettings.NumPilots;
+                DockedPilots[t] = TotalPilots[t] = GameSettings.NumPilots;
                 AddResources(t+1, (int)(ResourcesInitial * GameSettings.ResourcesStartingMultiplier), sound);
                 Map.SetVisibilityToTeam(t+1, GameSettings.WormholesVisible);
 
@@ -1157,17 +1160,21 @@ namespace AllegianceForms.Engine
             return DockedPilots[team - 1] >= pilotsRequired;
         }
 
-        public void LaunchShip(Ship ship)
+        public bool LaunchShip(Ship ship)
         {
             var t = ship.Team - 1;
-            if (DockedPilots[t] < ship.NumPilots) return;
+            if (DockedPilots[t] < ship.NumPilots) return false;
+            var cost = (int)(ship.MaxHealth * GameSettings.NormalShipCostMultiplier);
+            if (Credits[t] < cost) return false;
 
             DockedPilots[t] -= ship.NumPilots;
+            Credits[t] -= cost;
             ship.Health = ship.MaxHealth;
 
             AddUnit(ship);
 
             OnGameEvent(ship, EGameEventType.ShipLaunched);
+            return true;
         }
 
         public void DockPilots(int team, int numPilots)

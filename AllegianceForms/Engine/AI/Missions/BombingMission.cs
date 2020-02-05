@@ -121,6 +121,7 @@ namespace AllegianceForms.Engine.AI.Missions
                 }
             }
             if (ship == null) return false;
+            if (!_game.LaunchShip(ship)) return false;
 
             ship.CenterX = _launchBase.CenterX;
             ship.CenterY = _launchBase.CenterY;
@@ -130,7 +131,6 @@ namespace AllegianceForms.Engine.AI.Missions
             ship.OrderShip(new MoveOrder(_game, _launchBase.SectorId, pos, Point.Empty));
 
             IncludedShips.Add(ship);
-            _game.LaunchShip(ship);
             return true;
         }
 

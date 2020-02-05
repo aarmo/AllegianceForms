@@ -46,6 +46,7 @@ namespace AllegianceForms.Forms
             LoadMaps(s.MapName);
 
             Pilots.Value = s.NumPilots;
+
             Difficulty.SelectedIndex = s.AiDifficulty;
             VariantAI.Checked = Settings.VariantAi;
 
@@ -112,6 +113,14 @@ namespace AllegianceForms.Forms
             Teams.Value = Settings.NumTeams;
 
             Speed.Text = s.GameSpeed.ToString("P0");
+
+            if (s.MaximumPilots >= 0 && s.MaximumPilots < int.MaxValue)
+                MaxPilots.Text = s.MaximumPilots.ToString();
+            else
+                MaxPilots.Text = string.Empty;
+
+            ShipCost.Text = s.NormalShipCostMultiplier.ToString("P0");
+
 
             TeamItems.Controls.Clear();
             for (var i = 0; i < Settings.NumTeams; i++)
@@ -801,6 +810,27 @@ namespace AllegianceForms.Forms
 
             Settings.GameSpeed = float.Parse(p) / 100f;
             CustomPresets.Text = string.Empty;
+        }
+
+        private void MaxPilots_TextChanged(object sender, EventArgs e)
+        {
+            int i = int.MaxValue;
+            if (string.IsNullOrWhiteSpace(MaxPilots.Text) || !int.TryParse(MaxPilots.Text, out i)) return;
+            if (i < 0) return;
+
+            Settings.MaximumPilots = i;
+            CustomPresets.Text = string.Empty;
+        }
+
+        private void ShipCost_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var s = sender as ComboBox;
+            if (s == null) return;
+            var p = s.Text.Replace("%", string.Empty);
+
+            Settings.NormalShipCostMultiplier = float.Parse(p) / 100f;
+            CustomPresets.Text = string.Empty;
+
         }
     }
 }

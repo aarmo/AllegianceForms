@@ -233,15 +233,14 @@ namespace AllegianceForms.Engine.QuickChat
             var colour = Color.FromArgb(game.GameSettings.TeamColours[team - 1]);
             var ship = game.Ships.CreateCombatShip(types, team, colour, launchBase.SectorId);
             if (ship == null) return null;
+            if (!game.LaunchShip(ship)) return null;
 
             var pos = launchBase.GetNextBuildPosition();
             ship.CenterX = launchBase.CenterX;
             ship.CenterY = launchBase.CenterY;
             ship.ShipEvent += f_ShipEvent;
             ship.OrderShip(new MoveOrder(game, launchBase.SectorId, pos, Point.Empty));
-
-            game.LaunchShip(ship);
-
+            
             return ship;
         }
 

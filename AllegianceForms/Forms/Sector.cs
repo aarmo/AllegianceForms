@@ -297,7 +297,7 @@ namespace AllegianceForms.Forms
 
                 var b = sender.Bounds;
                 var p = new PointF(sender.Left, sender.Top);
-
+                
                 // Bases explode with multiple explosions!
                 for (var i = 0; i < 4; i++)
                 {
@@ -927,8 +927,15 @@ namespace AllegianceForms.Forms
             ship.ShipEvent += F_ShipEvent;
             ship.OrderShip(new MoveOrder(StrategyGame, b.SectorId, pos, Point.Empty));
 
-            StrategyGame.LaunchShip(ship);
-            SoundEffect.Play(ESounds.text);
+            if (StrategyGame.LaunchShip(ship))
+            {
+                SoundEffect.Play(ESounds.text);
+            }
+            else
+            {
+                SoundEffect.Play(ESounds.outofammo);
+                return;
+            }
         }
 
         private void GiveShipOrders(Keys k, bool centerMousePos)

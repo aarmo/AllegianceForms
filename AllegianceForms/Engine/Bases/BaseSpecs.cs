@@ -52,7 +52,11 @@ namespace AllegianceForms.Engine.Bases
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
             var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
-            if (addPilots) _game.DockedPilots[t] += spec.Pilots;
+            if (addPilots && _game.TotalPilots[t] + spec.Pilots < _game.GameSettings.MaximumPilots)
+            {
+                _game.DockedPilots[t] += spec.Pilots;
+                _game.TotalPilots[t] += spec.Pilots;
+            }
 
             var bse = new Base(_game, baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
@@ -60,6 +64,29 @@ namespace AllegianceForms.Engine.Bases
             bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
 
             return bse;
+        }
+
+        public void DestroyBase(EBaseType baseType, int team)
+        {
+            if (team == 0) return;
+            var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
+            if (spec == null) return;
+
+            var t = team - 1;
+            _game.DockedPilots[t] -= spec.Pilots;
+            _game.TotalPilots[t] -= spec.Pilots;
+        }
+
+        public void CaptureBase(EBaseType baseType, int team, int newTeam)
+        {
+            if (team == 0 || newTeam == 0) return;
+            var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
+            if (spec == null) return;
+
+            _game.DockedPilots[team - 1] -= spec.Pilots;
+            _game.TotalPilots[team - 1] -= spec.Pilots;
+            _game.DockedPilots[newTeam - 1] += spec.Pilots;
+            _game.TotalPilots[newTeam - 1] += spec.Pilots;
         }
     }
 

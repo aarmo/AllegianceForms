@@ -38,10 +38,13 @@ namespace AllegianceForms.Engine.Map
                 filenames.Add(RandomMapName_Small);
                 filenames.Add(RandomMapName_Large);
             }
+            if (!allMaps)
+            {
+                filenames.RemoveAll(f => f.StartsWith("Brawl"));
+            }
 
             files[0] = (from f in filenames
-                        where (!allMaps && f.EndsWith("2") && !f.StartsWith("Brawl"))
-                            || (allMaps && (f.EndsWith("2") || f.EndsWith("4")))
+                        where f.EndsWith("2") || f.EndsWith("4")
                         select f).ToArray();
             files[1] = filenames.Where(_ => _.EndsWith("3")).ToArray();
             files[2] = filenames.Where(_ => _.EndsWith("4")).ToArray();
