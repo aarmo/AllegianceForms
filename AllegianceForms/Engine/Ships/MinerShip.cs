@@ -49,6 +49,12 @@ namespace AllegianceForms.Engine.Ships
         {
             base.Damage(amount, senderTeam);
 
+            if (!Active)
+            {
+                Mining = false;
+                if (Target != null) Target.BeingMined = false;
+            }
+
             if (!Docked && Type == EShipType.Miner && Health < 0.75f * MaxHealth && _callNext <= 0)
             {
                 if (Team == 1) SoundEffect.Play(ESounds.vo_sal_minercritical, true);
@@ -78,6 +84,12 @@ namespace AllegianceForms.Engine.Ships
             _callNext--;
 
             if (!(CurrentOrder is MineOrder)) Mining = false;
+            if (Target == null) Mining = false;
+            if (Target == null || !Target.Active) 
+            {
+                Mining = false;
+                if (Target != null) Target.BeingMined = false;
+            }
 
             if (Target != null && !Utils.WithinDistance(CenterX, CenterY, Target.CenterX, Target.CenterY, MineDistance))
             {

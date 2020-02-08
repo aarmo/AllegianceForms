@@ -77,6 +77,8 @@ namespace AllegianceForms.Orders
         {
             var miner = (MinerShip)ship;
 
+            miner.Mining = false;
+
             if (miner.Target != null)
             {
                 miner.Target.BeingMined = false;

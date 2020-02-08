@@ -36,7 +36,7 @@ Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Si
 30,StealthBomber,O,54,Dn_hibmbstlbmp.png,16,16,60,1,4,200,0.5,1|2|10|20|100|10|0|0,0
 31,StealthBomber,O,55,Dn_hibmbstlbmp.png,16,16,80,1,4,250,0.3,1|2|10|20|200|15|0|0,0
 
-40,TroopTransport,P,33,Dn_hitrnbmp.png,16,16,75,1,2,100,1,,0
+40,TroopTransport,P,33,Dn_hitrnbmp.png,16,16,250,3,3,200,2,1|2|5|10|100|10|0|0,0
 
 50,Constructor,C,1,Dn_hicsmtwrbmp.png,16,16,75,0,3,100,1,,Tower
 51,Tower,C,1,Dn_hipdtsbmp.png,16,16,200,0,0,300,1,0|2|5|20|300|5|0|0,0

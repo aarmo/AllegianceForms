@@ -345,9 +345,14 @@ namespace AllegianceForms.Forms
 
         private void GameOver(bool playerWon)
         {
-            var t1C = Color.FromArgb(StrategyGame.GameSettings.TeamColours[0]);
-            var t2C = Color.FromArgb(StrategyGame.GameSettings.TeamColours[1]);
+            var s = StrategyGame.GameSettings;
+            var st = StrategyGame.GameStats;
 
+            var t1C = Color.FromArgb(s.TeamColours[0]);
+            var t2C = Color.FromArgb(s.TeamColours[1]);
+            var t3C = (s.NumTeams > 2) ? Color.FromArgb(s.TeamColours[2]) : t2C;
+            var t4C = (s.NumTeams > 3) ? Color.FromArgb(s.TeamColours[3]) : t3C;
+            
             UpdateWinnersAndLoosers(playerWon);
             if (playerWon)
             {
@@ -375,20 +380,51 @@ namespace AllegianceForms.Forms
                 = TotalConstructors2.ForeColor = TotalConstructorsDestroyed2.ForeColor = TotalMined2.ForeColor
                 = TotalMiners2.ForeColor = TotalMinersDestroyed2.ForeColor = t2C;
 
-            TotalBases1.Text = StrategyGame.GameStats.TotalBasesBuilt[0].ToString();
-            TotalBases2.Text = StrategyGame.GameStats.TotalBasesBuilt[1].ToString();
-            TotalBasesDestroyed1.Text = StrategyGame.GameStats.TotalBasesDestroyed[0].ToString();
-            TotalBasesDestroyed2.Text = StrategyGame.GameStats.TotalBasesDestroyed[1].ToString();
-            TotalConstructors1.Text = StrategyGame.GameStats.TotalConstructorsBuilt[0].ToString();
-            TotalConstructors2.Text = StrategyGame.GameStats.TotalConstructorsBuilt[1].ToString();
-            TotalConstructorsDestroyed1.Text = StrategyGame.GameStats.TotalConstructorsDestroyed[0].ToString();
-            TotalConstructorsDestroyed2.Text = StrategyGame.GameStats.TotalConstructorsDestroyed[1].ToString();
-            TotalMined1.Text = StrategyGame.GameStats.TotalResourcesMined[0].ToString();
-            TotalMined2.Text = StrategyGame.GameStats.TotalResourcesMined[1].ToString();
-            TotalMiners1.Text = StrategyGame.GameStats.TotalMinersBuilt[0].ToString();
-            TotalMiners2.Text = StrategyGame.GameStats.TotalMinersBuilt[1].ToString();
-            TotalMinersDestroyed1.Text = StrategyGame.GameStats.TotalMinersDestroyed[0].ToString();
-            TotalMinersDestroyed2.Text = StrategyGame.GameStats.TotalMinersDestroyed[1].ToString();
+            Team3.ForeColor = TotalBases3.ForeColor = TotalBasesDestroyed3.ForeColor
+                = TotalConstructors3.ForeColor = TotalConstructorsDestroyed3.ForeColor = TotalMined3.ForeColor
+                = TotalMiners3.ForeColor = TotalMinersDestroyed3.ForeColor = t3C;
+
+            Team4.ForeColor = TotalBases4.ForeColor = TotalBasesDestroyed4.ForeColor
+                = TotalConstructors4.ForeColor = TotalConstructorsDestroyed4.ForeColor = TotalMined4.ForeColor
+                = TotalMiners4.ForeColor = TotalMinersDestroyed4.ForeColor = t4C;
+
+            Team3.Text = (s.NumTeams > 2) ? "Team 3" : string.Empty;
+            Team4.Text = (s.NumTeams > 3) ? "Team 4" : string.Empty;
+
+            TotalBases1.Text = st.TotalBasesBuilt[0].ToString();
+            TotalBases2.Text = st.TotalBasesBuilt[1].ToString();
+            TotalBases3.Text = (s.NumTeams > 2) ? st.TotalBasesBuilt[2].ToString() : string.Empty;
+            TotalBases4.Text = (s.NumTeams > 3) ? st.TotalBasesBuilt[3].ToString() : string.Empty;
+
+            TotalBasesDestroyed1.Text = st.TotalBasesDestroyed[0].ToString();
+            TotalBasesDestroyed2.Text = st.TotalBasesDestroyed[1].ToString();
+            TotalBasesDestroyed3.Text = (s.NumTeams > 2) ? st.TotalBasesDestroyed[2].ToString() : string.Empty;
+            TotalBasesDestroyed4.Text = (s.NumTeams > 3) ? st.TotalBasesDestroyed[3].ToString() : string.Empty;
+            
+            TotalConstructors1.Text = st.TotalConstructorsBuilt[0].ToString();
+            TotalConstructors2.Text = st.TotalConstructorsBuilt[1].ToString();
+            TotalConstructors3.Text = (s.NumTeams > 2) ? st.TotalConstructorsBuilt[2].ToString() : string.Empty;
+            TotalConstructors4.Text = (s.NumTeams > 3) ? st.TotalConstructorsBuilt[3].ToString() : string.Empty;
+
+            TotalConstructorsDestroyed1.Text = st.TotalConstructorsDestroyed[0].ToString();
+            TotalConstructorsDestroyed2.Text = st.TotalConstructorsDestroyed[1].ToString();
+            TotalConstructorsDestroyed3.Text = (s.NumTeams > 2) ? st.TotalConstructorsDestroyed[2].ToString() : string.Empty;
+            TotalConstructorsDestroyed4.Text = (s.NumTeams > 3) ? st.TotalConstructorsDestroyed[3].ToString() : string.Empty;
+
+            TotalMined1.Text = st.TotalResourcesMined[0].ToString();
+            TotalMined2.Text = st.TotalResourcesMined[1].ToString();
+            TotalMined3.Text = (s.NumTeams > 2) ? st.TotalResourcesMined[2].ToString() : string.Empty;
+            TotalMined4.Text = (s.NumTeams > 3) ? st.TotalResourcesMined[3].ToString() : string.Empty;
+
+            TotalMiners1.Text = st.TotalMinersBuilt[0].ToString();
+            TotalMiners2.Text = st.TotalMinersBuilt[1].ToString();
+            TotalMiners3.Text = (s.NumTeams > 2) ? st.TotalMinersBuilt[2].ToString() : string.Empty;
+            TotalMiners4.Text = (s.NumTeams > 3) ? st.TotalMinersBuilt[3].ToString() : string.Empty;
+
+            TotalMinersDestroyed1.Text = st.TotalMinersDestroyed[0].ToString();
+            TotalMinersDestroyed2.Text = st.TotalMinersDestroyed[1].ToString();
+            TotalMinersDestroyed3.Text = (s.NumTeams > 2) ? st.TotalMinersDestroyed[2].ToString() : string.Empty;
+            TotalMinersDestroyed4.Text = (s.NumTeams > 3) ? st.TotalMinersDestroyed[3].ToString() : string.Empty;
 
             GameOverPanel.Visible = true;
         }
