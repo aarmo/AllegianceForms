@@ -32,7 +32,7 @@ namespace AllegianceForms.Engine
         public float MinersCapacityMultiplier { get; set; }
         public int ConstructorsMaxDrones { get; set; }
         public int ConstructorsMaxTowerDrones { get; set; }
-        public int CapitalMaxDrones { get; set; }
+        public int InitialCapitalMaxDrones { get; set; }
         public Dictionary<EShipType, float> ShipSpeedMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipHealthMultiplier { get; set; }
         public Dictionary<EShipType, float> ShipSignatureMultiplier { get; set; }
@@ -87,7 +87,6 @@ namespace AllegianceForms.Engine
                 WormholesVisible = true,
                 RocksVisible = false,
 
-                TeamFactions = new[] { Faction.Default(), Faction.Random() },
                 TeamColours = new[] { DefaultTeamColours[0], DefaultTeamColours[1] },
                 TeamAlliance = new[] { 1, 2 },
                 RestrictTechToIds = new int[2][],
@@ -104,7 +103,7 @@ namespace AllegianceForms.Engine
 
                 ConstructorsMaxDrones = 1,
                 ConstructorsMaxTowerDrones = 4,
-                CapitalMaxDrones = 2,
+                InitialCapitalMaxDrones = 2,
 
                 ResourcesStartingMultiplier = 1,
                 ResourcesPerRockMultiplier = 1,
@@ -159,6 +158,8 @@ namespace AllegianceForms.Engine
                 NormalShipCostMultiplier = 0.5f,
             };
 
+            s.TeamFactions = new[] { Faction.Default(s), Faction.Random(s) };
+
             foreach (EBaseType e in Enum.GetValues(typeof(EBaseType)))
             {
                 s.StationHealthMultiplier.Add(e, 1);
@@ -172,13 +173,6 @@ namespace AllegianceForms.Engine
                 s.ShipSignatureMultiplier.Add(e, 1);
             }
 
-/*#if DEBUG
-            // Testing setup: fast cheap tech, map visible
-            //StrategyGame.AddResources(1, 100000, false);
-            //settings.ResearchCostMultiplier = 0.25f;
-            s.ResearchCostMultiplier = 0.25f;
-            s.ResearchTimeMultiplier = 0.25f;
-#endif*/
             return s;
         }
     }

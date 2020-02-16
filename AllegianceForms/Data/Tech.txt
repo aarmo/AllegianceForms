@@ -92,3 +92,21 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 
 117,-2,Advanced Support,101,2500,60,False,capsupport-adv.png,A
 118,-2,Heavy Support,102,3000,60,False,capsupport-hvy.png,H
+
+
+120,0,Scan Range +30%,2|64,1500,240,False,tech_signal.png,A
+121,0,Repair Healing +30%,2|65,1500,240,False,tech_repair.png,H
+122,0,Miner Capacity +30%,2|66,1500,240,False,tech_minercapacity.png,P
+123,0,Miner Efficiency +30%,2|67,1500,240,False,tech_minerpick.png,F
+
+130,3,Ship Hull +30%,31|72,3000,240,False,tech_hull.png,H
+131,3,Weapon Damage +30%,31|73,3000,240,False,tech_lightning.png,D
+132,3,Shield Recharge +75%,31|75,3000,240,False,tech_shield.png,S
+
+140,1,Ship Speed +30%,41|82,3000,240,False,tech_radioactive.png,S
+141,1,Weapon Fire Rate +30%,41|83,3000,240,False,tech_doubleright.png,F
+142,1,Max Shield +30%,41|85,3000,240,False,tech_shield.png,H
+
+150,2,Ship Signature -30%,51|93,3000,240,False,tech_signal.png,G
+151,2,Missile Tracking +30%,51|94,1500,240,False,tech_rocket.png,T
+152,2,Missile Speed +30%,51|95,1500,240,False,tech_radioactive.png,S

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AllegianceForms.Engine;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 
 namespace AllegianceForms.Test.Faction
@@ -7,11 +8,12 @@ namespace AllegianceForms.Test.Faction
     public class RandomFactionTests
     {
         private AllegianceForms.Engine.Factions.Faction _target;
-
+        private GameSettings _settings;
         [TestInitialize]
         public void Setup()
         {
-            _target = AllegianceForms.Engine.Factions.Faction.Random();
+            _settings = GameSettings.Default();
+            _target = AllegianceForms.Engine.Factions.Faction.Random(_settings);
         }
 
         [TestMethod]
@@ -38,7 +40,7 @@ namespace AllegianceForms.Test.Faction
         [TestMethod]
         public void MoreRandomIsDifferent()
         {
-            var f = AllegianceForms.Engine.Factions.Faction.Random(11);
+            var f = AllegianceForms.Engine.Factions.Faction.Random(_settings, 11);
 
             var b1 = _target.Bonuses;
             var b2 = f.Bonuses;
@@ -58,6 +60,5 @@ namespace AllegianceForms.Test.Faction
 
             different.ShouldBe(true);
         }
-
     }
 }

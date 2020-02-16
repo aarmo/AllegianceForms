@@ -69,7 +69,7 @@ namespace AllegianceForms.Engine.Tech
 
             return (Type != ETechType.Construction && Type != ETechType.ShipyardConstruction)
                 || (Type == ETechType.ShipyardConstruction && Name.Contains("Shipyard"))
-                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && _game.NumberOfCapitalDrones(Team, Name) < _game.GameSettings.CapitalMaxDrones)
+                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && _game.NumberOfCapitalDrones(Team, Name) < _game.Faction[Team-1].CapitalMaxDrones)
                 || (Name.Contains("Miner") && _game.NumberOfMinerDrones(Team) < _game.GameSettings.MinersMaxDrones)
                 || (Name.Contains("Tower") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxTowerDrones)
                 || (Name.Contains("Constructor") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxDrones

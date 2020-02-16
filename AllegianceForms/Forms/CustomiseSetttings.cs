@@ -125,7 +125,7 @@ namespace AllegianceForms.Forms
             TeamItems.Controls.Clear();
             for (var i = 0; i < Settings.NumTeams; i++)
             {
-                var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i], Settings.TeamAlliance[i]);
+                var ctl = new TeamListItem(Settings, i + 1);
                 ctl.TeamChangedEvent += Ctl_TeamChangedEvent;
                 TeamItems.Controls.Add(ctl);
             }
@@ -658,11 +658,11 @@ namespace AllegianceForms.Forms
 
                 for (var i = Settings.NumTeams; i < teams; i++)
                 {
-                    Settings.TeamFactions[i] = Faction.Random();
+                    Settings.TeamFactions[i] = Faction.Random(Settings);
                     Settings.TeamColours[i] = GameSettings.DefaultTeamColours[i];
                     Settings.TeamAlliance[i] = i+1;
 
-                    var ctl = new TeamListItem(i + 1, Settings.TeamColours[i], Settings.TeamFactions[i], Settings.TeamAlliance[i]);
+                    var ctl = new TeamListItem(Settings, i + 1);
                     ctl.TeamChangedEvent += Ctl_TeamChangedEvent;
                     TeamItems.Controls.Add(ctl);
                 } 

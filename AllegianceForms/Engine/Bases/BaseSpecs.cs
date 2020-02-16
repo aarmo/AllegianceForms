@@ -58,6 +58,11 @@ namespace AllegianceForms.Engine.Bases
                 _game.TotalPilots[t] += spec.Pilots;
             }
 
+            if (baseType == EBaseType.Shipyard)
+            {
+                faction.CapitalMaxDrones += settings.InitialCapitalMaxDrones;
+            }
+
             var bse = new Base(_game, baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
 
             bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
@@ -75,6 +80,13 @@ namespace AllegianceForms.Engine.Bases
             var t = team - 1;
             _game.DockedPilots[t] -= spec.Pilots;
             _game.TotalPilots[t] -= spec.Pilots;
+
+            var faction = _game.Faction[t];
+            var settings = _game.GameSettings;
+            if (baseType == EBaseType.Shipyard)
+            {
+                faction.CapitalMaxDrones -= settings.InitialCapitalMaxDrones;
+            }
         }
 
         public void CaptureBase(EBaseType baseType, int team, int newTeam)

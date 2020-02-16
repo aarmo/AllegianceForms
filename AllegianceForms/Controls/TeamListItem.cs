@@ -17,13 +17,17 @@ namespace AllegianceForms.Controls
         public int ColourArgb { get; set; }
         public Faction Faction { get; set; }
 
-        public TeamListItem(int index, int colour, Faction faction, int alliance)
+        private GameSettings _settings;
+
+        public TeamListItem(GameSettings settings, int index)
         {
             InitializeComponent();
             Index = index;
-            ColourArgb = colour;
-            Faction = faction;
-            AllianceIndex = alliance;
+            
+            _settings = settings;
+            ColourArgb = _settings.TeamColours[index-1];
+            Faction = _settings.TeamFactions[index-1];
+            AllianceIndex = _settings.TeamAlliance[index-1];
 
             RefreshTeam();
         }
@@ -54,7 +58,7 @@ namespace AllegianceForms.Controls
         {
             var f = Utils.CloneObject(Faction);
 
-            using (var form = new FactionDetails())
+            using (var form = new FactionDetails(_settings))
             { 
                 form.LoadFaction(f, Color.FromArgb(ColourArgb));
 

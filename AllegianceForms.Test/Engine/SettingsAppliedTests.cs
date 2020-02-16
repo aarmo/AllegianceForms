@@ -19,7 +19,7 @@ namespace AllegianceForms.Test.Engine
         public void Setup()
         {
             _settings = GameSettings.Default();
-            _settings.TeamFactions[1] = AllegianceForms.Engine.Factions.Faction.Default();
+            _settings.TeamFactions[1] = AllegianceForms.Engine.Factions.Faction.Default(_settings);
             _game = new StrategyGame();
         }
         

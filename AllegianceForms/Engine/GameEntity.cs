@@ -125,7 +125,7 @@ namespace AllegianceForms.Engine
         public float MaxShield { get; set; }
         public float ShieldRecharge { get; set; }
 
-        private Brush _healthBrush;
+        protected Brush _healthBrush;
 
         public GameUnit(StrategyGame game, string imageFilename, int width, int height, float health, int sectorId, int team) : base(game, imageFilename, width, height, sectorId)
         {

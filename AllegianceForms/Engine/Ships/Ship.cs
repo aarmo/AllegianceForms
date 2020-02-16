@@ -3,7 +3,6 @@ using AllegianceForms.Orders;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System;
 
 namespace AllegianceForms.Engine.Ships
 {

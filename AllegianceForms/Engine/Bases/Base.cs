@@ -93,7 +93,10 @@ namespace AllegianceForms.Engine.Bases
             _game.Bases.CaptureBase(Type, Team, capturedBy.Team);
 
             Team = capturedBy.Team;
-            Alliance = capturedBy.Alliance;            
+            Alliance = capturedBy.Alliance;
+
+            _healthBrush = _game.TeamBrushes[Team - 1];
+
             OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);
         } 
 

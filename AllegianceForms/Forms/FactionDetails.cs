@@ -19,10 +19,13 @@ namespace AllegianceForms.Forms
 
         private const float BalanceIncrement = 0.1f;
 
-        public FactionDetails(double balance = 0, double target = 0, bool locked = false)
+        private GameSettings _settings;
+
+        public FactionDetails(GameSettings settings, double balance = 0, double target = 0, bool locked = false)
         {
             InitializeComponent();
-            
+
+            _settings = settings;
             _initBalance = Math.Round(balance, 2);
             _targetBalance = Math.Round(target, 2);
 
@@ -154,7 +157,7 @@ namespace AllegianceForms.Forms
         {
             SoundEffect.Play(ESounds.mousedown);
             CustomPresets.Text = string.Empty;
-            LoadFaction(Faction.Random(), _colour);
+            LoadFaction(Faction.Random(_settings), _colour);
         }
 
         private void FactionDetails_Load(object sender, EventArgs e)
@@ -386,7 +389,7 @@ namespace AllegianceForms.Forms
 
         private void Default_Click(object sender, EventArgs e)
         {
-            var f = Faction.Default();
+            var f = Faction.Default(_settings);
             f.CommanderName = "Default";
             LoadFaction(f, _colour);
         }
