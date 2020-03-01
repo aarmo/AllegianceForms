@@ -71,34 +71,43 @@ namespace AllegianceForms.Engine.Bases
             return bse;
         }
 
-        public void DestroyBase(EBaseType baseType, int team)
+        public void DestroyBase(Base bs)
         {
-            if (team == 0) return;
-            var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
+            var team = bs.Team;
+            if (team == 0 || bs.Destroyed) return;
+            var spec = Bases.FirstOrDefault(_ => _.Type == bs.Type);
             if (spec == null) return;
 
-            var t = team - 1;
-            _game.DockedPilots[t] -= spec.Pilots;
-            _game.TotalPilots[t] -= spec.Pilots;
+            lock(_game)
+            { 
+                var t = team - 1;
+                _game.DockedPilots[t] -= spec.Pilots;
+                _game.TotalPilots[t] -= spec.Pilots;
 
-            var faction = _game.Faction[t];
-            var settings = _game.GameSettings;
-            if (baseType == EBaseType.Shipyard)
-            {
-                faction.CapitalMaxDrones -= settings.InitialCapitalMaxDrones;
+                var faction = _game.Faction[t];
+                var settings = _game.GameSettings;
+                if (bs.Type == EBaseType.Shipyard)
+                {
+                    faction.CapitalMaxDrones -= settings.InitialCapitalMaxDrones;
+                }
+                bs.Destroyed = true;
             }
         }
 
-        public void CaptureBase(EBaseType baseType, int team, int newTeam)
+        public void CaptureBase(Base bs, int newTeam)
         {
-            if (team == 0 || newTeam == 0) return;
-            var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
+            var team = bs.Team;
+            if (team == 0 || newTeam == 0 || team == newTeam) return;
+            var spec = Bases.FirstOrDefault(_ => _.Type == bs.Type);
             if (spec == null) return;
 
-            _game.DockedPilots[team - 1] -= spec.Pilots;
-            _game.TotalPilots[team - 1] -= spec.Pilots;
-            _game.DockedPilots[newTeam - 1] += spec.Pilots;
-            _game.TotalPilots[newTeam - 1] += spec.Pilots;
+            lock (_game)
+            {
+                _game.DockedPilots[team - 1] -= spec.Pilots;
+                _game.TotalPilots[team - 1] -= spec.Pilots;
+                _game.DockedPilots[newTeam - 1] += spec.Pilots;
+                _game.TotalPilots[newTeam - 1] += spec.Pilots;
+            }
         }
     }
 

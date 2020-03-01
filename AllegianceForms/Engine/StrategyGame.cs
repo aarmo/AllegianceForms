@@ -780,7 +780,6 @@ namespace AllegianceForms.Engine
         {
             if (e == EBaseEventType.BaseDestroyed)
             {
-                Bases.DestroyBase(sender.Type, sender.Team);
                 if (sender.Team > 0) GameStats.TotalBasesDestroyed[sender.Team - 1]++;                
 
                 if (sender.Team == 1 && !AllBases.Any(_ => _.Active && _.Team == 1 && _.SectorId == sender.SectorId && _.CanLaunchShips()))

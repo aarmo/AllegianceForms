@@ -37,7 +37,7 @@ namespace AllegianceForms.Test.Engine
             var newPilots = _game.Bases.Bases.First(_ => _.Type == EBaseType.Starbase).Pilots;
             var b1 = _game.Bases.CreateBase(EBaseType.Starbase, 1, Color.White, 1);
 
-            _game.Bases.DestroyBase(EBaseType.Starbase, 1);
+            _game.Bases.DestroyBase(b1);
 
             _game.DockedPilots[0].ShouldBe(pilots);
         }
@@ -67,8 +67,8 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void CheckShipyardDestroyedRemoveMaxCapDrones()
         {
-            _game.Bases.CreateBase(EBaseType.Shipyard, 1, Color.White, 1);
-            _game.Bases.DestroyBase(EBaseType.Shipyard, 1);
+            var bs = _game.Bases.CreateBase(EBaseType.Shipyard, 1, Color.White, 1);
+            _game.Bases.DestroyBase(bs);
 
             _game.Faction[0].CapitalMaxDrones.ShouldBe(_game.GameSettings.InitialCapitalMaxDrones);
         }

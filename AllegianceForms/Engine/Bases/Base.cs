@@ -14,7 +14,9 @@ namespace AllegianceForms.Engine.Bases
         public bool Selected { get; set; }
         public PointF BuildPosition { get; set; }
         public float ScanRange { get; set; }
-                
+
+        public bool Destroyed { get;set; }
+
         private int _offsetCount = 0;
         private PointF _lastBuildPos = Point.Empty;
         private PointF _nextBuildOffset = Point.Empty;
@@ -33,6 +35,7 @@ namespace AllegianceForms.Engine.Bases
             Alliance = alliance;
             if (team > 0) VisibleToTeam[team - 1] = true;
             ScanRange = 500;
+            Destroyed = false;
         }
 
         public bool CanBeCaptured()
@@ -90,7 +93,7 @@ namespace AllegianceForms.Engine.Bases
 
         public void Capture(Ship capturedBy)
         {
-            _game.Bases.CaptureBase(Type, Team, capturedBy.Team);
+            _game.Bases.CaptureBase(this, capturedBy.Team);
 
             Team = capturedBy.Team;
             Alliance = capturedBy.Alliance;
@@ -153,6 +156,8 @@ namespace AllegianceForms.Engine.Bases
             if (!Active)
             {
                 // Dead!
+
+                _game.Bases.DestroyBase(this);
                 OnBaseEvent(EBaseEventType.BaseDestroyed, senderTeam);
             }
             else if (senderTeam != Team)
