@@ -12,6 +12,10 @@ namespace AllegianceForms.Engine.Factions
 
         public int CapitalMaxDrones { get; set; }
 
+        public Faction()
+        {
+        }
+
         public Faction(string name, string commanderName, GameSettings settings)
         {
             PictureCode = Name = name;
@@ -33,7 +37,7 @@ namespace AllegianceForms.Engine.Factions
             return new Faction("Default", "Player1", settings);
         }
         
-        public static Faction Random(GameSettings settings, int min = 10)
+        public static Faction Random(GameSettings settings, int min = 30)
         {
             var name = FactionNames.NextString;
             var f = new Faction(name, StrategyGame.RandomName.GetRandomName(name), settings);

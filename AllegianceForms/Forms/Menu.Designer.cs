@@ -44,13 +44,13 @@
             this.AppVersion.BackColor = System.Drawing.Color.Transparent;
             this.AppVersion.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppVersion.ForeColor = System.Drawing.Color.Lime;
-            this.AppVersion.Location = new System.Drawing.Point(5, 638);
-            this.AppVersion.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.AppVersion.Location = new System.Drawing.Point(3, 412);
+            this.AppVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.AppVersion.Name = "AppVersion";
-            this.AppVersion.Size = new System.Drawing.Size(989, 76);
+            this.AppVersion.Size = new System.Drawing.Size(556, 49);
             this.AppVersion.TabIndex = 7;
             this.AppVersion.Text = "(ALPHA) v0.1a";
-            this.AppVersion.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.AppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CustomGame
             // 
@@ -58,10 +58,10 @@
             this.CustomGame.BackColor = System.Drawing.Color.Black;
             this.CustomGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CustomGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomGame.Location = new System.Drawing.Point(154, 359);
-            this.CustomGame.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.CustomGame.Location = new System.Drawing.Point(87, 232);
+            this.CustomGame.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomGame.Name = "CustomGame";
-            this.CustomGame.Size = new System.Drawing.Size(694, 107);
+            this.CustomGame.Size = new System.Drawing.Size(390, 69);
             this.CustomGame.TabIndex = 3;
             this.CustomGame.Text = "Play Game";
             this.CustomGame.UseVisualStyleBackColor = false;
@@ -76,10 +76,10 @@
             this.Title.BackColor = System.Drawing.Color.Transparent;
             this.Title.Image = ((System.Drawing.Image)(resources.GetObject("Title.Image")));
             this.Title.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Title.Location = new System.Drawing.Point(4, -50);
-            this.Title.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.Title.Location = new System.Drawing.Point(2, -32);
+            this.Title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(997, 354);
+            this.Title.Size = new System.Drawing.Size(561, 228);
             this.Title.TabIndex = 0;
             // 
             // MapDesigner
@@ -87,10 +87,10 @@
             this.MapDesigner.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.MapDesigner.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MapDesigner.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MapDesigner.Location = new System.Drawing.Point(154, 480);
-            this.MapDesigner.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.MapDesigner.Location = new System.Drawing.Point(87, 310);
+            this.MapDesigner.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MapDesigner.Name = "MapDesigner";
-            this.MapDesigner.Size = new System.Drawing.Size(694, 107);
+            this.MapDesigner.Size = new System.Drawing.Size(390, 69);
             this.MapDesigner.TabIndex = 5;
             this.MapDesigner.Text = "Map Designer";
             this.MapDesigner.UseVisualStyleBackColor = true;
@@ -105,10 +105,10 @@
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(997, 716);
+            this.ClientSize = new System.Drawing.Size(561, 462);
             this.Controls.Add(this.MapDesigner);
             this.Controls.Add(this.CustomGame);
             this.Controls.Add(this.Title);
@@ -117,7 +117,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

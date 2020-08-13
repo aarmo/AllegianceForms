@@ -74,7 +74,7 @@ namespace AllegianceForms.Engine.Bases
         public void DestroyBase(Base bs)
         {
             var team = bs.Team;
-            if (team == 0 || bs.Destroyed) return;
+            if (team <= 0 || bs.Destroyed) return;
             var spec = Bases.FirstOrDefault(_ => _.Type == bs.Type);
             if (spec == null) return;
 
