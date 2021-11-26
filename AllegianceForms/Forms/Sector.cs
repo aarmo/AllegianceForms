@@ -650,6 +650,7 @@ namespace AllegianceForms.Forms
                 SetSelectionRect();
                 GetSelectedUnits();
             }
+            CloseMenus();
         }
 
         private void GetSelectedUnits()
@@ -776,6 +777,7 @@ namespace AllegianceForms.Forms
                 tick.Enabled = timer.Enabled = enabled;
 
                 DisplayAlert(enabled ? string.Empty : "*** PAUSED ***");
+                CloseMenus();
             }
             else if (e.KeyCode == Keys.F3)
             {
@@ -801,13 +803,6 @@ namespace AllegianceForms.Forms
             {
                 enemyAIDebugToolStripMenuItem_Click(sender, null);
                 return;
-            }
-            else if (e.KeyCode == Keys.Escape)
-            {
-                if (_researchForm.Visible) researchToolStripMenuItem_Click(sender, null);
-                if (_pilotList.Visible) pilotListToolStripMenuItem_Click(sender, null);
-                QuickItems.Visible = false;
-                QuickItems2.Visible = false;
             }
             else if (e.KeyCode == Keys.Space)
             {
@@ -876,6 +871,28 @@ namespace AllegianceForms.Forms
 
                 ProcessOrderKey(e.KeyCode, sender == _commandBar);
             }
+        }
+
+        private void CloseMenus()
+        {
+            var playSound = false;
+            if (_researchForm.Visible) 
+            {
+                playSound = true;
+                _researchForm.Hide();
+            }
+            if (_pilotList.Visible)
+            {
+                playSound = true;
+                _pilotList.Hide();
+            }
+            if (QuickItems.Visible)
+            {
+                playSound = true;
+                QuickItems.Hide();
+            }
+
+            if (playSound) SoundEffect.Play(ESounds.windowslides);
         }
 
         internal void ProcessOrderKey(Keys k, bool centerMousePos)
@@ -1231,11 +1248,7 @@ namespace AllegianceForms.Forms
                 }
 
                 _researchForm.RefreshItems();
-                _researchForm.Show(this);
-
-                _researchForm.Top = Top + Height / 2 - _researchForm.Height / 2;
-                _researchForm.Left = Left + Width / 2 - _researchForm.Width / 2;
-                //Focus();
+                _researchForm.ShowCentered(this);
             }
         }
 
@@ -1258,7 +1271,6 @@ namespace AllegianceForms.Forms
 
                 _mapForm.Top = Top;
                 _mapForm.Left = Left + Width - 5;
-                //Focus();
             }
         }
 
@@ -1282,7 +1294,6 @@ namespace AllegianceForms.Forms
                 _commandBar.Width = _mapForm.Width;
                 _commandBar.Height = Height - _commandBar.Top;
                 _commandBar.Left = _mapForm.Left;
-                //Focus();
             }
         }
 
@@ -1301,7 +1312,6 @@ namespace AllegianceForms.Forms
 
                 _debugForm.Top = Top + Height - _debugForm.Height - 10;
                 _debugForm.Left = Left + Width - 5;
-                //Focus();
             }
         }
 
@@ -1361,11 +1371,7 @@ namespace AllegianceForms.Forms
                 }
 
                 _pilotList.RefreshPilotList();
-                _pilotList.Show(this);
-
-                _pilotList.Top = Top + Height / 2 - _pilotList.Height / 2;
-                _pilotList.Left = Left + Width / 2 - _pilotList.Width / 2;
-                Focus();
+                _pilotList.ShowCentered(this);
             }
         }
 

@@ -35,6 +35,7 @@ namespace AllegianceForms.Forms
             {
                 SoundEffect.Play(ESounds.windowslides);
                 Hide();
+                GC.Collect();
             }
         }
 

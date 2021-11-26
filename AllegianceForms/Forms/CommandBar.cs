@@ -115,7 +115,7 @@ namespace AllegianceForms.Forms
             }
             catch (Exception ex)
             {
-                Program.Log.Error(ex);
+                Program.Log.Error("Command Bar Error", ex);
             }
         }
 

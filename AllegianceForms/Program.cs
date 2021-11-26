@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllegianceForms.Engine;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -30,18 +31,22 @@ namespace AllegianceForms
             }
             catch (Exception e)
             {
-                Log.Fatal(e);
+                Log.Fatal("Entry Error - Entry", e);
+            }
+            finally
+            {
+                SoundEffect.Dispose();
             }
         }
 
         private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Log.Fatal(e.ExceptionObject);
+            Log.Fatal("Unhandled Domain Error", e.ExceptionObject as Exception);
         }
 
         private static void ApplicationOnThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            Log.Fatal(e.Exception);
+            Log.Fatal("Application Thread Error", e.Exception);
         }
     }
 }

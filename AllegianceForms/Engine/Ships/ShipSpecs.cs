@@ -23,9 +23,9 @@ namespace AllegianceForms.Engine.Ships
 
         public static ShipSpecs LoadShipSpecs(StrategyGame game, string shipFile)
         {
-            var cfg = new CsvConfiguration()
+            var cfg = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)
             {
-                WillThrowOnMissingField = false,
+                MissingFieldFound = null,
                 IgnoreBlankLines = true,
                 AllowComments = true
             };

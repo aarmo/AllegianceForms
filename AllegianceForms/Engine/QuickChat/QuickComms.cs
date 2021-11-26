@@ -17,9 +17,9 @@ namespace AllegianceForms.Engine.QuickChat
 
         public static QuickComms LoadQuickChat(string dataFile)
         {
-            var cfg = new CsvConfiguration()
+            var cfg = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)
             {
-                WillThrowOnMissingField = false,
+                MissingFieldFound = null,
                 IgnoreBlankLines = true,
             };
 

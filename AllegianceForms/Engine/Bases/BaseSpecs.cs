@@ -20,9 +20,9 @@ namespace AllegianceForms.Engine.Bases
 
         public static BaseSpecs LoadBaseSpecs(StrategyGame game, string baseFile)
         {
-            var cfg = new CsvConfiguration()
+            var cfg = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)
             {
-                WillThrowOnMissingField = false,
+                MissingFieldFound = null,
                 IgnoreBlankLines = true,
                 AllowComments = true
             };
