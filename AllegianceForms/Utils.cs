@@ -178,6 +178,7 @@ namespace AllegianceForms
 
         public static int PerceivedBrightness(Color c)
         {
+            // Source: https://alienryderflex.com/hsp.html
             return (int)Math.Sqrt(
             c.R * c.R * .299 +
             c.G * c.G * .587 +

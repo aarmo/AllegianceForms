@@ -20,9 +20,10 @@ namespace AllegianceForms.Engine.Tech
 
         public static TechTree LoadTechTree(StrategyGame game, string techFile, int team)
         {
-            var cfg = new CsvConfiguration()
+            var cfg = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)
             {
-                WillThrowOnMissingField = false,
+                HeaderValidated = null,
+                MissingFieldFound = null,
                 IgnoreBlankLines = true,
             };
             

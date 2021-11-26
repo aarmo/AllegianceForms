@@ -94,7 +94,7 @@ Key	| Description
 **F6** | Show/Hide the Pilot List window.
 **F12** | Show/Hide the AI Debug window.
 **`** | Show/Hide the Quick Command menu.
-**Pause**, **Escape** | Pause/Resume the game.
+**Pause**, **Escape** | Pause/Resume the game and close all menus.
 
 ### Base Commands
 Key	| Description
