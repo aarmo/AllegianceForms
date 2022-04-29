@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AllegianceForms
+﻿namespace AllegianceForms
 {
     public enum EShipEventType
     {
@@ -138,7 +136,11 @@ namespace AllegianceForms
         MinerEfficiency,
 
         ShieldRecharge,
-        MaxShield
+        MaxShield,
+
+        AbilityDuration,
+        AbilityCooldown,
+        AbilityEffect
     }
 
     public enum ESounds
@@ -599,5 +601,16 @@ namespace AllegianceForms
         Player,
         AI,
         Everyone
+    }
+
+    public enum EAbilityType
+    {
+        EngineBoost,
+        ShieldBoost,
+        HullRepair,
+        WeaponBoost,
+        RapidFire,
+        ScanBoost,
+        StealthBoost
     }
 }

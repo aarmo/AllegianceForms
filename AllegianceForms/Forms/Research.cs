@@ -121,7 +121,8 @@ namespace AllegianceForms.Forms
 
                 if (t.Item.ShortcutKey == ks)
                 {
-                    t.Invest();
+                    // Shift+Key to partial invest
+                    t.Invest(e.Shift);
                     return;
                 }
             }

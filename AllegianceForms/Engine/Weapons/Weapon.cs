@@ -34,7 +34,7 @@ namespace AllegianceForms.Engine.Weapons
             _game = game;
         }
 
-        public virtual void Update()
+        public virtual void Update(float boostedAmount)
         {
             _shootingStop--;
             _shootingNext--;
@@ -48,7 +48,7 @@ namespace AllegianceForms.Engine.Weapons
 
             if (Shooting && _shootingStop <= 0)
             {
-                if (_damageOnShotEnd) DamageTarget();
+                if (_damageOnShotEnd) DamageTarget(boostedAmount);
                 Shooting = false;
                 _shootingNext = ShootingDelayTicks;
             }
@@ -56,9 +56,9 @@ namespace AllegianceForms.Engine.Weapons
             CheckForANewTarget();
         }
 
-        public abstract void Draw(Graphics g, int currentSectorId);
+        public abstract void Draw(Graphics g, int currentSectorId, bool boosted);
 
-        public abstract void DamageTarget();
+        public abstract void DamageTarget(float boostedAmount = 1f);
 
         public abstract void CheckForANewTarget();
 

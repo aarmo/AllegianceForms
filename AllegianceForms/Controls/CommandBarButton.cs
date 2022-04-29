@@ -40,7 +40,6 @@ namespace AllegianceForms.Controls
         private void ButtonText_MouseDown(object sender, MouseEventArgs e)
         {
             BackColor = ClickColour;
-            //_game.ProcessOrderKey(_key, true);
             _game.Sector_KeyDown(_bar, new KeyEventArgs(_key));
             _game.Focus();
         }

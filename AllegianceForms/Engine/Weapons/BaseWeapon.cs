@@ -12,12 +12,12 @@ namespace AllegianceForms.Engine.Weapons
         {
         }
 
-        public override void DamageTarget()
+        public override void DamageTarget(float boostedAmount = 1f)
         {
             var b = Target as Base;
             if (b != null && b.Active && Shooter.SectorId == Target.SectorId)
             {
-                b.Damage(WeaponDamage, Shooter.Team);
+                b.Damage(WeaponDamage * boostedAmount, Shooter.Team);
                 if (!b.Active) Target = null;
             }
         }

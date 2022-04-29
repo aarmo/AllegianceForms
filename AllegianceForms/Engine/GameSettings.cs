@@ -155,7 +155,7 @@ namespace AllegianceForms.Engine
                 AlientWaveTargetType = EWaveTargetType.Everyone,
 
                 GameSpeed = 0.5f,
-                NormalShipCostMultiplier = 0.5f,
+                NormalShipCostMultiplier = 0.5f
             };
 
             s.TeamFactions = new[] { Faction.Default(s), Faction.Random(s) };

@@ -10,12 +10,12 @@ namespace AllegianceForms.Engine.Weapons
         {
         }
 
-        public override void DamageTarget()
+        public override void DamageTarget(float boostAmount)
         {
             var ship = Target as Ship;
             if (ship != null && Shooter.SectorId == Target.SectorId)
             {
-                ship.Damage(WeaponDamage, Shooter.Team);
+                ship.Damage(WeaponDamage * boostAmount, Shooter.Team);
                 if (!ship.Active) Target = null;
             }
         }
@@ -26,8 +26,6 @@ namespace AllegianceForms.Engine.Weapons
             if (Shooter == null || !Shooter.Active || Shooting) return;
 
             var t = Target as Ship;
-            var skipVis = Shooter.Team < 0;
-
             if (t == null || !t.Active || t.SectorId != Shooter.SectorId || t.Docked || t.Alliance == Shooter.Alliance || !t.IsVisibleToTeam(Shooter.Team - 1) || !Utils.WithinDistance(Shooter.CenterX, Shooter.CenterY, Target.CenterX, Target.CenterY, WeaponRange))
             {
                 Target = _game.GetRandomEnemyInRange(Shooter.Team, Shooter.Alliance, Shooter.SectorId, Shooter.CenterPoint, WeaponRange);

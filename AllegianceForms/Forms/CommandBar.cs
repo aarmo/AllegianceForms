@@ -29,7 +29,15 @@ namespace AllegianceForms.Forms
         private const int FbButton=14;
         private const int TtButton=15;
 
-        private const int NumButtons = 16;
+        private const int BoostEnginesButton = 16;
+        private const int BoostShieldsButton = 17;
+        private const int RepairHullButton = 18;
+        private const int BoostWeaponsButton = 19;
+        private const int RapidFireButton = 20;
+        private const int BoostScanButton = 21;
+        private const int BoostStealthButton = 22;
+
+        private const int NumButtons = 23;
 
         private StrategyGame _game;
         private CommandBarButton[] _buttons = new CommandBarButton[NumButtons];
@@ -58,6 +66,14 @@ namespace AllegianceForms.Forms
             _buttons[SbButton] = new CommandBarButton(form, this, "Stealth Bomber\n[O]", Keys.O);
             _buttons[FbButton] = new CommandBarButton(form, this, "Fighter Bomber\n[X]", Keys.X);
             _buttons[TtButton] = new CommandBarButton(form, this, "Troop Transport\n[P]", Keys.P);
+
+            _buttons[BoostEnginesButton] = new CommandBarButton(form, this, "Boost Engines\n[1]", Keys.D1);
+            _buttons[BoostShieldsButton] = new CommandBarButton(form, this, "Boost Shields\n[2]", Keys.D2);
+            _buttons[RepairHullButton] = new CommandBarButton(form, this, "Repair Hull\n[3]", Keys.D3);
+            _buttons[BoostWeaponsButton] = new CommandBarButton(form, this, "Boost Weapons\n[4]", Keys.D4);
+            _buttons[RapidFireButton] = new CommandBarButton(form, this, "Rapid Fire\n[5]", Keys.D5);
+            _buttons[BoostScanButton] = new CommandBarButton(form, this, "Boost Scan\n[6]", Keys.D6);
+            _buttons[BoostStealthButton] = new CommandBarButton(form, this, "Boost Stealth\n[7]", Keys.D7);
 
             flowLayoutPanelButtons.Controls.Add(new CommandBarButton(form, this, "Research\n[F5]", Keys.F5));
             flowLayoutPanelButtons.Controls.Add(new CommandBarButton(form, this, "Pilots\n[F6]", Keys.F6));
@@ -90,6 +106,42 @@ namespace AllegianceForms.Forms
                         if (selectedShips.Any(_ => _.Type == EShipType.TroopTransport))
                         {
                             AddButtonIfNotShown(CaptureButton);
+                        }
+
+                        // Add button if any selected ships have an ability
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.EngineBoost)))
+                        {
+                            AddButtonIfNotShown(BoostEnginesButton);
+                        }
+
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.ShieldBoost)))
+                        {
+                            AddButtonIfNotShown(BoostShieldsButton);
+                        }
+
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.HullRepair)))
+                        {
+                            AddButtonIfNotShown(RepairHullButton);
+                        }
+
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.WeaponBoost)))
+                        {
+                            AddButtonIfNotShown(BoostWeaponsButton);
+                        }
+
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.RapidFire)))
+                        {
+                            AddButtonIfNotShown(RapidFireButton);
+                        }
+
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.ScanBoost)))
+                        {
+                            AddButtonIfNotShown(BoostScanButton);
+                        }
+
+                        if (selectedShips.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.StealthBoost)))
+                        {
+                            AddButtonIfNotShown(BoostStealthButton);
                         }
                     }
                     else if (selectedBases.Any(_ => _.CanLaunchShips()))
@@ -143,6 +195,14 @@ namespace AllegianceForms.Forms
             RemoveButtonIfShown(MineButton);
             RemoveButtonIfShown(BuildButton);
             RemoveButtonIfShown(CaptureButton);
+
+            RemoveButtonIfShown(BoostEnginesButton);
+            RemoveButtonIfShown(BoostShieldsButton);
+            RemoveButtonIfShown(RepairHullButton);
+            RemoveButtonIfShown(BoostWeaponsButton);
+            RemoveButtonIfShown(RapidFireButton);
+            RemoveButtonIfShown(BoostScanButton);
+            RemoveButtonIfShown(BoostStealthButton);
         }
 
         private void ClearBaseButtons()

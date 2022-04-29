@@ -13,10 +13,12 @@ namespace AllegianceForms.Engine.Tech
         {
             TechItems = new List<TechItem>();
             ResearchedUpgrades = new Dictionary<EGlobalUpgrade, float>();
+            CompletedTech = new Dictionary<string, bool>();
         }
 
         public List<TechItem> TechItems { get; set; }
         public Dictionary<EGlobalUpgrade, float> ResearchedUpgrades { get; set; }
+        public Dictionary<string, bool> CompletedTech { get; set; }
 
         public static TechTree LoadTechTree(StrategyGame game, string techFile, int team)
         {
@@ -45,6 +47,7 @@ namespace AllegianceForms.Engine.Tech
         {
             TechItems = items.ToList();
             ResearchedUpgrades = new Dictionary<EGlobalUpgrade, float>();
+            CompletedTech = new Dictionary<string, bool>();
 
             foreach (var e in (EGlobalUpgrade[])Enum.GetValues(typeof(EGlobalUpgrade)))
             {
@@ -117,7 +120,25 @@ namespace AllegianceForms.Engine.Tech
 
         public bool HasResearchedTech(string name)
         {
-            return TechItems.Any(_ => _.Completed && _.Name == name);
+            // Store the completed tech items in a hash list for faster lookup
+            return CompletedTech.ContainsKey(name);
+        }
+
+        public void RecordCompleted(string name)
+        {
+            var t = TechItems.FirstOrDefault(_ => _.Name == name);
+            if (t == null) return;
+
+            RecordCompleted(t);
+        }
+
+        public void RecordCompleted(TechItem item)
+        {
+            item.Completed = true;
+
+            if (!CompletedTech.ContainsKey(item.Name)) 
+                CompletedTech.Add(item.Name, true);
+            
         }
     }
 }

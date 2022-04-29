@@ -25,18 +25,18 @@ namespace AllegianceForms.Engine.Weapons
             Width = width;
         }
         
-        public override void Update()
+        public override void Update(float boostedAmount)
         {
             if (!Shooting && Firing && _shootingNext <= 1 && Target != null)
             {
                 var heading = (float)Utils.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
-                _game.Missiles.Add(new MissileProjectile(_game, Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, Shooter.Team, Shooter.Alliance));
+                _game.Missiles.Add(new MissileProjectile(_game, Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage * boostedAmount, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, Shooter.Team, Shooter.Alliance));
             }
-            base.Update();
+            base.Update(boostedAmount);
         }
 
-        public override void Draw(Graphics g, int currentSectorId)
+        public override void Draw(Graphics g, int currentSectorId, bool boosted)
         { }
     }
 }

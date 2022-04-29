@@ -13,16 +13,15 @@ namespace AllegianceForms.Engine.Weapons
             WeaponSound = ESounds.sniperlaser1pwrup;
         }
 
-
-        public override void DamageTarget()
+        public override void DamageTarget(float boostAmount)
         {
-            base.DamageTarget();
+            base.DamageTarget(boostAmount);
 
             // Nanites can also heal bases
             var baseTarget = Target as Base;
             if (baseTarget != null && Shooter.SectorId == Target.SectorId)
             {
-                baseTarget.Damage(WeaponDamage, Shooter.Team);
+                baseTarget.Damage(WeaponDamage * boostAmount, Shooter.Team);
                 if (!baseTarget.Active) Target = null;
             }
         }

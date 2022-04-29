@@ -13,7 +13,6 @@ namespace AllegianceForms.Engine.Ships
 
         public EShipType Type { get; set; }
         public int Alliance { get; protected set; }
-        public Brush TeamColor { get; protected set; }
         public Color Colour { get; protected set; }
         public bool Selected { get; set; }     
         public EVertDir VerticalDir { get; set; }
@@ -25,7 +24,6 @@ namespace AllegianceForms.Engine.Ships
         public float ScanRange { get; set; }
         public bool Docked { get; private set; }
         public Base DockedAtBase { get; private set; }
-        
 
         public Ship(StrategyGame game, string imageFilename, int width, int height, Color teamColor, int team, int alliance, float health, int numPilots, int sectorId)
             : base(game, imageFilename, width, height, health, sectorId, team)
@@ -107,7 +105,7 @@ namespace AllegianceForms.Engine.Ships
 
             Health = MaxHealth;
 
-            if (Ship.CanDock(Type) && Orders.Count == 0)
+            if (CanDock(Type) && Orders.Count == 0)
             {
                 // we are done for now
                 Active = false;

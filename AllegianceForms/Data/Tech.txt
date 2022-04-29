@@ -33,11 +33,19 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 33,3,Troop Transports,31|5,5000,120,False,Dn_hitrnbmp.png,T
 34,3,Heavy Interceptors,32|31,5000,120,False,Dn_hiinthvybmp.png,T
 
+35,3,Ability Cooldown -10%,30,3000,120,False,tech_stopwatch.png,A
+36,3,Ability Cooldown -20%,31|35,3000,120,False,tech_stopwatch.png,A
+37,3,Ability Cooldown -30%,31|36,3000,120,False,tech_stopwatch.png,A
+
 40,4,Supremacy,,0,0,True,
 41,1,Upgrade Supremacy,40,10000,240,False,tech_starplus.png,U
 42,1,Enhanced Fighter,40,5000,120,False,Dn_hifigenhbmp.png,F
 43,1,Fighter Bomber,41|4,5000,120,False,Dn_hibmbfigbmp.png,B
 44,1,Advanced Fighter,41|42,5000,120,False,Dn_hifigadvbmp.png,F
+
+45,1,Ability Duration +10%,40,3000,120,False,tech_timer.png,A
+46,1,Ability Duration +20%,41|45,3000,120,False,tech_timer.png,A
+57,1,Ability Duration +30%,41|46,3000,120,False,tech_timer.png,A
 
 50,4,Tactical,,0,0,True,
 51,2,Upgrade Tactical,50,10000,240,False,tech_starplus.png,U
@@ -45,6 +53,10 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 53,2,Advanced Stealth Fighter,51|52,5000,120,False,Dn_histladvbmp.png,F
 54,2,Stealth Bomber,51|4,5000,120,False,Dn_hibmbstlbmp.png,B
 55,2,Advanced Stealth Bomber,54,5000,120,False,Dn_hibmbstlbmp.png,B
+
+56,2,Ability Effect +10%,50,3000,120,False,tech_lightning.png,A
+57,2,Ability Effect +20%,51|56,3000,120,False,tech_lightning.png,A
+58,2,Ability Effect +30%,51|57,3000,120,False,tech_lightning.png,A
 
 60,0,Scan Range +10%,1,1500,240,False,tech_signal.png,A
 61,0,Repair Healing +10%,1,1500,240,False,tech_repair.png,H
@@ -87,12 +99,11 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 112,-2,Frigate,101|4,3000,60,False,capfrig.png,F
 113,-2,Devastator,102,4000,120,False,capdev.png,E
 114,-2,Cruiser,102|4,4000,120,False,capcruise.png,R
-115,-2,Battleship,102,5000,120,False,capbattle.png,T
+115,-2,Battleship,103,5000,120,False,capbattle.png,T
 116,-2,Battlecruiser,103|4,5000,120,False,capbcruise.png,B
 
 117,-2,Advanced Support,101,2500,60,False,capsupport-adv.png,A
 118,-2,Heavy Support,102,3000,60,False,capsupport-hvy.png,H
-
 
 120,0,Scan Range +30%,2|64,1500,240,False,tech_signal.png,A
 121,0,Repair Healing +30%,2|65,1500,240,False,tech_repair.png,H
@@ -110,3 +121,9 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 150,2,Ship Signature -30%,51|93,3000,240,False,tech_signal.png,G
 151,2,Missile Tracking +30%,51|94,1500,240,False,tech_rocket.png,T
 152,2,Missile Speed +30%,51|95,1500,240,False,tech_radioactive.png,S
+
+160,0,Unlock Engine Boost,2,10000,120,False,tech_radioactive.png,E
+161,0,Unlock Weapon Boost,2,10000,120,False,tech_lightning.png,W
+162,0,Unlock Shield Boost,2,10000,120,False,tech_hull.png,I
+163,0,Unlock Hull Repair,2,10000,120,False,tech_repair.png,H
+164,0,Unlock Rapid Fire,2,10000,120,False,tech_doubleright.png,R

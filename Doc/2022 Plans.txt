@@ -1,0 +1,44 @@
+Allegiance Forms.
+The original goal from 2017: a fun commander AI so we can have an immersive space battle with few players.
+This game is pretty fun and could do with a bit more work...
+Redeveloping in 3D should be the long-term plan...
+
+Next Steps:
+ - Ship Abilities
+ - Finish voice command orders
+ - Revamp random maps, the "room layout" style or just simple mirrored positions
+ - Add Multiplayer!
+
+Wild Ideas: 
+ - Add a Button "Scenarios":
+   Choose fun game presets with a preset state (4 team brawl, coop team, defend a large empire against multiple small teams, overcome a large empire, etc)
+   Intro story & backgorund image (could become a basic "Campaign")
+
+ - Add a "Commander League" to progress through, battling other AI commanders, rating, seasonal tournaments to participate in etc
+
+ - Add a Button "Pilot Missions":
+   Top down Shooter with space ships and effects, same maps, same Commander AI, better combat & controls
+   Launch whatever ship you can, engage the enemy and win the war!
+   Add an "Experience" system, tracking kills, earning credits completing missions, unlocking control upgrades, special weapons/shields
+   
+ - "Bullet Hell" rogue-like shooter
+   Add more projectiles & shooting patterns
+   WASD & Mouse aim
+   Use Random Abilities & maps, hire allies, gather equipment and materials
+   Might need Graphics Update (SharpDX? MonoGame?)
+
+ - Add a button "Open Galaxy" Random Galaxy Map, systems, caves & tunnels. Faction controlled, fly around, join or command conflicts, gather things, trade, upgrade ship
+
+ - Immersive galaxy for stories and roleplay
+   Multiplayer, jobs, campanies, income, crimes, freedom, voice coms "GTA5 in SPACE"
+   Other game modes are "simulations / training / wargames / sport"
+   Pirates, Traders, Police, Army, Medics, Factions, esport teams, gathering
+   Police stations, jail, hospitals, libraries, banks, warehouses, shops, garages, workshops, player housing
+   Random galaxy, factions to join/fight, abilities to learn, gear to find/craft
+   Minigames for picking, hacking etc.
+   AI pirates, traders, police, medics, army
+   Character-driven & voice acted
+   Probably ok to have random cities and layouts
+   Need to have teleport for fast emergency response
+   (limited use, restricted tech)
+   Your ship remains when you logout, park it at a space station/port

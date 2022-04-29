@@ -12,12 +12,12 @@ namespace AllegianceForms.Engine.Weapons
             WeaponSound = ESounds.shieldcharge1;
         }
 
-        public override void DamageTarget()
+        public override void DamageTarget(float boostAmount)
         {
             var ship = Target as Ship;
             if (ship != null && Shooter.SectorId == Target.SectorId)
             {
-                ship.Shield += WeaponDamage;
+                ship.Shield += WeaponDamage * boostAmount;
                 if (ship.Shield > ship.MaxShield) ship.Shield = ship.MaxShield;
             }
         }

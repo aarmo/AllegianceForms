@@ -30,9 +30,9 @@ namespace AllegianceForms.Engine.Weapons
             Utils.ReplaceColour(bmp, Colour);
         }
 
-        public override void Update()
+        public override void Update(float boostedAmount)
         {
-            base.Update();
+            base.Update(boostedAmount);
 
             // Create a minefield here.
             if (Shooting)
@@ -41,7 +41,7 @@ namespace AllegianceForms.Engine.Weapons
             }
         }
 
-        public override void Draw(Graphics g, int currentSectorId)
+        public override void Draw(Graphics g, int currentSectorId, bool boosted)
         {
         }
     }

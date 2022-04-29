@@ -27,6 +27,7 @@ Features
 - Commander AI
 - Multiple [Maps](#maps), a [Map Editor](#map-editor) & [Tech Paths](#tech-tree)
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers, Minefields and Capital Ships!
+- Micro control with [Ship Abilities](#ship-abilities)
 
 ![alt text][ships]
 <br/>
@@ -87,7 +88,7 @@ Key	| Description
 Key	| Description
 --- | ---
 **Control+(0-9)** | Set sector preset 0-9.
-**(0-9)** | View sector preset 0-9.
+**Shift+(0-9)** | View sector preset 0-9.
 **Space** | Switch between the sector of the last alert.
 **F3** | Show/Hide the Minimap window.
 **F5** | Show/Hide the Research/Construction window.
@@ -123,6 +124,59 @@ Key	| Description
 **E** | Orders the selected miners(s) to *Mine* around this position.
 **B** | Orders a selected constructor to *Build* near this position.
 **C** | Orders a selected troop transport to *Capture* an enemy base.
+**1-7** | Activate this ability for all selected ships, if available.
+
+[Overview](#overview)
+
+Ship Abilities
+------
+Most combat ships have powerful abilities that can turn the tide of battle!
+As a base line, these abilities last 5s, and have a 30s cooldown.
+
+### Ability Details
+Key | Ability | Description
+---  |--- |---
+**1** | Boost Engines | Increase ship speed by 50%+.
+**2** | Boost Shields | Restore up to 50% shield immediately.
+**3** | Repair Hull | Repair hull damage by 10%/s.
+**4** | Boost Weapons | Increase all weapon damage by 50%+.
+**5** | Rapid Fire | Double weapon fire rate by 50%+.
+**6** | Boost Scan | Increase scan range by 50%+.
+**7** | Boost Stealth | Decrease signature by 33%+.
+
+### Ability Upgrades
+These abilities can be improved with upgrades:
+
+Building | Ability Upgrade
+--- | ---
+**Supremacy** | Ability Duration +10%, +20%, +30%
+**Expansion** | Ability Cooldown -10%, -20%, -30%
+**Tactical** | Ability Effect +10%, +20%, +30%
+**Upgraded Starbase** | Unlock the Engine Boost, Shield Boost, Repair Hull, Weapon Boost or Rapid Fire abilties for all ships!
+
+> Note: The Ability Effect upgrade does not affect the Rapid Fire or Hull Repair abilities.
+
+### Default Ship Abilities
+Ship | Default Abilities
+--- | ---
+Scouts | Boost Scan
+Advanced Scouts | Boost Scan, Rapid Fire
+Heavy Scouts | Boost Scan, Rapid Fire, Boost Shields
+Gunships | Rapid Fire, Boost Shields
+Heavy Gunships | Rapid Fire, Boost Shields, Repair Hull
+Interceptors | Boost Engines
+Heavy Interceptors | Boost Engines, Rapid Fire
+Enhanced Fighters | Boost Weapons
+Advanced Fighters | Boost Weapons, Boost Shields
+Stealth Fighters | Boost Stealth
+Advanced Stealth Fighters | Boost Stealth, Boost Weapons
+Bombers | Boost Shields
+Heavy Bombers | Boost Shields, Boost Weapons
+Stealth Bombers | Boost Stealth
+Advanced Stealth Bombers | Boost Stealth, Boost Weapons
+Fighter Bombers | Boost Engines
+Troop Transports | Boost Engines
+All Capital Ships | Boost Engines, Boost Shields, Repair Hull, Boost Weapons, Rapid Fire
 
 [Overview](#overview)
 
@@ -287,6 +341,4 @@ Item | Source
 [mapsmallspiral4]: /AllegianceForms/Data/Maps/SmallSpiral4.png "SmallSpiral4"
 
 [maplanes4]: /AllegianceForms/Data/Maps/Lanes4.png "Lanes4"
-
-
 

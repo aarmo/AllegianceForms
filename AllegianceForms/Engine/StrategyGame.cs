@@ -62,6 +62,19 @@ namespace AllegianceForms.Engine
         public static Color AlienColour = Color.DarkGreen;
         public static Brush AlienBrush = new SolidBrush(AlienColour);
 
+        public const float AbilityPenAlpha = 0.5f;
+        public const float AbilityPenWidth = 2f;
+        public static Dictionary<EAbilityType, Pen> AbilityPens = new Dictionary<EAbilityType, Pen>
+        { 
+            { EAbilityType.EngineBoost , new Pen(Color.Yellow.AdjustAlpha(AbilityPenAlpha), AbilityPenWidth)},
+            { EAbilityType.WeaponBoost , null},
+            { EAbilityType.RapidFire , new Pen(Color.DarkRed.AdjustAlpha(AbilityPenAlpha), AbilityPenWidth)},
+            { EAbilityType.ShieldBoost , new Pen(Color.CornflowerBlue.AdjustAlpha(AbilityPenAlpha), AbilityPenWidth)},
+            { EAbilityType.HullRepair , new Pen(Color.DarkGreen.AdjustAlpha(AbilityPenAlpha), AbilityPenWidth)},
+            { EAbilityType.ScanBoost , new Pen(Color.WhiteSmoke.AdjustAlpha(AbilityPenAlpha), AbilityPenWidth)},
+            { EAbilityType.StealthBoost , new Pen(Color.DimGray.AdjustAlpha(AbilityPenAlpha), AbilityPenWidth)},
+        };
+
         private static DateTime _nextBbrSoundAllowed = DateTime.MinValue;
         private static TimeSpan _nextBbrSoundDelay = new TimeSpan(0, 0, 3);
         private int _currentWaveDelay;
@@ -75,7 +88,6 @@ namespace AllegianceForms.Engine
         public int NumTeams = 2;
         public int AlienTeam = -1;
         public int PlayerCurrentSectorId = 0;
-
 
         public ShipSpecs Ships;
         public BaseSpecs Bases;
@@ -1147,6 +1159,7 @@ namespace AllegianceForms.Engine
                 var autoCompleted = TechTree[t].TechItems.Where(_ => _.Completed).ToList();
                 foreach (var i in autoCompleted)
                 {
+                    TechTree[t].RecordCompleted(i);
                     i.Active = false;
                 }
             }            
@@ -1194,7 +1207,7 @@ namespace AllegianceForms.Engine
                         select t).FirstOrDefault();
             if (item == null) return;
 
-            item.Completed = true;
+            TechTree[team - 1].RecordCompleted(item);
         }
 
         public void Tick()
@@ -1276,6 +1289,7 @@ namespace AllegianceForms.Engine
                     }
                     else
                     {
+                        TechTree[t].RecordCompleted(c);
                         OnGameEvent(c, EGameEventType.ResearchComplete);
                         c.Active = false;
                     }
@@ -1387,25 +1401,108 @@ namespace AllegianceForms.Engine
             return null;
         }
 
-        public int TotalCampaignPoints(int team)
+        // Get the specific abilities this type of ship to use
+        // TODO: Load this from a file so we can tweak it
+        public List<EAbilityType> GetEnabledAbilities(int team, EShipType shipType)
         {
             var t = team - 1;
-            var won = Winners.Contains(Faction[t]);
-            var multiplier = won ? 1.5f : 1f;
+            var abilities = new List<EAbilityType>();
 
-            return (int)(multiplier * (GameStats.TotalResourcesMined[t] / 1000
-                + GameStats.TotalBasesBuilt[t]
-                + GameStats.TotalBasesDestroyed[t]
-                + GameStats.TotalMinersBuilt[t]
-                + GameStats.TotalMinersDestroyed[t]
-                + GameStats.TotalConstructorsBuilt[t]
-                + GameStats.TotalConstructorsDestroyed[t]));
-        }
+            /*
+            // Testing
+            abilities.Add(EAbilityType.EngineBoost);
+            abilities.Add(EAbilityType.HullRepair);
+            abilities.Add(EAbilityType.RapidFire);
+            abilities.Add(EAbilityType.WeaponBoost);
+            abilities.Add(EAbilityType.ShieldBoost);
+            abilities.Add(EAbilityType.ScanBoost);
+            abilities.Add(EAbilityType.StealthBoost);
+            return abilities;
+            */
 
-        internal static T RandomEnumValue<T>()
-        {
-            var values = Enum.GetValues(typeof(T));
-            return (T)values.GetValue(Random.Next(0, values.Length));
+            if (Ship.IsCapitalShip(shipType))
+            {
+                // Caps get all basic abilities
+                abilities.Add(EAbilityType.EngineBoost);
+                abilities.Add(EAbilityType.HullRepair);
+                abilities.Add(EAbilityType.RapidFire);
+                abilities.Add(EAbilityType.WeaponBoost);
+                abilities.Add(EAbilityType.ShieldBoost);
+                return abilities;
+            }
+            else if (shipType == EShipType.Scout)
+            {
+                // All scouts can boost their scanners
+                abilities.Add(EAbilityType.ScanBoost);
+
+                if (TechTree[t].HasResearchedTech("Advanced Scouts")) abilities.Add(EAbilityType.RapidFire);
+                if (TechTree[t].HasResearchedTech("Heavy Scouts")) abilities.Add(EAbilityType.ShieldBoost);
+            }
+            else if (shipType == EShipType.Fighter)
+            {
+                // Basic fighters have no abilities
+                if (TechTree[t].HasResearchedTech("Enhanced Fighter")) abilities.Add(EAbilityType.WeaponBoost);
+                if (TechTree[t].HasResearchedTech("Advanced Fighter")) abilities.Add(EAbilityType.ShieldBoost);
+            }
+            else if (shipType == EShipType.Bomber)
+            {
+                abilities.Add(EAbilityType.ShieldBoost);
+                if (TechTree[t].HasResearchedTech("Heavy Bombers")) abilities.Add(EAbilityType.WeaponBoost);
+            }
+            else if (shipType == EShipType.FighterBomber)
+            {
+                // Fighter Bombers are not strong indivdually
+                abilities.Add(EAbilityType.EngineBoost);
+            }
+            else if (shipType == EShipType.Gunship)
+            {
+                // Gunships are like mini caps
+                abilities.Add(EAbilityType.RapidFire);
+                abilities.Add(EAbilityType.ShieldBoost);
+                if (TechTree[t].HasResearchedTech("Heavy Gunships")) abilities.Add(EAbilityType.HullRepair);
+            }
+            else if (shipType == EShipType.Interceptor)
+            {
+                abilities.Add(EAbilityType.EngineBoost);
+                if (TechTree[t].HasResearchedTech("Heavy Interceptors")) abilities.Add(EAbilityType.RapidFire);
+            }
+            else if (shipType == EShipType.TroopTransport)
+            {
+                abilities.Add(EAbilityType.EngineBoost);
+            }
+            else if (shipType == EShipType.StealthFighter || shipType == EShipType.StealthBomber)
+            {
+                // All stealth ships can boost their cloak
+                abilities.Add(EAbilityType.StealthBoost);
+
+                if (TechTree[t].HasResearchedTech("Advanced Stealth Fighter")
+                    || TechTree[t].HasResearchedTech("Advanced Stealth Bomber")) 
+                    abilities.Add(EAbilityType.WeaponBoost);
+            }
+
+            // We can also unlock any basic abilities for any ship!
+            if (TechTree[t].HasResearchedTech("Unlock Engine Boost"))
+            {
+                abilities.Add(EAbilityType.EngineBoost);
+            }
+            if (TechTree[t].HasResearchedTech("Unlock Hull Repair"))
+            {
+                abilities.Add(EAbilityType.HullRepair);
+            }
+            if (TechTree[t].HasResearchedTech("Unlock Rapid Fire"))
+            {
+                abilities.Add(EAbilityType.RapidFire);
+            }
+            if (TechTree[t].HasResearchedTech("Unlock Weapon Boost"))
+            {
+                abilities.Add(EAbilityType.WeaponBoost);
+            }
+            if (TechTree[t].HasResearchedTech("Unlock Shield Boost"))
+            {
+                abilities.Add(EAbilityType.ShieldBoost);
+            }
+
+            return abilities.Distinct().ToList();
         }
     }
 }

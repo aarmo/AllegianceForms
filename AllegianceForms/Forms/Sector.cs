@@ -159,7 +159,7 @@ namespace AllegianceForms.Forms
 
             StrategyGame.SetupAliens(F_ShipEvent, B_BaseEvent);
 
-            // Explosions!
+            // Preload Explosions
             var explosionFrames = StrategyGame.GetExplosionFrames();
 
             for (var i = 0; i < 30; i++)
@@ -709,6 +709,43 @@ namespace AllegianceForms.Forms
                 {
                     CommandsLabel.Text += "  Capture:[C]";
                 }
+
+                // Add text if any selected ships have an ability
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.EngineBoost)))
+                {
+                    CommandsLabel.Text += "  Boost Engines:[1]";
+                }
+
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.ShieldBoost)))
+                {
+                    CommandsLabel.Text += "  Boost Shields:[2]";
+                }
+
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.HullRepair)))
+                {
+                    CommandsLabel.Text += "  Repair Hull:[3]";
+                }
+
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.WeaponBoost)))
+                {
+                    CommandsLabel.Text += "  Boost Weapons:[4]";
+                }
+
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.RapidFire)))
+                {
+                    CommandsLabel.Text += "  Rapid Fire:[5]";
+                }
+
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.ScanBoost)))
+                {
+                    CommandsLabel.Text += "  Boost Scan:[6]";
+                }
+
+                if (_selectedUnits.Any(_ => _ is CombatShip && (_ as CombatShip).Abilities.ContainsKey(EAbilityType.StealthBoost)))
+                {
+                    CommandsLabel.Text += "  Boost Stealth:[7]";
+                }
+
             }
             else if (_selectedBases.Any(_ => _.CanLaunchShips()))
             {
@@ -857,7 +894,7 @@ namespace AllegianceForms.Forms
                             SoundEffect.Play(ESounds.mousedown);
                             _mappedSectors[i] = _currentSector.Id;
                         }
-                        else
+                        else if(e.Shift)
                         {
                             var sectorId = _mappedSectors[i];
                             if (sectorId > -1)
@@ -865,6 +902,30 @@ namespace AllegianceForms.Forms
                                 SoundEffect.Play(ESounds.text);
                                 SwitchSector(sectorId + 1);
                             }
+                        }
+                        else
+                        {
+                            // Activate ability for all selected ships if ready
+                            if (i == 0 || i > 7) return;
+
+                            var usedAbility = false;
+                            var combatCount = 0;
+                            var ability = (EAbilityType)(i-1);
+
+                            foreach (var s in _selectedUnits)
+                            {
+                                var c = s as CombatShip;
+                                if (c != null)
+                                {
+                                    combatCount++;
+                                    usedAbility |= c.UseAbility(ability);
+                                }
+                            }
+
+                            if (usedAbility)
+                                SoundEffect.Play(ESounds.missilelock);
+                            else if (combatCount > 0)
+                                SoundEffect.Play(ESounds.outofammo);
                         }
                         return;
                 }
@@ -999,7 +1060,7 @@ namespace AllegianceForms.Forms
 
             var s = StrategyGame.AllUnits.FirstOrDefault(_ => _.Active && _.Team == 1 && _.SectorId == _currentSector.Id && _.Type != EShipType.Lifepod && _.Bounds.Contains(centerPos));
             var lifepods = _selectedUnits.Where(_ => _.Active && _.Type == EShipType.Lifepod && _.SectorId == _currentSector.Id).ToList();
-            if (s!= null && lifepods.Count > 0)
+            if (s != null && lifepods.Count > 0)
             {
                 foreach (var pod in lifepods)
                 {

@@ -83,7 +83,7 @@ namespace AllegianceForms.Controls
             if (!Item.CanBuild()) return;
             
             SoundEffect.Play(ESounds.mousedown);
-            // Left Click adds 20% or what you can afford if less, 5th adds 19%, 6th adds final 1%
+            // Right Click adds 20% or what you can afford if less, 5th adds 19%, 6th adds final 1%
             var perc = 0.2;
             var investedPerc = 1.0 * Item.AmountInvested / Item.Cost;
             if (investedPerc >= 0.99)
@@ -102,9 +102,12 @@ namespace AllegianceForms.Controls
             InvestmentProgress.Value = Item.AmountInvested;
         }
 
-        public void Invest()
+        public void Invest(bool partial)
         {
-            Name_DoubleClick(null, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            if (partial)
+                Name_Click(null, new MouseEventArgs(MouseButtons.Right, 1, 0, 0, 0));
+            else
+                Name_DoubleClick(null, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
         }
 
         private void Name_DoubleClick(object sender, EventArgs e)
