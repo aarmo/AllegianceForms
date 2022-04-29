@@ -40,7 +40,9 @@ namespace AllegianceForms.Engine
         public const string BaseDataFile = ".\\Data\\Bases.txt";
         public const string TechDataFile = ".\\Data\\Tech.txt";
         public const string QuickChatDataFile = ".\\Data\\QuickChatCommands.txt";
-        
+        public const string AbilityDataFile = ".\\Data\\ShipAbilities.txt";
+        public const string EnabledAbilitiesDataFile = ".\\Data\\DefaultEnabledAbilities.txt";
+
         public const string RockPicDir = ".\\Art\\Rocks\\";
         public const string IconPicDir = ".\\Art\\Trans\\";
         public const string AlienPicDir = ".\\Art\\Aliens\\";
@@ -100,6 +102,8 @@ namespace AllegianceForms.Engine
         public Faction[] Winners;
         public Faction[] Loosers;
         public QuickComms QuickChat;
+        public Dictionary<EAbilityType, AbilityDataItem> AbilityData;
+        public Dictionary<EShipType, List<DefaultShipAbilityItem>> ShipEnabledAbilities;
 
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
@@ -1151,6 +1155,8 @@ namespace AllegianceForms.Engine
             Ships = ShipSpecs.LoadShipSpecs(this, ShipDataFile);
             Bases = BaseSpecs.LoadBaseSpecs(this, BaseDataFile);
             QuickChat = QuickComms.LoadQuickChat(QuickChatDataFile);
+            AbilityData = Ability.LoadAbilitData(AbilityDataFile);
+            ShipEnabledAbilities = Ability.LoadEnabledAbilities(EnabledAbilitiesDataFile);
 
             for (var t = 0; t < NumTeams; t++)
             {
@@ -1402,14 +1408,13 @@ namespace AllegianceForms.Engine
         }
 
         // Get the specific abilities this type of ship to use
-        // TODO: Load this from a file so we can tweak it
         public List<EAbilityType> GetEnabledAbilities(int team, EShipType shipType)
         {
             var t = team - 1;
             var abilities = new List<EAbilityType>();
 
             /*
-            // Testing
+            // Testing all abilities
             abilities.Add(EAbilityType.EngineBoost);
             abilities.Add(EAbilityType.HullRepair);
             abilities.Add(EAbilityType.RapidFire);
@@ -1420,64 +1425,15 @@ namespace AllegianceForms.Engine
             return abilities;
             */
 
-            if (Ship.IsCapitalShip(shipType))
-            {
-                // Caps get all basic abilities
-                abilities.Add(EAbilityType.EngineBoost);
-                abilities.Add(EAbilityType.HullRepair);
-                abilities.Add(EAbilityType.RapidFire);
-                abilities.Add(EAbilityType.WeaponBoost);
-                abilities.Add(EAbilityType.ShieldBoost);
-                return abilities;
-            }
-            else if (shipType == EShipType.Scout)
-            {
-                // All scouts can boost their scanners
-                abilities.Add(EAbilityType.ScanBoost);
-
-                if (TechTree[t].HasResearchedTech("Advanced Scouts")) abilities.Add(EAbilityType.RapidFire);
-                if (TechTree[t].HasResearchedTech("Heavy Scouts")) abilities.Add(EAbilityType.ShieldBoost);
-            }
-            else if (shipType == EShipType.Fighter)
-            {
-                // Basic fighters have no abilities
-                if (TechTree[t].HasResearchedTech("Enhanced Fighter")) abilities.Add(EAbilityType.WeaponBoost);
-                if (TechTree[t].HasResearchedTech("Advanced Fighter")) abilities.Add(EAbilityType.ShieldBoost);
-            }
-            else if (shipType == EShipType.Bomber)
-            {
-                abilities.Add(EAbilityType.ShieldBoost);
-                if (TechTree[t].HasResearchedTech("Heavy Bombers")) abilities.Add(EAbilityType.WeaponBoost);
-            }
-            else if (shipType == EShipType.FighterBomber)
-            {
-                // Fighter Bombers are not strong indivdually
-                abilities.Add(EAbilityType.EngineBoost);
-            }
-            else if (shipType == EShipType.Gunship)
-            {
-                // Gunships are like mini caps
-                abilities.Add(EAbilityType.RapidFire);
-                abilities.Add(EAbilityType.ShieldBoost);
-                if (TechTree[t].HasResearchedTech("Heavy Gunships")) abilities.Add(EAbilityType.HullRepair);
-            }
-            else if (shipType == EShipType.Interceptor)
-            {
-                abilities.Add(EAbilityType.EngineBoost);
-                if (TechTree[t].HasResearchedTech("Heavy Interceptors")) abilities.Add(EAbilityType.RapidFire);
-            }
-            else if (shipType == EShipType.TroopTransport)
-            {
-                abilities.Add(EAbilityType.EngineBoost);
-            }
-            else if (shipType == EShipType.StealthFighter || shipType == EShipType.StealthBomber)
-            {
-                // All stealth ships can boost their cloak
-                abilities.Add(EAbilityType.StealthBoost);
-
-                if (TechTree[t].HasResearchedTech("Advanced Stealth Fighter")
-                    || TechTree[t].HasResearchedTech("Advanced Stealth Bomber")) 
-                    abilities.Add(EAbilityType.WeaponBoost);
+            if (ShipEnabledAbilities.ContainsKey(shipType))
+            { 
+                foreach (var a in ShipEnabledAbilities[shipType])
+                {
+                    if (string.IsNullOrWhiteSpace(a.RequiresResearch) || TechTree[t].HasResearchedTech(a.RequiresResearch))
+                    {
+                        abilities.AddRange(a.ParsedAbilities);
+                    }
+                }
             }
 
             // We can also unlock any basic abilities for any ship!
@@ -1503,6 +1459,7 @@ namespace AllegianceForms.Engine
             }
 
             return abilities.Distinct().ToList();
+
         }
     }
 }

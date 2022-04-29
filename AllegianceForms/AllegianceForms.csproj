@@ -1617,6 +1617,9 @@
     <Content Include="Art\Trans\tech_timer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\DefaultEnabledAbilities.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Maps\BowTie2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2245,6 +2248,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\QuickChatCommands.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\ShipAbilities.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Ships.txt">

@@ -1,0 +1,37 @@
+ShipType,RequiresResearch,IncludeAbilities
+
+Battlecruiser,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Battleship,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Corvette,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Cruiser,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Destroyer,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Devastator,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Frigate,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Support,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+AdvancedSupport,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+HeavySupport,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+
+Scout,,ScanBoost
+Scout,Advanced Scouts,RapidFire
+Scout,Heavy Scouts,ShieldBoost
+
+Fighter,Enhanced Fighter,WeaponBoost
+Fighter,Advanced Fighter,ShieldBoost
+
+Bomber,,ShieldBoost
+Bomber,Heavy Bombers,WeaponBoost
+
+FighterBomber,,EngineBoost
+
+Gunship,,RapidFire|ShieldBoost
+Gunship,Heavy Gunships,HullRepair
+
+Interceptor,,EngineBoost
+Interceptor,Heavy Interceptors,EngineBoost
+
+TroopTransport,,EngineBoost
+
+StealthFighter,,StealthBoost
+StealthFighter,Advanced Stealth Fighter,WeaponBoost
+StealthBomber,,StealthBoost
+StealthBomber,Advanced Stealth Bomber,WeaponBoost

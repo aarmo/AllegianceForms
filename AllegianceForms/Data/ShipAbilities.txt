@@ -1,0 +1,8 @@
+AbilityType,CooldownDuration,AbilityEffectMultiplier,AbilityDuration
+EngineBoost,30,1.5,5
+ShieldBoost,30,1.5,5
+HullRepair,30,1.5,5
+WeaponBoost,30,1.5,5
+RapidFire,30,1.5,5
+ScanBoost,30,1.5,5
+StealthBoost,30,1.5,5

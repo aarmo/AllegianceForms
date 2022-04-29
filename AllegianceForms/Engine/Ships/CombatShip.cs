@@ -33,7 +33,8 @@ namespace AllegianceForms.Engine.Ships
 
             foreach (var at in game.GetEnabledAbilities(team, type))
             {
-                var ab = new Ability(at, cooldown, duration, effect);
+                var ad = game.AbilityData[at];
+                var ab = new Ability(at, cooldown * ad.CooldownDuration, effect * ad.AbilityEffectMultiplier, duration * ad.AbilityDuration);
                 Abilities.Add(at, ab);
 
                 if (at == EAbilityType.WeaponBoost) _boostWeaponsAmount = ab.AbilityEffectMultiplier;
