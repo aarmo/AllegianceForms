@@ -13,16 +13,15 @@ namespace AllegianceForms.Engine.Generation
 
         private static int MirrorDimension(int maxDim, int p) => maxDim - p - 1;
 
-        public static SimpleGameMap GenerateMirroredMap(EMapSize size)
+        public static SimpleGameMap GenerateMirroredMap(EMapSize size, int numTeams = -1)
         {
             var rnd = StrategyGame.Random;
             var iSize = (int)size;
-            
-            var numTeams = rnd.Next(1,3) * 2;
 
             // Lock Large/Small maps to 2/4 teams for less variation
             if (size == EMapSize.Small) numTeams = 2;
             if (size == EMapSize.Large) numTeams = 4;
+            if (numTeams == -1 && size == EMapSize.Normal) numTeams = rnd.Next(1, 3) * 2;
 
             var map = new SimpleGameMap($"{size} Random{numTeams}");
 

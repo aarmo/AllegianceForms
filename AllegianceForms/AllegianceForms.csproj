@@ -1645,6 +1645,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Maps\Lanes4.png" />
+    <Content Include="Data\Maps\Random-Large4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Maps\Saber2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

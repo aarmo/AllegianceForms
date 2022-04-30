@@ -185,7 +185,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(2, 33);
+            this.label1.Location = new System.Drawing.Point(5, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 16);
             this.label1.TabIndex = 0;
@@ -197,10 +197,10 @@
             this.MapList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MapList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MapList.FormattingEnabled = true;
-            this.MapList.Location = new System.Drawing.Point(71, 33);
+            this.MapList.Location = new System.Drawing.Point(48, 58);
             this.MapList.Name = "MapList";
-            this.MapList.Size = new System.Drawing.Size(82, 21);
-            this.MapList.TabIndex = 0;
+            this.MapList.Size = new System.Drawing.Size(105, 21);
+            this.MapList.TabIndex = 1;
             this.MapList.SelectedIndexChanged += new System.EventHandler(this.MapList_SelectedIndexChanged);
             // 
             // label2
@@ -208,7 +208,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Lime;
-            this.label2.Location = new System.Drawing.Point(2, 60);
+            this.label2.Location = new System.Drawing.Point(2, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 16);
             this.label2.TabIndex = 0;
@@ -217,7 +217,7 @@
             // Pilots
             // 
             this.Pilots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Pilots.Location = new System.Drawing.Point(100, 61);
+            this.Pilots.Location = new System.Drawing.Point(111, 32);
             this.Pilots.Maximum = new decimal(new int[] {
             32,
             0,
@@ -229,7 +229,7 @@
             0,
             0});
             this.Pilots.Name = "Pilots";
-            this.Pilots.Size = new System.Drawing.Size(53, 20);
+            this.Pilots.Size = new System.Drawing.Size(42, 20);
             this.Pilots.TabIndex = 1;
             this.Pilots.Value = new decimal(new int[] {
             16,
@@ -1551,7 +1551,7 @@
             // Teams
             // 
             this.Teams.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Teams.Location = new System.Drawing.Point(71, 7);
+            this.Teams.Location = new System.Drawing.Point(111, 6);
             this.Teams.Maximum = new decimal(new int[] {
             4,
             0,
@@ -1563,7 +1563,7 @@
             0,
             0});
             this.Teams.Name = "Teams";
-            this.Teams.Size = new System.Drawing.Size(49, 20);
+            this.Teams.Size = new System.Drawing.Size(42, 20);
             this.Teams.TabIndex = 1;
             this.Teams.Value = new decimal(new int[] {
             2,
@@ -1906,7 +1906,7 @@
             // 
             this.RandomMap.BackColor = System.Drawing.Color.Black;
             this.RandomMap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RandomMap.Location = new System.Drawing.Point(155, 33);
+            this.RandomMap.Location = new System.Drawing.Point(159, 58);
             this.RandomMap.Name = "RandomMap";
             this.RandomMap.Size = new System.Drawing.Size(38, 21);
             this.RandomMap.TabIndex = 54;

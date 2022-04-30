@@ -20,6 +20,7 @@ namespace AllegianceForms.Engine.Map
         public const string RandomMapName_Small = "Random-Small2";
         public const string RandomMapName_Normal = "Random2";
         public const string RandomMapName_Large = "Random-Large2";
+        public const string RandomMapName_Large4 = "Random-Large4";
 
         private static string[][] GetMapFiles(bool allMaps)
         {
@@ -37,6 +38,7 @@ namespace AllegianceForms.Engine.Map
                 filenames.Add(RandomMapName_Normal);
                 filenames.Add(RandomMapName_Small);
                 filenames.Add(RandomMapName_Large);
+                filenames.Add(RandomMapName_Large4);
             }
             if (!allMaps)
             {
@@ -46,7 +48,9 @@ namespace AllegianceForms.Engine.Map
             files[0] = (from f in filenames
                         where f.EndsWith("2") || f.EndsWith("4")
                         select f).ToArray();
-            files[1] = filenames.Where(_ => _.EndsWith("3")).ToArray();
+            files[1] = (from f in filenames
+                        where f.EndsWith("3") || f.EndsWith("4")
+                        select f).ToArray();
             files[2] = filenames.Where(_ => _.EndsWith("4")).ToArray();
 
             return files;
@@ -78,6 +82,9 @@ namespace AllegianceForms.Engine.Map
                     map = RandomMap.GenerateMirroredMap(EMapSize.Normal);
                     break;
                 case RandomMapName_Large:
+                    map = RandomMap.GenerateMirroredMap(EMapSize.Large);
+                    break;
+                case RandomMapName_Large4:
                     map = RandomMap.GenerateMirroredMap(EMapSize.Large);
                     break;
                 default:
