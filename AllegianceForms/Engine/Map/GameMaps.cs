@@ -72,13 +72,13 @@ namespace AllegianceForms.Engine.Map
             switch (name)
             {
                 case RandomMapName_Small:
-                    map = RandomMap.GenerateSimpleMap(EMapSize.Small);
+                    map = RandomMap.GenerateMirroredMap(EMapSize.Small);
                     break;
                 case RandomMapName_Normal:
-                    map = RandomMap.GenerateSimpleMap(EMapSize.Normal);
+                    map = RandomMap.GenerateMirroredMap(EMapSize.Normal);
                     break;
                 case RandomMapName_Large:
-                    map = RandomMap.GenerateSimpleMap(EMapSize.Large);
+                    map = RandomMap.GenerateMirroredMap(EMapSize.Large);
                     break;
                 default:
                     map = Utils.DeserialiseFromFile<SimpleGameMap>(StrategyGame.MapFolder + "\\" + name + ".map");

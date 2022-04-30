@@ -176,6 +176,7 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
+    <Compile Include="Engine\Generation\Delaunay2D.cs" />
     <Compile Include="Engine\Generation\RandomPartString.cs" />
     <Compile Include="Engine\Generation\RandomMap.cs" />
     <Compile Include="Engine\Generation\RandomName.cs" />

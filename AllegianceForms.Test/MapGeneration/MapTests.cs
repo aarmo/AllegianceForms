@@ -35,7 +35,7 @@ namespace AllegianceForms.Test.MapGeneration
         [TestMethod]
         public void SmallCheck()
         {
-            var m = RandomMap.GenerateSimpleMap(EMapSize.Small);
+            var m = RandomMap.GenerateMirroredMap(EMapSize.Small);
             
             m.Sectors.Count.ShouldBeGreaterThan(2);
         }
@@ -43,7 +43,7 @@ namespace AllegianceForms.Test.MapGeneration
         [TestMethod]
         public void NormalCheck()
         {
-            var m = RandomMap.GenerateSimpleMap(EMapSize.Normal);
+            var m = RandomMap.GenerateMirroredMap(EMapSize.Normal);
             
             m.Sectors.Count.ShouldBeGreaterThan(4);
         }
@@ -51,7 +51,7 @@ namespace AllegianceForms.Test.MapGeneration
         [TestMethod]
         public void LargeCheck()
         {
-            var m = RandomMap.GenerateSimpleMap(EMapSize.Large);
+            var m = RandomMap.GenerateMirroredMap(EMapSize.Large);
             
             m.Sectors.Count.ShouldBeGreaterThan(6);
         }

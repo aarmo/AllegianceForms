@@ -364,7 +364,7 @@ namespace AllegianceForms.Forms
         private void RandomSmall_Click(object sender, EventArgs e)
         {
             var type = (EMapSize)MapSize.SelectedIndex;
-            _map = RandomMap.GenerateSimpleMap(type);
+            _map = RandomMap.GenerateMirroredMap(type);
 
             Clear_Click(sender, e);
             LoadMap(_map);
