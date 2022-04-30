@@ -952,6 +952,11 @@ namespace AllegianceForms.Forms
                 playSound = true;
                 QuickItems.Hide();
             }
+            if (QuickItems2.Visible)
+            {
+                playSound = true;
+                QuickItems2.Hide();
+            }
 
             if (playSound) SoundEffect.Play(ESounds.windowslides);
         }

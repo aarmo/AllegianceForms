@@ -182,6 +182,8 @@
     <Compile Include="Engine\ColorHelper.cs" />
     <Compile Include="Engine\Map\SimpleGameMap.cs" />
     <Compile Include="Engine\Orders\HuntControlOrder.cs" />
+    <Compile Include="Engine\Orders\PauseControlOrder.cs" />
+    <Compile Include="Engine\Orders\ResumeControlOrder.cs" />
     <Compile Include="Engine\Orders\ScoutControlOrder.cs" />
     <Compile Include="Engine\Orders\SurroundOrder.cs" />
     <Compile Include="Engine\Orders\WanderOrder.cs" />

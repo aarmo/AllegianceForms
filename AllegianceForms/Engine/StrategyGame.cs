@@ -49,6 +49,7 @@ namespace AllegianceForms.Engine
         public const string SoundsDir = ".\\Art\\Sounds\\";
         public const string GamePresetFolder = ".\\Data\\GamePresets";
         public const string FactionPresetFolder = ".\\Data\\FactionPresets";
+
         public const string MapFolder = ".\\Data\\Maps";
         public const int AlienBaseHealth = 100;
         public const int AlienDamage = 2;
@@ -228,6 +229,15 @@ namespace AllegianceForms.Engine
             if (items.Count == 0) return default(T);
 
             return items[Random.Next(items.Count)];
+        }
+
+        public Base RandomBase(int team, int sectorId)
+        {
+            var t = team - 1;
+            var alliance = (team < 0) ? -1 : GameSettings.TeamAlliance[t];
+
+            var targetBases = AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && _.Alliance != alliance && _.SectorId == sectorId).ToList();
+            return RandomItem(targetBases);
         }
 
         public Base RandomEnemyBase(int team, out Base launchBase)
@@ -1349,7 +1359,7 @@ namespace AllegianceForms.Engine
                                     append = true;
                                 }
 
-                                alien.OrderShip(new SurroundOrder(this, target.SectorId, target, PointF.Empty), append);
+                                alien.OrderShip(new SurroundOrder(this, target.SectorId, target), append);
                             }
                         }
 

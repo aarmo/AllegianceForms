@@ -10,7 +10,7 @@ using System.Text;
 
 namespace AllegianceForms
 {
-    public class Utils
+    public static class Utils
     {
         public static void SerialiseToFile(string filename, object obj)
         {
@@ -38,6 +38,26 @@ namespace AllegianceForms
             }
 
             return sb.ToString();
+        }
+
+        public static PointF RandomOffset()
+        {
+            return new PointF(StrategyGame.Random.Next(-5, 5), StrategyGame.Random.Next(-5, 5));
+        }
+
+        public static PointF RandomOffsetSwap(this PointF offset)
+        {
+            var side = StrategyGame.Random.Next(1);
+            if (side == 0)
+            {
+                return new PointF(-offset.X, offset.Y);
+            }
+            else if (side == 1)
+            {
+                return new PointF(offset.X, -offset.Y);
+            }
+
+            return new PointF(-offset.X, -offset.Y);
         }
 
         public static Bitmap GetAvatarImage(string key)

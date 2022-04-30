@@ -162,6 +162,12 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
+        public virtual void InsertOrder(ShipOrder order)
+        {
+            if (CurrentOrder != null) Orders.Insert(0, CurrentOrder);
+            CurrentOrder = order;
+        }
+
         public virtual void OrderShip(ShipOrder order, bool append = false)
         {
             if (append)

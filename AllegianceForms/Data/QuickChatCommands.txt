@@ -26,7 +26,7 @@ MenuId,QuickComms,Key,Filename,OpenMenuId,OrderAction
 1,Attack constructor.,C,vo_player_attackconstuctor,,Attack_Builder
 1,Attack fighters.,F,vo_player_attackfighter,,Attack_Fighter
 1,Attack interceptors.,I,vo_player_attackinterceptor,,Attack_Fighter
-1,Attack capital ship.,L,vo_player_attackcapital,,Attack_Bomber
+1,Attack capital ship.,L,vo_player_attackcapital,,Attack_Capital
 1,Attack miners.,M,vo_player_attackminer,,Attack_Miner
 1,Attack bombers.,O,vo_player_attackbomber,,Attack_Bomber
 1,Attack teleport (ripcord).,R,vo_player_attackripcord,,Attack_Base
@@ -69,7 +69,7 @@ MenuId,QuickComms,Key,Filename,OpenMenuId,OrderAction
 3,Defend constructor.,C,vo_player_defendconstuctor,,Defend_Builder
 3,Defend fighters.,F,vo_player_defendfighter,,Defend_Fighter
 3,Defend interceptors.,I,vo_player_defendinterceptor,,Defend_Fighter
-3,Defend capital ship.,L,vo_player_defendcapital,,Defend_Bomber
+3,Defend capital ship.,L,vo_player_defendcapital,,Defend_Capital
 3,Defend miners.,M,vo_player_defendminer,,Defend_Miner
 3,Defend bombers,O,vo_player_defendbomber,,Defend_Bomber
 3,Defend teleport (ripcord).,R,vo_player_defendripcord,,

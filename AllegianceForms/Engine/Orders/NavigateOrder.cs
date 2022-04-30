@@ -1,7 +1,6 @@
 ﻿using AllegianceForms.Engine;
 using AllegianceForms.Engine.Ships;
 using System.Drawing;
-using System.Linq;
 
 namespace AllegianceForms.Orders
 {
