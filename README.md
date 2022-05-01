@@ -198,14 +198,14 @@ They are immersive and can help order your pilots...
 
 Examples (Key Command) | Pilot Order
 --- | ---
-`Find enemy` (**\`FE**), `Deploy probes` (**\`CP**), etc. | Scout
-`Head back to base.` (**\`LB**), `Regroup!` (**\`Q1**), etc. | Dock
-`Need fighters.` (**\`NF**), `Need Scouts.` (**\`NU**), `Need Bombers.` (**\`NO**), etc. | Launch [Ship Type]
+`Find enemy` (**\`FE**), `Deploy probes` (**\`CP**) | Scout
+`Head back to base.` (**\`LB**), `Regroup!` (**\`Q1**) | Dock
+`Need fighters.` (**\`NF**), `Need Scouts.` (**\`NU**), `Need Bombers.` (**\`NO**) | Launch [Ship Type]
 `Go miner hunting.` (**\`CH**), `Find their constructors!` (**\`FF**), etc. | Hunt Miner/Builder
 `Attack base.` (**\`AB**), `Attack bombers.` (**\`AO**), etc. | Attack Base / Defend _[Ship Type]_
 `Defend base.` (**\`DB**), `Defend bombers.` (**\`DO**), etc. | Defend Base / Defend _[Ship Type]_
-`Wait for signal.` (**\`CQ**), `Hold up.` (**\`LU**), etc. | Pause
-`Go Go Go!` (**\`CG**), `Come along.` (**\`QL**), etc. | Resume
+`Wait for signal.` (**\`CQ**), `Hold up.` (**\`LU**) | Pause
+`Go Go Go!` (**\`CG**), `Come along.` (**\`QL**) | Resume
 
 > See: `QuickChatCommands.txt` for the full list of quick chats and associated orders.
 
@@ -214,7 +214,7 @@ Pilot Orders | Description
 **Scout** | 3 scouts will explore other sectors randomly. Either from this sector, or launched from the closest base.
 **Dock** | All ships in the current sector will dock at the closest base.
 **Launch** _[Ship Type]_ | Launch up to half your pilots in the best ship of this type, from a base in this sector, or the closest base travelling to this sector.
-**Hunt** _[Ship Type]_ | Launch 2 scounts and up to half your pilots to attack any visible enemy ships of this type, or explore randomly looking for them.
+**Hunt** _[Ship Type]_ | Launch 2 scouts and up to half your pilots to attack any visible enemy ships of this type, or explore randomly looking for them.
 **Attack / Defend** _[Ship Type]_ | Use 2 scouts and up to half your pilots to move to a friendly/enemy visible ship of this type, prefering this sector, or launched from the closest base traveling to the target sector.
 **Attack / Defend Base** | Use up to half your pilots to surround a friendly/enemy base in this sector. Either ships in this sector, or launched from the closest base travelling to this sector.
 
