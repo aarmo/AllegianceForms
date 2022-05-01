@@ -11,13 +11,13 @@
 
 Overview
 ------
-A 2D strategy game inspired by Microsoft's 3D space combat game: Allegiance.
+A 2D singleplayer strategy game inspired by Microsoft's 3D multiplayer space combat game: Allegiance.
 
 Thanks to the Free Allegiance community: http://www.freeallegiance.org/
 
 - Allegiance was originally released in March 2000
 - It is now Open Source: https://github.com/FreeAllegiance/Allegiance
-- And available for free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
+- Available for free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
 
 [Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Video](#video)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)
 
@@ -28,10 +28,12 @@ Features
 - Multiple [Maps](#maps), a [Map Editor](#map-editor) & [Tech Paths](#tech-tree)
 - Miners, Constructors, Scouts, Fighters, Interceptors, Bombers, Gunships, Stealth Fighters, Stealth Bombers, Fighter Bombers, Troop Transports, Towers, Minefields and Capital Ships!
 - Micro control with [Ship Abilities](#ship-abilities)
+- Fun [Quick Chat Commands](#quick-chat-commands) from the original game that can help order your pilots
 
 ![alt text][ships]
 <br/>
 ![alt text][capships]
+_(Corvette, Support, Frigate, Destroyer, Adv Support, Cruiser, Devastator, Hvy Support, Battleship, Battlecruiser)_
 
 Screenshots
 ------
@@ -59,6 +61,10 @@ Screenshots
 ### Recruit more pilots
 - Outposts add 5 pilots to your team
 - Starbases add 10!
+
+### Keep track of your pilots
+- Filter the Pilot List window to keep track of your pilots, miners, constructors and capital ships
+![alt text][pilotlist]
 
 ### Upgrade your tech & battle the enemy
 ![alt text][tech]
@@ -136,13 +142,13 @@ As a base line, these abilities last 5s, and have a 30s cooldown.
 ### Ability Details
 Key | Ability | Description
 ---  |--- |---
-**1** | Boost Engines | Increase ship speed by 50%+.
+**1** | Boost Engines | Increase ship speed by 50%.
 **2** | Boost Shields | Restore up to 50% shield immediately.
-**3** | Repair Hull | Repair hull damage by 10%/s.
-**4** | Boost Weapons | Increase all weapon damage by 50%+.
-**5** | Rapid Fire | Double weapon fire rate by 50%+.
-**6** | Boost Scan | Increase scan range by 50%+.
-**7** | Boost Stealth | Decrease signature by 33%+.
+**3** | Repair Hull | Repair hull damage by 10% per second.
+**4** | Boost Weapons | Increase all weapon damage by 50%.
+**5** | Rapid Fire | Double weapon fire rate by 50%.
+**6** | Boost Scan | Increase scan range by 50%.
+**7** | Boost Stealth | Decrease signature by 33%.
 
 ### Ability Upgrades
 These abilities can be improved with upgrades:
@@ -154,7 +160,7 @@ Building | Ability Upgrade
 **Tactical** | Ability Effect +10%, +20%, +30%
 **Upgraded Starbase** | Unlock the Engine Boost, Shield Boost, Repair Hull, Weapon Boost or Rapid Fire abilties for all ships!
 
-> Note: The Ability Effect upgrade does not affect the Rapid Fire or Hull Repair abilities.
+> Note: The `Ability Effect` upgrade does not imrpove the Rapid Fire or Repair Hull abilities.
 
 ### Default Ship Abilities
 Ship | Default Abilities
@@ -177,6 +183,37 @@ Advanced Stealth Bombers | Boost Stealth, Boost Weapons
 Fighter Bombers | Boost Engines
 Troop Transports | Boost Engines
 All Capital Ships | Boost Engines, Boost Shields, Repair Hull, Boost Weapons, Rapid Fire
+
+[Overview](#overview)
+
+Quick Chat Commands
+------
+These voices have been imported from the original game for fun & nostalgia/practise :laughing:
+They are immersive and can help order your pilots...
+
+![alt text][quickchat]
+
+Examples (Key Command) | Pilot Order
+--- | ---
+`Find enemy` (**\`FE**), `Deploy probes` (**\`CP**), etc. | Scout
+`Head back to base.` (**\`LB**), `Regroup!` (**\`Q1**), etc. | Dock
+`Need fighters.` (**\`NF**), `Need Scouts.` (**\`NU**), `Need Bombers.` (**\`NO**), etc. | Launch [Ship Type]
+`Go miner hunting.` (**\`CH**), `Find their constructors!` (**\`FF**), etc. | Hunt Miner/Builder
+`Attack base.` (**\`AB**), `Attack bombers.` (**\`AO**), etc. | Attack Base / Defend _[Ship Type]_
+`Defend base.` (**\`DB**), `Defend bombers.` (**\`DO**), etc. | Defend Base / Defend _[Ship Type]_
+`Wait for signal.` (**\`CQ**), `Hold up.` (**\`LU**), etc. | Pause
+`Go Go Go!` (**\`CG**), `Come along.` (**\`QL**), etc. | Resume
+
+> See: `QuickChatCommands.txt` for the full list of these commands and associated orders.
+
+Pilot Orders | Description
+--- | ---
+**Scout** | 3 scouts will explore other sectors randomly. Either from this sector, or launched from the closest base.
+**Dock** | All ships in the current sector will dock at the closest base.
+**Launch** _[Ship Type]_ | Launch up to half your pilots in the best ship of this type, from a base in this sector, or the closest base travelling to this sector.
+**Hunt** _[Ship Type]_ | Launch 2 scounts and up to half your pilots to attack any visible enemy ships of this type, or explore randomly looking for them.
+**Attack / Defend** _[Ship Type]_ | Use 2 scouts and up to half your pilots to move to a friendly/enemy visible ship of this type, prefering this sector, or launched from the closest base traveling to the target sector.
+**Attack / Defend Base** | Use up to half your pilots to surround a friendly/enemy base in this sector. Either ships in this sector, or launched from the closest base travelling to this sector.
 
 [Overview](#overview)
 
@@ -285,6 +322,8 @@ Item | Source
 [faction]: /Doc/Screenshots/FactionDetails.png "Custom Factions"
 [techtree]: /Doc/Images/AllegianceForms-TechTree.png "Tech Tree"
 [mapeditor]: /Doc/Screenshots/MapDesigner.png "Map Editor"
+[pilotlist]: /Doc/Screenshots/PilotList.png "Pilot List"
+[quickchat]: /Doc/Screenshots/QuickChatCommands.png "Quick Chat Commands"
 
 [mapacross4]: /AllegianceForms/Data/Maps/Across4.png "Across4"
 [mapbrawl2]: /AllegianceForms/Data/Maps/Brawl2.png "Brawl2"

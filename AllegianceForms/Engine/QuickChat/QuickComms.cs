@@ -129,14 +129,8 @@ namespace AllegianceForms.Engine.QuickChat
                 {
                     idealNumOfScouts = 0;
 
-                    // Prefer bases in this sector
-                    var targetBases = game.AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && (_.Alliance != alliance || defend) && _.SectorId == sector.Id).ToList();
-                    if (targetBases.Count == 0)
-                    {
-                        targetBases = game.AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && (_.Alliance != alliance || defend)).ToList();
-                    }
-
-                    targetBase = StrategyGame.RandomItem(targetBases);                    
+                    // Only bases in this sector
+                    var targetBases = game.AllBases.Where(_ => _.Active && _.IsVisibleToTeam(t) && (_.Alliance != alliance || defend) && _.SectorId == sector.Id).ToList();                    
                     if (targetBase == null) return;
                     targetSectorId = targetBase.SectorId;
                 }
