@@ -33,6 +33,7 @@ Features
 ![alt text][ships]
 <br/>
 ![alt text][capships]
+<br/>
 _(Corvette, Support, Frigate, Destroyer, Adv Support, Cruiser, Devastator, Hvy Support, Battleship, Battlecruiser)_
 
 Screenshots
@@ -63,8 +64,8 @@ Screenshots
 - Starbases add 10!
 
 ### Keep track of your pilots
-- Filter the Pilot List window to keep track of your pilots, miners, constructors and capital ships
 ![alt text][pilotlist]
+- Filter the Pilot List window to keep track of your pilots, miners, constructors and capital ships
 
 ### Upgrade your tech & battle the enemy
 ![alt text][tech]
@@ -137,6 +138,7 @@ Key	| Description
 Ship Abilities
 ------
 Most combat ships have powerful abilities that can turn the tide of battle!
+
 As a base line, these abilities last 5s, and have a 30s cooldown.
 
 ### Ability Details
@@ -189,6 +191,7 @@ All Capital Ships | Boost Engines, Boost Shields, Repair Hull, Boost Weapons, Ra
 Quick Chat Commands
 ------
 These voices have been imported from the original game for fun & nostalgia/practise :laughing:
+
 They are immersive and can help order your pilots...
 
 ![alt text][quickchat]
@@ -204,7 +207,7 @@ Examples (Key Command) | Pilot Order
 `Wait for signal.` (**\`CQ**), `Hold up.` (**\`LU**), etc. | Pause
 `Go Go Go!` (**\`CG**), `Come along.` (**\`QL**), etc. | Resume
 
-> See: `QuickChatCommands.txt` for the full list of these commands and associated orders.
+> See: `QuickChatCommands.txt` for the full list of quick chats and associated orders.
 
 Pilot Orders | Description
 --- | ---
