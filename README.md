@@ -162,7 +162,7 @@ Building | Ability Upgrade
 **Tactical** | Ability Effect +10%, +20%, +30%
 **Upgraded Starbase** | Unlock the Engine Boost, Shield Boost, Repair Hull, Weapon Boost or Rapid Fire abilties for all ships!
 
-> Note: The `Ability Effect` upgrade does not imrpove the Rapid Fire or Repair Hull abilities.
+> Note: The `Ability Effect` upgrade does not improve the `Rapid Fire` or `Repair Hull` abilities...
 
 ### Default Ship Abilities
 Ship | Default Abilities
@@ -198,16 +198,16 @@ They are immersive and can help order your pilots...
 
 Examples (Key Command) | Pilot Order
 --- | ---
-`Find enemy` (**\`FE**), `Deploy probes` (**\`CP**) | Scout
-`Head back to base.` (**\`LB**), `Regroup!` (**\`Q1**) | Dock
-`Need fighters.` (**\`NF**), `Need Scouts.` (**\`NU**), `Need Bombers.` (**\`NO**) | Launch [Ship Type]
-`Go miner hunting.` (**\`CH**), `Find their constructors!` (**\`FF**), etc. | Hunt Miner/Builder
-`Attack base.` (**\`AB**), `Attack bombers.` (**\`AO**), etc. | Attack Base / Defend _[Ship Type]_
-`Defend base.` (**\`DB**), `Defend bombers.` (**\`DO**), etc. | Defend Base / Defend _[Ship Type]_
-`Wait for signal.` (**\`CQ**), `Hold up.` (**\`LU**) | Pause
-`Go Go Go!` (**\`CG**), `Come along.` (**\`QL**) | Resume
+`Find enemy` (**\`FE**), `Deploy probes` (**\`CP**) | **Scout**
+`Head back to base.` (**\`LB**), `Regroup!` (**\`Q1**) | **Dock**
+`Need fighters.` (**\`NF**), `Need Scouts.` (**\`NU**), `Need Bombers.` (**\`NO**) | **Launch** _[Ship Type]_
+`Go miner hunting.` (**\`CH**), `Find their constructors!` (**\`FF**), etc. | **Hunt** _[Ship Type]_
+`Attack base.` (**\`AB**), `Attack bombers.` (**\`AO**), etc. | **Attack Base** / **Attack** _[Ship Type]_
+`Defend base.` (**\`DB**), `Defend bombers.` (**\`DO**), etc. | **Defend Base** / **Defend** _[Ship Type]_
+`Wait for signal.` (**\`CQ**), `Hold up.` (**\`LU**) | **Pause**
+`Go Go Go!` (**\`CG**), `Come along.` (**\`QL**) | **Resume**
 
-> See: `QuickChatCommands.txt` for the full list of quick chats and associated orders.
+> See: `QuickChatCommands.txt` for a full list of quick chats and associated orders.
 
 Pilot Orders | Description
 --- | ---
@@ -215,7 +215,7 @@ Pilot Orders | Description
 **Dock** | All ships in the current sector will dock at the closest base.
 **Launch** _[Ship Type]_ | Launch up to half your pilots in the best ship of this type, from a base in this sector, or the closest base travelling to this sector.
 **Hunt** _[Ship Type]_ | Launch 2 scouts and up to half your pilots to attack any visible enemy ships of this type, or explore randomly looking for them.
-**Attack / Defend** _[Ship Type]_ | Use 2 scouts and up to half your pilots to move to a friendly/enemy visible ship of this type, prefering this sector, or launched from the closest base traveling to the target sector.
+**Attack / Defend** _[Ship Type]_ | Use 2 scouts and up to half your pilots to move to a friendly/enemy visible ship of this type, prefering this sector, or launched from the closest base travelling to the target sector.
 **Attack / Defend Base** | Use up to half your pilots to surround a friendly/enemy base in this sector. Either ships in this sector, or launched from the closest base travelling to this sector.
 
 [Overview](#overview)
@@ -383,4 +383,3 @@ Item | Source
 [mapsmallspiral4]: /AllegianceForms/Data/Maps/SmallSpiral4.png "SmallSpiral4"
 
 [maplanes4]: /AllegianceForms/Data/Maps/Lanes4.png "Lanes4"
-
