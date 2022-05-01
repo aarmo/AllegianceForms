@@ -52,10 +52,19 @@ namespace AllegianceForms.Engine.Bases
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
             var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
-            if (addPilots && _game.TotalPilots[t] + spec.Pilots < _game.GameSettings.MaximumPilots)
+            if (addPilots)
             {
-                _game.DockedPilots[t] += spec.Pilots;
-                _game.TotalPilots[t] += spec.Pilots;
+                if (_game.TotalPilots[t] + spec.Pilots < _game.GameSettings.MaximumPilots)
+                { 
+                    _game.DockedPilots[t] += spec.Pilots;
+                    _game.TotalPilots[t] += spec.Pilots;
+                }
+                else if (_game.TotalPilots[t] < _game.GameSettings.MaximumPilots)
+                {
+                    var extraPilots = _game.GameSettings.MaximumPilots - _game.TotalPilots[t];
+                    _game.TotalPilots[t] = _game.GameSettings.MaximumPilots;
+                    _game.DockedPilots[t] += extraPilots;
+                }
             }
 
             if (baseType == EBaseType.Shipyard)

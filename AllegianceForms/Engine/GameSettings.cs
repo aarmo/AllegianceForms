@@ -91,7 +91,7 @@ namespace AllegianceForms.Engine
                 TeamAlliance = new[] { 1, 2 },
                 RestrictTechToIds = new int[2][],
                 NumPilots = 16,
-                MaximumPilots = int.MaxValue,
+                MaximumPilots = 64,
                 AiDifficulty = 3,
                 VariantAi = true,
 
