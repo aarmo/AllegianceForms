@@ -90,10 +90,14 @@ namespace AllegianceForms.Engine
         /// </summary>
         private static void PlaySoundEffectVoice(string fileName, bool louder)
         {
+            if (_soundEffectPool == null) return;
+
             lock (_soundEffectPool)
             { 
                 if (!_soundEffectPool.ContainsKey(fileName))
                 {
+                    if (!File.Exists(fileName)) return;
+
                     var voices = new SoundEffectVoice[NumAudioDevices];
 
                     for (var i = 0; i < NumAudioDevices; i++)

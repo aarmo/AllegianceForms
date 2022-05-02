@@ -9,6 +9,7 @@ namespace AllegianceForms.Engine.Bases
         public delegate void BaseEventHandler(Base sender, EBaseEventType e, int senderTeam);
         public event BaseEventHandler BaseEvent;
 
+        public BaseSpec Spec { get; set; }
         public EBaseType Type { get; set; }
         public int Alliance { get; set; }
         public bool Selected { get; set; }
@@ -93,12 +94,13 @@ namespace AllegianceForms.Engine.Bases
 
         public void Capture(Ship capturedBy)
         {
-            _game.Bases.CaptureBase(this, capturedBy.Team);
+            var oldTeam = Team;
 
             Team = capturedBy.Team;
             Alliance = capturedBy.Alliance;
-
             _healthBrush = _game.TeamBrushes[Team - 1];
+
+            _game.Bases.CaptureBase(this, oldTeam, capturedBy.Team);
 
             OnBaseEvent(EBaseEventType.BaseCaptured, capturedBy.Team);
         } 

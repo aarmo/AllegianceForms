@@ -102,6 +102,10 @@ namespace AllegianceForms.Forms
             SectorLabel.Text = _currentSector.Name;
             LoadQuickMenu(0);
 
+            // Tweak additional pilots - covered by the free starting base below
+            var startBase = StrategyGame.Bases.Bases.FirstOrDefault(_ => _.Type == EBaseType.Starbase);
+            StrategyGame.GameSettings.NumPilots -= startBase.Pilots;
+
             // Friendy & enemy team setup:
             for (var t = 0; t < StrategyGame.NumTeams; t++)
             {
@@ -111,12 +115,14 @@ namespace AllegianceForms.Forms
                 var aiPlayer = t != 0;
 
                 var b1Offset = (aiPlayer ? 1 : -1) * (StrategyGame.Map.Name == "Brawl"  ? 300 : 1);
-                var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, team, teamColour, startingSector.Id, false);
+                var b1 = StrategyGame.Bases.CreateBase(EBaseType.Starbase, team, teamColour, startingSector.Id);
 
                 b1.CenterX = Width / 2 + b1Offset;
                 b1.CenterY = Height / 2 + b1Offset;
+
                 b1.BaseEvent += B_BaseEvent;
                 StrategyGame.AddBase(b1);
+
                 StrategyGame.GameStats.TotalBasesBuilt[t] = 1;
 
                 for (var i = 0; i < settings.MinersInitial; i++)

@@ -924,6 +924,33 @@ namespace AllegianceForms.Engine
             lock (AllBases)
             {
                 AllBases.Add(b);
+
+                UpdateTotalPilots(b.Team);
+            }
+        }
+
+        public void UpdateTotalPilots(int team)
+        {
+            var t = team - 1;
+            var origTotal = TotalPilots[t];
+
+            // Recalc total pilots (limited to max)
+            TotalPilots[t] = GameSettings.NumPilots + AllBases.Where(_ => _.Team == team &&_.Active && !_.Destroyed).Sum(_ => _.Spec.Pilots);
+
+            if (TotalPilots[t] > GameSettings.MaximumPilots)
+            {
+                TotalPilots[t] = GameSettings.MaximumPilots;
+            }
+
+            var change = TotalPilots[t] - origTotal;
+
+            // Add or Remote Docked Pilots if any changes (including negative)
+            if (change == 0) return;
+
+            DockedPilots[t] += change;
+            if (DockedPilots[t] > GameSettings.MaximumPilots)
+            {
+                DockedPilots[t] = GameSettings.MaximumPilots;
             }
         }
 

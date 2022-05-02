@@ -42,7 +42,7 @@ namespace AllegianceForms.Engine.Bases
             return type == EBaseType.MissileTower || type == EBaseType.Tower || type == EBaseType.RepairTower || type == EBaseType.Minefield || type == EBaseType.ShieldTower;
         }
 
-        public Base CreateBase(EBaseType baseType, int team, Color teamColour, int sectorId, bool addPilots = true)
+        public Base CreateBase(EBaseType baseType, int team, Color teamColour, int sectorId)
         {
             var spec = Bases.FirstOrDefault(_ => _.Type == baseType);
             if (spec == null) return null;
@@ -52,46 +52,32 @@ namespace AllegianceForms.Engine.Bases
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
             var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
-            if (addPilots)
-            {
-                if (_game.TotalPilots[t] + spec.Pilots < _game.GameSettings.MaximumPilots)
-                { 
-                    _game.DockedPilots[t] += spec.Pilots;
-                    _game.TotalPilots[t] += spec.Pilots;
-                }
-                else if (_game.TotalPilots[t] < _game.GameSettings.MaximumPilots)
-                {
-                    var extraPilots = _game.GameSettings.MaximumPilots - _game.TotalPilots[t];
-                    _game.TotalPilots[t] = _game.GameSettings.MaximumPilots;
-                    _game.DockedPilots[t] += extraPilots;
-                }
-            }
 
             if (baseType == EBaseType.Shipyard)
             {
                 faction.CapitalMaxDrones += settings.InitialCapitalMaxDrones;
             }
 
-            var bse = new Base(_game, baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
+            var bs = new Base(_game, baseType, spec.Width, spec.Height, teamColour, team, alliance, spec.Health * settings.StationHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId)
+            {
+                Spec = spec,
+                ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange,
+                Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature
+            };
 
-            bse.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
-            bse.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.StationSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-
-            return bse;
+            return bs;
         }
 
         public void DestroyBase(Base bs)
         {
             var team = bs.Team;
             if (team <= 0 || bs.Destroyed) return;
-            var spec = Bases.FirstOrDefault(_ => _.Type == bs.Type);
+            var spec = bs.Spec;
             if (spec == null) return;
 
             lock(_game)
             { 
                 var t = team - 1;
-                _game.DockedPilots[t] -= spec.Pilots;
-                _game.TotalPilots[t] -= spec.Pilots;
 
                 var faction = _game.Faction[t];
                 var settings = _game.GameSettings;
@@ -100,22 +86,22 @@ namespace AllegianceForms.Engine.Bases
                     faction.CapitalMaxDrones -= settings.InitialCapitalMaxDrones;
                 }
                 bs.Destroyed = true;
+
+                _game.UpdateTotalPilots(bs.Team);
             }
         }
 
-        public void CaptureBase(Base bs, int newTeam)
+        public void CaptureBase(Base bs, int oldTeam, int newTeam)
         {
-            var team = bs.Team;
-            if (team == 0 || newTeam == 0 || team == newTeam) return;
-            var spec = Bases.FirstOrDefault(_ => _.Type == bs.Type);
+            if (oldTeam == 0 || newTeam == 0 || oldTeam == newTeam) return;
+            var spec = bs.Spec;
             if (spec == null) return;
 
             lock (_game)
             {
-                _game.DockedPilots[team - 1] -= spec.Pilots;
-                _game.TotalPilots[team - 1] -= spec.Pilots;
-                _game.DockedPilots[newTeam - 1] += spec.Pilots;
-                _game.TotalPilots[newTeam - 1] += spec.Pilots;
+                _game.UpdateTotalPilots(oldTeam);
+
+                _game.UpdateTotalPilots(newTeam);
             }
         }
     }
