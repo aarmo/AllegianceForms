@@ -118,6 +118,7 @@ namespace AllegianceForms.Engine
 
     public class GameUnit : GameEntity
     {
+        public int UnitId { get; protected set; }
         public int Team { get; protected set; }
         public float Health { get; set; }
         public float MaxHealth { get; set; }
@@ -131,6 +132,7 @@ namespace AllegianceForms.Engine
         {
             MaxHealth = Health = MaxShield = Shield = health;
             Team = team;
+            UnitId = ++game.LastUnitId;
 
             var t = team - 1;
             if (t < 0)

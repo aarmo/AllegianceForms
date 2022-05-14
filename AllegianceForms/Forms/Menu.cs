@@ -43,7 +43,7 @@ namespace AllegianceForms.Forms
         private void CustomGame_Click(object sender, EventArgs e)
         {
             Faction.FactionNames.Reset();
-            SoundEffect.Play(ESounds.mousedown);
+            SoundEffect.Play(ESounds.accept);
             using (var f = new CustomiseSetttings())
             { 
                 f.LoadSettings(_customSettings);
@@ -61,7 +61,7 @@ namespace AllegianceForms.Forms
 
         private void MapDesigner_Click(object sender, EventArgs e)
         {
-            SoundEffect.Play(ESounds.mousedown);
+            SoundEffect.Play(ESounds.accept);
             using (var f = new MapDesigner())
             {
                 f.ShowDialog(this);

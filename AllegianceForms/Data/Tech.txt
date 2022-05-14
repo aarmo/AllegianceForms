@@ -11,7 +11,8 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 10,0,Advanced Repair Towers,1,5000,120,False,Dn_hipdnbbmp.png,R
 11,0,Advanced Missile Towers,1,5000,120,False,Dn_hipdchbmp.png,M
 12,0,Advanced Minefield,1,5000,120,False,Dn_hicsmmnlbmp.png,N
-13,0,Advanced Shield Tower,1,5000,120,False,Dn_hipdnbbmp_s.png,A
+13,0,Advanced Shield Towers,1,5000,120,False,Dn_hipdnbbmp_s.png,A
+14,0,Combat Drones,1,5000,120,False,tech_chip.png,D
 
 17,-1,Miner,,1000,30,False,Dn_himnrbmp.png,M
 18,-1,Resource Constructor,,3000,30,False,Dn_hiconbmp.png,C
@@ -127,3 +128,12 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 162,0,Unlock Shield Boost,2,10000,120,False,tech_hull.png,I
 163,0,Unlock Hull Repair,2,10000,120,False,tech_repair.png,H
 164,0,Unlock Rapid Fire,2,10000,120,False,tech_doubleright.png,R
+
+# T2 Drone Ships (Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey)
+200,-1,Drone Scout,3|14,300,20,False,Dn_hisctadvbmp.png,Z
+201,-1,Drone Fighter,42|14,500,20,False,Dn_hifigenhbmp.png,X
+202,-1,Drone Interceptor,32|14,500,20,False,Dn_hiintbmp.png,C
+203,-1,Drone Bomber,4|14,1000,40,False,Dn_hibmbbmp.png,V
+204,-1,Drone Gunship,5|14,1000,40,False,Dn_hignsbmp.png,G
+205,-1,Drone Stealth Fighter,52|14,500,20,False,Dn_histlbmp.png,F
+206,-1,Drone Stealth Bomber,54|14,1000,20,False,Dn_hibmbstlbmp.png,D

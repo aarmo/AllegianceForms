@@ -81,6 +81,14 @@
         AdvancedSupport,
         HeavySupport,
         ShieldTower,
+
+        DroneScout,
+        DroneFighter,
+        DroneInterceptor,
+        DroneBomber,
+        DroneGunship,
+        DroneStealthFighter,
+        DroneStealthBomber,
     }
 
     public enum EBaseType
@@ -105,7 +113,9 @@
     {
         None,
         Base,
-        Ship
+        Ship,
+        Ability,
+        QuickChat
     }
 
     public enum ETechType

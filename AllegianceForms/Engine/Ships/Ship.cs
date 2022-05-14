@@ -206,31 +206,39 @@ namespace AllegianceForms.Engine.Ships
 
         public static bool CanDock(EShipType type)
         {
-            return (type != EShipType.Miner && type != EShipType.Constructor && !Ship.IsCapitalShip(type));
+            return type != EShipType.Miner && type != EShipType.Constructor && !IsCapitalShip(type) && !IsDroneShip(type) && !IsTower(type);
+        }
+
+        public static bool IsDroneShip(EShipType type)
+        {
+            return type == EShipType.DroneBomber || type == EShipType.DroneScout
+                || type == EShipType.DroneFighter || type == EShipType.DroneInterceptor
+                || type == EShipType.DroneGunship || type == EShipType.DroneStealthFighter
+                || type == EShipType.DroneStealthBomber;
         }
 
         public static bool IsCapitalShip(EShipType type)
         {
-            return (type == EShipType.Battlecruiser || type == EShipType.Battleship
+            return type == EShipType.Battlecruiser || type == EShipType.Battleship
                 || type == EShipType.Corvette || type == EShipType.Cruiser
                 || type == EShipType.Destroyer || type == EShipType.Devastator
                 || type == EShipType.Frigate || type == EShipType.Support
-                || type == EShipType.AdvancedSupport || type == EShipType.HeavySupport);
+                || type == EShipType.AdvancedSupport || type == EShipType.HeavySupport;
         }
 
         public static bool IsNonCapitalShip(EShipType type)
         {
-            return (type == EShipType.Bomber || type == EShipType.Scout
+            return type == EShipType.Bomber || type == EShipType.Scout
                 || type == EShipType.Fighter || type == EShipType.FighterBomber
                 || type == EShipType.StealthBomber || type == EShipType.StealthFighter
                 || type == EShipType.Interceptor || type == EShipType.Gunship
-                || type == EShipType.TroopTransport);
+                || type == EShipType.TroopTransport;
         }
 
         public static bool IsTower(EShipType type)
         {
-            return (type == EShipType.Tower || type == EShipType.ShieldTower
-                || type == EShipType.MissileTower || type == EShipType.RepairTower);
+            return type == EShipType.Tower || type == EShipType.ShieldTower
+                || type == EShipType.MissileTower || type == EShipType.RepairTower;
         }
 
         protected void OnShipEvent(EShipEventType e)

@@ -158,7 +158,7 @@ namespace AllegianceForms.Engine.AI
 
             TryToInvestInBases(basesToBuild, ourSectors);                       
 
-            // Once we have built our tech, research it randomly along with bombers
+            // Once we have built our tech, research it randomly along with bombers/drones
             if (!_flagBuiltFocusTech) return;
 
             var tech = (from t in _game.TechTree[_t].ResearchableItemsNot(ETechType.Construction)
@@ -171,7 +171,7 @@ namespace AllegianceForms.Engine.AI
             var bbr = (from t in _game.TechTree[_t].TechItems
                        where t.Active
                        && !t.Completed
-                       && t.Name.Contains("Bomber")
+                       && (t.Name.Contains("Bomber") || t.Name.Contains("Combat Drones"))
                        select t).FirstOrDefault();
             if (bbr != null) tech.Add(bbr);
 

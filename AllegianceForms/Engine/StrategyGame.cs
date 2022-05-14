@@ -91,6 +91,7 @@ namespace AllegianceForms.Engine
         public int NumTeams = 2;
         public int AlienTeam = -1;
         public int PlayerCurrentSectorId = 0;
+        public int LastUnitId = 0;
 
         public ShipSpecs Ships;
         public BaseSpecs Bases;
@@ -362,7 +363,7 @@ namespace AllegianceForms.Engine
             return targetBase;
         }
         
-        public int NumberOfCapitalDrones(int team, string name)
+        public int NumberOfActiveShips(int team, string name)
         {
             var type = (EShipType)Enum.Parse(typeof(EShipType), name.Replace(" ", string.Empty));
             return (from c in AllUnits
@@ -620,14 +621,24 @@ namespace AllegianceForms.Engine
                 }
                 else
                 {
-                    var bType = TechItem.GetBaseType(tech.Name);
+                    if (tech.Name.StartsWith("Drone"))
+                    {
+                        drone = Ships.CreateShip(tech.Name, tech.Team, colour, b1.SectorId);
+                        if (drone == null) return;
 
-                    drone = Ships.CreateBuilderShip(bType, tech.Team, colour, b1.SectorId);
-                    if (drone == null) return;
-                    var builder = drone as BuilderShip;
-                    if (builder == null) return;
+                        if (tech.Team == 1) SoundEffect.Play(ESounds.criticalmessage);
+                    }
+                    else
+                    {
+                        var bType = TechItem.GetBaseType(tech.Name); 
+                        drone = Ships.CreateBuilderShip(bType, tech.Team, colour, b1.SectorId);
+                        if (drone == null) return;
 
-                    if (tech.Team == 1) PlayConstructorRequestSound(builder);
+                        var builder = drone as BuilderShip;
+                        if (builder == null) return;
+
+                        if (tech.Team == 1) PlayConstructorRequestSound(builder);
+                    }                   
                 }
 
                 drone.CenterX = b1.CenterX;

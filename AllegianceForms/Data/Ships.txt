@@ -73,3 +73,11 @@ Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Si
 107,AdvancedSupport,C,101,capsupport-adv.png,32,32,600,0,2,500,2,0|2|5|16|150|15|0|-12>2|1|5|10|200|-8|-6|0>2|1|5|10|200|-8|6|0>4|100|70|80|200|1|0|0,0
 108,HeavySupport,C,102,capsupport-hvy.png,32,32,700,0,2,500,2,0|2|5|16|150|20|0|-12>2|1|5|10|200|-10|-6|0>2|1|5|10|200|-10|6|0>4|100|70|80|200|1|0|0,0
 
+# T2 Drone Ships (no pilots, 50% tougher, same speed & weapons)
+200,DroneScout,D,3,Dn_hisctadvbmp.png,16,16,45,0,5,400,1,2|1|5|20|100|-6|0|0>4|100|70|130|200|2|0|0,0
+201,DroneFighter,D,42,Dn_hifigenhbmp.png,16,16,45,0,5,150,1,0|2|5|10|125|7|0|0>3|4|5|25|400|7|0|0|8|4,0
+202,DroneInterceptor,D,32,Dn_hiintbmp.png,16,16,90,0,5,100,1,0|2|4|16|75|6|-6|0>0|2|4|16|75|6|6|0,0
+203,DroneBomber,D,4,Dn_hibmbbmp.png,16,16,225,0,2,200,3,0|2|5|15|150|5|-6|0>0|2|5|15|150|5|6|0>1|2|15|30|175|20|0|-2,0
+204,DroneGunship,D,5,Dn_hignsbmp.png,16,16,225,0,4,100,2,0|2|5|20|150|5|-6|0>0|2|5|20|150|5|6|0>0|2|5|20|150|5|0|-2>3|4|5|30|350|5|0|0|8|4,0
+205,DroneStealthFighter,D,52,Dn_histlbmp.png,16,16,45,0,5,150,0.4,0|2|5|10|125|7|0|0>3|4|5|30|500|5|0|0|9|4,0
+206,DroneStealthBomber,D,54,Dn_hibmbstlbmp.png,16,16,90,0,4,200,0.5,1|2|10|20|100|10|0|0,0

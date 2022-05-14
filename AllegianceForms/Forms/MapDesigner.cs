@@ -186,6 +186,7 @@ namespace AllegianceForms.Forms
 
         private void Clear_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
             MapName.Text = string.Empty;
 
             _selectedSector = null;
@@ -227,6 +228,7 @@ namespace AllegianceForms.Forms
 
         private void Save_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
             var map = CreateMap();            
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -237,6 +239,7 @@ namespace AllegianceForms.Forms
 
         private void Open_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Clear_Click(sender, e);
@@ -301,6 +304,7 @@ namespace AllegianceForms.Forms
 
         private void Preview_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
             var map = CreateMap();
             _game.NumTeams = map.Sectors.Count(_ => _.StartingSectorTeam > 0);
             if (_game.NumTeams == 0) return;
@@ -318,6 +322,7 @@ namespace AllegianceForms.Forms
 
         private void MapPicture_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
             MapPicture.Visible = false;
             Preview.Visible = true;
             MapPicture.Image = null;
@@ -325,6 +330,8 @@ namespace AllegianceForms.Forms
 
         private void SavePreviewForAll_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
+
             // Choose a list of map files
             openFileDialog.Multiselect = true;
 
@@ -363,6 +370,8 @@ namespace AllegianceForms.Forms
 
         private void RandomSmall_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
+
             var type = (EMapSize)MapSize.SelectedIndex;
             _map = RandomMap.GenerateMirroredMap(type);
 

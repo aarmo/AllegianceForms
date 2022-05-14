@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using AllegianceForms.Engine.Factions;
 using AllegianceForms.Engine.QuickChat;
 using AllegianceForms.Engine.Generation;
+using AllegianceForms.Engine.Replay;
 
 namespace AllegianceForms.Forms
 {
@@ -57,7 +58,8 @@ namespace AllegianceForms.Forms
         private Color _colourTeam1;
 
         public StrategyGame StrategyGame = new StrategyGame();
-        
+        public ReplayStructure Replay = null;
+
         public Sector(GameSettings settings)
         {
             InitializeComponent();
@@ -66,6 +68,9 @@ namespace AllegianceForms.Forms
             StrategyGame.SetupGame(settings);
             StrategyGame.LoadData();
             StrategyGame.Map = GameMaps.LoadMap(StrategyGame, settings.MapName);
+
+            Replay = new ReplayStructure(StrategyGame.GameSettings, StrategyGame.GameStats)
+            {  RecordingEnabled = false };
 
             _mapForm = new Map(StrategyGame);
             _researchForm = new Research(StrategyGame);
@@ -328,6 +333,8 @@ namespace AllegianceForms.Forms
             var loosers = new List<Faction>();
             var playerTeam = StrategyGame.GameSettings.TeamAlliance[0];
 
+            if (playerWon) StrategyGame.GameStats.AllianceWon = playerTeam;
+
             for (var i = 0; i < StrategyGame.Faction.Length; i++)
             {
                 if (playerWon)
@@ -359,6 +366,8 @@ namespace AllegianceForms.Forms
             var t3C = (s.NumTeams > 2) ? Color.FromArgb(s.TeamColours[2]) : t2C;
             var t4C = (s.NumTeams > 3) ? Color.FromArgb(s.TeamColours[3]) : t3C;
             
+            st.GameComplete = true;
+
             UpdateWinnersAndLoosers(playerWon);
             if (playerWon)
             {
@@ -629,6 +638,9 @@ namespace AllegianceForms.Forms
             {
                 if (_selectedUnits.Count > 0)
                 {
+                    // TODO: Move order processing into delayed batches, not immediately
+                    Replay.AddUnitOrder(_orderType, 1, _currentSector.Id, _selectedUnits.Select(_ => _.UnitId).ToArray(), mousePos, Keys.A);
+
                     GiveMoveOrder(mousePos);
                     PlayOrderSound();
                 }
@@ -918,6 +930,9 @@ namespace AllegianceForms.Forms
                             var combatCount = 0;
                             var ability = (EAbilityType)(i-1);
 
+                            // TODO: Move order processing into delayed batches, not immediately
+                            Replay.AddAbilityOrder(1, _currentSector.Id, _selectedUnits.Select(_ => _.UnitId).ToArray(), e.KeyCode);
+
                             foreach (var s in _selectedUnits)
                             {
                                 var c = s as CombatShip;
@@ -1047,6 +1062,10 @@ namespace AllegianceForms.Forms
             }
 
             var pos = b.GetNextBuildPosition();
+
+            // TODO: Move order processing into delayed batches, not immediately
+            Replay.AddUnitOrder(_orderType, 1, b.SectorId, new [] { b.UnitId }, new Point((int)pos.X, (int)pos.Y), k);
+
             ship.CenterX = b.CenterX;
             ship.CenterY = b.CenterY;
             ship.ShipEvent += F_ShipEvent;
@@ -1068,6 +1087,9 @@ namespace AllegianceForms.Forms
             if (_selectedUnits.Count == 0) return;
             
             var centerPos = centerMousePos ? new Point(Width/2, Height/2) : PointToClient(MousePosition);
+
+            // TODO: Move order processing into delayed batches, not immediately
+            Replay.AddUnitOrder(_orderType, 1, _currentSector.Id, _selectedUnits.Select(_ => _.UnitId).ToArray(), centerPos, k);
 
             var s = StrategyGame.AllUnits.FirstOrDefault(_ => _.Active && _.Team == 1 && _.SectorId == _currentSector.Id && _.Type != EShipType.Lifepod && _.Bounds.Contains(centerPos));
             var lifepods = _selectedUnits.Where(_ => _.Active && _.Type == EShipType.Lifepod && _.SectorId == _currentSector.Id).ToList();

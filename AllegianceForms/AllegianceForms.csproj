@@ -189,6 +189,7 @@
     <Compile Include="Engine\Orders\SurroundOrder.cs" />
     <Compile Include="Engine\Orders\WanderOrder.cs" />
     <Compile Include="Engine\QuickChat\QuickComms.cs" />
+    <Compile Include="Engine\Replay\ReplayStructure.cs" />
     <Compile Include="Engine\Ships\Ability.cs" />
     <Compile Include="Engine\StarField.cs" />
     <Compile Include="Engine\Weapons\Minefield.cs" />
@@ -1612,6 +1613,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\Trans\Dn_hipdnbbmp_s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Trans\tech_chip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\Trans\tech_stopwatch.png">

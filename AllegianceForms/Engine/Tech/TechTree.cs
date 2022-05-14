@@ -27,6 +27,7 @@ namespace AllegianceForms.Engine.Tech
                 HeaderValidated = null,
                 MissingFieldFound = null,
                 IgnoreBlankLines = true,
+                AllowComments = true
             };
             
             using (var textReader = File.OpenText(techFile))

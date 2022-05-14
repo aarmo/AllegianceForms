@@ -74,7 +74,16 @@ namespace AllegianceForms.Test.Balance
                 var weaponFactor = Math.Abs((b.TotalWeaponDamage + b.TotalWeaponRange)
                     / (b.TotalShootingDelay + b.TotalShootingDuration));
 
-                var numbersAvailable = (Ship.IsCapitalShip(s.Type) ? settings.InitialCapitalMaxDrones : (s.NumPilots > 0 ? settings.NumPilots / s.NumPilots : settings.ConstructorsMaxTowerDrones));
+                var numbersAvailable = 0;
+
+                if (Ship.IsCapitalShip(s.Type))
+                    numbersAvailable = settings.InitialCapitalMaxDrones;
+                else if (Ship.IsDroneShip(s.Type))
+                    numbersAvailable = settings.NumPilots;
+                else if (s.NumPilots > 0)
+                    numbersAvailable = settings.NumPilots / s.NumPilots;
+                else 
+                    numbersAvailable = settings.ConstructorsMaxTowerDrones;
 
                 b.Factor = weaponFactor + ((s.Health + s.ScanRange + s.Signature + s.Speed) * numbersAvailable / (b.TotalTechCost + b.TotalTechDuration));
 

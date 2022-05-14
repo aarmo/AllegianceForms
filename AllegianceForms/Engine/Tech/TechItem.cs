@@ -69,8 +69,9 @@ namespace AllegianceForms.Engine.Tech
 
             return (Type != ETechType.Construction && Type != ETechType.ShipyardConstruction)
                 || (Type == ETechType.ShipyardConstruction && Name.Contains("Shipyard"))
-                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && _game.NumberOfCapitalDrones(Team, Name) < _game.Faction[Team-1].CapitalMaxDrones)
+                || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard") && _game.NumberOfActiveShips(Team, Name) < _game.Faction[Team-1].CapitalMaxDrones)
                 || (Name.Contains("Miner") && _game.NumberOfMinerDrones(Team) < _game.GameSettings.MinersMaxDrones)
+                || (Name.Contains("Drone") && _game.NumberOfActiveShips(Team, Name) < _game.GameSettings.MaximumPilots)
                 || (Name.Contains("Tower") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxTowerDrones)
                 || (Name.Contains("Constructor") && _game.NumberOfConstructionDrones(Name, Team) < _game.GameSettings.ConstructorsMaxDrones
                     && _game.AllAsteroids.Count(_ => _.IsVisibleToTeam(Team - 1) && _.Type == GetAsteroidType(Name)) > 0);
@@ -122,10 +123,10 @@ namespace AllegianceForms.Engine.Tech
 
         public bool IsConstructionType()
         {
-            return (Type == ETechType.Construction || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard")));
+            return Type == ETechType.Construction || (Type == ETechType.ShipyardConstruction && !Name.Contains("Shipyard"));
         }
 
-        static string[] ShipTypes = { "Scout", "Fighter", "Gunship", "Bomber", "Interceptor", "Transport" };
+        static readonly string[] ShipTypes = { "Scout", "Fighter", "Gunship", "Bomber", "Interceptor", "Transport" };
 
         public bool IsShipType()
         {

@@ -138,7 +138,7 @@ namespace AllegianceForms.Forms
 
         private void StartGame_Click(object sender, EventArgs e)
         {
-            SoundEffect.Play(ESounds.mousedown);
+            SoundEffect.Play(ESounds.accept);
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -799,6 +799,7 @@ namespace AllegianceForms.Forms
 
         private void RandomMap_Click(object sender, EventArgs e)
         {
+            SoundEffect.Play(ESounds.mousedown);
             MapList.SelectedItem = GameMaps.RandomName((int)Teams.Value, false);
         }
 
@@ -831,6 +832,11 @@ namespace AllegianceForms.Forms
             Settings.NormalShipCostMultiplier = float.Parse(p) / 100f;
             CustomPresets.Text = string.Empty;
 
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            SoundEffect.Play(ESounds.mousedown);
         }
     }
 }
