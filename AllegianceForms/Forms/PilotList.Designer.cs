@@ -30,26 +30,29 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PilotList));
             this.BorderPanel = new System.Windows.Forms.Panel();
+            this.FilterDrones = new System.Windows.Forms.PictureBox();
+            this.FilterCap = new System.Windows.Forms.PictureBox();
             this.FilterCons = new System.Windows.Forms.PictureBox();
+            this.FilterSmall = new System.Windows.Forms.PictureBox();
             this.FilterMiners = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PilotItems = new System.Windows.Forms.FlowLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.FilterSmall = new System.Windows.Forms.PictureBox();
-            this.FilterCap = new System.Windows.Forms.PictureBox();
             this.BorderPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterDrones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterCap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FilterCons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterSmall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FilterMiners)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FilterSmall)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FilterCap)).BeginInit();
             this.SuspendLayout();
             // 
             // BorderPanel
             // 
             this.BorderPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BorderPanel.Controls.Add(this.FilterDrones);
             this.BorderPanel.Controls.Add(this.FilterCap);
             this.BorderPanel.Controls.Add(this.FilterCons);
             this.BorderPanel.Controls.Add(this.FilterSmall);
@@ -64,6 +67,32 @@
             this.BorderPanel.Size = new System.Drawing.Size(444, 219);
             this.BorderPanel.TabIndex = 0;
             // 
+            // FilterDrones
+            // 
+            this.FilterDrones.BackColor = System.Drawing.Color.DarkGreen;
+            this.FilterDrones.Image = ((System.Drawing.Image)(resources.GetObject("FilterDrones.Image")));
+            this.FilterDrones.Location = new System.Drawing.Point(75, 4);
+            this.FilterDrones.Name = "FilterDrones";
+            this.FilterDrones.Size = new System.Drawing.Size(16, 16);
+            this.FilterDrones.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FilterDrones.TabIndex = 6;
+            this.FilterDrones.TabStop = false;
+            this.FilterDrones.Click += new System.EventHandler(this.FilterDrones_Click);
+            this.FilterDrones.DoubleClick += new System.EventHandler(this.FilterDrones_DoubleClick);
+            // 
+            // FilterCap
+            // 
+            this.FilterCap.BackColor = System.Drawing.Color.DarkGreen;
+            this.FilterCap.Image = ((System.Drawing.Image)(resources.GetObject("FilterCap.Image")));
+            this.FilterCap.Location = new System.Drawing.Point(58, 4);
+            this.FilterCap.Name = "FilterCap";
+            this.FilterCap.Size = new System.Drawing.Size(16, 16);
+            this.FilterCap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FilterCap.TabIndex = 6;
+            this.FilterCap.TabStop = false;
+            this.FilterCap.Click += new System.EventHandler(this.FilterCap_Click);
+            this.FilterCap.DoubleClick += new System.EventHandler(this.FilterCap_DoubleClick);
+            // 
             // FilterCons
             // 
             this.FilterCons.BackColor = System.Drawing.Color.DarkGreen;
@@ -76,6 +105,19 @@
             this.FilterCons.TabStop = false;
             this.FilterCons.Click += new System.EventHandler(this.FilterCons_Click);
             this.FilterCons.DoubleClick += new System.EventHandler(this.FilterCons_DoubleClick);
+            // 
+            // FilterSmall
+            // 
+            this.FilterSmall.BackColor = System.Drawing.Color.DarkGreen;
+            this.FilterSmall.Image = ((System.Drawing.Image)(resources.GetObject("FilterSmall.Image")));
+            this.FilterSmall.Location = new System.Drawing.Point(4, 4);
+            this.FilterSmall.Name = "FilterSmall";
+            this.FilterSmall.Size = new System.Drawing.Size(16, 16);
+            this.FilterSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FilterSmall.TabIndex = 6;
+            this.FilterSmall.TabStop = false;
+            this.FilterSmall.Click += new System.EventHandler(this.FilterSmall_Click);
+            this.FilterSmall.DoubleClick += new System.EventHandler(this.FilterSmall_DoubleClick);
             // 
             // FilterMiners
             // 
@@ -132,38 +174,12 @@
             // label4
             // 
             this.label4.ForeColor = System.Drawing.Color.Lime;
-            this.label4.Location = new System.Drawing.Point(50, 8);
+            this.label4.Location = new System.Drawing.Point(87, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 13);
+            this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Type:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // FilterSmall
-            // 
-            this.FilterSmall.BackColor = System.Drawing.Color.DarkGreen;
-            this.FilterSmall.Image = ((System.Drawing.Image)(resources.GetObject("FilterSmall.Image")));
-            this.FilterSmall.Location = new System.Drawing.Point(4, 4);
-            this.FilterSmall.Name = "FilterSmall";
-            this.FilterSmall.Size = new System.Drawing.Size(16, 16);
-            this.FilterSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.FilterSmall.TabIndex = 6;
-            this.FilterSmall.TabStop = false;
-            this.FilterSmall.Click += new System.EventHandler(this.FilterSmall_Click);
-            this.FilterSmall.DoubleClick += new System.EventHandler(this.FilterSmall_DoubleClick);
-            // 
-            // FilterCap
-            // 
-            this.FilterCap.BackColor = System.Drawing.Color.DarkGreen;
-            this.FilterCap.Image = ((System.Drawing.Image)(resources.GetObject("FilterCap.Image")));
-            this.FilterCap.Location = new System.Drawing.Point(58, 4);
-            this.FilterCap.Name = "FilterCap";
-            this.FilterCap.Size = new System.Drawing.Size(16, 16);
-            this.FilterCap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.FilterCap.TabIndex = 6;
-            this.FilterCap.TabStop = false;
-            this.FilterCap.Click += new System.EventHandler(this.FilterCap_Click);
-            this.FilterCap.DoubleClick += new System.EventHandler(this.FilterCap_DoubleClick);
             // 
             // PilotList
             // 
@@ -179,12 +195,13 @@
             this.Text = "PilotList";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PilotList_KeyDown);
             this.BorderPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.FilterDrones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterCap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FilterCons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterSmall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FilterMiners)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FilterSmall)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FilterCap)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -201,5 +218,6 @@
         private System.Windows.Forms.PictureBox FilterCons;
         private System.Windows.Forms.PictureBox FilterSmall;
         private System.Windows.Forms.PictureBox FilterCap;
+        private System.Windows.Forms.PictureBox FilterDrones;
     }
 }

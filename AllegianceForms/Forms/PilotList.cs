@@ -21,6 +21,7 @@ namespace AllegianceForms.Forms
         bool _showCaps = true;
         bool _showNonCaps = true;
         bool _showMiners = true;
+        bool _showDrones = true;
 
         public PilotList(StrategyGame game)
         {
@@ -47,6 +48,7 @@ namespace AllegianceForms.Forms
             if (!_showCons) ships.RemoveAll(_ => _.Type == EShipType.Constructor);
             if (!_showMiners) ships.RemoveAll(_ => _.Type == EShipType.Miner);
             if (!_showNonCaps) ships.RemoveAll(_ => Ship.IsNonCapitalShip(_.Type));
+            if (!_showDrones) ships.RemoveAll(_ => Ship.IsDroneShip(_.Type));
 
             var currentShips = new List<Ship>();
             for (var i = 0; i < PilotItems.Controls.Count; i++)
@@ -76,9 +78,29 @@ namespace AllegianceForms.Forms
             }
         }
 
-        private void FilterCons_Click(object sender, System.EventArgs e)
+        private void ToggleFilter(ref bool filter)
         {
-            _showCons = !_showCons;
+            filter = !filter;
+            UpdateFilters();
+        }
+
+        private void ToggleShowOnly(ref bool filter)
+        {
+            if (filter)
+            {
+                SelectAll();
+                return;
+            }
+
+            _showCaps = _showNonCaps = _showCons = _showMiners = _showDrones = false;
+
+            filter = true;
+            UpdateFilters();
+        }
+
+        private void SelectAll()
+        {
+            _showCaps = _showNonCaps = _showCons = _showMiners = _showDrones = true;
             UpdateFilters();
         }
 
@@ -88,84 +110,61 @@ namespace AllegianceForms.Forms
             FilterMiners.BackColor = _showMiners ? Color.DarkGreen : Color.Black;
             FilterSmall.BackColor = _showNonCaps ? Color.DarkGreen : Color.Black;
             FilterCap.BackColor = _showCaps ? Color.DarkGreen : Color.Black;
+            FilterDrones.BackColor = _showDrones ? Color.DarkGreen : Color.Black;
 
             RefreshPilotList();
         }
 
+
+        private void FilterCons_Click(object sender, System.EventArgs e)
+        {
+            ToggleFilter(ref _showCons);
+        }
+
         private void FilterMiners_Click(object sender, System.EventArgs e)
         {
-            _showMiners = !_showMiners;
-            UpdateFilters();
+            ToggleFilter(ref _showMiners);
         }
 
         private void FilterCap_Click(object sender, System.EventArgs e)
         {
-            _showCaps = !_showCaps;
-            UpdateFilters();
+            ToggleFilter(ref _showCaps);
         }
 
         private void FilterSmall_Click(object sender, EventArgs e)
         {
-            _showNonCaps = !_showNonCaps;
-            UpdateFilters();
+            ToggleFilter(ref _showNonCaps);
         }
+
+        private void FilterDrones_Click(object sender, EventArgs e)
+        {
+            ToggleFilter(ref _showDrones);
+        }
+
 
         private void FilterMiners_DoubleClick(object sender, EventArgs e)
         {
-            if (_showMiners)
-            {
-                SelectAll();
-                return;
-            }
-
-            _showMiners = true;
-            _showCons = _showCaps = _showNonCaps = false;
-            UpdateFilters();
+            ToggleShowOnly(ref _showMiners);
         }
 
         private void FilterSmall_DoubleClick(object sender, EventArgs e)
         {
-            if (_showNonCaps)
-            {
-                SelectAll();
-                return;
-            }
-
-            _showNonCaps = true;
-            _showCons = _showCaps = _showMiners = false;
-            UpdateFilters();
+            ToggleShowOnly(ref _showNonCaps);
         }
 
         private void FilterCons_DoubleClick(object sender, EventArgs e)
         {
-            if (_showCons)
-            {
-                SelectAll();
-                return;
-            }
-
-            _showCons = true;
-            _showNonCaps = _showCaps = _showMiners = false;
-            UpdateFilters();
+            ToggleShowOnly(ref _showCons);
         }
 
         private void FilterCap_DoubleClick(object sender, EventArgs e)
         {
-            if (_showCaps) 
-            {
-                SelectAll(); 
-                return;
-            }
-
-            _showCaps = true;
-            _showNonCaps = _showCons = _showMiners = false;
-            UpdateFilters();
+            ToggleShowOnly(ref _showCaps);
         }
 
-        private void SelectAll()
+        private void FilterDrones_DoubleClick(object sender, EventArgs e)
         {
-            _showCaps = _showNonCaps = _showCons = _showMiners = true;
-            UpdateFilters();
+            ToggleShowOnly(ref _showDrones);
         }
     }
 }

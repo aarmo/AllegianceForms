@@ -118,6 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="FilterDrones.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAItJREFUOE+tykESwzAMQtHc/9ItnwkeKnWyytsgg6/XfCT5pP8eXiS3S3Ep9/Ns
+        LsXllME/Sm+Lf0hul2VuJLiXDP4hsyMXBuTuxOxIcB8p/iVmR/6YYydmRx4UyN2J2ZHgXjL4h8yOXBiQ
+        u7P1BpdTBv8ovS3+Ibldiku5n2dzKS4jhZcH/fcF1/UFt6eWeLc3vHIAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="FilterCap.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -138,9 +146,9 @@
   </data>
   <data name="FilterSmall.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAABZSURBVDhPtczRCsAgDEPR/v9PO9BryaC6Vtl5Mya1XzXwrGN/doCtI85j54jz2DniPB2VDsyy
-        jqJsSctK/7Z6G0RhFqLzifobf2nMBrKyq/HUj6zQ2ZfumD1XRl6w0d1EyAAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAFlJREFUOE+1
+        zNEKwCAMQ9H+/0870GvJoLpW2XkzJrVfNfCsY392gK0jzmPniPPYOeI8HZUOzLKOomxJy0r/tnobRGEW
+        ovOJ+ht/acwGsrKr8dSPrNDZl+6YPVdGXrDR3UTIAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="FilterMiners.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
