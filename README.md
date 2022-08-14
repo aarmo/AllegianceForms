@@ -12,12 +12,14 @@
 Overview
 ------
 A 2D singleplayer strategy game inspired by Microsoft's 3D multiplayer space combat game: Allegiance.
+Created for fun and to experiment with Commander AI & other game ideas.
 
 Thanks to the Free Allegiance community: http://www.freeallegiance.org/
 
 - Allegiance was originally released in March 2000
 - It is now Open Source: https://github.com/FreeAllegiance/Allegiance
 - Available for free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
+- Join their <a href="https://discord.com/invite/43jn6Ab">Discord Server</a>! <3
 
 [Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Video](#video)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)
 
@@ -222,27 +224,43 @@ Pilot Orders | Description
 
 Maps
 ------
+Most of these map layouts have been copied from the main game :)
+
 Name | Image | Teams
 --- | --- | ---
+AA19-Crush2 | ![alt text][mapcrush2] | 2
+AA19-Destroy2 | ![alt text][mapdestroy2] | 2
+AA19-SpiderW2 | ![alt text][mapspiderw2] | 2
 Across4 | ![alt text][mapacross4] | 2 / 4
+Agate2 | ![alt text][mapagate2] | 2
 Amber2 | ![alt text][mapamber2] | 2
+Ammolite2 | ![alt text][mapammolite2] | 2
 BowTie2 | ![alt text][mapbowtie2] | 2
+Brass2 | ![alt text][mapbrass2] | 2
 Brawl2 | ![alt text][mapbrawl2] | 2
+Bronze2 | ![alt text][mapbronze2] | 2
 Chopper2 | ![alt text][mapchopper2] | 2
 Chopper3 | ![alt text][mapchopper3] | 3
 Chopper4 | ![alt text][mapchopper4] | 2 / 4
 Constellation2 | ![alt text][mapconstellation2] | 2
+Constellation4 | ![alt text][mapconstellation4] | 2 / 4
 Cross2 | ![alt text][mapcross2] | 2
 Cross3 | ![alt text][mapcross3] | 3
 Cross4 | ![alt text][mapcross4] | 2 / 4
 DoubleRing2 | ![alt text][mapdoublering2] | 2
 DoubleRing3 | ![alt text][mapdoublering3] | 3
 DoubleRing4 | ![alt text][mapdoublering4] | 2 / 4
+Glass4 | ![alt text][mapglass4] | 2 / 4
+Granite4 | ![alt text][mapgranite4] | 2 / 4
 Grid2 | ![alt text][mapgrid2] | 2
 HiHigher2 | ![alt text][maphihigher2] | 2
 HiLo2 | ![alt text][maphilo2] | 2
+Highway4 | ![alt text][maphighway4] | 2 / 4
+Iron2 | ![alt text][mapiron2] | 2
 Lanes4 | ![alt text][maplanes4] | 2 / 4
+Lead2 | ![alt text][maplead2] | 2
 Limited2 | ![alt text][maplimited2] | 2
+Marble2 | ![alt text][mapmarble2] | 2
 Mica2 | ![alt text][mapmica2] | 2
 NerveHigh2 | ![alt text][mapnervehigh2] | 2
 NerveHigh3 | ![alt text][mapnervehigh3] | 3
@@ -250,9 +268,13 @@ NerveHigh4 | ![alt text][mapnervehigh4] | 2 / 4
 NerveLow2 | ![alt text][mapnervelow2] | 2
 NerveLow3 | ![alt text][mapnervelow3] | 3
 NerveLow4 | ![alt text][mapnervelow4] | 2 / 4
+Nexus2 | ![alt text][mapnexus2] | 2
+Pewter2 | ![alt text][mappewter2] | 2
 PinWheel2 | ![alt text][mappinwheel2] | 2
 PinWheel3 | ![alt text][mappinwheel3] | 3
 PinWheel4 | ![alt text][mappinwheel4] | 2 / 4
+Polished2 | ![alt text][mappolished2] | 2
+PolishedPyrite2 | ![alt text][mappolishedpyrite] | 2
 Pyrite2 | ![alt text][mappyrite2] | 2
 QuadClose2 | ![alt text][mapquadclose2] | 2
 QuadClose3 | ![alt text][mapquadclose3] | 3
@@ -261,6 +283,7 @@ Saber2 | ![alt text][mapsaber2] | 2
 Saber4 | ![alt text][mapsaber4] | 2 / 4
 Schist2 | ![alt text][mapschist2] | 2
 Serpentine2 | ![alt text][mapserpentine2] | 2
+Silver2 | ![alt text][mapsilver2] | 2
 SingleRing2 | ![alt text][mapsinglering2] | 2
 SingleRing3 | ![alt text][mapsinglering3] | 3
 SingleRing4 | ![alt text][mapsinglering4] | 2 / 4
@@ -271,9 +294,13 @@ Spine2 | ![alt text][mapspine2] | 2
 Spine3 | ![alt text][mapspine3] | 3
 Spine4 | ![alt text][mapspine4] | 2 / 4
 Star2 | ![alt text][mapstar2] | 2
+Starflake2 | ![alt text][mapstarflake2] | 2
+Topaz2 | ![alt text][maptopaz2] | 2
 TriClose2 | ![alt text][maptriclose2] | 2
 TriClose3 | ![alt text][maptriclose3] | 3
 TriClose4 | ![alt text][maptriclose4] | 2 / 4
+Veil2 | ![alt text][mapveil2] | 2
+WaspNova2 | ![alt text][mapwaspnova2] | 2
 Xenon2 | ![alt text][mapxenon2] | 2
 
 [Overview](#overview)
@@ -383,3 +410,27 @@ Item | Source
 [mapsmallspiral4]: /AllegianceForms/Data/Maps/SmallSpiral4.png "SmallSpiral4"
 
 [maplanes4]: /AllegianceForms/Data/Maps/Lanes4.png "Lanes4"
+
+[mapcrush2]: /AllegianceForms/Data/Maps/AA19-Crush2.png "AA19-Crush2"
+[mapdestroy2]: /AllegianceForms/Data/Maps/AA19-Destroy2.png "AA19-Destroy2"
+[mapspiderw2]: /AllegianceForms/Data/Maps/AA19-SpiderW2.png "AA19-SpiderW2"
+[mapagate2]: /AllegianceForms/Data/Maps/Agate2.png "Agate2"
+[mapammolite2]: /AllegianceForms/Data/Maps/Ammolite2.png "Ammolite2"
+[mapbrass2]: /AllegianceForms/Data/Maps/Brass2.png "Brass2"
+[mapbronze2]: /AllegianceForms/Data/Maps/Bronze2.png "Bronze2"
+[mapconstellation4]: /AllegianceForms/Data/Maps/Constellation4.png "Constellation4"
+[mapgranite4]: /AllegianceForms/Data/Maps/Granite4.png "Granite4"
+[mapglass4]: /AllegianceForms/Data/Maps/Glass4.png "Glass4"
+[maphighway4]: /AllegianceForms/Data/Maps/Highway4.png "Highway4"
+[mapiron2]: /AllegianceForms/Data/Maps/Iron2.png "Iron2"
+[maplead2]: /AllegianceForms/Data/Maps/Lead2.png "Lead2"
+[mapmarble2]: /AllegianceForms/Data/Maps/Marble2.png "Marble2"
+[mapnexus2]: /AllegianceForms/Data/Maps/Nexus2.png "Nexus2"
+[mappewter2]: /AllegianceForms/Data/Maps/Pewter2.png "Pewter2"
+[mappolished2]: /AllegianceForms/Data/Maps/Polished2.png "Polished2"
+[mappolishedpyrite]: /AllegianceForms/Data/Maps/PolishedPyrite2.png "PolishedPyrite2"
+[mapsilver2]: /AllegianceForms/Data/Maps/Silver2.png "Silver2"
+[mapstarflake2]: /AllegianceForms/Data/Maps/Starflake2.png "Starflake2"
+[maptopaz2]: /AllegianceForms/Data/Maps/Topaz2.png "Topaz2"
+[mapveil2]: /AllegianceForms/Data/Maps/Veil2.png "Veil2"
+[mapwaspnova2]: /AllegianceForms/Data/Maps/WaspNova2.png "WaspNova2"

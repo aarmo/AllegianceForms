@@ -45,6 +45,7 @@ namespace AllegianceForms.Forms
             
             LoadMaps(s.MapName);
 
+            if (s.NumPilots < Pilots.Minimum) s.NumPilots = 16;
             Pilots.Value = s.NumPilots;
 
             Difficulty.SelectedIndex = s.AiDifficulty;

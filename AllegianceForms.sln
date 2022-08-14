@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllegianceForms", "AllegianceForms\AllegianceForms.csproj", "{D298D545-6434-4A5C-89CF-752E0F041F0B}"
 EndProject
@@ -16,6 +16,33 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{E94CC59B-EA3D-4F95-AFEB-D31300223779}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{6BEC8F37-6205-4CE9-B546-A3196EDDFBBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{A510E626-F632-40AB-8ABC-9720153AAD6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{3E4B9A43-611A-4DEB-88A1-7465E5E4D36A}"
+	ProjectSection(SolutionItems) = preProject
+		Doc\Images\AllegianceForms-TechTree.png = Doc\Images\AllegianceForms-TechTree.png
+		Doc\Images\CapShips.png = Doc\Images\CapShips.png
+		Doc\Images\Ships.png = Doc\Images\Ships.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{6074890D-15EC-4CE9-9DAE-0C85742F1ED6}"
+	ProjectSection(SolutionItems) = preProject
+		Doc\Screenshots\03a_AllegianceFormsYouTube.png = Doc\Screenshots\03a_AllegianceFormsYouTube.png
+		Doc\Screenshots\03a_GameOver.png = Doc\Screenshots\03a_GameOver.png
+		Doc\Screenshots\03a_Gameplay01.png = Doc\Screenshots\03a_Gameplay01.png
+		Doc\Screenshots\03a_Gameplay02.png = Doc\Screenshots\03a_Gameplay02.png
+		Doc\Screenshots\03a_Gameplay03.png = Doc\Screenshots\03a_Gameplay03.png
+		Doc\Screenshots\03a_Gameplay04.png = Doc\Screenshots\03a_Gameplay04.png
+		Doc\Screenshots\03a_Gameplay05.png = Doc\Screenshots\03a_Gameplay05.png
+		Doc\Screenshots\03a_Gameplay06.png = Doc\Screenshots\03a_Gameplay06.png
+		Doc\Screenshots\CustomSettings.png = Doc\Screenshots\CustomSettings.png
+		Doc\Screenshots\FactionDetails.png = Doc\Screenshots\FactionDetails.png
+		Doc\Screenshots\MainMenu.png = Doc\Screenshots\MainMenu.png
+		Doc\Screenshots\MapDesigner.png = Doc\Screenshots\MapDesigner.png
+		Doc\Screenshots\PilotList.png = Doc\Screenshots\PilotList.png
+		Doc\Screenshots\QuickChatCommands.png = Doc\Screenshots\QuickChatCommands.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +75,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E94CC59B-EA3D-4F95-AFEB-D31300223779} = {0B37C591-5FAF-4142-B9F7-535C410D30A5}
 		{6BEC8F37-6205-4CE9-B546-A3196EDDFBBF} = {E94CC59B-EA3D-4F95-AFEB-D31300223779}
+		{A510E626-F632-40AB-8ABC-9720153AAD6A} = {0B37C591-5FAF-4142-B9F7-535C410D30A5}
+		{3E4B9A43-611A-4DEB-88A1-7465E5E4D36A} = {A510E626-F632-40AB-8ABC-9720153AAD6A}
+		{6074890D-15EC-4CE9-9DAE-0C85742F1ED6} = {A510E626-F632-40AB-8ABC-9720153AAD6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E1243FA-B7BB-48C0-AB7D-869F2045A406}

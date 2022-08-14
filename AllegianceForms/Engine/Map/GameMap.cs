@@ -133,6 +133,8 @@ namespace AllegianceForms.Engine.Map
 
         public static GameMap FromSimpleMap(StrategyGame game, SimpleGameMap map, bool preview = false)
         {
+            GameMaps.SectorNames.Reset();
+
             var m = new GameMap(game)
             {
                 Name = map.Name,
