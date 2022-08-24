@@ -151,20 +151,21 @@ namespace AllegianceForms.Engine.Bases
             }
         }
 
-        public override void Damage(float amount, int senderTeam)
+        public override void Damage(float amount, Weapons.Weapon source)
         {
-            base.Damage(amount, senderTeam);
+            base.Damage(amount, source);
+
+            var team = (source is null) ? Team : source.Shooter.Team;
 
             if (!Active)
             {
                 // Dead!
-
                 _game.Bases.DestroyBase(this);
-                OnBaseEvent(EBaseEventType.BaseDestroyed, senderTeam);
+                OnBaseEvent(EBaseEventType.BaseDestroyed, team);
             }
-            else if (senderTeam != Team)
+            else if (team != Team)
             {
-                OnBaseEvent(EBaseEventType.BaseDamaged, senderTeam);
+                OnBaseEvent(EBaseEventType.BaseDamaged, team);
             }
         }
 

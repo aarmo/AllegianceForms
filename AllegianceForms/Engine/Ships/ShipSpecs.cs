@@ -193,9 +193,9 @@ namespace AllegianceForms.Engine.Ships
                         if (c.Name == "0") c = teamColour;
                         var clone = new ShipLaserWeapon(_game, c, sl.LaserPen.Width
                             , sl.ShootingTicks
-                            , (int)(sl.ShootingDelayTicks / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , (int)(sl.ShootingDelayTicks / (settings.AntiShipWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate * research[EGlobalUpgrade.LaserFireRate]))
                             , sl.WeaponRange * settings.AntiShipWeaponRangeMultiplier
-                            , sl.WeaponDamage * settings.AntiShipWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
+                            , sl.WeaponDamage * settings.AntiShipWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage] * research[EGlobalUpgrade.LaserDamage]
                             , ship, sl.FireOffset);
                         ship.Weapons.Add(clone);
                         continue;
@@ -222,9 +222,9 @@ namespace AllegianceForms.Engine.Ships
                             , ml.Speed * settings.MissileWeaponSpeedMultiplier * research[EGlobalUpgrade.MissileSpeed] * faction.Bonuses.MissileSpeed
                             , ml.Tracking * settings.MissileWeaponTrackingMultiplier * research[EGlobalUpgrade.MissileTracking] * faction.Bonuses.MissileTracking
                             , ml.ShootingTicks
-                            , (int)(ml.ShootingDelayTicks / (settings.MissileWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate))
+                            , (int)(ml.ShootingDelayTicks / (settings.MissileWeaponFireRateMultiplier * research[EGlobalUpgrade.WeaponFireRate] * faction.Bonuses.FireRate * research[EGlobalUpgrade.MissileFireRate]))
                             , ml.WeaponRange * settings.MissileWeaponRangeMultiplier
-                            , ml.WeaponDamage * settings.MissileWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
+                            , ml.WeaponDamage * settings.MissileWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage] * research[EGlobalUpgrade.MissileDamage]
                             , ship, Point.Empty, new SolidBrush(teamColour));
                         ship.Weapons.Add(clone);
                         continue;

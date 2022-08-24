@@ -77,6 +77,9 @@ namespace AllegianceForms.Engine
         public float GameSpeed { get; set; }
         public float NormalShipCostMultiplier { get; set; }
 
+        public const float LaserShieldDamageMultiplier = 1.3f;
+        public const float MissileHullDamageMultiplier = 1.3f;
+
         public static GameSettings Default()
         {
             var s = new GameSettings

@@ -1294,7 +1294,7 @@ namespace AllegianceForms.Engine
                 m.Update();
 
                 var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && m.SectorId == _.SectorId && _.Alliance != m.Alliance && m.Bounds.Contains(_.Bounds));
-                hits.ForEach(_ => _.Damage(m.Damage, m.Team));
+                hits.ForEach(_ => _.Damage(m.Damage, null));
             }
             
             // Apply damage to all ships touching the aliens
@@ -1303,7 +1303,7 @@ namespace AllegianceForms.Engine
                 a.Update();
 
                 var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && a.SectorId == _.SectorId && _.Alliance != a.Alliance && a.Bounds.Contains(_.Bounds));
-                hits.ForEach(_ => _.Damage(AlienDamage, a.Team));
+                hits.ForEach(_ => _.Damage(AlienDamage, null));
             }
 
             AllUnits.RemoveAll(_ => !_.Active);

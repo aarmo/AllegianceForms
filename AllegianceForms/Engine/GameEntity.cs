@@ -164,24 +164,32 @@ namespace AllegianceForms.Engine
             g.DrawRectangle(StrategyGame.HealthBorderPen, b.Left, b.Bottom + 3, b.Width, 6);
         }
 
-        public virtual void Damage(float amount, int senderTeam)
+        public virtual void Damage(float amount, Weapons.Weapon source)
         {
             if (!Active) return;
 
             if (amount > 0)
             {
-                if (Shield - amount < 0)
+                // Lasers do bonus shield damage
+                var shieldDamage = amount;
+                if (source is Weapons.BaseLaserWeapon || source is Weapons.ShipLaserWeapon) shieldDamage *= GameSettings.LaserShieldDamageMultiplier;
+
+                if (Shield - shieldDamage < 0)
                 {
                     amount -= Shield;
                     Shield = 0;
                 }
                 else
                 {
-                    Shield -= amount;
+                    Shield -= shieldDamage;
                     return;
                 }
 
-                if (Health - amount <= 0)
+                // Missiles do bonus hull damage
+                var hullDamage = amount;
+                if (source is Weapons.ShipMissileWeapon) hullDamage *= GameSettings.MissileHullDamageMultiplier;
+
+                if (Health - hullDamage <= 0)
                 {
                     // Dead!
                     Health = 0;
@@ -189,11 +197,12 @@ namespace AllegianceForms.Engine
                 }
                 else
                 {
-                    Health -= amount;
+                    Health -= hullDamage;
                 }
             }
             else
             {
+                // Healing
                 if (Health - amount >= MaxHealth)
                 {
                     Health = MaxHealth;

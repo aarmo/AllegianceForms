@@ -23,10 +23,12 @@ namespace AllegianceForms.Engine.Weapons
         public float Damage { get; set; }
         public RectangleF Bounds => new RectangleF(Center.X-Width/2, Center.Y-Width/2, Width, Width);
 
+        public Weapon SourceWeapon { get; set; }
+
         private int _expireTicks;
         private StrategyGame _game;
 
-        public MissileProjectile(StrategyGame game, int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target, int team, int alliance)
+        public MissileProjectile(StrategyGame game, int sectorId, int width, float speed, float tracking, float heading, float damage, int expireTicks, PointF start, SolidBrush fill, Pen smoke1, Pen smoke2, Ship target, Weapon sourceWeapon)
         {
             SectorId = sectorId;
             Heading = heading;
@@ -41,8 +43,9 @@ namespace AllegianceForms.Engine.Weapons
             SmokePen2 = smoke2;
             Active = true;
             Target = target;
-            Team = team;
-            Alliance = alliance;
+            Team = sourceWeapon.Shooter.Team;
+            Alliance = sourceWeapon.Shooter.Alliance;
+            SourceWeapon = sourceWeapon;
             _game = game;
         }
 
@@ -99,7 +102,7 @@ namespace AllegianceForms.Engine.Weapons
             // check for collisions
             if (Target != null && Target.Active && Target.Bounds.Contains(Center))
             {
-                Target.Damage(Damage, Team);
+                Target.Damage(Damage, null);
                 _game.OnGameEvent(Target, EGameEventType.MissileHit);
                 Active = false;
             }

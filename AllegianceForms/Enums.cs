@@ -150,7 +150,13 @@
 
         AbilityDuration,
         AbilityCooldown,
-        AbilityEffect
+        AbilityEffect,
+        
+        LaserDamage,
+        LaserFireRate,
+
+        MissileDamage,
+        MissileFireRate,
     }
 
     public enum ESounds

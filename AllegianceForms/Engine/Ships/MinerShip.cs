@@ -45,9 +45,9 @@ namespace AllegianceForms.Engine.Ships
             MaxResourceCapacity = 1000;
         }
 
-        public override void Damage(float amount, int senderTeam)
+        public override void Damage(float amount, Weapons.Weapon source)
         {
-            base.Damage(amount, senderTeam);
+            base.Damage(amount, source);
 
             if (!Active)
             {

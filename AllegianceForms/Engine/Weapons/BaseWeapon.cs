@@ -17,7 +17,7 @@ namespace AllegianceForms.Engine.Weapons
             var b = Target as Base;
             if (b != null && b.Active && Shooter.SectorId == Target.SectorId)
             {
-                b.Damage(WeaponDamage * boostedAmount, Shooter.Team);
+                b.Damage(WeaponDamage * boostedAmount, this);
                 if (!b.Active) Target = null;
             }
         }

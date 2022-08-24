@@ -34,14 +34,14 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void ZeroDamage()
         {
-            _target.Damage(0, 1);
+            _target.Damage(0, null);
             _target.Health.ShouldBe(TestHealth);
         }
 
         [TestMethod]
         public void SomeDamage()
         {
-            _target.Damage(10, 1);
+            _target.Damage(10, null);
             _target.MaxHealth.ShouldBe(TestHealth);
             _target.Health.ShouldBe(TestHealth-10);
             _target.Active.ShouldBe(true);
@@ -50,7 +50,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void OverDamage()
         {
-            _target.Damage(110, 1);
+            _target.Damage(110, null);
             _target.MaxHealth.ShouldBe(TestHealth);
             _target.Health.ShouldBe(0);
             _target.Active.ShouldBe(false);
@@ -59,7 +59,7 @@ namespace AllegianceForms.Test.Engine
         [TestMethod]
         public void HealingWhenFull()
         {
-            _target.Damage(-10, 1);
+            _target.Damage(-10, null);
             _target.MaxHealth.ShouldBe(TestHealth);
             _target.Health.ShouldBe(TestHealth);
         }
@@ -68,7 +68,7 @@ namespace AllegianceForms.Test.Engine
         public void HealingWhenDamaged()
         {
             _target.Health = 90;
-            _target.Damage(-5, 1);
+            _target.Damage(-5, null);
             _target.MaxHealth.ShouldBe(TestHealth);
             _target.Health.ShouldBe(95);
         }

@@ -124,7 +124,7 @@ namespace AllegianceForms.Engine.Ships
                 {
                     if (a == EAbilityType.HullRepair)
                     {
-                        Damage(-MaxHealth / 100, Team);
+                        Damage(-MaxHealth / 100, null);
                     }
                     else if (a == EAbilityType.EngineBoost)
                     {

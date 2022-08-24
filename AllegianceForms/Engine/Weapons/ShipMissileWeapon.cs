@@ -31,7 +31,7 @@ namespace AllegianceForms.Engine.Weapons
             {
                 var heading = (float)Utils.AngleBetweenPoints(Shooter.CenterPoint, Target.CenterPoint);
                 var pos = new PointF(Shooter.CenterPoint.X + FireOffset.X, Shooter.CenterPoint.Y + FireOffset.Y);
-                _game.Missiles.Add(new MissileProjectile(_game, Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage * boostedAmount, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, Shooter.Team, Shooter.Alliance));
+                _game.Missiles.Add(new MissileProjectile(_game, Shooter.SectorId, Width, Speed, Tracking, heading, WeaponDamage * boostedAmount, 60, pos, TeamColour, Smoke1, Smoke2, (Ship)Target, this));
             }
             base.Update(boostedAmount);
         }

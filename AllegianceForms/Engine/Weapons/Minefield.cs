@@ -16,6 +16,7 @@ namespace AllegianceForms.Engine.Weapons
 
         public Image Image { get; set; }
 
+
         public Minefield(Ship shooter, PointF offset, float width, float duration, Image image, float damage)
         {
             Active = true;

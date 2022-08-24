@@ -116,10 +116,10 @@ namespace AllegianceForms.Engine.Ships
             }
         }
 
-        public override void Damage(float amount, int senderTeam)
+        public override void Damage(float amount, Weapons.Weapon source)
         {
             if (Building) return;
-            base.Damage(amount, senderTeam);
+            base.Damage(amount, source);
 
             if (Team == 1 && !Docked && _callNext <= 0)
             {
