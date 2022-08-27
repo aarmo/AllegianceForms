@@ -45,10 +45,10 @@ namespace AllegianceForms.Test.Balance
         }
 
         [TestMethod]
-        public void ShipStatsAreBalanced()
+        public void AmanniShipStatsAreBalanced()
         {
             var settings = _game.GameSettings;
-            var ships = _game.Ships.Ships;
+            var ships = _game.Ships.RaceShips[ERaceType.Amanni];
             var results = new List<BalanceStat>();
 
             foreach (var s in ships)

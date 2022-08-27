@@ -40,6 +40,7 @@ namespace AllegianceForms.Forms
                 PlayerName.Enabled = false;
                 RandomCommanderName.Visible = false;
                 Default.Visible = false;
+                FactionRace.Enabled = false;
             }
             else
             {
@@ -56,6 +57,11 @@ namespace AllegianceForms.Forms
                              select f.Substring(f.LastIndexOf("\\") + 1)).ToArray();
 
             CustomPresets.Items.AddRange(filenames);
+
+            foreach (ERaceType e in Enum.GetValues(typeof(ERaceType)))
+            {
+                FactionRace.Items.Add(e);
+            }
         }
 
         public void LoadFaction(Faction f, Color c)
@@ -79,6 +85,8 @@ namespace AllegianceForms.Forms
             FactionPicture.Image = Utils.GetAvatarImage(f.PictureCode);
             PlayerName.ForeColor = c;
             PlayerName.Text = Faction.CommanderName;
+
+            FactionRace.SelectedItem = f.Race;
 
             RefreshBalance();
         }
@@ -392,6 +400,11 @@ namespace AllegianceForms.Forms
             var f = Faction.Default(_settings);
             f.CommanderName = "Default";
             LoadFaction(f, _colour);
+        }
+
+        private void FactionRace_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RacePicture.Image = Utils.GetRaceImage((ERaceType)FactionRace.SelectedItem);
         }
     }
 }

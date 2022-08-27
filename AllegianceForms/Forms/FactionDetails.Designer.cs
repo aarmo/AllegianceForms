@@ -90,7 +90,11 @@
             this.PlayerName = new System.Windows.Forms.TextBox();
             this.RandomCommanderName = new System.Windows.Forms.Button();
             this.Default = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.FactionRace = new System.Windows.Forms.ComboBox();
+            this.RacePicture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.FactionPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RacePicture)).BeginInit();
             this.SuspendLayout();
             // 
             // Cancel
@@ -873,6 +877,37 @@
             this.Default.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.Default.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
             // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Lime;
+            this.label12.Location = new System.Drawing.Point(389, 315);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(58, 20);
+            this.label12.TabIndex = 52;
+            this.label12.Text = "Race:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FactionRace
+            // 
+            this.FactionRace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.FactionRace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FactionRace.FormattingEnabled = true;
+            this.FactionRace.Location = new System.Drawing.Point(453, 316);
+            this.FactionRace.Name = "FactionRace";
+            this.FactionRace.Size = new System.Drawing.Size(136, 21);
+            this.FactionRace.TabIndex = 53;
+            this.FactionRace.SelectedValueChanged += new System.EventHandler(this.FactionRace_SelectedValueChanged);
+            // 
+            // RacePicture
+            // 
+            this.RacePicture.Location = new System.Drawing.Point(389, 343);
+            this.RacePicture.Name = "RacePicture";
+            this.RacePicture.Size = new System.Drawing.Size(200, 75);
+            this.RacePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.RacePicture.TabIndex = 63;
+            this.RacePicture.TabStop = false;
+            // 
             // FactionDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -880,6 +915,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(604, 479);
+            this.Controls.Add(this.RacePicture);
             this.Controls.Add(this.PlayerName);
             this.Controls.Add(this.BalancedLabel);
             this.Controls.Add(this.label10);
@@ -936,9 +972,11 @@
             this.Controls.Add(this.Speed);
             this.Controls.Add(this.ResearchCost);
             this.Controls.Add(this.ResearchTime);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label42);
+            this.Controls.Add(this.FactionRace);
             this.Controls.Add(this.CustomPresets);
             this.Controls.Add(this.FactionPicture);
             this.ForeColor = System.Drawing.Color.Lime;
@@ -951,6 +989,7 @@
             this.Text = "Allegiance Forms - Faction Details";
             this.Load += new System.EventHandler(this.FactionDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.FactionPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RacePicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1019,5 +1058,8 @@
         private System.Windows.Forms.TextBox PlayerName;
         private System.Windows.Forms.Button RandomCommanderName;
         private System.Windows.Forms.Button Default;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox FactionRace;
+        private System.Windows.Forms.PictureBox RacePicture;
     }
 }

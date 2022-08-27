@@ -74,6 +74,13 @@ namespace AllegianceForms
             return (Bitmap)Image.FromFile(imgs[rnd.Next(imgs.Length)]);
         }
 
+        public static Bitmap GetRaceImage(ERaceType race)
+        {
+            const string basePath = ".\\Art\\Races";
+
+            return (Bitmap)Image.FromFile(Path.Combine(basePath, $"{race}.png"));
+        }
+
         public static Bitmap ScaleColoursRandomly(Image img)
         {
             var rScale = (float)StrategyGame.Random.NextDouble();

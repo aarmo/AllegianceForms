@@ -176,6 +176,7 @@
       <DependentUpon>TeamListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\AI\VariantAI.cs" />
+    <Compile Include="Engine\Factions\RaceSettings.cs" />
     <Compile Include="Engine\Generation\Delaunay2D.cs" />
     <Compile Include="Engine\Generation\RandomPartString.cs" />
     <Compile Include="Engine\Generation\RandomMap.cs" />
@@ -447,6 +448,15 @@
     </Content>
     <Content Include="Art\minefield.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Races\Amanni.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Races\Krael.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Art\Races\Zoniqs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Art\SolapReadme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1624,6 +1634,9 @@
     <Content Include="Art\Trans\tech_timer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\RaceSettings.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\DefaultEnabledAbilities.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2417,13 +2430,25 @@
     <Content Include="Data\ShipAbilities.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Ships.txt">
+    <Content Include="Data\Ships-Zoniqs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Ships-Krael.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Ships-Amanni.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Bases.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Tech.txt">
+    <Content Include="Data\Tech-Amanni.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Tech-Zoniqs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Tech-Krael.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

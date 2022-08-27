@@ -3,6 +3,7 @@ using AllegianceForms.Engine.Tech;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace AllegianceForms.Test.Engine
@@ -16,7 +17,8 @@ namespace AllegianceForms.Test.Engine
         public void Setup()
         {
             var game = new StrategyGame();
-            _target = TechTree.LoadTechTree(game, StrategyGame.TechDataFile, 1);
+            var techFile = Path.Combine(StrategyGame.DataDir, $"Tech-Amanni.txt");
+            _target = TechTree.LoadTechTree(game, techFile, 1);
         }
 
         [TestMethod]

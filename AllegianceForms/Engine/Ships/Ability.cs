@@ -65,7 +65,7 @@ namespace AllegianceForms.Engine.Ships
             return true;
         }
 
-        internal static Dictionary<EAbilityType, AbilityDataItem> LoadAbilitData(string dataFile)
+        internal static Dictionary<EAbilityType, AbilityDataItem> LoadAbilityData(string dataFile)
         {
             var cfg = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)
             {

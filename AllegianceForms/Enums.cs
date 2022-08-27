@@ -629,4 +629,11 @@
         ScanBoost,
         StealthBoost
     }
+
+    public enum ERaceType
+    {
+        Amanni,
+        Krael,
+        Zoniqs
+    }
 }

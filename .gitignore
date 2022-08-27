@@ -251,5 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 /Doc/Temp
-/Doc/Images/stations.pdn
-/Doc/Images/stations2.pdn
+/Temp

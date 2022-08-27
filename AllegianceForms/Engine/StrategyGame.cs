@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using static AllegianceForms.Engine.Bases.Base;
 using static AllegianceForms.Engine.Ships.Ship;
@@ -36,12 +37,13 @@ namespace AllegianceForms.Engine
         public const int ResourcesInitial = 4000;
         public const int ResourceRegularAmount = 1;
         public const float BaseConversionRate = 4f;
-        public const string ShipDataFile = ".\\Data\\Ships.txt";
+
+        public const string DataDir = ".\\Data";
         public const string BaseDataFile = ".\\Data\\Bases.txt";
-        public const string TechDataFile = ".\\Data\\Tech.txt";
         public const string QuickChatDataFile = ".\\Data\\QuickChatCommands.txt";
         public const string AbilityDataFile = ".\\Data\\ShipAbilities.txt";
         public const string EnabledAbilitiesDataFile = ".\\Data\\DefaultEnabledAbilities.txt";
+        public const string RaceSettingsDataFile = ".\\Data\\RaceSettings.txt";
 
         public const string RockPicDir = ".\\Art\\Rocks\\";
         public const string IconPicDir = ".\\Art\\Trans\\";
@@ -106,6 +108,7 @@ namespace AllegianceForms.Engine
         public QuickComms QuickChat;
         public Dictionary<EAbilityType, AbilityDataItem> AbilityData;
         public Dictionary<EShipType, List<DefaultShipAbilityItem>> ShipEnabledAbilities;
+        public Dictionary<ERaceType, RaceSetting> RaceSettings;
 
         public List<Ship> AllUnits = new List<Ship>();
         public List<Base> AllBases = new List<Base>();
@@ -712,26 +715,65 @@ namespace AllegianceForms.Engine
             {
                 if (sender.Type == EShipType.Miner) GameStats.TotalMinersDestroyed[sender.Team - 1]++;
                 if (sender.Type == EShipType.Constructor) GameStats.TotalConstructorsDestroyed[sender.Team - 1]++;
+                var t = sender.Team - 1;
+                var race = Faction[t].Race;
 
-                // Launch a Lifepod for each pilot
-                var lifepods = new List<Ship>();
-                for (var i = 0; i < sender.NumPilots; i++)
-                {
-                    var lifepod = Ships.CreateLifepod(sender.Team, sender.Colour, sender.SectorId);
-                    lifepod.CenterX = sender.CenterX;
-                    lifepod.CenterY = sender.CenterY;
-                    lifepod.ShipEvent += f_shipEvent;
-                    lifepods.Add(lifepod);
+                if (RaceSettings[race].OnShipDestroy.Contains("Lifepod"))
+                { 
+                    // Launch a Lifepod for each pilot if appropriate for this race
+                    var lifepods = new List<Ship>();
+                    for (var i = 0; i < sender.NumPilots; i++)
+                    {
+                        var lifepod = Ships.CreateLifepod(sender.Team, sender.Colour, sender.SectorId);
+                        lifepod.CenterX = sender.CenterX;
+                        lifepod.CenterY = sender.CenterY;
+                        lifepod.ShipEvent += f_shipEvent;
+                        lifepods.Add(lifepod);
+                    }
+                    sender.NumPilots = 0;
+
+                    if (lifepods.Count > 1)
+                    {
+                        SpreadOrderEvenly<MoveOrder>(this, lifepods, sender.SectorId, sender.CenterPoint);
+                    }
+                    lifepods.ForEach(_ => _.OrderShip(new PodDockOrder(this, _, true), true));
+
+                    AddUnits(lifepods);
                 }
-                sender.NumPilots = 0;
-
-                if (lifepods.Count > 1)
+                else
                 {
-                    SpreadOrderEvenly<MoveOrder>(this, lifepods, sender.SectorId, sender.CenterPoint);
+                    DockPilots(sender.Team, sender.NumPilots);
                 }
-                lifepods.ForEach(_ => _.OrderShip(new PodDockOrder(this, _, true), true));
 
-                AddUnits(lifepods);
+                // Drop a small (50%, 1min) minefield in the wreakage of this ship!
+                if (RaceSettings[race].OnShipDestroy.Contains("Minefield") && !Ship.IsTower(sender.Type) && sender.CanAttackShips())
+                {
+                    var mineTech = TechTree[t].HasResearchedTech("Advanced Minefield") ? 1.5f : 1f;
+                    Minefields.Add(new Minefield(sender, Point.Empty, 50, 60 * 20 * mineTech, MinefieldImages[t], 1 * mineTech));
+                }
+
+                // A random weapon may (70% chance) continue fighting in the ruins of this ship!
+                if (RaceSettings[race].OnShipDestroy.Contains("Tower") && !Ship.IsTower(sender.Type) && sender.CanAttackShips())
+                {
+                    var c = sender as CombatShip;
+                    if (c == null) return;
+                    if (RandomChance(0.3f)) return;
+
+                    var possibleTowerTypes = new List<EShipType>();
+                    if (c.Weapons.Any(_ => _ is ShipLaserWeapon)) possibleTowerTypes.Add(EShipType.Tower);
+                    if (c.Weapons.Any(_ => _ is ShipMissileWeapon)) possibleTowerTypes.Add(EShipType.MissileTower);
+                    if (c.Weapons.Any(_ => _ is NanLaserWeapon)) possibleTowerTypes.Add(EShipType.RepairTower);
+                    var type = RandomItem(possibleTowerTypes);
+
+                    var tower = Ships.CreateTowerShip(type, sender.Team, sender.Colour, sender.SectorId);
+                    if (tower == null) return;
+
+                    tower.CenterX = sender.CenterX;
+                    tower.CenterY = sender.CenterY;
+                    tower.ShipEvent += f_shipEvent;
+
+                    AddUnit(tower);
+                }
             }
             else if (e == EShipEventType.BuildingStarted)
             {
@@ -1200,15 +1242,17 @@ namespace AllegianceForms.Engine
 
         public void LoadData()
         {
-            Ships = ShipSpecs.LoadShipSpecs(this, ShipDataFile);
+            Ships = ShipSpecs.LoadShipSpecs(this);
             Bases = BaseSpecs.LoadBaseSpecs(this, BaseDataFile);
             QuickChat = QuickComms.LoadQuickChat(QuickChatDataFile);
-            AbilityData = Ability.LoadAbilitData(AbilityDataFile);
+            AbilityData = Ability.LoadAbilityData(AbilityDataFile);
             ShipEnabledAbilities = Ability.LoadEnabledAbilities(EnabledAbilitiesDataFile);
+            RaceSettings = RaceSetting.LoadRaceSettingData(RaceSettingsDataFile);
 
             for (var t = 0; t < NumTeams; t++)
             {
-                TechTree[t] = Tech.TechTree.LoadTechTree(this, TechDataFile, t+1);
+                var techFile = Path.Combine(DataDir, $"Tech-{Faction[t].Race}.txt");
+                TechTree[t] = Tech.TechTree.LoadTechTree(this, techFile, t+1);
 
                 var autoCompleted = TechTree[t].TechItems.Where(_ => _.Completed).ToList();
                 foreach (var i in autoCompleted)

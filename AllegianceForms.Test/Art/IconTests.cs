@@ -27,10 +27,15 @@ namespace AllegianceForms.Test.Art
             var allItems = new List<string>();
             var extraItems = new List<string>();
 
-            foreach (var s in _game.Ships.Ships)
+            foreach (ERaceType race in Enum.GetValues(typeof(ERaceType)))
             {
-                if (string.IsNullOrWhiteSpace(s.Image)) continue;
-                allItems.Add(s.Image.ToUpper());
+                foreach (var s in _game.Ships.RaceShips[race])
+                {
+                    if (string.IsNullOrWhiteSpace(s.Image)) continue;
+                    if (allItems.Contains(s.Image.ToUpper())) continue;
+
+                    allItems.Add(s.Image.ToUpper());
+                }
             }
 
             foreach (var i in _game.TechTree[0].TechItems)
@@ -87,17 +92,18 @@ namespace AllegianceForms.Test.Art
         }
 
         [TestMethod]
-        public void ShipIconsExist()
+        public void AllShipIconsExist()
         {
-            var items = _game.Ships.Ships;
-
-            foreach (var item in items)
+            foreach (ERaceType race in Enum.GetValues(typeof(ERaceType)))
             {
-                if (string.IsNullOrWhiteSpace(item.Image)) continue;
+                foreach (var item in _game.Ships.RaceShips[race])
+                {
+                    if (string.IsNullOrWhiteSpace(item.Image)) continue;
 
-                var file = StrategyGame.IconPicDir + item.Image;
-                var exists = File.Exists(file);
-                exists.ShouldBe(true, "File doesn't exist: " + file);
+                    var file = StrategyGame.IconPicDir + item.Image;
+                    var exists = File.Exists(file);
+                    exists.ShouldBe(true, "File doesn't exist: " + file);
+                }
             }
         }
     }

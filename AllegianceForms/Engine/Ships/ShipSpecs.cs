@@ -12,16 +12,16 @@ namespace AllegianceForms.Engine.Ships
 {
     public class ShipSpecs
     {
-        public List<ShipSpec> Ships { get; set; }
+        public Dictionary<ERaceType, List<ShipSpec>> RaceShips { get; set; }
         private StrategyGame _game;
 
-        private ShipSpecs(StrategyGame game, IEnumerable<ShipSpec> items)
+        private ShipSpecs(StrategyGame game, Dictionary<ERaceType, List<ShipSpec>> raceShipSpecs)
         {
-            Ships = items.ToList();
+            RaceShips = raceShipSpecs;
             _game = game;
         }
 
-        public static ShipSpecs LoadShipSpecs(StrategyGame game, string shipFile)
+        public static ShipSpecs LoadShipSpecs(StrategyGame game)
         {
             var cfg = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)
             {
@@ -30,27 +30,36 @@ namespace AllegianceForms.Engine.Ships
                 AllowComments = true
             };
 
-            using (var textReader = File.OpenText(shipFile))
-            {
-                var csv = new CsvReader(textReader, cfg);
+            var specs = new Dictionary<ERaceType, List<ShipSpec>>();
 
-                var records = csv.GetRecords<ShipSpec>().ToList();
+            foreach(ERaceType race in Enum.GetValues(typeof(ERaceType)))
+            { 
+                var shipFile = Path.Combine(StrategyGame.DataDir, $"Ships-{race}.txt");
 
-                foreach (var r in records)
+                using (var textReader = File.OpenText(shipFile))
                 {
-                    r.Initialise(game);
-                }
+                    var csv = new CsvReader(textReader, cfg);
 
-                return new ShipSpecs(game, records);
+                    var records = csv.GetRecords<ShipSpec>().ToList();
+
+                    foreach (var r in records)
+                    {
+                        r.Initialise(game);
+                    }
+
+                    specs.Add(race, records);
+                }
             }
+            return new ShipSpecs(game, specs);
         }
 
         public CombatShip CreateShip(string name, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
             var type = (EShipType)Enum.Parse(typeof(EShipType), name.Replace(" ", string.Empty));
+            var race = _game.Faction[team - 1].Race;
 
-            var spec = (from s in Ships
+            var spec = (from s in RaceShips[race]
                         where s.Type == type
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
                         orderby s.Id descending
@@ -63,10 +72,11 @@ namespace AllegianceForms.Engine.Ships
         public CombatShip CreateCombatShip(int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
+            var race = _game.Faction[team - 1].Race;
             var keys = new[] { "F", "I", "G", "T" };
 
             // Get the most advanced ship for any of these keys
-            var spec = (from s in Ships
+            var spec = (from s in RaceShips[race]
                         where keys.Contains(s.Key)
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
                        && _game.CanLaunchShip(team, s.NumPilots, s.Type)
@@ -80,10 +90,11 @@ namespace AllegianceForms.Engine.Ships
         public CombatShip CreateBomberShip(int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
+            var race = _game.Faction[team - 1].Race;
             var keys = new[] { "B", "O", "X" };
 
             // Get the most advanced ship for any of these keys
-            var spec = (from s in Ships
+            var spec = (from s in RaceShips[race]
                         where keys.Contains(s.Key)
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
                        && _game.CanLaunchShip(team, s.NumPilots, s.Type)
@@ -97,9 +108,10 @@ namespace AllegianceForms.Engine.Ships
         public CombatShip CreateTowerShip(EShipType type, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
-            
+            var race = _game.Faction[team - 1].Race;
+
             // Get the most advanced tower ship
-            var spec = (from s in Ships
+            var spec = (from s in RaceShips[race]
                         where (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
                         && s.Type == type
                         orderby s.Id descending
@@ -112,9 +124,10 @@ namespace AllegianceForms.Engine.Ships
         public CombatShip CreateCombatShip(Keys k, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
+            var race = _game.Faction[team - 1].Race;
 
             // Get the most advanced ship for this key
-            var spec = (from s in Ships
+            var spec = (from s in RaceShips[race]
                         where s.Key == k.ToString()
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
                        && _game.CanLaunchShip(team, s.NumPilots, s.Type)
@@ -128,9 +141,10 @@ namespace AllegianceForms.Engine.Ships
         public CombatShip CreateCombatShip(EShipType[] types, int team, Color teamColour, int sectorId)
         {
             var unlockedIds = _game.TechTree[team - 1].CompletedTechIds();
+            var race = _game.Faction[team - 1].Race;
 
             // Get the most advanced ship for these types
-            var spec = (from s in Ships
+            var spec = (from s in RaceShips[race]
                         where types.Contains(s.Type)
                        && (s.DependsOnTechIds == null || s.DependsOnTechIds.All(unlockedIds.Contains))
                        && _game.CanLaunchShip(team, s.NumPilots, s.Type)
@@ -145,16 +159,21 @@ namespace AllegianceForms.Engine.Ships
         {
             var t = team - 1;
             var faction = _game.Faction[t];
+            var race = faction.Race;
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
             var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
+            var raceSettings = _game.RaceSettings[race];
+
+            var health = spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health * raceSettings.HullMultiplier;
 
             var ship = new CombatShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
-                    , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, spec.NumPilots, spec.Type, sectorId);
+                    , health, spec.NumPilots, spec.Type, sectorId);
 
+            ship.MaxShield = ship.Shield = ship.Shield * raceSettings.ShieldMultiplier;
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed * raceSettings.SpeedMultiplier;
 
             if (spec.Weapons != null)
             {
@@ -251,8 +270,9 @@ namespace AllegianceForms.Engine.Ships
         }
 
         public BuilderShip CreateBuilderShip(EBaseType baseType, int team, Color teamColour, int sectorId)
-        {        
-            var spec = Ships.FirstOrDefault(_ => _.BaseType == baseType && _.Type == EShipType.Constructor);
+        {
+            var race = _game.Faction[team - 1].Race;
+            var spec = RaceShips[race].FirstOrDefault(_ => _.BaseType == baseType && _.Type == EShipType.Constructor);
             if (spec == null) return null;
 
             var t = team - 1;
@@ -279,7 +299,8 @@ namespace AllegianceForms.Engine.Ships
 
         public MinerShip CreateMinerShip(int team, Color teamColour, int sectorId)
         {
-            var spec = Ships.FirstOrDefault(_ => _.Type == EShipType.Miner);
+            var race = _game.Faction[team - 1].Race;
+            var spec = RaceShips[race].FirstOrDefault(_ => _.Type == EShipType.Miner);
             if (spec == null) return null;
 
             var t = team - 1;
@@ -304,7 +325,8 @@ namespace AllegianceForms.Engine.Ships
 
         public Ship CreateLifepod(int team, Color teamColour, int sectorId)
         {
-            var spec = Ships.FirstOrDefault(_ => _.Type == EShipType.Lifepod);
+            var race = _game.Faction[team - 1].Race;
+            var spec = RaceShips[race].FirstOrDefault(_ => _.Type == EShipType.Lifepod);
             if (spec == null) return null;
 
             var t = team - 1;

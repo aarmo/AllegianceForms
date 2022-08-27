@@ -1,4 +1,5 @@
 ﻿using AllegianceForms.Engine.Generation;
+using System;
 
 namespace AllegianceForms.Engine.Factions
 {
@@ -12,6 +13,8 @@ namespace AllegianceForms.Engine.Factions
 
         public int CapitalMaxDrones { get; set; }
 
+        public ERaceType Race { get; set;}
+
         public Faction()
         {
         }
@@ -21,6 +24,7 @@ namespace AllegianceForms.Engine.Factions
             PictureCode = Name = name;
             CommanderName = commanderName;
             Bonuses = new FactionBonus();
+            Race = ERaceType.Amanni;
 
             CapitalMaxDrones = settings.InitialCapitalMaxDrones;
         }
@@ -41,6 +45,10 @@ namespace AllegianceForms.Engine.Factions
         {
             var name = FactionNames.NextString;
             var f = new Faction(name, StrategyGame.RandomName.GetRandomName(name), settings);
+            
+            var races = Enum.GetValues(typeof(ERaceType));
+            f.Race = (ERaceType)races.GetValue(StrategyGame.Random.Next(races.Length));
+
             f.Bonuses.Randomise(min);
 
             return f;

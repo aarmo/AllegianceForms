@@ -99,7 +99,7 @@ namespace AllegianceForms.Forms
             _colourTeam1 = Color.FromArgb(settings.TeamColours[0]);
             _sensorPen = new Pen(Utils.NewAlphaColour(20, _colourTeam1), 1F) { DashStyle = DashStyle.Dash };
             _sensorBrush = new SolidBrush(Utils.NewAlphaColour(5, _colourTeam1));
-            _shipKeys = StrategyGame.Ships.Ships.Select(_ => _.Key).ToList();
+            _shipKeys = StrategyGame.Ships.RaceShips[StrategyGame.Faction[0].Race].Select(_ => _.Key).ToList();
             _currentSector = startSectors[0];
             StrategyGame.PlayerCurrentSectorId = _currentSector.Id;
             GetCurrentSectorBounds();

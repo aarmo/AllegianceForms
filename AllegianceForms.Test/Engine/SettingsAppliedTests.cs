@@ -1,10 +1,13 @@
 ﻿using AllegianceForms.Engine;
 using AllegianceForms.Engine.Map;
 using AllegianceForms.Engine.Rocks;
+using AllegianceForms.Engine.Ships;
 using AllegianceForms.Engine.Weapons;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace AllegianceForms.Test.Engine
@@ -14,6 +17,7 @@ namespace AllegianceForms.Test.Engine
     {
         private GameSettings _settings;
         private StrategyGame _game;
+        private List<ShipSpec> _ships;
 
         [TestInitialize]
         public void Setup()
@@ -29,6 +33,7 @@ namespace AllegianceForms.Test.Engine
             _game.LoadData();
             _game.Map = GameMaps.LoadMap(_game, _settings.MapName);
             _game.InitialiseGame(false);
+            _ships = _game.Ships.RaceShips[ERaceType.Amanni];
         }
 
         [TestMethod]
@@ -76,7 +81,7 @@ namespace AllegianceForms.Test.Engine
             _settings.ShipSpeedMultiplier[EShipType.Scout] = value;
             LoadSettings();
             
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
             var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
@@ -90,7 +95,7 @@ namespace AllegianceForms.Test.Engine
             _settings.ShipHealthMultiplier[EShipType.Scout] = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
             var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
@@ -104,7 +109,7 @@ namespace AllegianceForms.Test.Engine
             _settings.ShipSignatureMultiplier[EShipType.Scout] = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
             var scout = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
@@ -218,7 +223,7 @@ namespace AllegianceForms.Test.Engine
             _settings.AntiShipWeaponRangeMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -235,7 +240,7 @@ namespace AllegianceForms.Test.Engine
             _settings.AntiShipWeaponFireRateMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -252,7 +257,7 @@ namespace AllegianceForms.Test.Engine
             _settings.AntiShipWeaponDamageMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -269,7 +274,7 @@ namespace AllegianceForms.Test.Engine
             _settings.NanWeaponRangeMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
             var ship = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
@@ -286,7 +291,7 @@ namespace AllegianceForms.Test.Engine
             _settings.NanWeaponFireRateMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
             var ship = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
@@ -303,7 +308,7 @@ namespace AllegianceForms.Test.Engine
             _settings.NanWeaponHealingMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Scout);
             if (tech == null) return;
             var ship = _game.Ships.CreateShip("Scout", 1, Color.White, 1);
 
@@ -320,7 +325,7 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponRangeMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -337,7 +342,7 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponFireRateMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -354,7 +359,7 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponDamageMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -371,7 +376,7 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponSpeedMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -388,7 +393,7 @@ namespace AllegianceForms.Test.Engine
             _settings.MissileWeaponTrackingMultiplier = value;
             LoadSettings();
 
-            var tech = _game.Ships.Ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
+            var tech = _ships.FirstOrDefault(_ => _.Type == EShipType.Fighter);
             if (tech == null) return;
             var fig = _game.Ships.CreateShip("Fighter", 1, Color.White, 1);
 
@@ -405,7 +410,9 @@ namespace AllegianceForms.Test.Engine
             var gameSpeed = 1.5f;
             _settings.ResearchTimeMultiplier = value;
             LoadSettings();
-            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, StrategyGame.TechDataFile, 0);
+
+            var techFile = Path.Combine(StrategyGame.DataDir, $"Tech-Amanni.txt");
+            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, techFile, 0);
 
             for (var t = 0; t < _game.TechTree.Length; t++)
             {
@@ -425,7 +432,8 @@ namespace AllegianceForms.Test.Engine
             var value = 0.5f;
             _settings.ResearchCostMultiplier = value;
             LoadSettings();
-            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, StrategyGame.TechDataFile, 0);
+            var techFile = Path.Combine(StrategyGame.DataDir, $"Tech-Amanni.txt");
+            var techData = AllegianceForms.Engine.Tech.TechTree.LoadTechTree(_game, techFile, 0);
 
             for (var t = 0; t < _game.TechTree.Length; t++)
             {
