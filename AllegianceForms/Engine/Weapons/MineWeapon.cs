@@ -37,7 +37,7 @@ namespace AllegianceForms.Engine.Weapons
             // Create a minefield here.
             if (Shooting)
             {
-                _game.Minefields.Add(new Minefield(Shooter, FireOffset, Width, Duration, Image, WeaponDamage / 2f));
+                _game.DropMinefield(Shooter, Duration, 1f);
             }
         }
 

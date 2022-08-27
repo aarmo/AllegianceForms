@@ -743,21 +743,20 @@ namespace AllegianceForms.Engine
                 else
                 {
                     DockPilots(sender.Team, sender.NumPilots);
+                    sender.NumPilots = 0;
                 }
 
-                // Drop a small (50%, 1min) minefield in the wreakage of this ship!
-                if (RaceSettings[race].OnShipDestroy.Contains("Minefield") && !Ship.IsTower(sender.Type) && sender.CanAttackShips())
+                // Sometimes (70%) drop a small (50%, 10s) minefield in the wreakage of this ship!
+                if (RaceSettings[race].OnShipDestroy.Contains("Minefield") && !Ship.IsTower(sender.Type) && sender.CanAttackShips() && RandomChance(0.7f))
                 {
-                    var mineTech = TechTree[t].HasResearchedTech("Advanced Minefield") ? 1.5f : 1f;
-                    Minefields.Add(new Minefield(sender, Point.Empty, 50, 60 * 20 * mineTech, MinefieldImages[t], 1 * mineTech));
+                    DropMinefield(sender, 10, 0.5f);
                 }
 
-                // A random weapon may (70% chance) continue fighting in the ruins of this ship!
-                if (RaceSettings[race].OnShipDestroy.Contains("Tower") && !Ship.IsTower(sender.Type) && sender.CanAttackShips())
+                // A random weapon can sometimes (70%) continue fighting from the ruins of this ship!
+                if (RaceSettings[race].OnShipDestroy.Contains("Tower") && !Ship.IsTower(sender.Type) && sender.CanAttackShips() && RandomChance(0.7f))
                 {
                     var c = sender as CombatShip;
                     if (c == null) return;
-                    if (RandomChance(0.3f)) return;
 
                     var possibleTowerTypes = new List<EShipType>();
                     if (c.Weapons.Any(_ => _ is ShipLaserWeapon)) possibleTowerTypes.Add(EShipType.Tower);
@@ -782,10 +781,7 @@ namespace AllegianceForms.Engine
                 {
                     if (b.BaseType == EBaseType.Minefield)
                     {
-                        // Add a Minefield
-                        var t = b.Team - 1;
-                        var mineTech = TechTree[t].HasResearchedTech("Advanced Minefield") ? 1.5f : 1f;
-                        Minefields.Add(new Minefield(b, Point.Empty, 100, 120 * 20 * mineTech, MinefieldImages[t], 1 * mineTech));
+                        DropMinefield(b, 120, 1.5f);
                     }
                     else
                     {
@@ -852,6 +848,17 @@ namespace AllegianceForms.Engine
                         if (secured) SoundEffect.Play(ESounds.vo_sal_sectorsecured);
                     }
                 }
+            }
+        }
+
+        public void DropMinefield(Ship dropper, float duration, float sizeMultiple)
+        {
+            var t = dropper.Team - 1;
+            var mineTech = TechTree[t].HasResearchedTech("Advanced Minefield") ? 1.5f : 1f;
+
+            lock (Minefields)
+            {
+                Minefields.Add(new Minefield(dropper, Point.Empty, 100 * sizeMultiple, duration * 20 * mineTech, MinefieldImages[t], mineTech));
             }
         }
 
@@ -1310,51 +1317,68 @@ namespace AllegianceForms.Engine
 
         public void Tick()
         {
-            for (var i = 0; i < AllUnits.Count; i++)
-            {
-                var u = AllUnits[i];
-                u.Update();
-            }
-
-            for (var i = 0; i < AllBases.Count; i++)
-            {
-                var u = AllBases[i];
-                u.Update();
-            }
-
-            foreach (var m in Missiles)
-            {
-                if (m.Target == null || !m.Target.Active)
+            lock (AllUnits)
+            { 
+                for (var i = 0; i < AllUnits.Count; i++)
                 {
-                    m.Target = GetRandomEnemyInRange(m.Team, m.Alliance, m.SectorId, m.Center, 200);
+                    var u = AllUnits[i];
+                    u.Update();
                 }
+                AllUnits.RemoveAll(_ => !_.Active);
+            }
 
-                m.Update();
+            lock (AllBases)
+            { 
+                for (var i = 0; i < AllBases.Count; i++)
+                {
+                    var u = AllBases[i];
+                    u.Update();
+                }
+                AllBases.RemoveAll(_ => !_.Active);
+            }
+
+            lock (Missiles)
+            {
+                for (var i = 0; i < Missiles.Count; i++)
+                {
+                    var m = Missiles[i];
+                    if (m.Target == null || !m.Target.Active)
+                    {
+                        m.Target = GetRandomEnemyInRange(m.Team, m.Alliance, m.SectorId, m.Center, 200);
+                    }
+
+                    m.Update();
+                }
+                Missiles.RemoveAll(_ => !_.Active);
             }
 
             // Apply damage to all ships within enemy minefields
-            foreach (var m in Minefields)
-            {
-                m.Update();
+            lock (Minefields)
+            { 
+                for (var i = 0; i < Minefields.Count; i++)
+                {
+                    var m = Minefields[i];
+                    m.Update();
 
-                var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && m.SectorId == _.SectorId && _.Alliance != m.Alliance && m.Bounds.Contains(_.Bounds));
-                hits.ForEach(_ => _.Damage(m.Damage, null));
+                    var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && m.SectorId == _.SectorId && _.Alliance != m.Alliance && m.Bounds.Contains(_.Bounds));
+                    hits.ForEach(_ => _.Damage(m.Damage, null));
+                }
+                Minefields.RemoveAll(_ => !_.Active);
             }
             
             // Apply damage to all ships touching the aliens
-            foreach (var a in Aliens)
-            {
-                a.Update();
+            lock (Aliens)
+            { 
+                foreach (var a in Aliens)
+                {
+                    a.Update();
 
-                var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && a.SectorId == _.SectorId && _.Alliance != a.Alliance && a.Bounds.Contains(_.Bounds));
-                hits.ForEach(_ => _.Damage(AlienDamage, null));
+                    var hits = AllUnits.FindAll(_ => _.Active && _.Type != EShipType.Lifepod && a.SectorId == _.SectorId && _.Alliance != a.Alliance && a.Bounds.Contains(_.Bounds));
+                    hits.ForEach(_ => _.Damage(AlienDamage, null));
+                }
+                Aliens.RemoveAll(_ => !_.Active);
             }
 
-            AllUnits.RemoveAll(_ => !_.Active);
-            AllBases.RemoveAll(_ => !_.Active);
-            Missiles.RemoveAll(_ => !_.Active);
-            Minefields.RemoveAll(_ => !_.Active);
-            Aliens.RemoveAll(_ => !_.Active);
             AlienBases.RemoveAll(_ => !_.Active);
         }
 
@@ -1464,21 +1488,27 @@ namespace AllegianceForms.Engine
 
         public void DrawMissiles(Graphics g, int currentSectorId)
         {
-            foreach (var m in Missiles)
-            {
-                if (m.SectorId != currentSectorId) continue;
+            lock (Missiles)
+            { 
+                foreach (var m in Missiles)
+                {
+                    if (m.SectorId != currentSectorId) continue;
 
-                m.Draw(g);
+                    m.Draw(g);
+                }
             }
         }
 
         public void DrawMinefields(Graphics g, int currentSectorId)
         {
-            foreach (var m in Minefields)
-            {
-                if (!m.Active || m.SectorId != currentSectorId) continue;
+            lock (Minefields)
+            { 
+                foreach (var m in Minefields)
+                {
+                    if (!m.Active || m.SectorId != currentSectorId) continue;
 
-                m.Draw(g, currentSectorId);
+                    m.Draw(g, currentSectorId);
+                }
             }
         }
 

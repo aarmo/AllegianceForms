@@ -404,7 +404,8 @@ namespace AllegianceForms.Forms
 
         private void FactionRace_SelectedValueChanged(object sender, EventArgs e)
         {
-            RacePicture.Image = Utils.GetRaceImage((ERaceType)FactionRace.SelectedItem);
+            Faction.Race = (ERaceType)FactionRace.SelectedItem;
+            RacePicture.Image = Utils.GetRaceImage(Faction.Race);
         }
     }
 }

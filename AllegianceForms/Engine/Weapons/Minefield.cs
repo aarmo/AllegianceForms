@@ -17,14 +17,14 @@ namespace AllegianceForms.Engine.Weapons
         public Image Image { get; set; }
 
 
-        public Minefield(Ship shooter, PointF offset, float width, float duration, Image image, float damage)
+        public Minefield(Ship shooter, PointF offset, float width, float expireInTicks, Image image, float damage)
         {
             Active = true;
             Alliance = shooter.Alliance;
             Team = shooter.Team;
             Damage = damage;
             SectorId = shooter.SectorId;
-            _expireTicks = duration;
+            _expireTicks = expireInTicks;
 
             var center = new PointF(shooter.CenterPoint.X + offset.X, shooter.CenterPoint.Y + offset.Y);
             Bounds = new RectangleF(center.X - width / 2, center.Y - width / 2, width, width);
