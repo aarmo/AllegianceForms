@@ -713,9 +713,10 @@ namespace AllegianceForms.Engine
         {
             if (e == EShipEventType.ShipDestroyed)
             {
-                if (sender.Type == EShipType.Miner) GameStats.TotalMinersDestroyed[sender.Team - 1]++;
-                if (sender.Type == EShipType.Constructor) GameStats.TotalConstructorsDestroyed[sender.Team - 1]++;
                 var t = sender.Team - 1;
+
+                if (sender.Type == EShipType.Miner) GameStats.TotalMinersDestroyed[t]++;
+                if (sender.Type == EShipType.Constructor) GameStats.TotalConstructorsDestroyed[t]++;
                 var race = Faction[t].Race;
 
                 if (RaceSettings[race].OnShipDestroy.Contains("Lifepod"))
