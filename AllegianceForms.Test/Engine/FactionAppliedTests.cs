@@ -61,48 +61,57 @@ namespace AllegianceForms.Test.Engine
         public void CheckFactionSpeed()
         {
             var multiplier = 0.5f;
-            _game.Faction[1].Bonuses.Speed = multiplier;
+            var faction = _game.Faction[1];
+            var race = faction.Race;
+            var raceSpeed = _game.RaceSettings[race].SpeedMultiplier;
+            faction.Bonuses.Speed = multiplier;
+
             _game.InitialiseGame(false);
+
 
             var builder1 = _game.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
             var builder2 = _game.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
-            builder2.Speed.ShouldBe(multiplier * builder1.Speed);
+            builder2.Speed.ShouldBe(multiplier * builder1.Speed * raceSpeed);
 
             var combat1 = _game.Ships.CreateCombatShip(1, Color.White, 1);
             var combat2 = _game.Ships.CreateCombatShip(2, Color.White, 1);
-            combat2.Speed.ShouldBe(multiplier * combat1.Speed);
+            combat2.Speed.ShouldBe(multiplier * combat1.Speed * raceSpeed);
 
             var miner1 = _game.Ships.CreateMinerShip(1, Color.White, 1);
             var miner2 = _game.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.Speed.ShouldBe(multiplier * miner1.Speed);
+            miner2.Speed.ShouldBe(multiplier * miner1.Speed * raceSpeed);
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Speed.ShouldBe(multiplier * tower1.Speed);
+            tower2.Speed.ShouldBe(multiplier * tower1.Speed * raceSpeed);
         }
 
         [TestMethod]
         public void CheckFactionHealth()
         {
             var multiplier = 0.5f;
-            _game.Faction[1].Bonuses.Health = multiplier;
+            var faction = _game.Faction[1];
+            var race = faction.Race;
+            var raceHealth = _game.RaceSettings[race].HullMultiplier;
+            faction.Bonuses.Health = multiplier;
+
             _game.InitialiseGame(false);
 
             var builder1 = _game.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
             var builder2 = _game.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
-            builder2.Health.ShouldBe(multiplier * builder1.Health);
+            builder2.Health.ShouldBe(multiplier * builder1.Health * raceHealth);
 
             var combat1 = _game.Ships.CreateCombatShip(1, Color.White, 1);
             var combat2 = _game.Ships.CreateCombatShip(2, Color.White, 1);
-            combat2.Health.ShouldBe(multiplier * combat1.Health);
+            combat2.Health.ShouldBe(multiplier * combat1.Health * raceHealth);
 
             var miner1 = _game.Ships.CreateMinerShip(1, Color.White, 1);
             var miner2 = _game.Ships.CreateMinerShip(2, Color.White, 1);
-            miner2.Health.ShouldBe(multiplier * miner1.Health);
+            miner2.Health.ShouldBe(multiplier * miner1.Health * raceHealth);
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Health.ShouldBe(multiplier * tower1.Health);
+            tower2.Health.ShouldBe(multiplier * tower1.Health * raceHealth);
         }
 
         [TestMethod]

@@ -170,10 +170,11 @@ namespace AllegianceForms.Engine.Ships
             var ship = new CombatShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
                     , health, spec.NumPilots, spec.Type, sectorId);
 
-            ship.MaxShield = ship.Shield = ship.Shield * raceSettings.ShieldMultiplier;
+            ship.MaxShield = ship.Shield *= raceSettings.ShieldMultiplier;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed * raceSettings.SpeedMultiplier;
+
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed * raceSettings.SpeedMultiplier;
 
             if (spec.Weapons != null)
             {
@@ -280,13 +281,18 @@ namespace AllegianceForms.Engine.Ships
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
             var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
+            var raceSettings = _game.RaceSettings[race];
+
+            var health = spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health * raceSettings.HullMultiplier;
 
             var ship = new BuilderShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
-                , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, baseType, sectorId);
+                , health, baseType, sectorId);
+
+            ship.MaxShield = ship.Shield *= raceSettings.ShieldMultiplier;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed * raceSettings.SpeedMultiplier;
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
 
             ship.Name = baseType.ToString();
             ship.TextOffsetY = -15;
@@ -308,14 +314,20 @@ namespace AllegianceForms.Engine.Ships
             var research = _game.TechTree[t].ResearchedUpgrades;
             var settings = _game.GameSettings;
             var alliance = (t < 0) ? -1 : settings.TeamAlliance[t];
+            var raceSettings = _game.RaceSettings[race];
+
+            var health = spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health * raceSettings.HullMultiplier;
+
 
             var ship = new MinerShip(_game, StrategyGame.IconPicDir + spec.Image, spec.Width, spec.Height, teamColour, team, alliance
-                , spec.Health * research[EGlobalUpgrade.ShipHull] * settings.ShipHealthMultiplier[spec.Type] * faction.Bonuses.Health, sectorId);
+                , health, sectorId);
+
+            ship.MaxShield = ship.Shield *= raceSettings.ShieldMultiplier;
+            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed * settings.GameSpeed * raceSettings.SpeedMultiplier;
 
             ship.ScanRange = spec.ScanRange * research[EGlobalUpgrade.ScanRange] * faction.Bonuses.ScanRange;
             ship.Signature = spec.Signature * research[EGlobalUpgrade.ShipSignature] * settings.ShipSignatureMultiplier[spec.Type] * faction.Bonuses.Signature;
-            ship.Speed = spec.Speed * research[EGlobalUpgrade.ShipSpeed] * settings.ShipSpeedMultiplier[spec.Type] * faction.Bonuses.Speed;
-
+         
             ship.MaxResourceCapacity = (int)(ship.MaxResourceCapacity * research[EGlobalUpgrade.MinerCapacity] * settings.MinersCapacityMultiplier * faction.Bonuses.MiningCapacity * settings.GameSpeed);
 
             _game.GameStats.TotalMinersBuilt[t]++;
