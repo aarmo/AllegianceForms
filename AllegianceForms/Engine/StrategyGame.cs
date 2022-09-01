@@ -756,13 +756,13 @@ namespace AllegianceForms.Engine
                 // A random weapon can sometimes (70%) continue fighting from the ruins of this ship!
                 if (RaceSettings[race].OnShipDestroy.Contains("Tower") && !Ship.IsTower(sender.Type) && sender.CanAttackShips() && RandomChance(0.7f))
                 {
-                    var c = sender as CombatShip;
-                    if (c == null) return;
+                    if (!(sender is CombatShip c)) return;
 
                     var possibleTowerTypes = new List<EShipType>();
                     if (c.Weapons.Any(_ => _ is ShipLaserWeapon)) possibleTowerTypes.Add(EShipType.Tower);
                     if (c.Weapons.Any(_ => _ is ShipMissileWeapon)) possibleTowerTypes.Add(EShipType.MissileTower);
                     if (c.Weapons.Any(_ => _ is NanLaserWeapon)) possibleTowerTypes.Add(EShipType.RepairTower);
+                    if (c.Weapons.Any(_ => _ is ShieldChargeWeapon)) possibleTowerTypes.Add(EShipType.ShieldTower);                    
                     var type = RandomItem(possibleTowerTypes);
 
                     var tower = Ships.CreateTowerShip(type, sender.Team, sender.Colour, sender.SectorId);

@@ -1,4 +1,4 @@
 Race,ShieldMultiplier,HullMultiplier,SpeedMultiplier,OnShipDestroy
 Amanni,1,1,1,Lifepod
+Zoniqs,1.4,0.2,1.1,Tower
 Krael,0.1,2.1,0.8,Minefield
-Zoniqs,1.5,0.2,1.3,Tower

@@ -29,6 +29,9 @@ namespace AllegianceForms.Test.Engine
         public void CheckFactionResearchTime()
         {
             var multiplier = 0.5f;
+            _game.Faction[1].Race = _game.Faction[0].Race;
+            _game.LoadData();
+
             _game.Faction[1].Bonuses.ResearchTime = multiplier;
             _game.InitialiseGame(false);
 
@@ -45,6 +48,9 @@ namespace AllegianceForms.Test.Engine
         public void CheckFactionResearchCost()
         {
             var multiplier = 0.5f;
+            _game.Faction[1].Race = _game.Faction[0].Race;
+            _game.LoadData();
+
             _game.Faction[1].Bonuses.ResearchCost = multiplier;
             _game.InitialiseGame(false);
 
@@ -68,7 +74,6 @@ namespace AllegianceForms.Test.Engine
 
             _game.InitialiseGame(false);
 
-
             var builder1 = _game.Ships.CreateBuilderShip(EBaseType.Outpost, 1, Color.White, 1);
             var builder2 = _game.Ships.CreateBuilderShip(EBaseType.Outpost, 2, Color.White, 1);
             builder2.Speed.ShouldBe(multiplier * builder1.Speed * raceSpeed);
@@ -83,7 +88,8 @@ namespace AllegianceForms.Test.Engine
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Speed.ShouldBe(multiplier * tower1.Speed * raceSpeed);
+            if (tower1 != null && tower2 != null)
+                tower2.Speed.ShouldBe(multiplier * tower1.Speed * raceSpeed);
         }
 
         [TestMethod]
@@ -111,7 +117,8 @@ namespace AllegianceForms.Test.Engine
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Health.ShouldBe(multiplier * tower1.Health * raceHealth);
+            if (tower1 != null && tower2 != null)
+                tower2.Health.ShouldBe(multiplier * tower1.Health * raceHealth);
         }
 
         [TestMethod]
@@ -135,7 +142,8 @@ namespace AllegianceForms.Test.Engine
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.ScanRange.ShouldBe(multiplier * tower1.ScanRange);
+            if (tower1 != null && tower2 != null)
+                tower2.ScanRange.ShouldBe(multiplier * tower1.ScanRange);
         }
 
         [TestMethod]
@@ -159,7 +167,8 @@ namespace AllegianceForms.Test.Engine
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
-            tower2.Signature.ShouldBe(multiplier * tower1.Signature);
+            if (tower1 != null && tower2 != null)
+                tower2.Signature.ShouldBe(multiplier * tower1.Signature);
         }
 
         [TestMethod]
@@ -169,12 +178,25 @@ namespace AllegianceForms.Test.Engine
             _game.Faction[1].Bonuses.FireRate = multiplier;
             _game.InitialiseGame(false);
 
-            var tower1 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
-            var tower2 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
-            var tm1 = tower1.Weapons[0];
-            var tm2 = tower2.Weapons[0];
-            tm1.ShootingDelayTicks.ShouldBe((int)(multiplier * tm2.ShootingDelayTicks));
-            tm1.ShootingTicks.ShouldBe(tm2.ShootingTicks);
+            var tower1 = _game.Ships.CreateTowerShip(EShipType.Tower, 1, Color.White, 1);
+            var tower2 = _game.Ships.CreateTowerShip(EShipType.Tower, 2, Color.White, 1);
+            if (tower1 != null && tower2 != null)
+            {
+                var tl1 = tower1.Weapons[0];
+                var tl2 = tower2.Weapons[0];
+                tl1.ShootingDelayTicks.ShouldBe((int)(multiplier * tl2.ShootingDelayTicks));
+                tl2.ShootingTicks.ShouldBe(tl2.ShootingTicks);
+            }
+
+            var missile1 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
+            var missile2 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
+            if (missile1 != null && missile2 != null)
+            { 
+                var tm1 = missile1.Weapons[0];
+                var tm2 = missile2.Weapons[0];
+                tm1.ShootingDelayTicks.ShouldBe((int)(multiplier * tm2.ShootingDelayTicks));
+                tm1.ShootingTicks.ShouldBe(tm2.ShootingTicks);
+            }
 
             var fig1 = _game.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
             var fig2 = _game.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
@@ -185,8 +207,8 @@ namespace AllegianceForms.Test.Engine
 
             var nan1 = _game.Ships.CreateCombatShip(Keys.S, 1, Color.White, 1);
             var nan2 = _game.Ships.CreateCombatShip(Keys.S, 2, Color.White, 1);
-            var nm1 = fig1.Weapons[0];
-            var nm2 = fig2.Weapons[0];
+            var nm1 = nan1.Weapons[0];
+            var nm2 = nan2.Weapons[0];
             nm1.ShootingDelayTicks.ShouldBe((int)(multiplier * nm2.ShootingDelayTicks));
             nm1.ShootingTicks.ShouldBe(nm2.ShootingTicks);
         }
@@ -200,9 +222,12 @@ namespace AllegianceForms.Test.Engine
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
-            var tm1 = tower1.Weapons[0] as ShipMissileWeapon;
-            var tm2 = tower2.Weapons[0] as ShipMissileWeapon;
-            tm2.Tracking.ShouldBe(multiplier * tm1.Tracking);
+            if (tower1 != null && tower2 != null)
+            { 
+                var tm1 = tower1.Weapons[0] as ShipMissileWeapon;
+                var tm2 = tower2.Weapons[0] as ShipMissileWeapon;
+                tm2.Tracking.ShouldBe(multiplier * tm1.Tracking);
+            }
 
             var fig1 = _game.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
             var fig2 = _game.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
@@ -220,9 +245,12 @@ namespace AllegianceForms.Test.Engine
 
             var tower1 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 1, Color.White, 1);
             var tower2 = _game.Ships.CreateTowerShip(EShipType.MissileTower, 2, Color.White, 1);
-            var m1 = tower1.Weapons[0] as ShipMissileWeapon;
-            var m2 = tower2.Weapons[0] as ShipMissileWeapon;
-            m2.Speed.ShouldBe(multiplier * m1.Speed);
+            if (tower1 != null && tower2 != null)
+            { 
+                var m1 = tower1.Weapons[0] as ShipMissileWeapon;
+                var m2 = tower2.Weapons[0] as ShipMissileWeapon;
+                m2.Speed.ShouldBe(multiplier * m1.Speed);
+            }
             
             var fig1 = _game.Ships.CreateCombatShip(Keys.F, 1, Color.White, 1);
             var fig2 = _game.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);

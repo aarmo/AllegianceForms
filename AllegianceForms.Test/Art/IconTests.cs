@@ -41,6 +41,8 @@ namespace AllegianceForms.Test.Art
             foreach (var i in _game.TechTree[0].TechItems)
             {
                 if (string.IsNullOrWhiteSpace(i.Icon)) continue;
+                if (allItems.Contains(i.Icon.ToUpper())) continue;
+
                 allItems.Add(i.Icon.ToUpper());
             }
 

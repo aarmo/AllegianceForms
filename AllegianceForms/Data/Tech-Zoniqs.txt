@@ -44,25 +44,25 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 55,2,Advanced Stealth Bomber,54,5000,120,False,zoniqs_sbomber.png,B
 
 #####
-# Capital ships are built in the shipyard with 4 tiers
+# Capital ships are built in the shipyard. Zoniqs can access Frigates early, but need adv tech to access further caps
 
 100,4,Shipyard,,0,0,True,
 101,-2,Upgrade Shipyard (M),100,10000,480,False,tech_starplus.png,U
 102,-2,Upgrade Shipyard (L),101,10000,480,False,tech_starplus.png,U
-103,-2,Upgrade Shipyard (XL),102,10000,480,False,tech_starplus.png,U
 
-109,-2,Support,100,2000,60,False,capsupport.png,S
-110,-2,Corvette,100,2000,60,False,capcorv.png,C
-111,-2,Advanced Support,101,2500,60,False,capsupport-adv.png,A
-112,-2,Destroyer,101,3000,60,False,capdest.png,D
-113,-2,Frigate,101|4,3000,60,False,capfrig.png,F
-114,-2,Heavy Support,102,3000,60,False,capsupport-hvy.png,H
-115,-2,Devastator,102,4000,120,False,capdev.png,E
-116,-2,Cruiser,102|4,4000,120,False,capcruise.png,R
-117,-2,Battleship,103,5000,120,False,capbattle.png,T
-118,-2,Battlecruiser,103|4,5000,120,False,capbcruise.png,B
+110,-2,Support,100,2000,60,False,capsupport.png,S
+111,-2,Corvette,100,2000,60,False,capcorv.png,C
+112,-2,Frigate,100|4,3000,60,False,capfrig.png,F
 
-# TODO: Add Tech Cap Ships, remove most others. Upgrade them to use drones
+113,-2,Advanced Support,101|31,2000,60,False,zoniqs_capexp.png,A
+114,-2,Destroyer,101|41,2000,60,False,zoniqs_capsup.png,D
+115,-2,Cruiser,101|51,2000,60,False,zoniqs_captac.png,R
+
+116,-2,Heavy Support,102|31,2000,60,False,capsupport-hvy.png,H
+117,-2,Battleship,102|41,2000,60,False,capbattle.png,E
+118,-2,Devastator,102|51,2000,60,False,capdev.png,B
+
+# Should any caps use drones?
 
 #####
 # Drone Ships can be built in the construction menu after unlocking ships
