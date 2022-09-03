@@ -1,8 +1,9 @@
 # Ship Data
-#
+
 # WeaponData: Type|Width|FireTicks|RefireTicks|Range|Damage|OffsetX|OffsetY>(next...)
-# 0:Laser, 1:Base, 2:Repair, 3:Missile, 4:Mine, 5:Shield
+# Weapon Types: 0:Laser, 1:Base, 2:Repair, 3:Missile, 4:Mine, 5:Shield, 6:Drones
 # Missile Weapon: 3|Width|FireTicks|RefireTicks|Range|Damage|OffsetX|OffsetY|Speed|Tracking>(next...)
+# Carrier Drone: 6|BuildTicks|BuildCooldownTicks|DroneTargetRange|NumberOfDrones|LaunchOffsetX|LaunchOffsetY|DroneShipId|DroneRebuildCost>(next...)
 
 Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Signature,WeaponData,BaseType
 1,Scout,S,1,krael_scout.png,32,32,40,1,4,300,1,2|1|5|20|75|-5|-12|-2>2|1|5|20|75|-5|12|-2>4|100|10|130|200|1|0|0,0
@@ -35,6 +36,7 @@ Id,Type,Key,PreReqTechIds,Image,Width,Height,Health,NumPilots,Speed,ScanRange,Si
 40,TroopTransport,P,33,krael_transport.png,26,30,500,3,3,200,2,1|2|15|30|50|20|1|-13,0
 
 # Add Laser & Repair DRONE Ships & Weapon to Scout, Fighter, Constructors, Miner, Bomber, Caps,
+
 50,CarrierDrone,,,krael_drone.png,16,16,10,0,7,50,1,0|2|5|10|100|5|0|0,0
 51,CarrierDrone,,,krael_drone.png,16,16,10,0,7,50,1,2|1|5|20|75|-5|0|0,0
 

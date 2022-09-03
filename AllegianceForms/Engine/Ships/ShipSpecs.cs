@@ -155,7 +155,7 @@ namespace AllegianceForms.Engine.Ships
             return CreateShip(spec, team, teamColour, sectorId);
         }
 
-        private CombatShip CreateShip(ShipSpec spec, int team, Color teamColour, int sectorId)
+        public CombatShip CreateShip(ShipSpec spec, int team, Color teamColour, int sectorId)
         {
             var t = team - 1;
             var faction = _game.Faction[t];
@@ -421,6 +421,12 @@ namespace AllegianceForms.Engine.Ships
                     case "shield":
                         Weapons.Add(new ShieldChargeWeapon(game, float.Parse(data[1]), int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4]), int.Parse(data[5]), null, new PointF(int.Parse(data[6]), int.Parse(data[7]))));
                         break;
+
+                    case "6":
+                    case "drones":
+                        Weapons.Add(new CarrierDroneWeapon(game, int.Parse(data[1]), int.Parse(data[2]), float.Parse(data[3]), float.Parse(data[4]), null, new PointF(int.Parse(data[5]), int.Parse(data[6])), int.Parse(data[7]), int.Parse(data[8])));
+                        break;
+
                 }
             }
 

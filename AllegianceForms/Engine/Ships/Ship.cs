@@ -104,6 +104,7 @@ namespace AllegianceForms.Engine.Ships
             if (Docked) return;
 
             Health = MaxHealth;
+            Shield = MaxShield;
 
             if (CanDock(Type) && Orders.Count == 0)
             {
@@ -207,6 +208,11 @@ namespace AllegianceForms.Engine.Ships
         public static bool CanDock(EShipType type)
         {
             return type != EShipType.Miner && type != EShipType.Constructor && !IsCapitalShip(type) && !IsDroneShip(type) && !IsTower(type);
+        }
+
+        public static bool CanSelectShip(EShipType type)
+        {
+            return type != EShipType.CarrierDrone && type != EShipType.Lifepod;
         }
 
         public static bool IsDroneShip(EShipType type)

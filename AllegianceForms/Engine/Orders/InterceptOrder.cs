@@ -36,6 +36,11 @@ namespace AllegianceForms.Orders
 
                 _target = StrategyGame.RandomItem(targets);
             }
+            else if (_target != null && _target.Active && _target.SectorId != ship.SectorId)
+            {
+                // Follow the target to another sector then resume
+                ship.InsertOrder(new NavigateOrder(_game, ship, _target.SectorId));
+            }
             else
             {
                 OrderComplete = true;
@@ -44,9 +49,11 @@ namespace AllegianceForms.Orders
 
             base.Update(ship);
 
-            if (OrderComplete && ship.Type == EShipType.Lifepod)
+            if (OrderComplete && (ship.Type == EShipType.Lifepod || ship.Type == EShipType.CarrierDrone))
             {
                 ship.Dock(null);
+
+                if (ship.Type == EShipType.CarrierDrone) ship.Active = false;
             }
             else if (OrderComplete && _target != null && _target.Active && _target.SectorId == ship.SectorId)
             {

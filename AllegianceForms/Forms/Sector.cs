@@ -685,7 +685,7 @@ namespace AllegianceForms.Forms
 
                 if (u.SectorId == _currentSector.Id 
                     && (u.Bounds.Contains(_selectionStart) 
-                        || (_selection.Contains((int)u.CenterX, (int)u.CenterY) && u.Type != EShipType.Lifepod)))
+                        || (_selection.Contains((int)u.CenterX, (int)u.CenterY) && Ship.CanSelectShip(u.Type))))
                 {
                     u.Selected = true;
                     _selectedUnits.Add(u);

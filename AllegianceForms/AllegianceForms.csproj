@@ -193,6 +193,7 @@
     <Compile Include="Engine\Replay\ReplayStructure.cs" />
     <Compile Include="Engine\Ships\Ability.cs" />
     <Compile Include="Engine\StarField.cs" />
+    <Compile Include="Engine\Weapons\CarrierDroneWeapon.cs" />
     <Compile Include="Engine\Weapons\Minefield.cs" />
     <Compile Include="Engine\Weapons\MineWeapon.cs" />
     <Compile Include="Engine\Weapons\ShieldChargeWeapon.cs" />
