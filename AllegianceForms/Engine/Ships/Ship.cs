@@ -214,7 +214,7 @@ namespace AllegianceForms.Engine.Ships
             return type == EShipType.DroneBomber || type == EShipType.DroneScout
                 || type == EShipType.DroneFighter || type == EShipType.DroneInterceptor
                 || type == EShipType.DroneGunship || type == EShipType.DroneStealthFighter
-                || type == EShipType.DroneStealthBomber;
+                || type == EShipType.DroneStealthBomber || type == EShipType.CarrierDrone;
         }
 
         public static bool IsCapitalShip(EShipType type)
@@ -223,7 +223,8 @@ namespace AllegianceForms.Engine.Ships
                 || type == EShipType.Corvette || type == EShipType.Cruiser
                 || type == EShipType.Destroyer || type == EShipType.Devastator
                 || type == EShipType.Frigate || type == EShipType.Support
-                || type == EShipType.AdvancedSupport || type == EShipType.HeavySupport;
+                || type == EShipType.AdvancedSupport || type == EShipType.HeavySupport
+				|| type == EShipType.SupportCarrier || type == EShipType.SuperCarrier || type == EShipType.Megalodon;
         }
 
         public static bool IsNonCapitalShip(EShipType type)

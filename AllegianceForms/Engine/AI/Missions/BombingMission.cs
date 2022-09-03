@@ -13,7 +13,7 @@ namespace AllegianceForms.Engine.AI.Missions
         Base _targetBase;
         Base _launchBase;
 
-        private const int DistanceFromCenter = 100;
+        private const int DistanceFromCenter = 50;
         private const int NewTargetCheckDelay = 200;
         private int _checkForNewTarget = NewTargetCheckDelay;
 

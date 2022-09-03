@@ -97,7 +97,9 @@ namespace AllegianceForms.Test.Engine
         {
             var multiplier = 0.5f;
             var faction = _game.Faction[1];
-            var race = faction.Race;
+            var race = faction.Race = _game.Faction[0].Race;
+            _game.LoadData();
+
             var raceHealth = _game.RaceSettings[race].HullMultiplier;
             faction.Bonuses.Health = multiplier;
 
@@ -233,7 +235,10 @@ namespace AllegianceForms.Test.Engine
             var fig2 = _game.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
             var fm1 = fig1.Weapons[1] as ShipMissileWeapon;
             var fm2 = fig2.Weapons[1] as ShipMissileWeapon;
-            fm2.Tracking.ShouldBe(multiplier * fm1.Tracking);
+            if (fm1 != null && fm2 != null)
+            {
+                fm2.Tracking.ShouldBe(multiplier * fm1.Tracking);
+            }
         }
 
         [TestMethod]
@@ -256,7 +261,10 @@ namespace AllegianceForms.Test.Engine
             var fig2 = _game.Ships.CreateCombatShip(Keys.F, 2, Color.White, 1);
             var fm1 = fig1.Weapons[1] as ShipMissileWeapon;
             var fm2 = fig2.Weapons[1] as ShipMissileWeapon;
-            fm2.Speed.ShouldBe(multiplier * fm1.Speed);
+            if (fm1 != null && fm2 != null)
+            {
+                fm2.Speed.ShouldBe(multiplier * fm1.Speed);
+            }
         }
 
         [TestMethod]

@@ -89,6 +89,12 @@
         DroneGunship,
         DroneStealthFighter,
         DroneStealthBomber,
+		
+		SupportCarrier,
+		SuperCarrier,
+		Megalodon,
+
+        CarrierDrone
     }
 
     public enum EBaseType

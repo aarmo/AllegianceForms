@@ -59,10 +59,10 @@ Id,Type,Name,PreReqsIds,Cost,DurationTicks,Completed,Icon,ShortcutKey
 115,-2,Cruiser,101|51,2000,60,False,zoniqs_captac.png,R
 
 116,-2,Heavy Support,102|31,2000,60,False,capsupport-hvy.png,H
-117,-2,Battleship,102|41,2000,60,False,capbattle.png,E
-118,-2,Devastator,102|51,2000,60,False,capdev.png,B
+117,-2,Devastator,102|41,2000,60,False,capdev.png,E
+118,-2,Battlecruiser,102|51,2000,60,False,capbcruise.png,B
 
-# Should any caps use drones?
+# Add drones to gunship?
 
 #####
 # Drone Ships can be built in the construction menu after unlocking ships

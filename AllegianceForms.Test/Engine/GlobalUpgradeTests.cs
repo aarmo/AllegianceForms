@@ -62,6 +62,16 @@ namespace AllegianceForms.Test.Engine
         }
 
         [TestMethod]
+        public void CheckUpgradeTypeStringMatching()
+        {
+            var t1 = TechItem.GetGlobalUpgradeType("Max Shield +100%");
+            t1.ShouldBe(EGlobalUpgrade.MaxShield);
+
+            var t2 = TechItem.GetGlobalUpgradeType("Laser Damage + 65%");
+            t2.ShouldBe(EGlobalUpgrade.LaserDamage);
+        }
+
+        [TestMethod]
         public void CheckNegativeGlobalUpgradesAreAllApplied()
         {
             var upgrades = _target.TechItems.Where(_ => _.Name.Contains("-") && _.Name.Contains("%")).ToList();

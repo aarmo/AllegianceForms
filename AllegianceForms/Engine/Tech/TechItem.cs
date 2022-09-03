@@ -104,7 +104,9 @@ namespace AllegianceForms.Engine.Tech
 
         public static EGlobalUpgrade GetGlobalUpgradeType(string name)
         {
-            var n = name.Remove(name.Length - 4).Replace(" ", string.Empty).Trim();
+            var start = name.IndexOfAny(new[] {'+', '-'});
+
+            var n = name.Substring(0, start).Replace(" ", string.Empty).Trim();
             return (EGlobalUpgrade)Enum.Parse(typeof(EGlobalUpgrade), n);
         }
 
