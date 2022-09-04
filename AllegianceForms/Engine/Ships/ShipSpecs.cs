@@ -180,8 +180,7 @@ namespace AllegianceForms.Engine.Ships
             {
                 foreach (var w in spec.Weapons)
                 {
-                    var nl = w as NanLaserWeapon;
-                    if (nl != null)
+                    if (w is NanLaserWeapon nl)
                     {
                         var clone = new NanLaserWeapon(_game, nl.LaserPen.Width
                             , nl.ShootingTicks
@@ -193,8 +192,7 @@ namespace AllegianceForms.Engine.Ships
                         continue;
                     }
 
-                    var cl = w as ShieldChargeWeapon;
-                    if (cl != null)
+                    if (w is ShieldChargeWeapon cl)
                     {
                         var clone = new ShieldChargeWeapon(_game, cl.LaserPen.Width
                             , cl.ShootingTicks
@@ -206,8 +204,7 @@ namespace AllegianceForms.Engine.Ships
                         continue;
                     }
 
-                    var sl = w as ShipLaserWeapon;
-                    if (sl != null)
+                    if (w is ShipLaserWeapon sl)
                     {
                         var c = sl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
@@ -220,9 +217,8 @@ namespace AllegianceForms.Engine.Ships
                         ship.Weapons.Add(clone);
                         continue;
                     }
-                    
-                    var mw = w as MineWeapon;
-                    if (mw != null)
+
+                    if (w is MineWeapon mw)
                     {
                         var c = mw.Colour;
                         if (c.Name == "0") c = teamColour;
@@ -235,8 +231,7 @@ namespace AllegianceForms.Engine.Ships
                         continue;
                     }
 
-                    var ml = w as ShipMissileWeapon;
-                    if (ml != null)
+                    if (w is ShipMissileWeapon ml)
                     {
                         var clone = new ShipMissileWeapon(_game, ml.Width
                             , ml.Speed * settings.MissileWeaponSpeedMultiplier * research[EGlobalUpgrade.MissileSpeed] * faction.Bonuses.MissileSpeed
@@ -250,9 +245,8 @@ namespace AllegianceForms.Engine.Ships
                         continue;
                     }
 
-                    var bl = w as BaseLaserWeapon;
-                    if (bl != null)
-                    { 
+                    if (w is BaseLaserWeapon bl)
+                    {
                         var c = bl.LaserPen.Color;
                         if (c.Name == "0") c = teamColour;
                         var clone = new BaseLaserWeapon(_game, c, bl.LaserPen.Width
@@ -261,6 +255,18 @@ namespace AllegianceForms.Engine.Ships
                             , bl.WeaponRange * settings.AntiBaseWeaponRangeMultiplier
                             , bl.WeaponDamage * settings.AntiBaseWeaponDamageMultiplier * research[EGlobalUpgrade.WeaponDamage]
                             , ship, bl.FireOffset);
+                        ship.Weapons.Add(clone);
+                        continue;
+                    }
+
+                    if (w is CarrierDroneWeapon cd)
+                    {
+                        var clone = new CarrierDroneWeapon(_game
+                            , cd.ShootingTicks
+                            , cd.ShootingDelayTicks
+                            , cd.WeaponRange
+                            , cd.WeaponDamage
+                            , ship, cd.FireOffset, cd.DroneShipId, cd.DroneCost);
                         ship.Weapons.Add(clone);
                         continue;
                     }

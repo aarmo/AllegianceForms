@@ -18,8 +18,7 @@ Thanks to the Free Allegiance community: http://www.freeallegiance.org/
 
 - Allegiance was originally released in March 2000
 - It is now Open Source: https://github.com/FreeAllegiance/Allegiance
-- Available for free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>!
-- Join their <a href="https://discord.com/invite/43jn6Ab">Discord Server</a>! <3
+- Available for free on <a href="http://store.steampowered.com/app/700480/Microsoft_Allegiance/">Steam</a>! (<a href="https://discord.com/invite/43jn6Ab">Discord</a>)
 
 [Screenshots](#screenshots)&nbsp;&nbsp;&nbsp;[Video](#video)&nbsp;&nbsp;&nbsp;[Controls](#controls)&nbsp;&nbsp;&nbsp;[Credits](#credits)
 

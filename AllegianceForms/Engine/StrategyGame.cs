@@ -748,13 +748,15 @@ namespace AllegianceForms.Engine
                 }
 
                 // Sometimes (70%) drop a small (50%, 10s) minefield in the wreakage of this ship!
-                if (RaceSettings[race].OnShipDestroy.Contains("Minefield") && !Ship.IsTower(sender.Type) && sender.CanAttackShips() && RandomChance(0.7f))
+                if (RaceSettings[race].OnShipDestroy.Contains("Minefield") && !Ship.IsTower(sender.Type) && sender.Type != EShipType.CarrierDrone 
+						&& sender.CanAttackShips() && RandomChance(0.7f))
                 {
                     DropMinefield(sender, 10, 0.5f);
                 }
 
                 // A random weapon can sometimes (70%) continue fighting from the ruins of this ship!
-                if (RaceSettings[race].OnShipDestroy.Contains("Tower") && !Ship.IsTower(sender.Type) && sender.CanAttackShips() && RandomChance(0.7f))
+                if (RaceSettings[race].OnShipDestroy.Contains("Tower") && !Ship.IsTower(sender.Type) && sender.Type != EShipType.CarrierDrone 
+						&& sender.CanAttackShips() && RandomChance(0.7f))
                 {
                     if (!(sender is CombatShip c)) return;
 
