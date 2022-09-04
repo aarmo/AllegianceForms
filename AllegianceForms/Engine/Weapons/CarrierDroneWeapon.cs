@@ -29,12 +29,13 @@ namespace AllegianceForms.Engine.Weapons
 
         public override void Draw(Graphics g, int currentSectorId, bool boosted)
         {
-            // Nothing to draw for now... TODO: Draw dots for available drones?
+            // Nothing to draw for now...
+            // TODO: Draw dots to visualise available drones?
         }
 
         public override void DamageTarget(float boostAmount)
         {
-            // Instead of shooting, re-build our drones if we can afford them
+            // Instead of shooting, this weapon can re-build a drone for credits, if required
             if (_drones.Count < WeaponDamage)
             {
                 if (_game.Credits[Shooter.Team - 1] >= DroneCost)
@@ -44,21 +45,25 @@ namespace AllegianceForms.Engine.Weapons
 
                     if (d != null)
                     {
-                        d.CenterX = Shooter.CenterX + FireOffset.X;
-                        d.CenterY = Shooter.CenterY + FireOffset.Y;
+                        _drones.Add(d);
+
                         var droneTarget = _droneSurroundShooter ? Shooter : Target;
 
                         if (_dronesLaunched && droneTarget != null)
                         {
-                            d.OrderShip(new SurroundOrder(_game, Shooter.SectorId, droneTarget, _droneSurroundDistance));
+                            // Prepare to launch drone
+                            d.CenterX = Shooter.CenterX + FireOffset.X;
+                            d.CenterY = Shooter.CenterY + FireOffset.Y;
+
+                            // Add to the game so it can fly!
                             _game.AddUnit(d);
+
+                            d.OrderShip(new SurroundOrder(_game, Shooter.SectorId, droneTarget, _droneSurroundDistance));
                         }
                         else
                         {
                             d.Active = false;
                         }
-
-                        _drones.Add(d);
                     }
                 }
             }
@@ -68,9 +73,10 @@ namespace AllegianceForms.Engine.Weapons
         {
             base.CheckForANewTarget();
 
+            // We take care of our drone collection here...
             if (!_initialised) InitialiseDrones();
 
-            // We take care of our drone AI here
+            // Remove dead drones
             for (var i = 0; i < _drones.Count; i++)
             {
                 var d = _drones[i];
@@ -81,16 +87,19 @@ namespace AllegianceForms.Engine.Weapons
                 }
             }
 
+            // Drone target selection & docking controls
             var newDroneTarget = _droneSurroundShooter ? Shooter : Target;
 
             if (_dronesLaunched && (newDroneTarget == null || Target == null || !IsThreatInSector()))
             {
+                // Dock drones if launched and there is no target in range or threat detected
                 DockDrones();
                 _droneTarget = null;
                 _dronesLaunched = false;
             }
             else if (newDroneTarget != null && Target != null && ((_dronesLaunched && _droneTarget != newDroneTarget) || (!_dronesLaunched && IsThreatInSector())))
             {
+                // Order drones if not launched and we have a target, or if the target has changed
                 LaunchDrones(newDroneTarget);
                 _droneTarget = newDroneTarget;
                 _dronesLaunched = true;
@@ -137,12 +146,16 @@ namespace AllegianceForms.Engine.Weapons
                 var d = _drones[i];
                 if (!d.Active)
                 {
+                    // Prepare to launch drone
                     d.SectorId = Shooter.SectorId;
                     d.CenterX = Shooter.CenterX + FireOffset.X;
                     d.CenterY = Shooter.CenterY + FireOffset.Y;
                     d.Active = true;
+
+                    // Add to the game so it can fly!
                     _game.AddUnit(d);
                 }
+
                 d.OrderShip(new SurroundOrder(_game, Shooter.SectorId, target, _droneSurroundDistance));
             }
         }

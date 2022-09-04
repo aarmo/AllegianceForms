@@ -1,50 +1,16 @@
-Fix:
-Docking Carrier doesn't remove drones
-Some kind of bug unable to launch ships from base
+Current Issues:
+Quick commands seem to affect drones
+Zoniqs weapon placements need reviewing
+
+Docking a carrier doesn't remove it's drones - not a big deal, you paid for them, you can directly control them.
+Kreal Capital ships dont have abilities - fixed?
+Some kind of bug unable to launch ships from base - not a bug, normal ships cost money, default = 50% of health
 
 Next Ideas:
-New Audio for races
-Tournament - including spectating??!
+Unique audio for races
 
-Group Stage: 4 groups of 4
-Top 2 go to quarter finals, 3rd seeds looser's bracket
-
-A1		A1																											
-A2		A2																									
-A3																											
-A4				A1																					
-				B1																							
-B1		B1																									
-B2		B2																									
-B3																											
-B4									
-										A1							
-										C1
-C1		C1												A1		A1 Winner
-C2		C2												C1													
-C3																											
-C4				C1																							
-				D1
-D1		D1																									
-D2		D2										C1															
-D3												A2														
-D4																											
-
-		A3		A2
-		A4		A3
-						A2
-						B2		
-								A2
-								B1
-		B3		B2						A2		
-		B4		B3						C2
-								C2
-								D1
-		C3		C2
-		C4		C3
-						C2
-						D2
-		D3		D2
-		D4		D3
-						
-				
+Tournament: 
+Group stages, winners & losers bracket - include spectating??!
+Save progress & resume
+Choose a faction & race to play
+Tracking stats: number of tournaments played, wins, losses, highest place, total points, overal ranking

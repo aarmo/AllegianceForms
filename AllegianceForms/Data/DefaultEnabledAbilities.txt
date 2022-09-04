@@ -10,6 +10,9 @@ Frigate,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
 Support,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
 AdvancedSupport,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
 HeavySupport,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+SupportCarrier,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+SuperCarrier,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
+Megalodon,,EngineBoost|HullRepair|RapidFire|WeaponBoost|ShieldBoost
 
 Scout,,ScanBoost
 Scout,Advanced Scouts,RapidFire

@@ -72,7 +72,7 @@ namespace AllegianceForms.Engine.QuickChat
             else if (order == "Dock")
             {
                 // All our combat ships in this sector should dock immediately
-                ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.CanAttackShips() && !Ship.IsCapitalShip(_.Type)).ToList();
+                ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.Type != EShipType.CarrierDrone && _.CanAttackShips() && !Ship.IsCapitalShip(_.Type)).ToList();
                 if (ships.Count == 0) return;
 
                 ships.ForEach(_ => _.OrderShip(new DockOrder(game, _)));
@@ -80,7 +80,7 @@ namespace AllegianceForms.Engine.QuickChat
             else if (order == "Pause")
             {
                 // Interrupt the current order for all our combat ships in this sector
-                ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.CanAttackShips()).ToList();
+                ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.Type != EShipType.CarrierDrone && _.CanAttackShips()).ToList();
                 if (ships.Count == 0) return;
 
                 ships.ForEach(_ => _.InsertOrder(new PauseControlOrder(game)));
@@ -88,7 +88,7 @@ namespace AllegianceForms.Engine.QuickChat
             else if (order == "Resume")
             {
                 // Resume the order queue for all our combat ships in this sector
-                ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.CanAttackShips()).ToList();
+                ships = game.AllUnits.Where(_ => _.Active && _.Team == team && _.SectorId == sector.Id && _.Type != EShipType.Lifepod && _.Type != EShipType.CarrierDrone && _.CanAttackShips()).ToList();
                 if (ships.Count == 0) return;
 
                 ships.ForEach(_ => _.InsertOrder(new ResumeControlOrder(game)));
@@ -221,7 +221,6 @@ namespace AllegianceForms.Engine.QuickChat
             return ship;
         }
 
-
         private static List<Ship> LaunchShips(StrategyGame game, int numShips, EShipType[] shipTypes, Base launchBase, Ship.ShipEventHandler f_ShipEvent)
         {
             var ships = new List<Ship>();
@@ -253,7 +252,7 @@ namespace AllegianceForms.Engine.QuickChat
                     return new[] { EShipType.Bomber, EShipType.StealthBomber, EShipType.FighterBomber, EShipType.TroopTransport };
 
                 case "Capital":
-                    return new[] { EShipType.Corvette, EShipType.Destroyer, EShipType.Frigate, EShipType.Devastator, EShipType.Cruiser, EShipType.Battleship, EShipType.Battlecruiser, EShipType.Support, EShipType.AdvancedSupport, EShipType.HeavySupport};
+                    return new[] { EShipType.Corvette, EShipType.Destroyer, EShipType.Frigate, EShipType.Devastator, EShipType.Cruiser, EShipType.Battleship, EShipType.Battlecruiser, EShipType.Support, EShipType.AdvancedSupport, EShipType.HeavySupport, EShipType.SupportCarrier, EShipType.SuperCarrier, EShipType.Megalodon};
 
                 case "Builder":
                     return new[] { EShipType.Constructor };
